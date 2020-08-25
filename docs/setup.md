@@ -14,3 +14,7 @@
 ## Import project in Eclipse
 
 1. In Eclipse, go to File menu > Open projects from file system... > Select folder of the project > import
+
+## Update Maven dependency
+
+1. On Eclipse, right click on project > Maven > Update project...
