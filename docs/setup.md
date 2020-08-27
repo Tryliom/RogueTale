@@ -18,3 +18,9 @@
 ## Update Maven dependency
 
 1. On Eclipse, right click on project > Maven > Update project...
+
+## Import libraries
+
+1. Right click on project > Build path > Configure build path... > Add externals jars > Select all .jar in libs folder
+2. For lwjgl, after import it, click on the plus button or arrow, select Native library location > Edit > select the folder for your OS in native folder
+3. For Slick docs, click on the plus or arrow button next to slick > Documentation > Edit > select the folder slick_docs in libs folder
