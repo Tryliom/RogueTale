@@ -1,0 +1,34 @@
+Creator: Marquise*
+
+Character Name
+B4B3L
+
+Background story of B4B3L
+B4B3L is a naive friendly bot made by a very obscure group of roboticans in their garage. Many influences inspired the design rather streamlined from the 20's. That, and the fact that his chassis was made out an old truck pieces.
+
+To be more prudent, instead of giving B4B3L 2 legs, it was decided for logistics's end to get him some caterpillars (because the wheels were a disaster and a hazard in stairs).
+
+B4B3L's name is a reference of all mix-up of programming languages used to attempt to run him. In fact, to recognize as many accents spoken all around the world, a brutal amount of linguistic classes books was uploaded to B4B3L's memory. It became so crammed up there, that B4B3L couldn't make enough space in his memory cache and it might had made him the local genius idiot of the village.
+
+B4B3L was featured into many indy contests builds and in the village was an attraction as he went more and more independent but happy to make the groceries and clean-up the farm.
+
+B4B3L is peculiarly fond of all biological entities and tries to make friend with human and animal alike.
+
+Unfortunately, after a couple of medias got him known and his independent engineers got harassed by a multinational business and some military interests, B4B3L decided to flee to avoid his farmily a great deal of troubles from the increased attention and even thievery tentative and spies. B4B3L opted for a great disguise with some duck-tape and a hat to be incognito, after a stop at the local library, he read/downloaded many martial art and science hack that might scare as if it was magic anyone trying to steal him.
+
+Ever since, B4B3L plays the heroes to make new friends and protect them while fleeing anyone trying to exploit him and sell him or reverse engineering him.
+
+Skills of B4B3L
+B4B3L Learned the art of pugilism and work on some non-lethal add-ons to make his own tazers or intense flares or flashes so it helps him escape more easily while the humans optics are scrambled.
+He never understood how comes everyone continue to recognize him under his ingenious disguise.
+
+However he seems able to always find the nearest exit to any place... Especially when he power slams his way through brick walls.
+
+Credits and tools
+Inspirations for this ol'bot is an amalgam of old B&W 60's to colorful 80's flicks as an homage to the robotic genre trough the cinema and television with all their antics and zany styles and all the palette of emotions they provided in some nice plots in movies. And inspiring a better future (Mostly~!).
+
+Sorry for the lateness and the visible rush I made this entry entirely from scratch in PyxelEdit with measurements from Archeia's SVB guide sheet for RPGMaker MV, that in my fast animating, I might had taken a wee bit too literally. (Although it has been long I had that much fun. ^^ Thanks for the challenge~!)
+
+Original creation and TOU
+Condition1; User created by Marquise* in 2019.
+All original material, credited or not, allowed for RPG making commercial and non-commercial use. Modifications allowed. If not Degica staff, please do not resell as your own as standalone; I made it for the RPGMaker community for this contest under Degica's terms and conditions.

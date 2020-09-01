@@ -7,11 +7,13 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.SpriteSheet;
 
 public class Game extends BasicGame {
 	
 	private GameContainer gc;
-	private Image player;
+	private SpriteSheet playerAnimation;
+	private SpriteSheet player;
 	private int width;
 	private int height;
 
@@ -25,17 +27,18 @@ public class Game extends BasicGame {
 		// Define color before an action
 		g.setColor(new Color(60, 60, 200));
 		g.drawString("Draw sprite", 0, 0);
-		g.setColor(new Color(60, 200, 200));
-		g.drawString("Draw sprite2", this.width-100, this.height-100);
-		g.drawImage(this.player, this.width/2 - this.player.getWidth()/2, this.height/2 - this.player.getHeight()/2);
+		Image playerImg = this.player.getSprite(0,0);
+		g.drawImage(playerImg, this.width/2 - playerImg.getWidth()/2, this.height/2 - playerImg.getHeight()/2);
 	}
 
 	@Override
 	public void init(GameContainer gc) throws SlickException {
 		this.gc = gc;
-		this.player = new Image("ch\\cpnv\\roguetale\\images\\player.png");
+		this.playerAnimation = new SpriteSheet("ch\\cpnv\\roguetale\\images\\player\\spritesheet.png", 64, 64, 0);
+		this.player = new SpriteSheet("ch\\cpnv\\roguetale\\images\\player\\carac.png", 48, 48, 0);
 		this.height = gc.getHeight();
 		this.width = gc.getWidth();
+		
 		
 		// Define values
 		gc.setShowFPS(false);
@@ -44,7 +47,6 @@ public class Game extends BasicGame {
 	@Override
 	public void update(GameContainer gc, int delta) throws SlickException {
 		
-
 	}
 	
 	@Override
