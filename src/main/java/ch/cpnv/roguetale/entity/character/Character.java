@@ -5,15 +5,58 @@ import org.newdawn.slick.SpriteSheet;
 
 import main.java.ch.cpnv.roguetale.entity.Direction;
 import main.java.ch.cpnv.roguetale.entity.MovableItem;
+import main.java.ch.cpnv.roguetale.weapon.Weapon;
 
 public class Character extends MovableItem {
 	protected int currentHealth;
 	protected int maxHealth;
-	
+	protected Weapon primaryWeapon;
+	protected Weapon secondaryWeapon;
 
-	public Character(SpriteSheet ss, Vector2f position, int speed, Direction direction) {
+	public Character(SpriteSheet ss, Vector2f position, int speed, Direction direction, Weapon primaryWeapon, Weapon secondaryWeapon) {
 		super(ss, position, speed, direction);
-		// TODO Auto-generated constructor stub
+		this.primaryWeapon = primaryWeapon;
+		this.secondaryWeapon = secondaryWeapon;
+	}
+
+	public int getCurrentHealth() {
+		return currentHealth;
+	}
+
+	public void setCurrentHealth(int currentHealth) {
+		this.currentHealth = currentHealth;
+	}
+
+	public int getMaxHealth() {
+		return maxHealth;
+	}
+
+	public void setMaxHealth(int maxHealth) {
+		this.maxHealth = maxHealth;
+	}
+
+	public Weapon getPrimaryWeapon() {
+		return primaryWeapon;
+	}
+
+	public void setPrimaryWeapon(Weapon primaryWeapon) {
+		this.primaryWeapon = primaryWeapon;
+	}
+
+	public Weapon getSecondaryWeapon() {
+		return secondaryWeapon;
+	}
+
+	public void setSecondaryWeapon(Weapon secondaryWeapon) {
+		this.secondaryWeapon = secondaryWeapon;
+	}
+	
+	public void updateHealth(int health) {
+		this.currentHealth += health;
+	}
+	
+	public Boolean isDead() {
+		return this.currentHealth == 0;
 	}
 
 }
