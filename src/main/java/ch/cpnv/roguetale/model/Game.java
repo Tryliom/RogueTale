@@ -1,4 +1,4 @@
-package ch.cpnv.roguetale.model;
+package main.java.ch.cpnv.roguetale.model;
 
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.Color;

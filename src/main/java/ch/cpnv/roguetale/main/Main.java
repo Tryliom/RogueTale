@@ -1,9 +1,9 @@
-package ch.cpnv.roguetale.main;
+package main.java.ch.cpnv.roguetale.main;
 
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.SlickException;
 
-import ch.cpnv.roguetale.model.Game;
+import main.java.ch.cpnv.roguetale.model.Game;
 
 public class Main {
 
