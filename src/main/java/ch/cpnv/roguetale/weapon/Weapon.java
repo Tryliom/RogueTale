@@ -5,6 +5,7 @@ import main.java.ch.cpnv.roguetale.entity.Direction;
 public class Weapon {
 	protected String name;
 	protected int damage;
+	// Cooldown in miliseconds
 	protected int cooldown;
 	protected int currentCooldown;
 	
@@ -53,7 +54,7 @@ public class Weapon {
 	}
 	
 	public void updateCooldown(int delta) {
-		this.currentCooldown -= delta;
+		this.currentCooldown -= delta * 1000;
 		if (this.currentCooldown < 0)
 			this.currentCooldown = 0;
 	}
