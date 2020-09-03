@@ -1,5 +1,6 @@
 package main.java.ch.cpnv.roguetale.model;
 
+import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -9,6 +10,10 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
+import main.java.ch.cpnv.roguetale.entity.Arrow;
+import main.java.ch.cpnv.roguetale.entity.Direction;
+import main.java.ch.cpnv.roguetale.entity.Projectile;
+
 public class Game extends BasicGame {
 	
 	private GameContainer gc;
@@ -16,10 +21,20 @@ public class Game extends BasicGame {
 	private SpriteSheet player;
 	private int width;
 	private int height;
+	
+	private Projectile projectile;
 
 	public Game() {
 		// Title windows name
 		super("RogueTale");
+		
+		Vector2f arrowPosition = new Vector2f(this.width/2, this.height/2);
+		try {
+			projectile = new Arrow(arrowPosition, Direction.UP);
+		} catch (SlickException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -29,6 +44,8 @@ public class Game extends BasicGame {
 		g.drawString("Draw sprite", 0, 0);
 		Image playerImg = this.player.getSprite(0,0);
 		g.drawImage(playerImg, this.width/2 - playerImg.getWidth()/2, this.height/2 - playerImg.getHeight()/2);
+		
+		Image prjectileImg = this.projectile.getSprite(0, 0);
 	}
 
 	@Override
