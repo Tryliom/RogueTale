@@ -34,8 +34,8 @@ public class Game extends BasicGame {
 	@Override
 	public void init(GameContainer gc) throws SlickException {
 		this.gc = gc;
-		this.playerAnimation = new SpriteSheet("ch\\cpnv\\roguetale\\images\\player\\spritesheet.png", 64, 64, 0);
-		this.player = new SpriteSheet("ch\\cpnv\\roguetale\\images\\player\\carac.png", 48, 48, 0);
+		this.playerAnimation = new SpriteSheet("main\\java\\ch\\cpnv\\roguetale\\images\\player\\spritesheet.png", 64, 64, 0);
+		this.player = new SpriteSheet("main\\java\\ch\\cpnv\\roguetale\\images\\player\\carac.png", 48, 48, 0);
 		this.height = gc.getHeight();
 		this.width = gc.getWidth();
 		
