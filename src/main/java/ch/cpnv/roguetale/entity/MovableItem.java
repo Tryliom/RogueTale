@@ -26,11 +26,12 @@ public class MovableItem extends DrawableItem {
 		float movement = this.speed * delta / 1000f;
 		
 		switch (this.direction) {
+			// Note that y coordinate increase as the item goes down
 			case UP:
-				pos.translate(0, movement);
+				pos.translate(0, -movement);
 				break;
 			case DOWN:
-				pos.translate(0, -movement);
+				pos.translate(0, movement);
 				break;
 			case LEFT:
 				pos.translate(-movement, 0);
