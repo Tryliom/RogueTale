@@ -8,24 +8,31 @@ public abstract class Projectile extends MovableItem {
 	protected int remaining_time;
 	
 	public Projectile(SpriteSheet ss, Vector2f position, int speed, Direction direction, int lifespan) {
-		super(ss, position, speed, direction, false);
-		this.remaining_time = lifespan;
+		super(ss, position, speed, direction, true);
+		remaining_time = lifespan;
 	}
 	
-	public Image getSprite() {
-		Image image = this.spritesheet.getSprite(0, 0);
-		switch (this.direction) {
-		case UP:
-			break;
-		case DOWN:
-			break;
-		case LEFT:
-			break;
-		case RIGHT:
-			break;
-		default:
-			break;
+	@Override
+	public String toString() {
+		return "Projectile (" + position.x + ", " + position.y + ")";
 	}
-		return image;
+	
+	@Override
+	protected void setImageDirection() {
+		switch (this.direction) {
+			case UP:
+				image.setRotation(270);
+				break;
+			case DOWN:
+				image.setRotation(90);
+				break;
+			case LEFT:
+				image.setRotation(180);
+				break;
+			case RIGHT:
+				break;
+			default:
+				break;
+		}
 	}
 }
