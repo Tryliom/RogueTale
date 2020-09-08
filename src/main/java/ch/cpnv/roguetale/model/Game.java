@@ -42,7 +42,10 @@ public class Game extends BasicGame {
 		Image sprite = player.getSprite();
 		g.drawImage(sprite, this.width/2 - sprite.getWidth()/2, this.height/2 - sprite.getHeight()/2);
 		
-		g.drawImage(this.projectile.getSprite(), this.projectile.getPosition().x, this.projectile.getPosition().y);
+		g.setColor(new Color(60, 200, 60));
+		g.drawString("Projectile", 0, 60);
+		g.drawString("X: " + projectile.getPosition().x + ", Y: " + projectile.getPosition().y, 0, 80);
+		this.projectile.draw();
 	}
 
 	@Override

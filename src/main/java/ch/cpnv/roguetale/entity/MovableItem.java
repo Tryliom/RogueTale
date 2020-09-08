@@ -12,8 +12,10 @@ public class MovableItem extends DrawableItem {
 	public MovableItem(SpriteSheet ss, Vector2f position, int speed, Direction direction, Boolean moving) {
 		super(ss, position);
 		this.speed = speed;
-		this.direction = direction;
+		this.setDirection(direction);
 		this.moving = moving;
+		
+		System.out.println("MovableItem constructed");
 	}
 	
 	public void move(int delta) {
@@ -40,6 +42,27 @@ public class MovableItem extends DrawableItem {
 	
 	public void setDirection(Direction direction) {
 		this.direction = direction;
+		
+		this.setImageDirection();
+		System.out.println("Direction set");
+	}
+	
+	protected void setImageDirection() {
+		switch (this.direction) {
+		case DOWN:
+			this.image = this.spritesheet.getSprite(0, 0);
+			break;
+		case LEFT:
+			this.image =  this.spritesheet.getSprite(0, 1);
+			break;
+		case RIGHT:
+			this.image =  this.spritesheet.getSprite(0, 2);
+			break;
+		case UP:
+			this.image =  this.spritesheet.getSprite(0, 3);
+			break;
+		}
+		System.out.println("Image Direction set - MovableItem");
 	}
 	
 	public void setSpeed(int speed) {
@@ -53,21 +76,4 @@ public class MovableItem extends DrawableItem {
 	public void setMoving(Boolean moving) {
 		this.moving = moving;
 	}
-
-	public Image getSprite() {
-		
-		switch (this.direction) {
-			case DOWN:
-				return this.spritesheet.getSprite(0, 0);
-			case LEFT:
-				return this.spritesheet.getSprite(0, 1);
-			case RIGHT:
-				return this.spritesheet.getSprite(0, 2);
-			case UP:
-				return this.spritesheet.getSprite(0, 3);
-		}
-		
-		return this.spritesheet.getSprite(0, 0);
-	}
-
 }

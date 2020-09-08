@@ -1,15 +1,27 @@
 package ch.cpnv.roguetale.entity;
 
 import org.lwjgl.util.vector.Vector2f;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SpriteSheet;
 
 public class DrawableItem {
 	protected SpriteSheet spritesheet;
+	protected Image image;
 	protected Vector2f position;
 
 	public DrawableItem(SpriteSheet ss, Vector2f position) {
-		this.spritesheet = ss;
+		this.setSpritesheet(ss);
 		this.position = position;
+	}
+	
+	// TODO add origin
+	public void draw() {
+		this.image.draw(this.position.x, this.position.y);
+	}
+	
+	// TODO add origin
+	public void draw(int width, int height) {
+		this.image.draw(this.position.x, this.position.y, width, height);
 	}
 
 	public SpriteSheet getSpritesheet() {
@@ -18,6 +30,11 @@ public class DrawableItem {
 
 	public void setSpritesheet(SpriteSheet spritesheet) {
 		this.spritesheet = spritesheet;
+		this.image = this.spritesheet.getSprite(0, 0);
+	}
+	
+	public Image getSprite() {		
+		return this.image;
 	}
 
 	public Vector2f getPosition() {
