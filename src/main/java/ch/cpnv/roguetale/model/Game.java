@@ -62,7 +62,7 @@ public class Game extends BasicGame {
 
 	@Override
 	public void update(GameContainer gc, int delta) throws SlickException {
-		// TODO move projectile
+		this.projectile.move(delta);
 	}
 	
 	@Override
