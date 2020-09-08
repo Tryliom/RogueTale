@@ -14,14 +14,16 @@ public class DrawableItem {
 		this.position = position;
 	}
 	
-	// TODO add origin
 	public void draw(Vector2f origin) {
-		this.image.draw(this.position.x - origin.x, this.position.y - origin.y);
+		this.image.draw(this.position.x - origin.x - this.image.getHeight() / 2, 
+				this.position.y - origin.y - this.image.getWidth() / 2);
 	}
 	
-	// TODO add origin
 	public void draw(Vector2f origin, int width, int height) {
-		this.image.draw(this.position.x - origin.x, this.position.y - origin.y, width, height);
+		this.image.draw(this.position.x - origin.x - this.image.getHeight() / 2, 
+				this.position.y - origin.y - this.image.getWidth() / 2, 
+				width, 
+				height);
 	}
 
 	public SpriteSheet getSpritesheet() {

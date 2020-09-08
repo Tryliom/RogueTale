@@ -40,12 +40,16 @@ public class Game extends BasicGame {
 		g.drawString("Joueur", 0, 20);
 		g.drawString("X: "+pos.x+", Y: "+pos.y, 0, 40);
 		Image sprite = player.getSprite();
-		g.drawImage(sprite, this.width/2 - sprite.getWidth()/2, this.height/2 - sprite.getHeight()/2);
+		//g.drawImage(sprite, this.width/2 - sprite.getWidth()/2, this.height/2 - sprite.getHeight()/2);
 		
+		// Origin
 		Vector2f origin = new Vector2f(player.getPosition().x - this.width/2, player.getPosition().y - this.height/2);
 		
+		player.draw(origin);
+		
+		// Draw projectile
 		g.drawString("X: " + projectile.getPosition().x + ", Y: " + projectile.getPosition().y, 0, 80);
-		this.projectile.draw(origin);
+		projectile.draw(origin);
 	}
 
 	@Override
