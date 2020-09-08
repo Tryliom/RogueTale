@@ -1,7 +1,7 @@
-package main.java.ch.cpnv.roguetale.weapon.ranged;
+package ch.cpnv.roguetale.weapon.ranged;
 
-import main.java.ch.cpnv.roguetale.entity.Direction;
-import main.java.ch.cpnv.roguetale.weapon.RangedWeapon;
+import ch.cpnv.roguetale.entity.Direction;
+import ch.cpnv.roguetale.weapon.RangedWeapon;
 
 public class Bow extends RangedWeapon {
 

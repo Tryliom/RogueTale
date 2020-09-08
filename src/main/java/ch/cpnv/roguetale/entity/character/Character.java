@@ -1,11 +1,11 @@
-package main.java.ch.cpnv.roguetale.entity.character;
+package ch.cpnv.roguetale.entity.character;
 
 import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.SpriteSheet;
 
-import main.java.ch.cpnv.roguetale.entity.Direction;
-import main.java.ch.cpnv.roguetale.entity.MovableItem;
-import main.java.ch.cpnv.roguetale.weapon.Weapon;
+import ch.cpnv.roguetale.entity.Direction;
+import ch.cpnv.roguetale.entity.MovableItem;
+import ch.cpnv.roguetale.weapon.Weapon;
 
 public class Character extends MovableItem {
 	protected int currentHealth;
@@ -13,8 +13,8 @@ public class Character extends MovableItem {
 	protected Weapon primaryWeapon;
 	protected Weapon secondaryWeapon;
 
-	public Character(SpriteSheet ss, Vector2f position, int speed, Direction direction, Weapon primaryWeapon, Weapon secondaryWeapon) {
-		super(ss, position, speed, direction);
+	public Character(SpriteSheet ss, Vector2f position, int speed, Direction direction, boolean moving, Weapon primaryWeapon, Weapon secondaryWeapon) {
+		super(ss, position, speed, direction, moving);
 		this.primaryWeapon = primaryWeapon;
 		this.secondaryWeapon = secondaryWeapon;
 	}

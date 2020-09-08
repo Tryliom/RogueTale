@@ -1,8 +1,8 @@
-package main.java.ch.cpnv.roguetale.weapon;
+package ch.cpnv.roguetale.weapon;
 
 import org.newdawn.slick.geom.Shape;
 
-import main.java.ch.cpnv.roguetale.entity.Direction;
+import ch.cpnv.roguetale.entity.Direction;
 
 public class MeleeWeapon extends Weapon {
 	protected Shape hitbox;

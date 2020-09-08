@@ -1,6 +1,6 @@
-package main.java.ch.cpnv.roguetale.weapon;
+package ch.cpnv.roguetale.weapon;
 
-import main.java.ch.cpnv.roguetale.entity.Direction;
+import ch.cpnv.roguetale.entity.Direction;
 
 public class RangedWeapon extends Weapon {
 	protected int range;

@@ -1,19 +1,19 @@
-package main.java.ch.cpnv.roguetale.entity.character;
+package ch.cpnv.roguetale.entity.character;
 
 import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.SpriteSheet;
 
-import main.java.ch.cpnv.roguetale.entity.Direction;
-import main.java.ch.cpnv.roguetale.weapon.Weapon;
+import ch.cpnv.roguetale.entity.Direction;
+import ch.cpnv.roguetale.weapon.Weapon;
 
 public class Player extends Character {
 	private int level;
 	private int currentExp;
 	private int maxExp;
 
-	public Player(SpriteSheet ss, Vector2f position, int speed, Direction direction, Weapon primaryWeapon,
+	public Player(SpriteSheet ss, Vector2f position, int speed, Direction direction, boolean moving, Weapon primaryWeapon,
 			Weapon secondaryWeapon) {
-		super(ss, position, speed, direction, primaryWeapon, secondaryWeapon);
+		super(ss, position, speed, direction, moving, primaryWeapon, secondaryWeapon);
 		this.level = 1;
 		this.currentExp = 0;
 		this.maxExp = 100;
