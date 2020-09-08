@@ -9,6 +9,9 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.controller.GameController;
+import ch.cpnv.roguetale.entity.Arrow;
+import ch.cpnv.roguetale.entity.Direction;
+import ch.cpnv.roguetale.entity.Projectile;
 import ch.cpnv.roguetale.entity.character.Player;
 
 public class Game extends BasicGame {
@@ -17,10 +20,20 @@ public class Game extends BasicGame {
 	private GameController controller;
 	private int width;
 	private int height;
+	
+	private Projectile projectile;
 
 	public Game() {
 		// Title windows name
 		super("RogueTale");
+		
+		Vector2f arrowPosition = new Vector2f(this.width/2, this.height/2);
+		try {
+			projectile = new Arrow(arrowPosition, Direction.UP);
+		} catch (SlickException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -36,6 +49,8 @@ public class Game extends BasicGame {
 		g.drawString("X: "+pos.x+", Y: "+pos.y, 0, 40);
 		Image sprite = player.getSprite();
 		g.drawImage(sprite, this.width/2 - sprite.getWidth()/2, this.height/2 - sprite.getHeight()/2);
+		
+		Image prjectileImg = this.projectile.getSprite();
 	}
 
 	@Override
