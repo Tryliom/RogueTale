@@ -42,10 +42,10 @@ public class Game extends BasicGame {
 		Image sprite = player.getSprite();
 		g.drawImage(sprite, this.width/2 - sprite.getWidth()/2, this.height/2 - sprite.getHeight()/2);
 		
-		g.setColor(new Color(60, 200, 60));
-		g.drawString("Projectile", 0, 60);
+		Vector2f origin = new Vector2f(player.getPosition().x - this.width/2, player.getPosition().y - this.height/2);
+		
 		g.drawString("X: " + projectile.getPosition().x + ", Y: " + projectile.getPosition().y, 0, 80);
-		this.projectile.draw();
+		this.projectile.draw(origin);
 	}
 
 	@Override
@@ -55,7 +55,7 @@ public class Game extends BasicGame {
 		this.width = gc.getWidth();
 		this.controller = new GameController();
 		
-		Vector2f arrowPosition = new Vector2f(this.width/2, this.height/2);
+		Vector2f arrowPosition = new Vector2f(10, -10);
 		try {
 			projectile = new Arrow(arrowPosition, Direction.UP);
 		} catch (SlickException e) {

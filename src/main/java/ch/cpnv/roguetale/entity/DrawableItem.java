@@ -15,13 +15,13 @@ public class DrawableItem {
 	}
 	
 	// TODO add origin
-	public void draw() {
-		this.image.draw(this.position.x, this.position.y);
+	public void draw(Vector2f origin) {
+		this.image.draw(this.position.x - origin.x, this.position.y - origin.y);
 	}
 	
 	// TODO add origin
-	public void draw(int width, int height) {
-		this.image.draw(this.position.x, this.position.y, width, height);
+	public void draw(Vector2f origin, int width, int height) {
+		this.image.draw(this.position.x - origin.x, this.position.y - origin.y, width, height);
 	}
 
 	public SpriteSheet getSpritesheet() {
