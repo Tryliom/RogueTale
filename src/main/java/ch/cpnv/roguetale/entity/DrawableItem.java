@@ -1,4 +1,4 @@
-package main.java.ch.cpnv.roguetale.entity;
+package ch.cpnv.roguetale.entity;
 
 import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.SpriteSheet;

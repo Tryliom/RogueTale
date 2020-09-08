@@ -1,4 +1,4 @@
-package main.java.ch.cpnv.roguetale.entity;
+package ch.cpnv.roguetale.entity;
 
 import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.Image;
@@ -8,7 +8,7 @@ public abstract class Projectile extends MovableItem {
 	protected int remaining_time;
 	
 	public Projectile(SpriteSheet ss, Vector2f position, int speed, Direction direction, int lifespan) {
-		super(ss, position, speed, direction);
+		super(ss, position, speed, direction, false);
 		this.remaining_time = lifespan;
 	}
 	
