@@ -27,14 +27,6 @@ public class Game extends BasicGame {
 	public Game() {
 		// Title windows name
 		super("RogueTale");
-		
-		Vector2f arrowPosition = new Vector2f(this.width/2, this.height/2);
-		try {
-			projectile = new Arrow(arrowPosition, Direction.UP);
-		} catch (SlickException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	@Override
@@ -45,7 +37,7 @@ public class Game extends BasicGame {
 		Image playerImg = this.player.getSprite(0,0);
 		g.drawImage(playerImg, this.width/2 - playerImg.getWidth()/2, this.height/2 - playerImg.getHeight()/2);
 		
-		Image prjectileImg = this.projectile.getSprite(0, 0);
+		g.drawImage(this.projectile.getSprite(), this.projectile.getPosition().x, this.projectile.getPosition().y);
 	}
 
 	@Override
@@ -56,6 +48,13 @@ public class Game extends BasicGame {
 		this.height = gc.getHeight();
 		this.width = gc.getWidth();
 		
+		Vector2f arrowPosition = new Vector2f(this.width/2, this.height/2);
+		try {
+			projectile = new Arrow(arrowPosition, Direction.UP);
+		} catch (SlickException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		// Define values
 		gc.setShowFPS(false);
@@ -63,7 +62,7 @@ public class Game extends BasicGame {
 
 	@Override
 	public void update(GameContainer gc, int delta) throws SlickException {
-		
+		// TODO move projectile
 	}
 	
 	@Override
