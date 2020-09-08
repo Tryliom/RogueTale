@@ -13,16 +13,18 @@ public abstract class Projectile extends MovableItem {
 	}
 	
 	@Override
+	public String toString() {
+		return "Projectile (" + position.x + ", " + position.y + ")";
+	}
+	
+	@Override
 	protected void setImageDirection() {
 		switch (this.direction) {
 			case UP:
-				System.out.println("Projectile direction : UP");
-				image.setRotation(90);
-				System.out.println(image.getRotation());
-				
+				image.setRotation(270);
 				break;
 			case DOWN:
-				image.setRotation(270);
+				image.setRotation(90);
 				break;
 			case LEFT:
 				image.setRotation(180);

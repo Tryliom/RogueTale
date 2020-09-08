@@ -23,4 +23,9 @@ public class Arrow extends Projectile {
 		this.image = this.image.getScaledCopy(WIDTH, HEIGHT);
 		this.setImageDirection();
 	}
+	
+	@Override
+	public String toString() {
+		return "Arrow (" + position.x + ", " + position.y + ")";
+	}
 }

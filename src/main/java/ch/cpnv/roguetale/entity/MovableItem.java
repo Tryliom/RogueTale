@@ -11,11 +11,14 @@ public class MovableItem extends DrawableItem {
 	
 	public MovableItem(SpriteSheet ss, Vector2f position, int speed, Direction direction, Boolean moving) {
 		super(ss, position);
-		this.speed = speed;
 		this.setDirection(direction);
+		this.speed = speed;
 		this.moving = moving;
-		
-		System.out.println("MovableItem constructed");
+	}
+	
+	@Override
+	public String toString() {
+		return "MovableItem (" + position.x + ", " + position.y + ")";
 	}
 	
 	public void move(int delta) {
@@ -42,9 +45,7 @@ public class MovableItem extends DrawableItem {
 	
 	public void setDirection(Direction direction) {
 		this.direction = direction;
-		
 		this.setImageDirection();
-		System.out.println("Direction set");
 	}
 	
 	protected void setImageDirection() {
@@ -62,7 +63,6 @@ public class MovableItem extends DrawableItem {
 			this.image =  this.spritesheet.getSprite(0, 3);
 			break;
 		}
-		System.out.println("Image Direction set - MovableItem");
 	}
 	
 	public void setSpeed(int speed) {
