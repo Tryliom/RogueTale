@@ -34,6 +34,5 @@ public abstract class Projectile extends MovableItem {
 			default:
 				break;
 		}
-		System.out.println("Image Direction set - Projectile");
 	}
 }
