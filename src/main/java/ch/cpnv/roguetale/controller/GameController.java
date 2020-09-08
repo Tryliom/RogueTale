@@ -6,6 +6,7 @@ import org.newdawn.slick.SlickException;
 
 public class GameController {
 	private PlayerController playerController;
+	private MapController mapController;
 	private int score;
 	
 	public int getScore() {
@@ -15,17 +16,14 @@ public class GameController {
 		this.score = score;
 	}
 	
-	public GameController() throws SlickException {
-		this.initMap();
+	public GameController(GameContainer gc) throws SlickException {
 		this.playerController = new PlayerController();
-	}
-
-	public void initMap() {
-		
+		this.setMapController(new MapController(gc));
 	}
 	
 	public void update(GameContainer gc, int delta) {
 		this.playerController.update(gc, delta);
+		this.mapController.update(gc, this.playerController.getPlayer());
 	}
 	
 	public void keyReleased(int key, char c, GameContainer gc) {
@@ -48,7 +46,11 @@ public class GameController {
 	public void setPlayerController(PlayerController playerController) {
 		this.playerController = playerController;
 	}
-
-	
+	public MapController getMapController() {
+		return mapController;
+	}
+	public void setMapController(MapController mapController) {
+		this.mapController = mapController;
+	}
 	
 }

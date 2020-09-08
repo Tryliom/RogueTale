@@ -1,5 +1,7 @@
 package ch.cpnv.roguetale.model;
 
+import java.util.Vector;
+
 import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.Color;
@@ -9,8 +11,6 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.controller.GameController;
-import ch.cpnv.roguetale.entity.Arrow;
-import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.entity.Projectile;
 import ch.cpnv.roguetale.entity.character.Player;
 
@@ -28,29 +28,34 @@ public class Game extends BasicGame {
 		super("RogueTale");
 		
 		Vector2f arrowPosition = new Vector2f(this.width/2, this.height/2);
-		try {
+		/*try {
 			projectile = new Arrow(arrowPosition, Direction.UP);
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 	}
 
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException {
+		// Define values
+		Player player = this.controller.getPlayerController().getPlayer();
+		Image playerSprite = player.getSprite();
+		Vector2f pos = player.getPosition();
+		
+		this.controller.getMapController().render(gc, g, player);
+		
 		// Define color before an action
 		g.setColor(new Color(60, 60, 200));
 		g.drawString("RogueTale", 0, 0);
+		
 		// Draw player
-		Player player = this.controller.getPlayerController().getPlayer();
-		Vector2f pos = player.getPosition();
 		g.setColor(new Color(200, 60, 60));
 		g.drawString("Joueur", 0, 20);
 		g.drawString("X: "+pos.x+", Y: "+pos.y, 0, 40);
-		Image sprite = player.getSprite();
-		g.drawImage(sprite, this.width/2 - sprite.getWidth()/2, this.height/2 - sprite.getHeight()/2);
+		g.drawImage(playerSprite, this.width/2 - playerSprite.getWidth()/2, this.height/2 - playerSprite.getHeight()/2);
 		
-		Image prjectileImg = this.projectile.getSprite();
+		//Image prjectileImg = this.projectile.getSprite();
 	}
 
 	@Override
@@ -58,7 +63,7 @@ public class Game extends BasicGame {
 		this.gc = gc;
 		this.height = gc.getHeight();
 		this.width = gc.getWidth();
-		this.controller = new GameController();
+		this.controller = new GameController(gc);
 		
 		// Define values
 		gc.setShowFPS(false);
