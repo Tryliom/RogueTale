@@ -18,7 +18,13 @@ public class PlayerController {
 	private HashMap<Integer, Direction> MOVING_KEY = new HashMap<Integer, Direction>();
 
 	public PlayerController() throws SlickException {
-		this.player = new Player(new SpriteSheet("ch\\cpnv\\roguetale\\images\\player\\carac.png", 48, 48, 0), new Vector2f(0,0), 10, Direction.DOWN, false, new Knife(), new Bow());
+		this.player = new Player(
+				new SpriteSheet("ch\\cpnv\\roguetale\\images\\player\\carac.png", 48, 48, 0), 
+				new Vector2f(0,0), 100, 
+				Direction.DOWN, 
+				false, 
+				new Knife(), 
+				new Bow());
 		// Put Input key who equals to direction
 		this.MOVING_KEY.put(Input.KEY_W, Direction.UP);
 		this.MOVING_KEY.put(Input.KEY_A, Direction.LEFT);

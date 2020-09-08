@@ -26,14 +26,6 @@ public class Game extends BasicGame {
 	public Game() {
 		// Title windows name
 		super("RogueTale");
-		
-		Vector2f arrowPosition = new Vector2f(this.width/2, this.height/2);
-		try {
-			projectile = new Arrow(arrowPosition, Direction.UP);
-		} catch (SlickException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	@Override
@@ -41,16 +33,24 @@ public class Game extends BasicGame {
 		// Define color before an action
 		g.setColor(new Color(60, 60, 200));
 		g.drawString("RogueTale", 0, 0);
-		// Draw player
+		
+		// Origin
 		Player player = this.controller.getPlayerController().getPlayer();
+		Vector2f origin = new Vector2f(player.getPosition().x - this.width/2, player.getPosition().y - this.height/2);
+		
+		// Draw objects
+		// Draw player
 		Vector2f pos = player.getPosition();
 		g.setColor(new Color(200, 60, 60));
 		g.drawString("Joueur", 0, 20);
 		g.drawString("X: "+pos.x+", Y: "+pos.y, 0, 40);
-		Image sprite = player.getSprite();
-		g.drawImage(sprite, this.width/2 - sprite.getWidth()/2, this.height/2 - sprite.getHeight()/2);
+		player.draw(origin);
 		
-		Image prjectileImg = this.projectile.getSprite();
+		// Draw projectile
+		g.drawString("X: " + projectile.getPosition().x + ", Y: " + projectile.getPosition().y, 0, 80);
+		g.drawString("Origin (" + origin.x + ", " + origin.y + ")", 0, 100);
+		g.drawString("Position (" + (projectile.getPosition().x - origin.x) + ", " + (projectile.getPosition().y - origin.y) + ")", 0, 120);
+		projectile.draw(origin);
 	}
 
 	@Override
@@ -60,13 +60,24 @@ public class Game extends BasicGame {
 		this.width = gc.getWidth();
 		this.controller = new GameController();
 		
+		Vector2f arrowPosition = new Vector2f(10, -100);
+		try {
+			projectile = new Arrow(arrowPosition, Direction.UP);
+		} catch (SlickException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		// Define values
 		gc.setShowFPS(false);
 	}
 
 	@Override
 	public void update(GameContainer gc, int delta) throws SlickException {
+		this.projectile.move(delta);
 		this.controller.update(gc, delta);
+		//Player player = this.controller.getPlayerController().getPlayer(); 
+		//System.out.println("Player (" + player.getPosition().x + ", " + player.getPosition().y + ")");
 	}
 	
 	@Override
