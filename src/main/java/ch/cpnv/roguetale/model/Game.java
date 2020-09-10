@@ -85,8 +85,14 @@ public class Game extends BasicGame {
 	@Override 
 	public void mousePressed(int button, int x, int y) {
 		System.out.println("Mouse pressed");
-		playerController.getPlayer().primaryAttack();
-		playerController.getPlayer().secondaryAttack();
+		switch(button) {
+			case Input.MOUSE_LEFT_BUTTON:
+				playerController.getPlayer().primaryAttack();
+				break;
+			case Input.MOUSE_RIGHT_BUTTON:
+				playerController.getPlayer().secondaryAttack();
+				break;
+		}
 	}
 	
 	// Get the coordinate of the UP LEFT corner of the screen
