@@ -6,13 +6,13 @@ import org.newdawn.slick.SpriteSheet;
 public class MovableItem extends DrawableItem {
 	protected int speed;
 	protected Direction direction;
-	protected Boolean moving;
+	protected Boolean isMoving;
 	
-	public MovableItem(SpriteSheet ss, Vector2f position, int speed, Direction direction, Boolean moving) {
+	public MovableItem(SpriteSheet ss, Vector2f position, int speed, Direction direction, Boolean isMoving) {
 		super(ss, position);
 		this.setDirection(direction);
 		this.speed = speed;
-		this.moving = moving;
+		this.isMoving = isMoving;
 	}
 	
 	@Override
@@ -73,10 +73,10 @@ public class MovableItem extends DrawableItem {
 	}
 	
 	public Boolean isMoving() {
-		return moving;
+		return isMoving;
 	}
 
 	public void setMoving(Boolean moving) {
-		this.moving = moving;
+		this.isMoving = moving;
 	}
 }
