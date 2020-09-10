@@ -46,10 +46,10 @@ public class Game extends BasicGame {
 		g.setColor(new Color(200, 60, 60));
 		g.drawString("Joueur", 0, 20);
 		g.drawString("X: "+pos.x+", Y: "+pos.y, 0, 40);
-		player.draw(origin);
+		player.draw(origin, gc);
 		
 		// Draw projectile
-		projectile.draw(origin);
+		projectile.draw(origin, gc);
 	}
 
 	@Override
