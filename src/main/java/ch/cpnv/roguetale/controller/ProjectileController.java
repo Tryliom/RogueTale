@@ -22,13 +22,13 @@ public class ProjectileController implements Controller {
 		for(Projectile projectile : projectiles) {
 			projectile.draw(origin, gc);
 		}
-
 	}
 
 	@Override
 	public void update(GameContainer gc, int delta, Player p) throws SlickException {
-		// TODO Auto-generated method stub
-
+		for(Projectile projectile : projectiles) {
+			projectile.move(delta);
+		}
 	}
 
 	@Override
