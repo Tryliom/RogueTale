@@ -12,7 +12,7 @@ import ch.cpnv.roguetale.entity.character.Player;
 import ch.cpnv.roguetale.entity.projectile.Projectile;
 
 public class ProjectileController implements Controller {
-	private ArrayList<Projectile> projectiles;
+	private final ArrayList<Projectile> projectiles;
 	
 	public ProjectileController() {
 		projectiles = new ArrayList<Projectile>();
