@@ -1,7 +1,5 @@
 package ch.cpnv.roguetale.model;
 
-import java.util.Vector;
-
 import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.Color;
@@ -34,7 +32,6 @@ public class Game extends BasicGame {
 	public void render(GameContainer gc, Graphics g) throws SlickException {
 		// Define values
 		Player player = this.controller.getPlayerController().getPlayer();
-		Image playerSprite = player.getSprite();
 		Vector2f pos = player.getPosition();
 		
 		this.controller.getMapController().render(gc, g, player);
@@ -43,7 +40,7 @@ public class Game extends BasicGame {
 		g.setColor(new Color(60, 60, 200));
 		g.drawString("RogueTale", 0, 0);
 		// Origin
-		Vector2f origin = new Vector2f(player.getPosition().x - this.width/2, player.getPosition().y - this.height/2);
+		Vector2f origin = new Vector2f(player.getPosition().x - this.width/2, player.getPosition().y + this.height/2);
 		
 		// Draw objects
 		// Draw player

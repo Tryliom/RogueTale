@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;

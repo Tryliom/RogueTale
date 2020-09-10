@@ -18,7 +18,7 @@ public class GameController {
 	
 	public GameController(GameContainer gc) throws SlickException {
 		this.playerController = new PlayerController();
-		this.setMapController(new MapController(gc));
+		this.mapController = new MapController(gc);
 	}
 	
 	public void update(GameContainer gc, int delta) {

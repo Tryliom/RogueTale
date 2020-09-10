@@ -1,9 +1,6 @@
 package ch.cpnv.roguetale.entity;
 
-import java.text.DecimalFormat;
-
 import org.lwjgl.util.vector.Vector2f;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.SpriteSheet;
 
 public class MovableItem extends DrawableItem {
@@ -24,18 +21,16 @@ public class MovableItem extends DrawableItem {
 	}
 	
 	public void move(int delta) {
-		DecimalFormat df = new DecimalFormat();
-		df.setMaximumFractionDigits(2);
 		Vector2f pos = this.getPosition();
 		float movement = this.speed * delta / 1000f;
 		
 		switch (this.direction) {
 			// Note that y coordinate increase as the item goes down
 			case UP:
-				pos.translate(0, -movement);
+				pos.translate(0, movement);
 				break;
 			case DOWN:
-				pos.translate(0, movement);
+				pos.translate(0, -movement);
 				break;
 			case LEFT:
 				pos.translate(-movement, 0);

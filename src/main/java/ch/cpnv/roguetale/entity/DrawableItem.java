@@ -18,14 +18,14 @@ public class DrawableItem {
 		return "DrawableItem (" + position.x + ", " + position.y + ")";
 	}
 	
-	public void draw(Vector2f origin) {		
-		this.image.draw(this.position.x - origin.x - this.image.getHeight() / 2, 
-				this.position.y - origin.y - this.image.getWidth() / 2);
+	public void draw(Vector2f origin) {
+		this.image.draw(this.position.x - origin.x - this.image.getWidth() / 2, 
+				 - (this.position.y - origin.y + this.image.getHeight() / 2));
 	}
 	
 	public void draw(Vector2f origin, int width, int height) {		
-		this.image.draw(this.position.x - origin.x - this.image.getHeight() / 2, 
-				this.position.y - origin.y - this.image.getWidth() / 2, 
+		this.image.draw(this.position.x - origin.x - this.image.getWidth() / 2, 
+				 - (this.position.y - origin.y + this.image.getHeight() / 2), 
 				width, 
 				height);
 	}
