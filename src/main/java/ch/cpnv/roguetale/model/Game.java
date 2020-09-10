@@ -5,10 +5,11 @@ import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
-import ch.cpnv.roguetale.controller.GameController;
+import ch.cpnv.roguetale.controller.MapController;
+import ch.cpnv.roguetale.controller.PlayerController;
 import ch.cpnv.roguetale.entity.Arrow;
 import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.entity.Projectile;
@@ -17,9 +18,12 @@ import ch.cpnv.roguetale.entity.character.Player;
 public class Game extends BasicGame {
 	
 	private GameContainer gc;
-	private GameController controller;
+	private PlayerController playerController;
+	private MapController mapController;
 	private int width;
 	private int height;
+	@SuppressWarnings("unused")
+	private int score;
 	
 	private Projectile projectile;
 
@@ -31,23 +35,17 @@ public class Game extends BasicGame {
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException {
 		// Define values
-		Player player = this.controller.getPlayerController().getPlayer();
+		Player player = this.playerController.getPlayer();
 		Vector2f pos = player.getPosition();
 		
-		this.controller.getMapController().render(gc, g, player);
+		this.mapController.render(gc, g, player);
+		this.playerController.render(gc, g, player);
 		
 		// Define color before an action
 		g.setColor(new Color(60, 60, 200));
 		g.drawString("RogueTale", 0, 0);
 		// Origin
-		Vector2f origin = new Vector2f(player.getPosition().x - this.width/2, player.getPosition().y + this.height/2);
-		
-		// Draw objects
-		// Draw player
-		g.setColor(new Color(200, 60, 60));
-		g.drawString("Joueur", 0, 20);
-		g.drawString("X: "+pos.x+", Y: "+pos.y, 0, 40);
-		player.draw(origin);
+		Vector2f origin = new Vector2f(pos.x - this.width/2, pos.y + this.height/2);
 		
 		// Draw projectile
 		g.drawString("X: " + projectile.getPosition().x + ", Y: " + projectile.getPosition().y, 0, 80);
@@ -61,7 +59,8 @@ public class Game extends BasicGame {
 		this.gc = gc;
 		this.height = gc.getHeight();
 		this.width = gc.getWidth();
-		this.controller = new GameController(gc);
+		this.playerController = new PlayerController();
+		this.mapController = new MapController(gc);
 		
 		Vector2f arrowPosition = new Vector2f(10, -100);
 		try {
@@ -77,22 +76,23 @@ public class Game extends BasicGame {
 
 	@Override
 	public void update(GameContainer gc, int delta) throws SlickException {
+		Player p = this.playerController.getPlayer();
 		this.projectile.move(delta);
-		this.controller.update(gc, delta);
-		//Player player = this.controller.getPlayerController().getPlayer(); 
-		//System.out.println("Player (" + player.getPosition().x + ", " + player.getPosition().y + ")");
+		this.playerController.update(gc, delta, p);
+		this.mapController.update(gc, delta, p);
 	}
 	
 	@Override
 	public void keyReleased(int key, char c) {
-		this.controller.keyReleased(key, c, this.gc);
+		this.playerController.keyReleased(key, c, this.gc);
+		
+		if (Input.KEY_ESCAPE == key) {
+			gc.exit();
+		}
 	}
 	
 	@Override
 	public void keyPressed(int key, char c) {
-		this.controller.keyPressed(key, c, this.gc);
+		this.playerController.keyPressed(key, c, this.gc);
 	}
-	
-	
-
 }

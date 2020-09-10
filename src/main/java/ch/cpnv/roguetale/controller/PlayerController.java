@@ -3,6 +3,7 @@ package ch.cpnv.roguetale.controller;
 import java.util.HashMap;
 
 import org.lwjgl.util.vector.Vector2f;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -14,7 +15,7 @@ import ch.cpnv.roguetale.entity.character.Player;
 import ch.cpnv.roguetale.weapon.melee.Knife;
 import ch.cpnv.roguetale.weapon.ranged.Bow;
 
-public class PlayerController {
+public class PlayerController implements Controller {
 	private Player player;
 	private HashMap<Integer, Direction> MOVING_KEY = new HashMap<Integer, Direction>();
 
@@ -34,12 +35,25 @@ public class PlayerController {
 		this.MOVING_KEY.put(Input.KEY_S, Direction.DOWN);
 	}
 	
-	public void update(GameContainer gc, int delta) {
+	@Override
+	public void render(GameContainer gc, Graphics g, Player p) throws SlickException {
+		Vector2f origin = new Vector2f(player.getPosition().x - gc.getWidth()/2, player.getPosition().y + gc.getHeight()/2);
+		
+		g.setColor(new Color(200, 60, 60));
+		g.drawString("Joueur", 0, 20);
+		g.drawString("X: "+p.getPosition().x+", Y: "+p.getPosition().y, 0, 40);
+		player.draw(origin);
+	}
+
+	@Override
+	public void update(GameContainer gc, int delta, Player p) throws SlickException {
 		if (this.player.isMoving()) {
 			this.player.move(delta);
 		}
+		
 	}
 	
+	@Override
 	public void keyPressed(int key, char c, GameContainer gc) {
 		// If a direction key is pressed, set the direction of player and allow it to move
 		if (this.MOVING_KEY.containsKey(key)) {
@@ -48,6 +62,7 @@ public class PlayerController {
 		}
 	}
 	
+	@Override
 	public void keyReleased(int key, char c, GameContainer gc) {
 		// If direction key is released, check that other key are not pressed to disallowing player to move unless change direction of player
 		if (this.MOVING_KEY.containsKey(key)) {
@@ -75,5 +90,4 @@ public class PlayerController {
 	public void setPlayer(Player player) {
 		this.player = player;
 	}
-
 }
