@@ -57,11 +57,6 @@ public class Game extends BasicGame {
 		
 		Weapon.setProjectileController(projectileController);
 		
-		Vector2f arrowPosition = new Vector2f(10, -100);
-		projectileController.addProjectile(new Arrow(arrowPosition, Direction.UP));
-		arrowPosition = new Vector2f(100, -30);
-		projectileController.addProjectile(new Arrow(arrowPosition, Direction.LEFT));
-		
 		// Define values
 		gc.setShowFPS(false);
 	}
