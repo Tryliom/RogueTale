@@ -5,7 +5,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SpriteSheet;
 
-public class DrawableItem {
+public abstract class DrawableItem {
 	protected SpriteSheet spritesheet;
 	protected Image image;
 	protected Vector2f position;

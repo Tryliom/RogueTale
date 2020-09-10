@@ -3,7 +3,7 @@ package ch.cpnv.roguetale.entity;
 import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.SpriteSheet;
 
-public class MovableItem extends DrawableItem {
+public abstract class MovableItem extends DrawableItem {
 	protected int speed;
 	protected Direction direction;
 	protected Boolean isMoving;
