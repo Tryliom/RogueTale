@@ -41,7 +41,7 @@ public class MapController implements Controller {
 	}
 	
 	@Override
-	public void render(GameContainer gc, Graphics g, Player p) {
+	public void render(GameContainer gc, Graphics g, Vector2f origin, Player p) {
 		Image bg = this.getBackground();
 		Vector<Vector2f> map = this.getMap();
 		Vector2f pos = p.getPosition();

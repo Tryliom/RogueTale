@@ -34,15 +34,16 @@ public class Game extends BasicGame {
 
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException {
+		Vector2f origin = getSlickOrigin();
 		Player player = this.playerController.getPlayer();
-		this.mapController.render(gc, g, player);
-		this.playerController.render(gc, g, player);
+		
+		this.mapController.render(gc, g, origin, player);
+		this.playerController.render(gc, g, origin, player);
 		
 		// Define color before an action
 		g.setColor(new Color(60, 60, 200));
 		g.drawString("RogueTale", 0, 0);
-		// Origin
-		Vector2f origin = getSlickOrigin();
+		
 		
 		// Draw projectile
 		projectile.draw(origin, gc);
