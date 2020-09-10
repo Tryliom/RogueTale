@@ -1,8 +1,11 @@
-package ch.cpnv.roguetale.entity;
+package ch.cpnv.roguetale.entity.projectile;
 
 import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SpriteSheet;
+
+import ch.cpnv.roguetale.entity.Direction;
+import ch.cpnv.roguetale.entity.MovableItem;
 
 public abstract class Projectile extends MovableItem {
 	protected int remaining_time;

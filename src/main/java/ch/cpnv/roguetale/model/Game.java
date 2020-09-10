@@ -8,10 +8,10 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.controller.GameController;
-import ch.cpnv.roguetale.entity.Arrow;
 import ch.cpnv.roguetale.entity.Direction;
-import ch.cpnv.roguetale.entity.Projectile;
 import ch.cpnv.roguetale.entity.character.Player;
+import ch.cpnv.roguetale.entity.projectile.Arrow;
+import ch.cpnv.roguetale.entity.projectile.Projectile;
 
 public class Game extends BasicGame {
 	
