@@ -12,8 +12,8 @@ import ch.cpnv.roguetale.entity.character.Player;
 
 public class MapController implements Controller {
 	private Image background;
-	private Vector<Vector2f> map = new Vector<Vector2f>();
-	private static final int DIMENSION_BACKGROUND = 70;
+	private final Vector<Vector2f> map = new Vector<Vector2f>();
+	private static final int TILE_DIMENSION = 70;
 	
 	public MapController(GameContainer gc) throws SlickException {
 		this.background = new Image("ch\\cpnv\\roguetale\\images\\background\\tile.png");
@@ -26,7 +26,7 @@ public class MapController implements Controller {
 		Vector2f pos = p.getPosition();
 		int height = gc.getHeight();
 		int width = gc.getWidth();
-		int doubleChunk = DIMENSION_BACKGROUND*2;
+		int doubleChunk = TILE_DIMENSION*2;
 		int minScreenX = Math.round(pos.x) - width/2 - doubleChunk;
 		int maxScreenX = Math.round(pos.x) + width/2 + doubleChunk;
 		int minScreenY = Math.round(pos.y) - height/2 - doubleChunk;
@@ -34,8 +34,8 @@ public class MapController implements Controller {
 		// Draw background
 		for (Vector2f vector : map) {
 			// Multiply by 70 for image dimension
-			float posMapX = vector.x*DIMENSION_BACKGROUND;
-			float posMapY = vector.y*DIMENSION_BACKGROUND;
+			float posMapX = vector.x*TILE_DIMENSION;
+			float posMapY = vector.y*TILE_DIMENSION;
 			float tilePosXDiff = posMapX - Math.round(pos.x);
 			float tilePosYDiff = posMapY - Math.round(pos.y);
 			
@@ -54,8 +54,8 @@ public class MapController implements Controller {
 		int maxHeight = gc.getHeight()/2 + y;
 		int maxWidth = gc.getWidth()/2 + x;
 		
-		for (int h = minHeight/DIMENSION_BACKGROUND - 2; h < maxHeight/DIMENSION_BACKGROUND + 2; h++) {
-			for (int w = minWidth/DIMENSION_BACKGROUND - 2; w < maxWidth/DIMENSION_BACKGROUND + 2; w++) {
+		for (int h = minHeight/TILE_DIMENSION - 2; h < maxHeight/TILE_DIMENSION + 2; h++) {
+			for (int w = minWidth/TILE_DIMENSION - 2; w < maxWidth/TILE_DIMENSION + 2; w++) {
 				Vector2f newPos = new Vector2f(w, h);
 				// Check to not add duplicata
 				if (!this.map.contains(newPos)) {
