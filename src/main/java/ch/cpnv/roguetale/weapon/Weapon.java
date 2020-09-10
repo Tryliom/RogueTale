@@ -1,8 +1,9 @@
 package ch.cpnv.roguetale.weapon;
 
 import ch.cpnv.roguetale.entity.Direction;
+import ch.cpnv.roguetale.entity.character.Character;
 
-public class Weapon {
+public abstract class Weapon {
 	protected String name;
 	protected int damage;
 	// Cooldown in miliseconds
@@ -48,7 +49,7 @@ public class Weapon {
 		return this.currentCooldown == 0;
 	}
 
-	public void attack(Direction direction) {
+	public void attack(Direction direction, Character character) {
 		// The attack is made inside children classes
 		this.currentCooldown = this.cooldown;
 	}

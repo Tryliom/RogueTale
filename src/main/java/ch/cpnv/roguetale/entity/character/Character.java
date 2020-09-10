@@ -35,16 +35,8 @@ public class Character extends MovableItem {
 		this.maxHealth = maxHealth;
 	}
 
-	public Weapon getPrimaryWeapon() {
-		return primaryWeapon;
-	}
-
 	public void setPrimaryWeapon(Weapon primaryWeapon) {
 		this.primaryWeapon = primaryWeapon;
-	}
-
-	public Weapon getSecondaryWeapon() {
-		return secondaryWeapon;
 	}
 
 	public void setSecondaryWeapon(Weapon secondaryWeapon) {
@@ -55,8 +47,15 @@ public class Character extends MovableItem {
 		this.currentHealth += health;
 	}
 	
+	public void primaryAttack(Direction direction) {
+		primaryWeapon.attack(direction, this);
+	}
+	
+	public void secondaryAttack(Direction direction) {
+		primaryWeapon.attack(direction, this);
+	}
+	
 	public Boolean isDead() {
 		return this.currentHealth == 0;
 	}
-
 }

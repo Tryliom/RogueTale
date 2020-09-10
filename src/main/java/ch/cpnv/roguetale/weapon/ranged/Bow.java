@@ -2,6 +2,7 @@ package ch.cpnv.roguetale.weapon.ranged;
 
 import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.weapon.RangedWeapon;
+import ch.cpnv.roguetale.entity.character.Character;
 
 public class Bow extends RangedWeapon {
 
@@ -9,8 +10,9 @@ public class Bow extends RangedWeapon {
 		super("Bow", 1, 500, 10);
 	}
 
-	public void attack(Direction direction) {
+	@Override
+	public void attack(Direction direction, Character attacker) {
 		// TODO: Attack action
-		super.attack(direction);
+		super.attack(direction, attacker);
 	}
 }
