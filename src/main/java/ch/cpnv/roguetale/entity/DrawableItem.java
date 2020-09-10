@@ -15,16 +15,13 @@ public class DrawableItem {
 		this.position = position;
 	}
 	
-	public String toString() {
-		return "DrawableItem (" + position.x + ", " + position.y + ")";
+	public Vector2f getPosition() {
+		// clone of the position
+		return new Vector2f(position.x, position.y);
 	}
 	
-	public void draw(Vector2f origin, GameContainer gc) {
-		// Note that the slick y coordinates go the opposite direction of the usual y axis
-		if (isInScreen(gc, origin)) {
-			this.image.draw(this.position.x - origin.x - this.image.getWidth() / 2, 
-					 - (this.position.y - origin.y + this.image.getHeight() / 2));
-		}
+	public void setPosition(Vector2f position) {
+		this.position = position;
 	}
 
 	public SpriteSheet getSpritesheet() {
@@ -34,15 +31,6 @@ public class DrawableItem {
 	public void setSpritesheet(SpriteSheet spritesheet) {
 		this.spritesheet = spritesheet;
 		this.image = this.spritesheet.getSprite(0, 0);
-	}
-	
-	public Image getSprite() {		
-		return this.image;
-	}
-
-	public Vector2f getPosition() {
-		// clone of the position
-		return new Vector2f(position.x, position.y);
 	}
 	
 	public float getXLeft() {
@@ -60,9 +48,21 @@ public class DrawableItem {
 	public float getYBottom() {
 		return position.y + image.getHeight() / 2;
 	}
-
-	public void setPosition(Vector2f position) {
-		this.position = position;
+	
+	public Image getSprite() {		
+		return this.image;
+	}
+	
+	public String toString() {
+		return "DrawableItem (" + position.x + ", " + position.y + ")";
+	}
+	
+	public void draw(Vector2f origin, GameContainer gc) {
+		// Note that the slick y coordinates go the opposite direction of the usual y axis
+		if (isInScreen(gc, origin)) {
+			this.image.draw(this.position.x - origin.x - this.image.getWidth() / 2, 
+					 - (this.position.y - origin.y + this.image.getHeight() / 2));
+		}
 	}
 	
 	public Boolean isInScreen(GameContainer gc, Vector2f screenOrigin) {
@@ -72,4 +72,5 @@ public class DrawableItem {
 				&& getYTop() >= screenOrigin.y - gc.getWidth()
 				&& getYBottom() <= screenOrigin.y;
 	}
+	
 }
