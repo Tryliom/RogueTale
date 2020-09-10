@@ -17,7 +17,7 @@ import ch.cpnv.roguetale.weapon.ranged.Bow;
 
 public class PlayerController implements Controller {
 	private Player player;
-	private HashMap<Integer, Direction> MOVING_KEY = new HashMap<Integer, Direction>();
+	private final HashMap<Integer, Direction> MOVING_KEYS = new HashMap<Integer, Direction>();
 
 	public PlayerController() throws SlickException {
 		this.player = new Player(
@@ -29,10 +29,10 @@ public class PlayerController implements Controller {
 				new Knife(), 
 				new Bow());
 		// Put Input key who equals to direction
-		this.MOVING_KEY.put(Input.KEY_W, Direction.UP);
-		this.MOVING_KEY.put(Input.KEY_A, Direction.LEFT);
-		this.MOVING_KEY.put(Input.KEY_D, Direction.RIGHT);
-		this.MOVING_KEY.put(Input.KEY_S, Direction.DOWN);
+		this.MOVING_KEYS.put(Input.KEY_W, Direction.UP);
+		this.MOVING_KEYS.put(Input.KEY_A, Direction.LEFT);
+		this.MOVING_KEYS.put(Input.KEY_D, Direction.RIGHT);
+		this.MOVING_KEYS.put(Input.KEY_S, Direction.DOWN);
 	}
 	
 	@Override
@@ -54,8 +54,8 @@ public class PlayerController implements Controller {
 	@Override
 	public void keyPressed(int key, char c, GameContainer gc) {
 		// If a direction key is pressed, set the direction of player and allow it to move
-		if (this.MOVING_KEY.containsKey(key)) {
-			this.player.setDirection(MOVING_KEY.get(key));
+		if (this.MOVING_KEYS.containsKey(key)) {
+			this.player.setDirection(MOVING_KEYS.get(key));
 			this.player.setMoving(true);
 		}
 		else if (Input.KEY_Q == key) {
@@ -69,7 +69,7 @@ public class PlayerController implements Controller {
 	@Override
 	public void keyReleased(int key, char c, GameContainer gc) {
 		// If direction key is released, check that other key are not pressed to disallowing player to move unless change direction of player
-		if (this.MOVING_KEY.containsKey(key)) {
+		if (this.MOVING_KEYS.containsKey(key)) {
 			updateDirection(gc);
 		}
 	}
@@ -88,9 +88,9 @@ public class PlayerController implements Controller {
 	
 	public void updateDirection(GameContainer gc) {
 		Boolean isStillMoving = false;
-		for (int key : MOVING_KEY.keySet()) {
+		for (int key : MOVING_KEYS.keySet()) {
 			if (gc.getInput().isKeyDown(key)) {
-				this.player.setDirection(MOVING_KEY.get(key));
+				this.player.setDirection(MOVING_KEYS.get(key));
 				isStillMoving = true;
 			}
 		}
