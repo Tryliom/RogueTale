@@ -39,7 +39,7 @@ public class Game extends BasicGame {
 		g.setColor(new Color(60, 60, 200));
 		g.drawString("RogueTale", 0, 0);
 		// Origin
-		Vector2f origin = new Vector2f(player.getPosition().x - this.width/2, player.getPosition().y + this.height/2);
+		Vector2f origin = getSlickOrigin();
 		
 		// Draw objects
 		// Draw player
@@ -92,6 +92,10 @@ public class Game extends BasicGame {
 		this.controller.keyPressed(key, c, this.gc);
 	}
 	
-	
+	// Get the coordinate of the UP LEFT corner of the screen
+	protected Vector2f getSlickOrigin() {
+		Player player = controller.getPlayerController().getPlayer();
+		return new Vector2f(player.getPosition().x - this.width/2, player.getPosition().y + this.height/2);
+	}
 
 }
