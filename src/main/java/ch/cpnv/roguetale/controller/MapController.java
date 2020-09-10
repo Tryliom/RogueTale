@@ -15,7 +15,7 @@ public class MapController implements Controller {
 	private Vector<Vector2f> map = new Vector<Vector2f>();
 	private static final int DIMENSION_BACKGROUND = 70;
 	
-	public MapController(GameContainer gc) throws SlickException {
+	public MapController() throws SlickException {
 		this.background = new Image("ch\\cpnv\\roguetale\\images\\background\\tile.png");
 	}
 	

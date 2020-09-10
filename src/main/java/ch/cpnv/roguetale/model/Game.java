@@ -8,6 +8,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
+import ch.cpnv.roguetale.controller.EnemyController;
 import ch.cpnv.roguetale.controller.MapController;
 import ch.cpnv.roguetale.controller.PlayerController;
 import ch.cpnv.roguetale.entity.Arrow;
@@ -20,6 +21,7 @@ public class Game extends BasicGame {
 	private GameContainer gc;
 	private PlayerController playerController;
 	private MapController mapController;
+	private EnemyController enemyController;
 	private int width;
 	private int height;
 	@SuppressWarnings("unused")
@@ -40,6 +42,7 @@ public class Game extends BasicGame {
 		
 		this.mapController.render(gc, g, player);
 		this.playerController.render(gc, g, player);
+		this.enemyController.render(gc, g, player);
 		
 		// Define color before an action
 		g.setColor(new Color(60, 60, 200));
@@ -60,7 +63,8 @@ public class Game extends BasicGame {
 		this.height = gc.getHeight();
 		this.width = gc.getWidth();
 		this.playerController = new PlayerController();
-		this.mapController = new MapController(gc);
+		this.mapController = new MapController();
+		this.enemyController = new EnemyController();
 		
 		Vector2f arrowPosition = new Vector2f(10, -100);
 		try {
@@ -80,6 +84,7 @@ public class Game extends BasicGame {
 		this.projectile.move(delta);
 		this.playerController.update(gc, delta, p);
 		this.mapController.update(gc, delta, p);
+		this.enemyController.update(gc, delta, p);
 	}
 	
 	@Override
