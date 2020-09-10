@@ -11,9 +11,7 @@ import org.newdawn.slick.SlickException;
 import ch.cpnv.roguetale.controller.MapController;
 import ch.cpnv.roguetale.controller.PlayerController;
 import ch.cpnv.roguetale.controller.ProjectileController;
-import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.entity.character.Player;
-import ch.cpnv.roguetale.entity.projectile.Arrow;
 import ch.cpnv.roguetale.weapon.Weapon;
 
 public class Game extends BasicGame {
