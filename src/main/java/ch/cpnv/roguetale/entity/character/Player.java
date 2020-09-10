@@ -7,40 +7,28 @@ import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.weapon.Weapon;
 
 public class Player extends Character {
-	private int level;
-	private int currentExp;
-	private int maxExp;
+	protected int level;
+	protected int currentExp;
+	protected int maxExp;
 
 	public Player(SpriteSheet ss, Vector2f position, int speed, Direction direction, boolean moving, Weapon primaryWeapon,
 			Weapon secondaryWeapon) {
 		super(ss, position, speed, direction, moving, primaryWeapon, secondaryWeapon);
-		this.level = 1;
-		this.currentExp = 0;
-		this.maxExp = 100;
+		level = 1;
+		currentExp = 0;
+		maxExp = 100;
 	}
 
 	public int getLevel() {
 		return level;
 	}
 
-	public void setLevel(int level) {
-		this.level = level;
-	}
-
 	public int getCurrentExp() {
 		return currentExp;
 	}
 
-	public void setCurrentExp(int currentExp) {
-		this.currentExp = currentExp;
-	}
-
 	public int getMaxExp() {
 		return maxExp;
-	}
-
-	public void setMaxExp(int maxExp) {
-		this.maxExp = maxExp;
 	}
 	
 	public void updateExp(int exp) {
