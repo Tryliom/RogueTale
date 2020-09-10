@@ -14,6 +14,7 @@ import ch.cpnv.roguetale.controller.ProjectileController;
 import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.entity.character.Player;
 import ch.cpnv.roguetale.entity.projectile.Arrow;
+import ch.cpnv.roguetale.weapon.Weapon;
 
 public class Game extends BasicGame {
 	
@@ -53,6 +54,8 @@ public class Game extends BasicGame {
 		this.playerController = new PlayerController();
 		this.projectileController = new ProjectileController();
 		this.mapController = new MapController(gc);
+		
+		Weapon.setProjectileController(projectileController);
 		
 		Vector2f arrowPosition = new Vector2f(10, -100);
 		projectileController.addProjectile(new Arrow(arrowPosition, Direction.UP));

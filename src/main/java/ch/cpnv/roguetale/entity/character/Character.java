@@ -48,11 +48,11 @@ public class Character extends MovableItem {
 	}
 	
 	public void primaryAttack(Direction direction) {
-		primaryWeapon.attack(direction, this);
+		primaryWeapon.attack(this);
 	}
 	
 	public void secondaryAttack(Direction direction) {
-		primaryWeapon.attack(direction, this);
+		primaryWeapon.attack(this);
 	}
 	
 	public Boolean isDead() {

@@ -1,9 +1,11 @@
 package ch.cpnv.roguetale.weapon;
 
-import ch.cpnv.roguetale.entity.Direction;
+import ch.cpnv.roguetale.controller.ProjectileController;
 import ch.cpnv.roguetale.entity.character.Character;
 
 public abstract class Weapon {
+	protected static ProjectileController projectileController;
+	
 	protected String name;
 	protected int damage;
 	// Cooldown in miliseconds
@@ -17,6 +19,9 @@ public abstract class Weapon {
 		this.cooldown = cooldown;
 	}
 
+	public static void setProjectileController(ProjectileController projectileController) {
+		Weapon.projectileController = projectileController;
+	}
 	
 	public String getName() {
 		return name;
@@ -49,7 +54,7 @@ public abstract class Weapon {
 		return this.currentCooldown == 0;
 	}
 
-	public void attack(Direction direction, Character character) {
+	public void attack(Character attacker) {
 		// The attack is made inside children classes
 		this.currentCooldown = this.cooldown;
 	}
