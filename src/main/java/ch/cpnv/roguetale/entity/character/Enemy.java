@@ -17,8 +17,9 @@ public class Enemy extends Character {
 		
 	}
 
-	protected void moveTowardPlayer() {
-		
+	public void moveTowardPlayer(Player p) {
+		float enX = this.getPosition().getX();
+		float enY = this.getPosition().getY();
 	}
 
 }

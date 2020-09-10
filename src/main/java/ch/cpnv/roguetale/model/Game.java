@@ -8,6 +8,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
+import ch.cpnv.roguetale.controller.EnemyController;
 import ch.cpnv.roguetale.controller.MapController;
 import ch.cpnv.roguetale.controller.PlayerController;
 import ch.cpnv.roguetale.controller.ProjectileController;
@@ -20,6 +21,7 @@ public class Game extends BasicGame {
 	private PlayerController playerController;
 	private ProjectileController projectileController;
 	private MapController mapController;
+	private EnemyController enemyController;
 	private int width;
 	private int height;
 	@SuppressWarnings("unused")
@@ -52,6 +54,7 @@ public class Game extends BasicGame {
 		this.playerController = new PlayerController();
 		this.projectileController = new ProjectileController();
 		this.mapController = new MapController(gc);
+		this.enemyController = new EnemyController();
 		
 		Weapon.setProjectileController(projectileController);
 		
