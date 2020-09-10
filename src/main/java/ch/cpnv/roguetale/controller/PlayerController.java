@@ -74,6 +74,17 @@ public class PlayerController implements Controller {
 		}
 	}
 	
+	public void mousePressed(int button, int x, int y) {
+		switch(button) {
+			case Input.MOUSE_LEFT_BUTTON:
+				player.primaryAttack();
+				break;
+			case Input.MOUSE_RIGHT_BUTTON:
+				player.secondaryAttack();
+				break;
+		}
+	}
+	
 	public void updateDirection(GameContainer gc) {
 		Boolean isStillMoving = false;
 		for (int key : MOVING_KEY.keySet()) {
