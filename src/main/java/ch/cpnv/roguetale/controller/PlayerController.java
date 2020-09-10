@@ -85,8 +85,16 @@ public class PlayerController implements Controller {
 				break;
 		}
 	}
+
+	public Player getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
 	
-	public void updateDirection(GameContainer gc) {
+	protected void updateDirection(GameContainer gc) {
 		Boolean isStillMoving = false;
 		for (int key : MOVING_KEYS.keySet()) {
 			if (gc.getInput().isKeyDown(key)) {
@@ -96,14 +104,5 @@ public class PlayerController implements Controller {
 		}
 		
 		player.setMoving(isStillMoving);
-	}
-
-
-	public Player getPlayer() {
-		return player;
-	}
-
-	public void setPlayer(Player player) {
-		this.player = player;
 	}
 }
