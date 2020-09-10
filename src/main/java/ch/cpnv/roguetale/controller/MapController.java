@@ -10,7 +10,7 @@ import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.entity.character.Player;
 
-public class MapController {
+public class MapController implements Controller {
 	private Image background;
 	private Vector<Vector2f> map = new Vector<Vector2f>();
 	private static final int DIMENSION_BACKGROUND = 70;
@@ -19,7 +19,8 @@ public class MapController {
 		this.background = new Image("ch\\cpnv\\roguetale\\images\\background\\tile.png");
 	}
 	
-	public void update(GameContainer gc, Player player) {
+	@Override
+	public void update(GameContainer gc, int delta, Player player) {
 		Vector2f pos = player.getPosition();
 		int y = Math.round(pos.getY());
 		int x = Math.round(pos.getX());
@@ -39,6 +40,7 @@ public class MapController {
 		}
 	}
 	
+	@Override
 	public void render(GameContainer gc, Graphics g, Player p) {
 		Image bg = this.getBackground();
 		Vector<Vector2f> map = this.getMap();
@@ -77,6 +79,18 @@ public class MapController {
 
 	public void setMap(Vector<Vector2f> map) {
 		this.map = map;
+	}
+
+	@Override
+	public void keyReleased(int key, char c, GameContainer gc) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyPressed(int key, char c, GameContainer gc) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
