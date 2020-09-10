@@ -55,6 +55,11 @@ public class Character extends MovableItem {
 		secondaryWeapon.attack(this);
 	}
 	
+	public void reduceCooldown(int delta) {
+		primaryWeapon.reduceCooldown(delta);
+		secondaryWeapon.reduceCooldown(delta);
+	}
+	
 	public Boolean isDead() {
 		return this.currentHealth == 0;
 	}

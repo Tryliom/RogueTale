@@ -10,18 +10,19 @@ import ch.cpnv.roguetale.entity.projectile.Arrow;
 public class Bow extends RangedWeapon {
 
 	public Bow() {
-		super("Bow", 1, 500, 10);
+		super("Bow", 1, 1000, 10);
 	}
 
 	@Override
-	public void attack(Character attacker) {
-		// TODO: Attack action
-		super.attack(attacker);
-		try {
-			// TODO we probably need to clone the char position (getPosition should do it)
-			projectileController.addProjectile(new Arrow(attacker.getPosition(), attacker.getDirection()));
-		} catch (SlickException e) {
-			e.printStackTrace();
+	public void attack(Character attacker) {		
+		if(canAttack()) {
+			try {
+				projectileController.addProjectile(new Arrow(attacker.getPosition(), attacker.getDirection()));
+			} catch (SlickException e) {
+				e.printStackTrace();
+			}
 		}
+		
+		super.attack(attacker);
 	}
 }

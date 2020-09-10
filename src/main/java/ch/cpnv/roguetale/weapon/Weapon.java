@@ -17,6 +17,7 @@ public abstract class Weapon {
 		this.name = name;
 		this.damage = damage;
 		this.cooldown = cooldown;
+		currentCooldown = 0;
 	}
 
 	public static void setProjectileController(ProjectileController projectileController) {
@@ -26,41 +27,24 @@ public abstract class Weapon {
 	public String getName() {
 		return name;
 	}
-	public void setName(String name) {
-		this.name = name;
-	}
+	
 	public int getDamage() {
 		return damage;
-	}
-	public void setDamage(int damage) {
-		this.damage = damage;
-	}
-	public int getCooldown() {
-		return cooldown;
-	}
-	public void setCooldown(int cooldown) {
-		this.cooldown = cooldown;
-	}
-	
-	public int getCurrentCooldown() {
-		return currentCooldown;
-	}
-
-	public void setCurrentCooldown(int currentCooldown) {
-		this.currentCooldown = currentCooldown;
-	}
-
-	public Boolean canUse() {
-		return this.currentCooldown == 0;
 	}
 
 	public void attack(Character attacker) {
 		// The attack is made inside children classes
-		this.currentCooldown = this.cooldown;
+		if(canAttack()) {
+			this.currentCooldown = this.cooldown;
+		}
 	}
 	
-	public void updateCooldown(int delta) {
-		this.currentCooldown -= delta * 1000;
+	protected boolean canAttack() {
+		return currentCooldown <= 0;
+	}
+	
+	public void reduceCooldown(int delta) {
+		this.currentCooldown -= delta;
 		if (this.currentCooldown < 0)
 			this.currentCooldown = 0;
 	}
