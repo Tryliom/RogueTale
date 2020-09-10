@@ -67,14 +67,17 @@ public class MapController implements Controller {
 	
 	@Override
 	public void keyReleased(int key, char c, GameContainer gc) {
-		// TODO Auto-generated method stub
-		
+		// Nothing to do
 	}
 
 	@Override
 	public void keyPressed(int key, char c, GameContainer gc) {
-		// TODO Auto-generated method stub
-		
+		// Nothing to do
+	}
+	
+	@Override
+	public void mousePressed(int button, int x, int y) {
+		// Nothing to do
 	}
 	
 	public Image getBackground() {
