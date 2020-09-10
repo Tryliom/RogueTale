@@ -58,6 +58,12 @@ public class PlayerController implements Controller {
 			this.player.setDirection(MOVING_KEY.get(key));
 			this.player.setMoving(true);
 		}
+		else if (Input.KEY_Q == key) {
+			player.primaryAttack();
+		}
+		else if (Input.KEY_E == key) {
+			player.secondaryAttack();
+		}
 	}
 	
 	@Override

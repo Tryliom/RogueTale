@@ -41,7 +41,8 @@ public class DrawableItem {
 	}
 
 	public Vector2f getPosition() {
-		return position;
+		// clone of the position
+		return new Vector2f(position.x, position.y);
 	}
 	
 	public float getXLeft() {

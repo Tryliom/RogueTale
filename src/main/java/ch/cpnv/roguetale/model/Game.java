@@ -88,6 +88,14 @@ public class Game extends BasicGame {
 		this.playerController.keyPressed(key, c, this.gc);
 	}
 	
+	// TODO move it to playerController
+	@Override 
+	public void mousePressed(int button, int x, int y) {
+		System.out.println("Mouse pressed");
+		playerController.getPlayer().primaryAttack();
+		playerController.getPlayer().secondaryAttack();
+	}
+	
 	// Get the coordinate of the UP LEFT corner of the screen
 	protected Vector2f getSlickOrigin() {
 		Player player = playerController.getPlayer();
