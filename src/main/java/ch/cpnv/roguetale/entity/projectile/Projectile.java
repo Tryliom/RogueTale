@@ -7,11 +7,17 @@ import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.entity.MovableItem;
 
 public abstract class Projectile extends MovableItem {
-	protected int remaining_time;
+	protected int remainingTime;
 	
 	public Projectile(SpriteSheet ss, Vector2f position, int speed, Direction direction, int lifespan) {
 		super(ss, position, speed, direction, true);
-		remaining_time = lifespan;
+		remainingTime = lifespan;
+	}
+	
+	@Override
+	public void move(int delta) {
+		super.move(delta);
+		remainingTime -= delta;
 	}
 	
 	@Override
@@ -36,5 +42,9 @@ public abstract class Projectile extends MovableItem {
 			default:
 				break;
 		}
+	}
+	
+	public Boolean isExpired() {
+		return remainingTime <= 0;
 	}
 }
