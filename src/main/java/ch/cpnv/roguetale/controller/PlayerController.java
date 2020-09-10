@@ -51,21 +51,22 @@ public class PlayerController {
 	public void keyReleased(int key, char c, GameContainer gc) {
 		// If direction key is released, check that other key are not pressed to disallowing player to move unless change direction of player
 		if (this.MOVING_KEY.containsKey(key)) {
-			if (!setDirectionIfPressed(gc))
-				this.player.setMoving(false);
+			updateDirection(gc);
 		}
 	}
 	
-	public boolean setDirectionIfPressed(GameContainer gc) {
+	public void updateDirection(GameContainer gc) {
+		Boolean isStillMoving = false;
 		for (int key : MOVING_KEY.keySet()) {
 			if (gc.getInput().isKeyDown(key)) {
 				this.player.setDirection(MOVING_KEY.get(key));
-				return true;
+				isStillMoving = true;
 			}
 		}
 		
-		return false;
+		player.setMoving(isStillMoving);
 	}
+
 
 	public Player getPlayer() {
 		return player;
