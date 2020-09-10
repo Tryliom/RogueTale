@@ -23,28 +23,25 @@ public class Character extends MovableItem {
 		return currentHealth;
 	}
 
-	public void setCurrentHealth(int currentHealth) {
-		this.currentHealth = currentHealth;
-	}
-
 	public int getMaxHealth() {
 		return maxHealth;
 	}
 
-	public void setMaxHealth(int maxHealth) {
-		this.maxHealth = maxHealth;
+	public void setPrimaryWeapon(Weapon weapon) {
+		this.primaryWeapon = weapon;
 	}
 
-	public void setPrimaryWeapon(Weapon primaryWeapon) {
-		this.primaryWeapon = primaryWeapon;
-	}
-
-	public void setSecondaryWeapon(Weapon secondaryWeapon) {
-		this.secondaryWeapon = secondaryWeapon;
+	public void setSecondaryWeapon(Weapon weapon) {
+		this.secondaryWeapon = weapon;
 	}
 	
+	// TODO prevent currentHealth to become higher than maxHealth
 	public void updateHealth(int health) {
 		this.currentHealth += health;
+	}
+	
+	public Boolean isDead() {
+		return this.currentHealth == 0;
 	}
 	
 	public void primaryAttack() {
@@ -58,9 +55,5 @@ public class Character extends MovableItem {
 	public void reduceCooldown(int delta) {
 		primaryWeapon.reduceCooldown(delta);
 		secondaryWeapon.reduceCooldown(delta);
-	}
-	
-	public Boolean isDead() {
-		return this.currentHealth == 0;
 	}
 }
