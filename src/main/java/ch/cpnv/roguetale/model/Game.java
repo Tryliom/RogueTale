@@ -49,9 +49,6 @@ public class Game extends BasicGame {
 		player.draw(origin);
 		
 		// Draw projectile
-		g.drawString("X: " + projectile.getPosition().x + ", Y: " + projectile.getPosition().y, 0, 80);
-		g.drawString("Origin (" + origin.x + ", " + origin.y + ")", 0, 100);
-		g.drawString("Position (" + (projectile.getPosition().x - origin.x) + ", " + (projectile.getPosition().y - origin.y) + ")", 0, 120);
 		projectile.draw(origin);
 	}
 
