@@ -34,10 +34,7 @@ public class Game extends BasicGame {
 
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException {
-		// Define values
 		Player player = this.playerController.getPlayer();
-		Vector2f pos = player.getPosition();
-		
 		this.mapController.render(gc, g, player);
 		this.playerController.render(gc, g, player);
 		
@@ -95,7 +92,7 @@ public class Game extends BasicGame {
 	
 	// Get the coordinate of the UP LEFT corner of the screen
 	protected Vector2f getSlickOrigin() {
-		Player player = controller.getPlayerController().getPlayer();
+		Player player = playerController.getPlayer();
 		return new Vector2f(player.getPosition().x - this.width/2, player.getPosition().y + this.height/2);
 	}
 

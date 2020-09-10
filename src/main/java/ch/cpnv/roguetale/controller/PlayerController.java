@@ -42,7 +42,7 @@ public class PlayerController implements Controller {
 		g.setColor(new Color(200, 60, 60));
 		g.drawString("Joueur", 0, 20);
 		g.drawString("X: "+p.getPosition().x+", Y: "+p.getPosition().y, 0, 40);
-		player.draw(origin);
+		player.draw(origin, gc);
 	}
 
 	@Override
