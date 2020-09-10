@@ -7,8 +7,8 @@ import org.newdawn.slick.SpriteSheet;
 import ch.cpnv.roguetale.entity.Direction;
 
 public class Arrow extends Projectile {
-	static protected final int SPEED = 10;
-	static protected final int LIFESPAN = 500;
+	static protected final int SPEED = 100;
+	static protected final int LIFESPAN = 5000;
 	static protected final int WIDTH = 32;
 	static protected final int HEIGHT = 18;
 	

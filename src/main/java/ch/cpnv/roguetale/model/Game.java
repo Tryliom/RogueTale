@@ -11,9 +11,7 @@ import org.newdawn.slick.SlickException;
 import ch.cpnv.roguetale.controller.MapController;
 import ch.cpnv.roguetale.controller.PlayerController;
 import ch.cpnv.roguetale.controller.ProjectileController;
-import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.entity.character.Player;
-import ch.cpnv.roguetale.entity.projectile.Arrow;
 import ch.cpnv.roguetale.weapon.Weapon;
 
 public class Game extends BasicGame {
@@ -57,11 +55,6 @@ public class Game extends BasicGame {
 		
 		Weapon.setProjectileController(projectileController);
 		
-		Vector2f arrowPosition = new Vector2f(10, -100);
-		projectileController.addProjectile(new Arrow(arrowPosition, Direction.UP));
-		arrowPosition = new Vector2f(100, -30);
-		projectileController.addProjectile(new Arrow(arrowPosition, Direction.LEFT));
-		
 		// Define values
 		gc.setShowFPS(false);
 	}
@@ -86,6 +79,11 @@ public class Game extends BasicGame {
 	@Override
 	public void keyPressed(int key, char c) {
 		this.playerController.keyPressed(key, c, this.gc);
+	}
+	
+	@Override 
+	public void mousePressed(int button, int x, int y) {
+		playerController.mousePressed(button, x, y);;
 	}
 	
 	// Get the coordinate of the UP LEFT corner of the screen

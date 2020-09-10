@@ -21,22 +21,21 @@ public class MovableItem extends DrawableItem {
 	}
 	
 	public void move(int delta) {
-		Vector2f pos = this.getPosition();
 		float movement = this.speed * delta / 1000f;
 		
 		switch (this.direction) {
 			// Note that y coordinate increase as the item goes down
 			case UP:
-				pos.translate(0, movement);
+				position.translate(0, movement);
 				break;
 			case DOWN:
-				pos.translate(0, -movement);
+				position.translate(0, -movement);
 				break;
 			case LEFT:
-				pos.translate(-movement, 0);
+				position.translate(-movement, 0);
 				break;
 			case RIGHT:
-				pos.translate(movement, 0);
+				position.translate(movement, 0);
 				break;
 			default:
 				break;

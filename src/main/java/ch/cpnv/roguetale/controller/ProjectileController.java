@@ -1,6 +1,7 @@
 package ch.cpnv.roguetale.controller;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.GameContainer;
@@ -26,8 +27,14 @@ public class ProjectileController implements Controller {
 
 	@Override
 	public void update(GameContainer gc, int delta, Player p) throws SlickException {
-		for(Projectile projectile : projectiles) {
+		// The remove method does not work in a "for(Projectile projectile : projectiles)" loop
+		// https://stackoverflow.com/questions/3184883/concurrentmodificationexception-for-arraylist
+		for(Iterator<Projectile> iterator = projectiles.iterator(); iterator.hasNext();) {
+			Projectile projectile = iterator.next();
 			projectile.move(delta);
+			if (projectile.isExpired()) {
+				iterator.remove();
+			}
 		}
 	}
 

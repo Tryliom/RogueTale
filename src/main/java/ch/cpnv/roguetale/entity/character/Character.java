@@ -47,12 +47,17 @@ public class Character extends MovableItem {
 		this.currentHealth += health;
 	}
 	
-	public void primaryAttack(Direction direction) {
+	public void primaryAttack() {
 		primaryWeapon.attack(this);
 	}
 	
-	public void secondaryAttack(Direction direction) {
-		primaryWeapon.attack(this);
+	public void secondaryAttack() {
+		secondaryWeapon.attack(this);
+	}
+	
+	public void reduceCooldown(int delta) {
+		primaryWeapon.reduceCooldown(delta);
+		secondaryWeapon.reduceCooldown(delta);
 	}
 	
 	public Boolean isDead() {

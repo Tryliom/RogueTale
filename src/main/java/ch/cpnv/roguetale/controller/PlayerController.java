@@ -48,6 +48,7 @@ public class PlayerController implements Controller {
 		if (this.player.isMoving()) {
 			this.player.move(delta);
 		}
+		this.player.reduceCooldown(delta);
 		
 	}
 	
@@ -58,6 +59,12 @@ public class PlayerController implements Controller {
 			this.player.setDirection(MOVING_KEY.get(key));
 			this.player.setMoving(true);
 		}
+		else if (Input.KEY_Q == key) {
+			player.primaryAttack();
+		}
+		else if (Input.KEY_E == key) {
+			player.secondaryAttack();
+		}
 	}
 	
 	@Override
@@ -65,6 +72,17 @@ public class PlayerController implements Controller {
 		// If direction key is released, check that other key are not pressed to disallowing player to move unless change direction of player
 		if (this.MOVING_KEY.containsKey(key)) {
 			updateDirection(gc);
+		}
+	}
+	
+	public void mousePressed(int button, int x, int y) {
+		switch(button) {
+			case Input.MOUSE_LEFT_BUTTON:
+				player.primaryAttack();
+				break;
+			case Input.MOUSE_RIGHT_BUTTON:
+				player.secondaryAttack();
+				break;
 		}
 	}
 	
