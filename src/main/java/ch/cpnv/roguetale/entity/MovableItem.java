@@ -48,6 +48,10 @@ public class MovableItem extends DrawableItem {
 		this.setImageDirection();
 	}
 	
+	public Direction getDirection() {
+		return direction;
+	}
+	
 	protected void setImageDirection() {
 		switch (this.direction) {
 		case DOWN:
