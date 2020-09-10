@@ -15,6 +15,27 @@ public abstract class MovableItem extends DrawableItem {
 		this.isMoving = isMoving;
 	}
 	
+	public void setSpeed(int speed) {
+		this.speed = speed;
+	}
+	
+	public Direction getDirection() {
+		return direction;
+	}
+	
+	public void setDirection(Direction direction) {
+		this.direction = direction;
+		this.setImageDirection();
+	}
+	
+	public Boolean isMoving() {
+		return isMoving;
+	}
+
+	public void setMoving(Boolean isMoving) {
+		this.isMoving = isMoving;
+	}
+	
 	@Override
 	public String toString() {
 		return "MovableItem (" + position.x + ", " + position.y + ")";
@@ -42,15 +63,6 @@ public abstract class MovableItem extends DrawableItem {
 		}
 	}
 	
-	public void setDirection(Direction direction) {
-		this.direction = direction;
-		this.setImageDirection();
-	}
-	
-	public Direction getDirection() {
-		return direction;
-	}
-	
 	protected void setImageDirection() {
 		switch (this.direction) {
 		case DOWN:
@@ -68,15 +80,4 @@ public abstract class MovableItem extends DrawableItem {
 		}
 	}
 	
-	public void setSpeed(int speed) {
-		this.speed = speed;
-	}
-	
-	public Boolean isMoving() {
-		return isMoving;
-	}
-
-	public void setMoving(Boolean moving) {
-		this.isMoving = moving;
-	}
 }
