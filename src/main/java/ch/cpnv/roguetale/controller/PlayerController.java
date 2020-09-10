@@ -49,7 +49,6 @@ public class PlayerController implements Controller {
 			this.player.move(delta);
 		}
 		this.player.reduceCooldown(delta);
-		
 	}
 	
 	@Override
@@ -75,6 +74,7 @@ public class PlayerController implements Controller {
 		}
 	}
 	
+	@Override
 	public void mousePressed(int button, int x, int y) {
 		switch(button) {
 			case Input.MOUSE_LEFT_BUTTON:
