@@ -4,7 +4,7 @@ import org.newdawn.slick.geom.Shape;
 
 import ch.cpnv.roguetale.entity.character.Character;
 
-public class MeleeWeapon extends Weapon {
+public abstract class MeleeWeapon extends Weapon {
 	protected Shape hitbox;
 
 	public MeleeWeapon(String name, int damage, int cooldown, Shape hitbox) {
