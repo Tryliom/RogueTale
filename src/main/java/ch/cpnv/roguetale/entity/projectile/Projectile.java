@@ -15,14 +15,14 @@ public abstract class Projectile extends MovableItem {
 	}
 	
 	@Override
-	public void move(int delta) {
-		super.move(delta);
-		remainingTime -= delta;
+	public String toString() {
+		return "Projectile (" + position.x + ", " + position.y + ")";
 	}
 	
 	@Override
-	public String toString() {
-		return "Projectile (" + position.x + ", " + position.y + ")";
+	public void move(int delta) {
+		super.move(delta);
+		remainingTime -= delta;
 	}
 	
 	@Override
