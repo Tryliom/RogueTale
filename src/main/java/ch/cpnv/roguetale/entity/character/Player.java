@@ -32,18 +32,18 @@ public class Player extends Character {
 	}
 	
 	public void updateExp(int exp) {
-		int totExp = this.currentExp + exp;
+		int totExp = currentExp + exp;
 		
 		if (totExp >= this.maxExp) {
 			// Level up !
-			this.currentExp = totExp - this.maxExp;
-			this.maxExp += 50;
-			this.level++;
-			this.maxHealth++;
-			this.updateHealth(1);
+			currentExp = totExp - maxExp;
+			maxExp += 50;
+			level++;
+			maxHealth++;
+			updateHealth(1);
 			
 		} else {
-			this.currentExp = totExp;
+			currentExp = totExp;
 		}
 	}
 
