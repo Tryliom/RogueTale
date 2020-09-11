@@ -39,13 +39,13 @@ public abstract class Weapon {
 		}
 	}
 	
-	protected boolean canAttack() {
-		return currentCooldown <= 0;
-	}
-	
 	public void reduceCooldown(int delta) {
 		this.currentCooldown -= delta;
 		if (this.currentCooldown < 0)
 			this.currentCooldown = 0;
+	}
+	
+	protected boolean canAttack() {
+		return currentCooldown <= 0;
 	}
 }

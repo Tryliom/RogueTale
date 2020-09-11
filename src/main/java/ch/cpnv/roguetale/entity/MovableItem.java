@@ -3,16 +3,37 @@ package ch.cpnv.roguetale.entity;
 import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.SpriteSheet;
 
-public class MovableItem extends DrawableItem {
+public abstract class MovableItem extends DrawableItem {
 	protected int speed;
 	protected Direction direction;
-	protected Boolean moving;
+	protected Boolean isMoving;
 	
-	public MovableItem(SpriteSheet ss, Vector2f position, int speed, Direction direction, Boolean moving) {
+	public MovableItem(SpriteSheet ss, Vector2f position, int speed, Direction direction, Boolean isMoving) {
 		super(ss, position);
 		this.setDirection(direction);
 		this.speed = speed;
-		this.moving = moving;
+		this.isMoving = isMoving;
+	}
+	
+	public void setSpeed(int speed) {
+		this.speed = speed;
+	}
+	
+	public Direction getDirection() {
+		return direction;
+	}
+	
+	public void setDirection(Direction direction) {
+		this.direction = direction;
+		this.setImageDirection();
+	}
+	
+	public Boolean isMoving() {
+		return isMoving;
+	}
+
+	public void setMoving(Boolean isMoving) {
+		this.isMoving = isMoving;
 	}
 	
 	@Override
@@ -42,15 +63,6 @@ public class MovableItem extends DrawableItem {
 		}
 	}
 	
-	public void setDirection(Direction direction) {
-		this.direction = direction;
-		this.setImageDirection();
-	}
-	
-	public Direction getDirection() {
-		return direction;
-	}
-	
 	protected void setImageDirection() {
 		switch (this.direction) {
 		case DOWN:
@@ -68,15 +80,4 @@ public class MovableItem extends DrawableItem {
 		}
 	}
 	
-	public void setSpeed(int speed) {
-		this.speed = speed;
-	}
-	
-	public Boolean isMoving() {
-		return moving;
-	}
-
-	public void setMoving(Boolean moving) {
-		this.moving = moving;
-	}
 }
