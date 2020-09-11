@@ -7,7 +7,7 @@ import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.entity.MovableItem;
 import ch.cpnv.roguetale.weapon.Weapon;
 
-public class Character extends MovableItem {
+public abstract class Character extends MovableItem {
 	protected int currentHealth;
 	protected int maxHealth;
 	protected Weapon primaryWeapon;
