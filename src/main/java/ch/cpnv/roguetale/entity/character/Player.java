@@ -7,13 +7,21 @@ import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.weapon.Weapon;
 
 public class Player extends Character {
+	protected final static int STARTING_MAX_HEALTH = 3;
+	
 	protected int level;
 	protected int currentExp;
 	protected int maxExp;
 
-	public Player(SpriteSheet ss, Vector2f position, int speed, Direction direction, boolean moving, Weapon primaryWeapon,
-			Weapon secondaryWeapon) {
-		super(ss, position, speed, direction, moving, primaryWeapon, secondaryWeapon);
+	public Player(SpriteSheet ss, 
+			Vector2f position, 
+			int speed, 
+			Direction direction, 
+			boolean moving, 
+			Weapon primaryWeapon,
+			Weapon secondaryWeapon
+			) {
+		super(ss, position, speed, direction, moving, primaryWeapon, secondaryWeapon, STARTING_MAX_HEALTH);
 		level = 1;
 		currentExp = 0;
 		maxExp = 100;

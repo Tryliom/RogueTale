@@ -11,6 +11,7 @@ import org.newdawn.slick.SlickException;
 import ch.cpnv.roguetale.controller.MapController;
 import ch.cpnv.roguetale.controller.PlayerController;
 import ch.cpnv.roguetale.controller.ProjectileController;
+import ch.cpnv.roguetale.controller.UiController;
 import ch.cpnv.roguetale.entity.character.Player;
 import ch.cpnv.roguetale.weapon.Weapon;
 
@@ -20,6 +21,7 @@ public class Game extends BasicGame {
 	private PlayerController playerController;
 	private ProjectileController projectileController;
 	private MapController mapController;
+	private UiController uiController;
 	private int width;
 	private int height;
 	@SuppressWarnings("unused")
@@ -38,6 +40,7 @@ public class Game extends BasicGame {
 		this.mapController.render(gc, g, origin, player);
 		this.playerController.render(gc, g, origin, player);
 		this.projectileController.render(gc, g, origin, player);
+		this.uiController.render(gc, g, origin, player);
 		
 		// Define color before an action
 		g.setColor(new Color(60, 60, 200));
@@ -52,6 +55,7 @@ public class Game extends BasicGame {
 		this.playerController = new PlayerController();
 		this.projectileController = new ProjectileController();
 		this.mapController = new MapController(gc);
+		this.uiController = new UiController();
 		
 		Weapon.setProjectileController(projectileController);
 		
@@ -65,6 +69,7 @@ public class Game extends BasicGame {
 		this.playerController.update(gc, delta, player);
 		this.mapController.update(gc, delta, player);
 		this.projectileController.update(gc, delta, player);
+		this.uiController.update(gc, delta, player);
 	}
 	
 	@Override
