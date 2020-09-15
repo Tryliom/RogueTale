@@ -50,7 +50,7 @@ public class ProjectileController implements Controller {
 		projectiles.add(projectile);
 	}
 	
-	public void moveProjectiles(int delta) {
+	private void moveProjectiles(int delta) {
 		for(Projectile projectile : projectiles) {
 			projectile.move(delta);
 		}
