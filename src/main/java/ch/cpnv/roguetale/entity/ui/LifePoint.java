@@ -27,7 +27,7 @@ public class LifePoint extends DrawableItem {
 		if (full) {
 			this.image = this.spritesheet.getSprite(0, 0);
 		} else {
-			this.image = this.spritesheet.getSprite(0, 3);
+			this.image = this.spritesheet.getSprite(2, 0);
 		}
 		this.image = this.image.getScaledCopy(DISPLAY_DIMENSION, DISPLAY_DIMENSION);
 		
