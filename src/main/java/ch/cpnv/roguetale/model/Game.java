@@ -43,8 +43,8 @@ public class Game extends BasicGame {
 		this.uiController.render(gc, g, origin, player);
 		
 		// Define color before an action
-		g.setColor(new Color(60, 60, 200));
-		g.drawString("RogueTale", 0, 0);
+		//g.setColor(new Color(60, 60, 200));
+		//g.drawString("RogueTale", 0, 0);
 	}
 
 	@Override
