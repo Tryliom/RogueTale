@@ -34,18 +34,18 @@ public abstract class DrawableItem {
 	}
 	
 	public float getXLeft() {
-		return position.x + image.getWidth() / 2;
-	}
-	
-	public float getXRight() {
 		return position.x - image.getWidth() / 2;
 	}
 	
-	public float getYTop() {
-		return position.y + image.getHeight() / 2;
+	public float getXRight() {
+		return position.x + image.getWidth() / 2;
 	}
 	
 	public float getYBottom() {
+		return position.y - image.getHeight() / 2;
+	}
+	
+	public float getYTop() {
 		return position.y + image.getHeight() / 2;
 	}
 	
@@ -69,7 +69,7 @@ public abstract class DrawableItem {
 		// Note that the screen origin is the UP LEFT corner
 		return getXRight() >= screenOrigin.x
 				&& getXLeft() <= screenOrigin.x + gc.getWidth()
-				&& getYTop() >= screenOrigin.y - gc.getWidth()
+				&& getYTop() >= screenOrigin.y - gc.getHeight()
 				&& getYBottom() <= screenOrigin.y;
 	}
 	
