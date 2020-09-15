@@ -11,6 +11,9 @@ import ch.cpnv.roguetale.entity.character.Player;
 import ch.cpnv.roguetale.entity.ui.LifePoint;
 
 public class UiController implements Controller {
+	protected static final int Y_POSITION = 10;
+	protected static final int X_POSITION = 10;
+	
 	protected ArrayList<LifePoint> lifePoints;
 	
 	public UiController() {
@@ -19,12 +22,10 @@ public class UiController implements Controller {
 
 	@Override
 	public void render(GameContainer gc, Graphics g, Vector2f origin, Player p) throws SlickException {
-		int LifePointWidth = 300;
-		int x = 10;
-		int y = 10;
+		int x = X_POSITION;
 		for(LifePoint lifePoint : lifePoints) {
-			lifePoint.getSprite().draw(x, y);
-			x += LifePointWidth;
+			lifePoint.getSprite().draw(x, Y_POSITION);
+			x += lifePoint.getSprite().getWidth();
 		}
 
 	}
