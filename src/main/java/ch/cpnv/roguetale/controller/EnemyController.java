@@ -19,11 +19,9 @@ public class EnemyController implements Controller {
 	}
 
 	@Override
-	public void render(GameContainer gc, Graphics g, Player p) throws SlickException {
-		Vector2f origin = new Vector2f(p.getPosition().x - gc.getWidth()/2, p.getPosition().y + gc.getHeight()/2);
-		
+	public void render(GameContainer gc, Graphics g, Vector2f origin, Player p) throws SlickException {
 		for (Enemy en : this.enemies) {
-			en.draw(origin);
+			en.draw(origin, gc);
 		}
 
 	}
@@ -31,10 +29,13 @@ public class EnemyController implements Controller {
 	@Override
 	public void update(GameContainer gc, int delta, Player p) throws SlickException {
 		for (Enemy en : this.enemies) {
+			if (en.isFaceToPlayer(p) && en.isInPlayerRange(p))
+				en.act(p);
+			else 
+				en.moveTowardPlayer(p);
 			if (en.isMoving())
 				en.move(delta);
-			else
-				en.moveTowardPlayer(p);
+			en.reduceCooldown(delta);
 		}
 
 	}
@@ -49,6 +50,12 @@ public class EnemyController implements Controller {
 	public void keyPressed(int key, char c, GameContainer gc) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void mousePressed(int button, int x, int y) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -7,4 +7,14 @@ public abstract class RangedWeapon extends Weapon {
 		super(name, damage, cooldown);
 		this.range = range;
 	}
+
+	public int getRange() {
+		return range;
+	}
+
+	public void setRange(int range) {
+		this.range = range;
+	}
+	
+	
 }

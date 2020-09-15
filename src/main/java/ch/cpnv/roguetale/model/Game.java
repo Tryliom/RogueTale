@@ -40,6 +40,7 @@ public class Game extends BasicGame {
 		this.mapController.render(gc, g, origin, player);
 		this.playerController.render(gc, g, origin, player);
 		this.projectileController.render(gc, g, origin, player);
+		this.enemyController.render(gc, g, origin, player);
 		
 		// Define color before an action
 		g.setColor(new Color(60, 60, 200));
@@ -53,7 +54,7 @@ public class Game extends BasicGame {
 		this.width = gc.getWidth();
 		this.playerController = new PlayerController();
 		this.projectileController = new ProjectileController();
-		this.mapController = new MapController(gc);
+		this.mapController = new MapController();
 		this.enemyController = new EnemyController();
 		
 		Weapon.setProjectileController(projectileController);
@@ -68,6 +69,7 @@ public class Game extends BasicGame {
 		this.playerController.update(gc, delta, player);
 		this.mapController.update(gc, delta, player);
 		this.projectileController.update(gc, delta, player);
+		this.enemyController.update(gc, delta, player);
 	}
 	
 	@Override

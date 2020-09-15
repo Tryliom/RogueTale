@@ -53,7 +53,9 @@ public abstract class Character extends MovableItem {
 	}
 	
 	public void reduceCooldown(int delta) {
-		primaryWeapon.reduceCooldown(delta);
-		secondaryWeapon.reduceCooldown(delta);
+		if (primaryWeapon != null)
+			primaryWeapon.reduceCooldown(delta);
+		if (secondaryWeapon != null)
+			secondaryWeapon.reduceCooldown(delta);
 	}
 }

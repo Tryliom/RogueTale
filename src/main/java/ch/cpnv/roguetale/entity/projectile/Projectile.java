@@ -9,9 +9,9 @@ import ch.cpnv.roguetale.entity.MovableItem;
 public abstract class Projectile extends MovableItem {
 	protected int remainingTime;
 	
-	public Projectile(SpriteSheet ss, Vector2f position, int speed, Direction direction, int lifespan) {
+	public Projectile(SpriteSheet ss, Vector2f position, int speed, Direction direction, int range) {
 		super(ss, position, speed, direction, true);
-		remainingTime = lifespan;
+		remainingTime = range / speed * 1000;
 	}
 	
 	@Override
