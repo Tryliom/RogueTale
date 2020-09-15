@@ -50,6 +50,11 @@ public abstract class Character extends MovableItem {
 		this.currentHealth += health;
 	}
 	
+	public void updateMaxHealth(int health) {
+		maxHealth += health;
+		updateHealth(health);
+	}
+	
 	public Boolean isDead() {
 		return this.currentHealth == 0;
 	}
