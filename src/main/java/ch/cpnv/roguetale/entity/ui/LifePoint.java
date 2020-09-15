@@ -7,6 +7,8 @@ import org.newdawn.slick.SpriteSheet;
 import ch.cpnv.roguetale.entity.DrawableItem;
 
 public class LifePoint extends DrawableItem {
+	protected static final int DISPLAY_DIMENSION = 30;
+	
 	protected Boolean full;
 	
 	static protected final String SPRITESHEET_PATH = "ch\\cpnv\\roguetale\\images\\ui\\life.png";
@@ -27,6 +29,7 @@ public class LifePoint extends DrawableItem {
 		} else {
 			this.image = this.spritesheet.getSprite(0, 3);
 		}
+		this.image = this.image.getScaledCopy(DISPLAY_DIMENSION, DISPLAY_DIMENSION);
 		
 	}
 
