@@ -65,7 +65,7 @@ public class Enemy extends Character {
 				break;
 		}
 
-		return enRect.intersects(pRect);
+		return enRect.intersects(pRect) || enRect.contains(pRect);
 	}
 	
 	public RangedWeapon getRangedWeapon() {

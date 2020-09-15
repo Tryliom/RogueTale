@@ -10,7 +10,7 @@ import ch.cpnv.roguetale.entity.projectile.Arrow;
 public class Bow extends RangedWeapon {
 
 	public Bow() {
-		super("Bow", 1, 500, 500);
+		super("Bow", 1, 3000, 500);
 	}
 
 	@Override
