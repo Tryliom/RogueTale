@@ -11,8 +11,8 @@ import ch.cpnv.roguetale.entity.character.Player;
 import ch.cpnv.roguetale.entity.ui.LifePoint;
 
 public class UiController implements Controller {
-	protected static final int Y_POSITION = 10;
-	protected static final int X_POSITION = 10;
+	protected static final int Y_POSITION = 5;
+	protected static final int X_POSITION = 5;
 	
 	protected ArrayList<LifePoint> lifePoints;
 	

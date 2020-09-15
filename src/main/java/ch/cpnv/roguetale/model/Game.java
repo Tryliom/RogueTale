@@ -40,8 +40,8 @@ public class Game extends BasicGame {
 		ProjectileController.getInstance().render(gc, g, origin);
 		
 		// Define color before an action
-		g.setColor(new Color(60, 60, 200));
-		g.drawString("RogueTale", 0, 0);
+		//g.setColor(new Color(60, 60, 200));
+		//g.drawString("RogueTale", 0, 0);
 	}
 
 	@Override
