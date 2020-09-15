@@ -2,9 +2,9 @@ package ch.cpnv.roguetale.weapon;
 
 import org.newdawn.slick.geom.Shape;
 
-import ch.cpnv.roguetale.entity.Direction;
+import ch.cpnv.roguetale.entity.character.Character;
 
-public class MeleeWeapon extends Weapon {
+public abstract class MeleeWeapon extends Weapon {
 	protected Shape hitbox;
 
 	public MeleeWeapon(String name, int damage, int cooldown, Shape hitbox) {
@@ -12,7 +12,8 @@ public class MeleeWeapon extends Weapon {
 		this.hitbox = hitbox;
 	}
 
-	public void attack(Direction direction) {
-		super.attack(direction);
+	@Override
+	public void attack(Character attacker) {
+		super.attack(attacker);
 	}
 }

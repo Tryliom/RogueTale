@@ -17,7 +17,7 @@ import ch.cpnv.roguetale.weapon.ranged.Bow;
 
 public class PlayerController implements Controller {
 	private Player player;
-	private HashMap<Integer, Direction> MOVING_KEY = new HashMap<Integer, Direction>();
+	private final HashMap<Integer, Direction> MOVING_KEYS = new HashMap<Integer, Direction>();
 
 	public PlayerController() throws SlickException {
 		this.player = new Player(
@@ -29,20 +29,18 @@ public class PlayerController implements Controller {
 				new Knife(), 
 				new Bow());
 		// Put Input key who equals to direction
-		this.MOVING_KEY.put(Input.KEY_W, Direction.UP);
-		this.MOVING_KEY.put(Input.KEY_A, Direction.LEFT);
-		this.MOVING_KEY.put(Input.KEY_D, Direction.RIGHT);
-		this.MOVING_KEY.put(Input.KEY_S, Direction.DOWN);
+		this.MOVING_KEYS.put(Input.KEY_W, Direction.UP);
+		this.MOVING_KEYS.put(Input.KEY_A, Direction.LEFT);
+		this.MOVING_KEYS.put(Input.KEY_D, Direction.RIGHT);
+		this.MOVING_KEYS.put(Input.KEY_S, Direction.DOWN);
 	}
 	
 	@Override
-	public void render(GameContainer gc, Graphics g, Player p) throws SlickException {
-		Vector2f origin = new Vector2f(player.getPosition().x - gc.getWidth()/2, player.getPosition().y + gc.getHeight()/2);
-		
+	public void render(GameContainer gc, Graphics g, Vector2f origin, Player p) throws SlickException {		
 		g.setColor(new Color(200, 60, 60));
 		g.drawString("Joueur", 0, 20);
 		g.drawString("X: "+p.getPosition().x+", Y: "+p.getPosition().y, 0, 40);
-		player.draw(origin);
+		player.draw(origin, gc);
 	}
 
 	@Override
@@ -50,38 +48,43 @@ public class PlayerController implements Controller {
 		if (this.player.isMoving()) {
 			this.player.move(delta);
 		}
-		
+		this.player.reduceCooldown(delta);
 	}
 	
 	@Override
 	public void keyPressed(int key, char c, GameContainer gc) {
 		// If a direction key is pressed, set the direction of player and allow it to move
-		if (this.MOVING_KEY.containsKey(key)) {
-			this.player.setDirection(MOVING_KEY.get(key));
+		if (this.MOVING_KEYS.containsKey(key)) {
+			this.player.setDirection(MOVING_KEYS.get(key));
 			this.player.setMoving(true);
+		}
+		else if (Input.KEY_Q == key) {
+			player.primaryAttack();
+		}
+		else if (Input.KEY_E == key) {
+			player.secondaryAttack();
 		}
 	}
 	
 	@Override
 	public void keyReleased(int key, char c, GameContainer gc) {
 		// If direction key is released, check that other key are not pressed to disallowing player to move unless change direction of player
-		if (this.MOVING_KEY.containsKey(key)) {
+		if (this.MOVING_KEYS.containsKey(key)) {
 			updateDirection(gc);
 		}
 	}
 	
-	public void updateDirection(GameContainer gc) {
-		Boolean isStillMoving = false;
-		for (int key : MOVING_KEY.keySet()) {
-			if (gc.getInput().isKeyDown(key)) {
-				this.player.setDirection(MOVING_KEY.get(key));
-				isStillMoving = true;
-			}
+	@Override
+	public void mousePressed(int button, int x, int y) {
+		switch(button) {
+			case Input.MOUSE_LEFT_BUTTON:
+				player.primaryAttack();
+				break;
+			case Input.MOUSE_RIGHT_BUTTON:
+				player.secondaryAttack();
+				break;
 		}
-		
-		player.setMoving(isStillMoving);
 	}
-
 
 	public Player getPlayer() {
 		return player;
@@ -89,5 +92,17 @@ public class PlayerController implements Controller {
 
 	public void setPlayer(Player player) {
 		this.player = player;
+	}
+	
+	protected void updateDirection(GameContainer gc) {
+		Boolean isStillMoving = false;
+		for (int key : MOVING_KEYS.keySet()) {
+			if (gc.getInput().isKeyDown(key)) {
+				this.player.setDirection(MOVING_KEYS.get(key));
+				isStillMoving = true;
+			}
+		}
+		
+		player.setMoving(isStillMoving);
 	}
 }

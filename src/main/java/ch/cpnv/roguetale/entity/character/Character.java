@@ -7,7 +7,7 @@ import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.entity.MovableItem;
 import ch.cpnv.roguetale.weapon.Weapon;
 
-public class Character extends MovableItem {
+public abstract class Character extends MovableItem {
 	protected int currentHealth;
 	protected int maxHealth;
 	protected Weapon primaryWeapon;
@@ -23,34 +23,19 @@ public class Character extends MovableItem {
 		return currentHealth;
 	}
 
-	public void setCurrentHealth(int currentHealth) {
-		this.currentHealth = currentHealth;
-	}
-
 	public int getMaxHealth() {
 		return maxHealth;
 	}
 
-	public void setMaxHealth(int maxHealth) {
-		this.maxHealth = maxHealth;
+	public void setPrimaryWeapon(Weapon weapon) {
+		this.primaryWeapon = weapon;
 	}
 
-	public Weapon getPrimaryWeapon() {
-		return primaryWeapon;
-	}
-
-	public void setPrimaryWeapon(Weapon primaryWeapon) {
-		this.primaryWeapon = primaryWeapon;
-	}
-
-	public Weapon getSecondaryWeapon() {
-		return secondaryWeapon;
-	}
-
-	public void setSecondaryWeapon(Weapon secondaryWeapon) {
-		this.secondaryWeapon = secondaryWeapon;
+	public void setSecondaryWeapon(Weapon weapon) {
+		this.secondaryWeapon = weapon;
 	}
 	
+	// TODO prevent currentHealth to become higher than maxHealth
 	public void updateHealth(int health) {
 		this.currentHealth += health;
 	}
@@ -58,5 +43,19 @@ public class Character extends MovableItem {
 	public Boolean isDead() {
 		return this.currentHealth == 0;
 	}
-
+	
+	public void primaryAttack() {
+		primaryWeapon.attack(this);
+	}
+	
+	public void secondaryAttack() {
+		secondaryWeapon.attack(this);
+	}
+	
+	public void reduceCooldown(int delta) {
+		if (primaryWeapon != null)
+			primaryWeapon.reduceCooldown(delta);
+		if (secondaryWeapon != null)
+			secondaryWeapon.reduceCooldown(delta);
+	}
 }

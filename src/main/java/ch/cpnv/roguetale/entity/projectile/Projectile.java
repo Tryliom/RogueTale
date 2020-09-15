@@ -1,20 +1,28 @@
-package ch.cpnv.roguetale.entity;
+package ch.cpnv.roguetale.entity.projectile;
 
 import org.lwjgl.util.vector.Vector2f;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.SpriteSheet;
 
+import ch.cpnv.roguetale.entity.Direction;
+import ch.cpnv.roguetale.entity.MovableItem;
+
 public abstract class Projectile extends MovableItem {
-	protected int remaining_time;
+	protected int remainingTime;
 	
-	public Projectile(SpriteSheet ss, Vector2f position, int speed, Direction direction, int lifespan) {
+	public Projectile(SpriteSheet ss, Vector2f position, int speed, Direction direction, int range) {
 		super(ss, position, speed, direction, true);
-		remaining_time = lifespan;
+		remainingTime = range / speed * 1000;
 	}
 	
 	@Override
 	public String toString() {
 		return "Projectile (" + position.x + ", " + position.y + ")";
+	}
+	
+	@Override
+	public void move(int delta) {
+		super.move(delta);
+		remainingTime -= delta;
 	}
 	
 	@Override
@@ -34,5 +42,9 @@ public abstract class Projectile extends MovableItem {
 			default:
 				break;
 		}
+	}
+	
+	public Boolean isExpired() {
+		return remainingTime <= 0;
 	}
 }

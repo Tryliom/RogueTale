@@ -1,8 +1,6 @@
 package ch.cpnv.roguetale.weapon;
 
-import ch.cpnv.roguetale.entity.Direction;
-
-public class RangedWeapon extends Weapon {
+public abstract class RangedWeapon extends Weapon {
 	protected int range;
 
 	public RangedWeapon(String name, int damage, int cooldown, int range) {
@@ -17,8 +15,6 @@ public class RangedWeapon extends Weapon {
 	public void setRange(int range) {
 		this.range = range;
 	}
-
-	public void attack(Direction direction) {
-		super.attack(direction);
-	}
+	
+	
 }
