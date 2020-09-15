@@ -26,6 +26,8 @@ public class Game extends BasicGame {
 	private int height;
 	@SuppressWarnings("unused")
 	private int score;
+	
+	private int testTimer = 0;
 
 	public Game() {
 		// Title windows name
@@ -70,6 +72,13 @@ public class Game extends BasicGame {
 		this.mapController.update(gc, delta, player);
 		this.projectileController.update(gc, delta, player);
 		this.uiController.update(gc, delta, player);
+		
+		// Test player health
+		testTimer += delta;
+		if (testTimer >= 1000) {
+			player.updateHealth(-1);
+			testTimer -= 1000;
+		}
 	}
 	
 	@Override
