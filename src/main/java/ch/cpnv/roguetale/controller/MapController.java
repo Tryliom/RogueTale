@@ -8,22 +8,29 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-import ch.cpnv.roguetale.entity.character.Player;
-
 public class MapController implements Controller {
+	private static MapController instance = null;
+	
 	private Image background;
 	private final Vector<Vector2f> map = new Vector<Vector2f>();
 	private static final int TILE_DIMENSION = 70;
 	
-	public MapController() throws SlickException {
+	public static MapController getInstance() throws SlickException {
+		if(instance == null) {
+			instance = new MapController();
+		}
+		return instance;
+	}
+	
+	private MapController() throws SlickException {
 		this.background = new Image("ch\\cpnv\\roguetale\\images\\background\\tile.png");
 	}
 	
 	@Override
-	public void render(GameContainer gc, Graphics g, Vector2f origin, Player p) {
+	public void render(GameContainer gc, Graphics g, Vector2f origin) throws SlickException {
 		Image bg = this.getBackground();
 		Vector<Vector2f> map = this.getMap();
-		Vector2f pos = p.getPosition();
+		Vector2f pos = PlayerController.getInstance().getPlayer().getPosition();
 		int height = gc.getHeight();
 		int width = gc.getWidth();
 		int doubleChunk = TILE_DIMENSION*2;
@@ -45,8 +52,8 @@ public class MapController implements Controller {
 	}
 	
 	@Override
-	public void update(GameContainer gc, int delta, Player player) {
-		Vector2f pos = player.getPosition();
+	public void update(GameContainer gc, int delta) throws SlickException {
+		Vector2f pos = PlayerController.getInstance().getPlayer().getPosition();
 		int y = Math.round(pos.getY());
 		int x = Math.round(pos.getX());
 		int minHeight = - gc.getHeight()/2 + y;

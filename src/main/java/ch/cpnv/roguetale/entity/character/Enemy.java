@@ -1,9 +1,11 @@
 package ch.cpnv.roguetale.entity.character;
 
 import org.lwjgl.util.vector.Vector2f;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 
+import ch.cpnv.roguetale.controller.PlayerController;
 import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.weapon.MeleeWeapon;
 import ch.cpnv.roguetale.weapon.RangedWeapon;
@@ -16,17 +18,18 @@ public class Enemy extends Character {
 		super(ss, position, speed, direction, moving, primaryWeapon, secondaryWeapon);
 	}
 	
-	public void chooseAction(Player p) {
-		if (isFacingPlayer(p) && isInPlayerRange(p)) {
+	public void chooseAction() throws SlickException {
+		if (isFacingPlayer() && isInPlayerRange()) {
 			this.setMoving(false);
 			this.getRangedWeapon().attack(this);
 		}
 
 		else 
-			moveTowardPlayer(p);
+			moveTowardPlayer();
 	}
 
-	protected void moveTowardPlayer(Player p) {
+	protected void moveTowardPlayer() throws SlickException {
+		Player p = PlayerController.getInstance().getPlayer();
 		float diffX = this.getPosition().getX() - p.getPosition().getX();
 		float diffY = this.getPosition().getY() - p.getPosition().getY();
 		
@@ -47,7 +50,8 @@ public class Enemy extends Character {
 		this.setMoving(true);
 	}
 	
-	protected Boolean isFacingPlayer(Player p) {
+	protected Boolean isFacingPlayer() throws SlickException {
+		Player p = PlayerController.getInstance().getPlayer();
 		Rectangle enRect = new Rectangle(this.getPosition().getX(), this.getPosition().getY(), this.getSprite().getWidth(), this.getSprite().getHeight());
 		Rectangle pRect = new Rectangle(p.getPosition().getX(), p.getPosition().getY(), p.getSprite().getWidth(), p.getSprite().getHeight());
 		
@@ -89,13 +93,15 @@ public class Enemy extends Character {
 			return null;
 	}
 	
-	protected Boolean isInPlayerRange(Player p) {
+	protected Boolean isInPlayerRange() throws SlickException {
+		
 		RangedWeapon rangedWeapon = this.getRangedWeapon();
 		
-		return rangedWeapon != null && rangedWeapon.getRange() > this.getRangeToPlayer(p);
+		return rangedWeapon != null && rangedWeapon.getRange() > this.getRangeToPlayer();
 	}
 	
-	protected float getRangeToPlayer(Player p) {
+	protected float getRangeToPlayer() throws SlickException {
+		Player p = PlayerController.getInstance().getPlayer();
 		float diffX = this.getPosition().getX() - p.getPosition().getX();
 		float diffY = this.getPosition().getY() - p.getPosition().getY();
 		

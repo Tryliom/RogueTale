@@ -8,25 +8,33 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-import ch.cpnv.roguetale.entity.character.Player;
 import ch.cpnv.roguetale.entity.projectile.Projectile;
 
 public class ProjectileController implements Controller {
+	private static ProjectileController instance = null;
+	
 	private final ArrayList<Projectile> projectiles;
 	
-	public ProjectileController() {
+	public static ProjectileController getInstance() throws SlickException {
+		if(instance == null) {
+			instance = new ProjectileController();
+		}
+		return instance;
+	}
+	
+	private ProjectileController() {
 		projectiles = new ArrayList<Projectile>();
 	}
 
 	@Override
-	public void render(GameContainer gc, Graphics g, Vector2f origin, Player p) throws SlickException {
+	public void render(GameContainer gc, Graphics g, Vector2f origin) throws SlickException {
 		for(Projectile projectile : projectiles) {
 			projectile.draw(origin, gc);
 		}
 	}
 
 	@Override
-	public void update(GameContainer gc, int delta, Player p) throws SlickException {
+	public void update(GameContainer gc, int delta) throws SlickException {
 		moveProjectiles(delta);
 		removeExpiredProjectiles();
 	}
