@@ -30,20 +30,25 @@ public class MapController implements Controller {
 	public void render(GameContainer gc, Graphics g, Vector2f origin) {
 		Image bg = this.getBackground();
 		Vector<Vector2f> map = this.getMap();
-		int height = gc.getHeight();
-		int width = gc.getWidth();
-		int doubleChunk = TILE_DIMENSION*2;
-		float minScreenX = origin.getX() - doubleChunk;
-		float maxScreenX = origin.getX() + width + doubleChunk;
-		float minScreenY = origin.getY() - height - doubleChunk;
-		float maxScreenY = origin.getY() + doubleChunk;
+		int xOrigin 	= Math.round(origin.x),
+			yOrigin 	= Math.round(origin.y),
+			height 		= gc.getHeight(),
+			width 		= gc.getWidth(),
+			doubleChunk = TILE_DIMENSION * 2,
+			minScreenX 	= xOrigin - doubleChunk,
+			maxScreenX 	= xOrigin + width + doubleChunk,
+			minScreenY 	= yOrigin - height - doubleChunk,
+			maxScreenY 	= yOrigin + doubleChunk;
+		
 		// Draw background
 		for (Vector2f vector : map) {
 			// Multiply by 70 for image dimension
-			float posMapX = vector.x*TILE_DIMENSION;
-			float posMapY = vector.y*TILE_DIMENSION;
-			float tilePosXDiff = posMapX - origin.x;
-			float tilePosYDiff = - posMapY + origin.y;
+			int x 				= Math.round(vector.x),
+				y 				= Math.round(vector.y),
+				posMapX 		= x * TILE_DIMENSION,
+				posMapY 		= y * TILE_DIMENSION,
+				tilePosXDiff 	= posMapX - xOrigin,
+				tilePosYDiff 	= - posMapY + yOrigin;
 			
 			if (this.isInScreen(minScreenX, maxScreenX, minScreenY, maxScreenY, posMapX, posMapY))
 				g.drawImage(bg, tilePosXDiff, tilePosYDiff);
@@ -51,14 +56,13 @@ public class MapController implements Controller {
 	}
 	
 	@Override
-	public void update(GameContainer gc, int delta) throws SlickException {
-		Vector2f pos = PlayerController.getInstance().getPlayer().getPosition();
-		int y = Math.round(pos.getY());
-		int x = Math.round(pos.getX());
-		int minHeight = - gc.getHeight()/2 + y;
-		int minWidth = - gc.getWidth()/2 + x;
-		int maxHeight = gc.getHeight()/2 + y;
-		int maxWidth = gc.getWidth()/2 + x;
+	public void update(GameContainer gc, int delta, Vector2f origin) throws SlickException {
+		int x 			= Math.round(origin.x),
+			y 			= Math.round(origin.y),
+			minHeight 	= y - gc.getHeight(),
+			minWidth 	= x,
+			maxHeight 	= y,
+			maxWidth 	= x + gc.getWidth();
 		
 		for (int h = minHeight/TILE_DIMENSION - 2; h < maxHeight/TILE_DIMENSION + 2; h++) {
 			for (int w = minWidth/TILE_DIMENSION - 2; w < maxWidth/TILE_DIMENSION + 2; w++) {

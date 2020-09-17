@@ -34,7 +34,7 @@ public class ProjectileController implements Controller {
 	}
 
 	@Override
-	public void update(GameContainer gc, int delta) throws SlickException {
+	public void update(GameContainer gc, int delta, Vector2f origin) throws SlickException {
 		moveProjectiles(delta);
 		removeExpiredProjectiles();
 	}

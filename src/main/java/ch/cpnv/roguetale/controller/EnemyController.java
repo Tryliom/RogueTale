@@ -36,7 +36,7 @@ public class EnemyController implements Controller {
 	}
 
 	@Override
-	public void update(GameContainer gc, int delta) throws SlickException {
+	public void update(GameContainer gc, int delta, Vector2f origin) throws SlickException {
 		for (Enemy en : this.enemies) {		
 			en.chooseAction();
 			if (en.isMoving())
