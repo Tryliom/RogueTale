@@ -4,6 +4,7 @@ import ch.cpnv.roguetale.weapon.RangedWeapon;
 
 import org.newdawn.slick.SlickException;
 
+import ch.cpnv.roguetale.controller.ProjectileController;
 import ch.cpnv.roguetale.entity.character.Character;
 import ch.cpnv.roguetale.entity.projectile.Arrow;
 
@@ -17,7 +18,7 @@ public class Bow extends RangedWeapon {
 	public void attack(Character attacker) {		
 		if(canAttack()) {
 			try {
-				projectileController.addProjectile(new Arrow(attacker.getPosition(), attacker.getDirection(), this.getRange()));
+				ProjectileController.getInstance().addProjectile(new Arrow(attacker.getPosition(), attacker.getDirection(), this.getRange()));
 			} catch (SlickException e) {
 				e.printStackTrace();
 			}
