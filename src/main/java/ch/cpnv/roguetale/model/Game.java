@@ -16,9 +16,7 @@ import ch.cpnv.roguetale.entity.character.Player;
 import ch.cpnv.roguetale.weapon.Weapon;
 
 public class Game extends BasicGame {
-	
 	private GameContainer gc;
-	private UiController uiController;
 	private int width;
 	private int height;
 	@SuppressWarnings("unused")
@@ -39,6 +37,7 @@ public class Game extends BasicGame {
 		EnemyController.getInstance().render(gc, g, origin);
 		PlayerController.getInstance().render(gc, g, origin);
 		ProjectileController.getInstance().render(gc, g, origin);
+		UiController.getInstance().render(gc, g, origin);
 		
 		// Define color before an action
 		//g.setColor(new Color(60, 60, 200));
@@ -50,7 +49,6 @@ public class Game extends BasicGame {
 		this.gc = gc;
 		this.height = gc.getHeight();
 		this.width = gc.getWidth();
-		this.uiController = new UiController();
 		
 		Weapon.setProjectileController(ProjectileController.getInstance());
 		
@@ -64,7 +62,7 @@ public class Game extends BasicGame {
 		EnemyController.getInstance().update(gc, delta);
 		PlayerController.getInstance().update(gc, delta);
 		ProjectileController.getInstance().update(gc, delta);
-		this.uiController.update(gc, delta);
+		UiController.getInstance().update(gc, delta);
 		
 		// Test player health
 		testTimer += delta;

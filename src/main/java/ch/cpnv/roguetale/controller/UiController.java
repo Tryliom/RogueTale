@@ -11,12 +11,21 @@ import ch.cpnv.roguetale.entity.character.Player;
 import ch.cpnv.roguetale.entity.ui.LifePoint;
 
 public class UiController implements Controller {
+	private static UiController instance = null;
+	
 	protected static final int Y_POSITION = 5;
 	protected static final int X_POSITION = 5;
 	
 	protected ArrayList<LifePoint> lifePoints;
 	
-	public UiController() {
+	public static UiController getInstance() throws SlickException {
+		if(instance == null) {
+			instance = new UiController();
+		}
+		return instance;
+	}
+	
+	private UiController() {
 		lifePoints = new ArrayList<LifePoint>();
 	}
 
