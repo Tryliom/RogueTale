@@ -18,10 +18,6 @@ import ch.cpnv.roguetale.weapon.Weapon;
 public class Game extends BasicGame {
 	
 	private GameContainer gc;
-	private PlayerController playerController;
-	private ProjectileController projectileController;
-	private MapController mapController;
-	private EnemyController enemyController;
 	private int width;
 	private int height;
 	@SuppressWarnings("unused")
@@ -35,12 +31,11 @@ public class Game extends BasicGame {
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException {
 		Vector2f origin = getSlickOrigin();
-		Player player = this.playerController.getPlayer();
 		
-		this.mapController.render(gc, g, origin, player);
-		this.playerController.render(gc, g, origin, player);
-		this.projectileController.render(gc, g, origin, player);
-		this.enemyController.render(gc, g, origin, player);
+		MapController.getInstance().render(gc, g, origin);
+		EnemyController.getInstance().render(gc, g, origin);
+		PlayerController.getInstance().render(gc, g, origin);
+		ProjectileController.getInstance().render(gc, g, origin);
 		
 		// Define color before an action
 		g.setColor(new Color(60, 60, 200));
@@ -52,12 +47,8 @@ public class Game extends BasicGame {
 		this.gc = gc;
 		this.height = gc.getHeight();
 		this.width = gc.getWidth();
-		this.playerController = new PlayerController();
-		this.projectileController = new ProjectileController();
-		this.mapController = new MapController();
-		this.enemyController = new EnemyController();
 		
-		Weapon.setProjectileController(projectileController);
+		Weapon.setProjectileController(ProjectileController.getInstance());
 		
 		// Define values
 		gc.setShowFPS(false);
@@ -65,16 +56,21 @@ public class Game extends BasicGame {
 
 	@Override
 	public void update(GameContainer gc, int delta) throws SlickException {
-		Player player = this.playerController.getPlayer();
-		this.playerController.update(gc, delta, player);
-		this.mapController.update(gc, delta, player);
-		this.projectileController.update(gc, delta, player);
-		this.enemyController.update(gc, delta, player);
+		Vector2f origin = getSlickOrigin();
+		
+		MapController.getInstance().update(gc, delta, origin);
+		EnemyController.getInstance().update(gc, delta, origin);
+		PlayerController.getInstance().update(gc, delta, origin);
+		ProjectileController.getInstance().update(gc, delta, origin);
 	}
 	
 	@Override
 	public void keyReleased(int key, char c) {
-		this.playerController.keyReleased(key, c, this.gc);
+		try {
+			PlayerController.getInstance().keyReleased(key, c, this.gc);
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
 		
 		if (Input.KEY_ESCAPE == key) {
 			gc.exit();
@@ -83,17 +79,25 @@ public class Game extends BasicGame {
 	
 	@Override
 	public void keyPressed(int key, char c) {
-		this.playerController.keyPressed(key, c, this.gc);
+		try {
+			PlayerController.getInstance().keyPressed(key, c, this.gc);
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@Override 
 	public void mousePressed(int button, int x, int y) {
-		playerController.mousePressed(button, x, y);;
+		try {
+			PlayerController.getInstance().mousePressed(button, x, y);
+		} catch (SlickException e) {
+			e.printStackTrace();
+		};
 	}
 	
 	// Get the coordinate of the UP LEFT corner of the screen
-	protected Vector2f getSlickOrigin() {
-		Player player = playerController.getPlayer();
+	protected Vector2f getSlickOrigin() throws SlickException {
+		Player player = PlayerController.getInstance().getPlayer();
 		return new Vector2f(player.getPosition().x - this.width/2, player.getPosition().y + this.height/2);
 	}
 

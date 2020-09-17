@@ -16,10 +16,19 @@ import ch.cpnv.roguetale.weapon.melee.Knife;
 import ch.cpnv.roguetale.weapon.ranged.Bow;
 
 public class PlayerController implements Controller {
+	private static PlayerController instance = null;
+	
 	private Player player;
 	private final HashMap<Integer, Direction> MOVING_KEYS = new HashMap<Integer, Direction>();
+	
+	public static PlayerController getInstance() throws SlickException {
+		if(instance == null) {
+			instance = new PlayerController();
+		}
+		return instance;
+	}
 
-	public PlayerController() throws SlickException {
+	private PlayerController() throws SlickException {
 		this.player = new Player(
 				new SpriteSheet("ch\\cpnv\\roguetale\\images\\player\\carac.png", 48, 48, 0), 
 				new Vector2f(0,0), 
@@ -36,15 +45,15 @@ public class PlayerController implements Controller {
 	}
 	
 	@Override
-	public void render(GameContainer gc, Graphics g, Vector2f origin, Player p) throws SlickException {		
+	public void render(GameContainer gc, Graphics g, Vector2f origin) throws SlickException {		
 		g.setColor(new Color(200, 60, 60));
 		g.drawString("Joueur", 0, 20);
-		g.drawString("X: "+p.getPosition().x+", Y: "+p.getPosition().y, 0, 40);
+		g.drawString("X: "+player.getPosition().x+", Y: "+player.getPosition().y, 0, 40);
 		player.draw(origin, gc);
 	}
 
 	@Override
-	public void update(GameContainer gc, int delta, Player p) throws SlickException {
+	public void update(GameContainer gc, int delta, Vector2f origin) throws SlickException {
 		if (this.player.isMoving()) {
 			this.player.move(delta);
 		}

@@ -8,51 +8,61 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-import ch.cpnv.roguetale.entity.character.Player;
-
 public class MapController implements Controller {
+	private static MapController instance = null;
+	
 	private Image background;
 	private final Vector<Vector2f> map = new Vector<Vector2f>();
 	private static final int TILE_DIMENSION = 70;
 	
-	public MapController() throws SlickException {
+	public static MapController getInstance() throws SlickException {
+		if(instance == null) {
+			instance = new MapController();
+		}
+		return instance;
+	}
+	
+	private MapController() throws SlickException {
 		this.background = new Image("ch\\cpnv\\roguetale\\images\\background\\tile.png");
 	}
 	
 	@Override
-	public void render(GameContainer gc, Graphics g, Vector2f origin, Player p) {
+	public void render(GameContainer gc, Graphics g, Vector2f origin) {
 		Image bg = this.getBackground();
 		Vector<Vector2f> map = this.getMap();
-		Vector2f pos = p.getPosition();
-		int height = gc.getHeight();
-		int width = gc.getWidth();
-		int doubleChunk = TILE_DIMENSION*2;
-		int minScreenX = Math.round(pos.x) - width/2 - doubleChunk;
-		int maxScreenX = Math.round(pos.x) + width/2 + doubleChunk;
-		int minScreenY = Math.round(pos.y) - height/2 - doubleChunk;
-		int maxScreenY = Math.round(pos.y) + height/2 + doubleChunk;
+		int xOrigin 	= Math.round(origin.x),
+			yOrigin 	= Math.round(origin.y),
+			height 		= gc.getHeight(),
+			width 		= gc.getWidth(),
+			doubleChunk = TILE_DIMENSION * 2,
+			minScreenX 	= xOrigin - doubleChunk,
+			maxScreenX 	= xOrigin + width + doubleChunk,
+			minScreenY 	= yOrigin - height - doubleChunk,
+			maxScreenY 	= yOrigin + doubleChunk;
+		
 		// Draw background
 		for (Vector2f vector : map) {
 			// Multiply by 70 for image dimension
-			float posMapX = vector.x*TILE_DIMENSION;
-			float posMapY = vector.y*TILE_DIMENSION;
-			float tilePosXDiff = posMapX - Math.round(pos.x);
-			float tilePosYDiff = posMapY - Math.round(pos.y);
+			int x 				= Math.round(vector.x),
+				y 				= Math.round(vector.y),
+				posMapX 		= x * TILE_DIMENSION,
+				posMapY 		= y * TILE_DIMENSION,
+				tilePosXDiff 	= posMapX - xOrigin,
+				tilePosYDiff 	= - posMapY + yOrigin;
 			
-			if (minScreenX < posMapX && maxScreenX > posMapX && minScreenY < posMapY && maxScreenY > posMapY)
-				g.drawImage(bg, tilePosXDiff + width/2, -tilePosYDiff + height/2);
+			if (this.isInScreen(minScreenX, maxScreenX, minScreenY, maxScreenY, posMapX, posMapY))
+				g.drawImage(bg, tilePosXDiff, tilePosYDiff);
 		}
 	}
 	
 	@Override
-	public void update(GameContainer gc, int delta, Player player) {
-		Vector2f pos = player.getPosition();
-		int y = Math.round(pos.getY());
-		int x = Math.round(pos.getX());
-		int minHeight = - gc.getHeight()/2 + y;
-		int minWidth = - gc.getWidth()/2 + x;
-		int maxHeight = gc.getHeight()/2 + y;
-		int maxWidth = gc.getWidth()/2 + x;
+	public void update(GameContainer gc, int delta, Vector2f origin) throws SlickException {
+		int x 			= Math.round(origin.x),
+			y 			= Math.round(origin.y),
+			minHeight 	= y - gc.getHeight(),
+			minWidth 	= x,
+			maxHeight 	= y,
+			maxWidth 	= x + gc.getWidth();
 		
 		for (int h = minHeight/TILE_DIMENSION - 2; h < maxHeight/TILE_DIMENSION + 2; h++) {
 			for (int w = minWidth/TILE_DIMENSION - 2; w < maxWidth/TILE_DIMENSION + 2; w++) {
@@ -78,6 +88,11 @@ public class MapController implements Controller {
 	@Override
 	public void mousePressed(int button, int x, int y) {
 		// Nothing to do
+	}
+	
+	private Boolean isInScreen(float minScreenX, float maxScreenX, float minScreenY, float maxScreenY, float posMapX, float posMapY) {
+		return minScreenX < posMapX && maxScreenX > posMapX 
+				&& minScreenY < posMapY && maxScreenY > posMapY;
 	}
 	
 	public Image getBackground() {

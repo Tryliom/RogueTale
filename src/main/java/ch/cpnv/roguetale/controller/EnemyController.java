@@ -8,19 +8,27 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.entity.character.Enemy;
-import ch.cpnv.roguetale.entity.character.Player;
 import ch.cpnv.roguetale.entity.character.enemy.Robot;
 
 public class EnemyController implements Controller {
+	private static EnemyController instance = null;
+	
 	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+	
+	public static EnemyController getInstance() throws SlickException {
+		if(instance == null) {
+			instance = new EnemyController();
+		}
+		return instance;
+	}
 
-	public EnemyController() throws SlickException {
+	private EnemyController() throws SlickException {
 		this.enemies.add(new Robot(new Vector2f(150, 150)));
 		this.enemies.add(new Robot(new Vector2f(200, 200)));
 	}
 
 	@Override
-	public void render(GameContainer gc, Graphics g, Vector2f origin, Player p) throws SlickException {
+	public void render(GameContainer gc, Graphics g, Vector2f origin) throws SlickException {
 		for (Enemy en : this.enemies) {
 			en.draw(origin, gc);
 		}
@@ -28,9 +36,9 @@ public class EnemyController implements Controller {
 	}
 
 	@Override
-	public void update(GameContainer gc, int delta, Player p) throws SlickException {
+	public void update(GameContainer gc, int delta, Vector2f origin) throws SlickException {
 		for (Enemy en : this.enemies) {		
-			en.chooseAction(p);
+			en.chooseAction();
 			if (en.isMoving())
 				en.move(delta);
 			en.reduceCooldown(delta);

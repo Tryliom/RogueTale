@@ -19,6 +19,10 @@ public abstract class MovableItem extends DrawableItem {
 		this.speed = speed;
 	}
 	
+	public int getSpeed() {
+		return this.speed;
+	}
+	
 	public Direction getDirection() {
 		return direction;
 	}
