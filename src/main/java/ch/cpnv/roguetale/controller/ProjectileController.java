@@ -12,9 +12,18 @@ import ch.cpnv.roguetale.entity.character.Player;
 import ch.cpnv.roguetale.entity.projectile.Projectile;
 
 public class ProjectileController implements Controller {
+	private static ProjectileController instance = null;
+	
 	private final ArrayList<Projectile> projectiles;
 	
-	public ProjectileController() {
+	public static ProjectileController getInstance() throws SlickException {
+		if(instance == null) {
+			instance = new ProjectileController();
+		}
+		return instance;
+	}
+	
+	private ProjectileController() {
 		projectiles = new ArrayList<Projectile>();
 	}
 

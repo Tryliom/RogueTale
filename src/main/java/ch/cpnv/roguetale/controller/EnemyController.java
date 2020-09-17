@@ -12,9 +12,18 @@ import ch.cpnv.roguetale.entity.character.Player;
 import ch.cpnv.roguetale.entity.character.enemy.Robot;
 
 public class EnemyController implements Controller {
+	private static EnemyController instance = null;
+	
 	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+	
+	public static EnemyController getInstance() throws SlickException {
+		if(instance == null) {
+			instance = new EnemyController();
+		}
+		return instance;
+	}
 
-	public EnemyController() throws SlickException {
+	private EnemyController() throws SlickException {
 		this.enemies.add(new Robot(new Vector2f(150, 150)));
 		this.enemies.add(new Robot(new Vector2f(200, 200)));
 	}

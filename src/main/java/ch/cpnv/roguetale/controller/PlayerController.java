@@ -16,10 +16,19 @@ import ch.cpnv.roguetale.weapon.melee.Knife;
 import ch.cpnv.roguetale.weapon.ranged.Bow;
 
 public class PlayerController implements Controller {
+	private static PlayerController instance = null;
+	
 	private Player player;
 	private final HashMap<Integer, Direction> MOVING_KEYS = new HashMap<Integer, Direction>();
+	
+	public static PlayerController getInstance() throws SlickException {
+		if(instance == null) {
+			instance = new PlayerController();
+		}
+		return instance;
+	}
 
-	public PlayerController() throws SlickException {
+	private PlayerController() throws SlickException {
 		this.player = new Player(
 				new SpriteSheet("ch\\cpnv\\roguetale\\images\\player\\carac.png", 48, 48, 0), 
 				new Vector2f(0,0), 

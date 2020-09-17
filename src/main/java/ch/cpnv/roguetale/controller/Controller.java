@@ -7,7 +7,7 @@ import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.entity.character.Player;
 
-public interface Controller {
+public interface Controller {	
 	public void render(GameContainer gc, Graphics g, Vector2f origin,  Player p) throws SlickException;
 	
 	public void update(GameContainer gc, int delta, Player p) throws SlickException;
