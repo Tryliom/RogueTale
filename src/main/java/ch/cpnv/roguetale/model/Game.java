@@ -31,7 +31,6 @@ public class Game extends BasicGame {
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException {
 		Vector2f origin = getSlickOrigin();
-		Player player = PlayerController.getInstance().getPlayer();
 		
 		MapController.getInstance().render(gc, g, origin);
 		EnemyController.getInstance().render(gc, g, origin);
@@ -57,8 +56,6 @@ public class Game extends BasicGame {
 
 	@Override
 	public void update(GameContainer gc, int delta) throws SlickException {
-		Player player = PlayerController.getInstance().getPlayer();
-		
 		MapController.getInstance().update(gc, delta);
 		EnemyController.getInstance().update(gc, delta);
 		PlayerController.getInstance().update(gc, delta);
