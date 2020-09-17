@@ -16,14 +16,17 @@ public class Enemy extends Character {
 		super(ss, position, speed, direction, moving, primaryWeapon, secondaryWeapon);
 	}
 	
-	public void act(Player p) {
-		this.setMoving(false);
-		if (this.isFaceToPlayer(p)) {
+	public void chooseAction(Player p) {
+		if (isFacingPlayer(p) && isInPlayerRange(p)) {
+			this.setMoving(false);
 			this.getRangedWeapon().attack(this);
 		}
+
+		else 
+			moveTowardPlayer(p);
 	}
 
-	public void moveTowardPlayer(Player p) {
+	protected void moveTowardPlayer(Player p) {
 		float diffX = this.getPosition().getX() - p.getPosition().getX();
 		float diffY = this.getPosition().getY() - p.getPosition().getY();
 		
@@ -44,7 +47,7 @@ public class Enemy extends Character {
 		this.setMoving(true);
 	}
 	
-	public Boolean isFaceToPlayer(Player p) {
+	protected Boolean isFacingPlayer(Player p) {
 		Rectangle enRect = new Rectangle(this.getPosition().getX(), this.getPosition().getY(), this.getSprite().getWidth(), this.getSprite().getHeight());
 		Rectangle pRect = new Rectangle(p.getPosition().getX(), p.getPosition().getY(), p.getSprite().getWidth(), p.getSprite().getHeight());
 		
@@ -68,7 +71,7 @@ public class Enemy extends Character {
 		return enRect.intersects(pRect) || enRect.contains(pRect);
 	}
 	
-	public RangedWeapon getRangedWeapon() {
+	protected RangedWeapon getRangedWeapon() {
 		if (this.primaryWeapon != null && this.primaryWeapon instanceof RangedWeapon) {
 			return (RangedWeapon) this.primaryWeapon;
 		} else if (this.secondaryWeapon != null && this.secondaryWeapon instanceof RangedWeapon) {
@@ -77,7 +80,7 @@ public class Enemy extends Character {
 			return null;
 	}
 	
-	public MeleeWeapon getMeleeWeapon() {
+	protected MeleeWeapon getMeleeWeapon() {
 		if (this.primaryWeapon != null && this.primaryWeapon instanceof MeleeWeapon) {
 			return (MeleeWeapon) this.primaryWeapon;
 		} else if (this.secondaryWeapon != null && this.secondaryWeapon instanceof MeleeWeapon) {
@@ -86,13 +89,13 @@ public class Enemy extends Character {
 			return null;
 	}
 	
-	public Boolean isInPlayerRange(Player p) {
+	protected Boolean isInPlayerRange(Player p) {
 		RangedWeapon rangedWeapon = this.getRangedWeapon();
 		
-		return rangedWeapon != null && rangedWeapon.getRange() > this.getRangeBetweenPlayer(p);
+		return rangedWeapon != null && rangedWeapon.getRange() > this.getRangeToPlayer(p);
 	}
 	
-	public float getRangeBetweenPlayer(Player p) {
+	protected float getRangeToPlayer(Player p) {
 		float diffX = this.getPosition().getX() - p.getPosition().getX();
 		float diffY = this.getPosition().getY() - p.getPosition().getY();
 		

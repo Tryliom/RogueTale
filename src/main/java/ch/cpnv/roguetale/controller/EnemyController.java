@@ -16,6 +16,7 @@ public class EnemyController implements Controller {
 
 	public EnemyController() throws SlickException {
 		this.enemies.add(new Robot(new Vector2f(150, 150)));
+		this.enemies.add(new Robot(new Vector2f(200, 200)));
 	}
 
 	@Override
@@ -28,11 +29,8 @@ public class EnemyController implements Controller {
 
 	@Override
 	public void update(GameContainer gc, int delta, Player p) throws SlickException {
-		for (Enemy en : this.enemies) {
-			if (en.isFaceToPlayer(p) && en.isInPlayerRange(p))
-				en.act(p);
-			else 
-				en.moveTowardPlayer(p);
+		for (Enemy en : this.enemies) {		
+			en.chooseAction(p);
 			if (en.isMoving())
 				en.move(delta);
 			en.reduceCooldown(delta);
