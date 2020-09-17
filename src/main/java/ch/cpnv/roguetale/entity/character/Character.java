@@ -13,10 +13,20 @@ public abstract class Character extends MovableItem {
 	protected Weapon primaryWeapon;
 	protected Weapon secondaryWeapon;
 
-	public Character(SpriteSheet ss, Vector2f position, int speed, Direction direction, boolean moving, Weapon primaryWeapon, Weapon secondaryWeapon) {
+	public Character(SpriteSheet ss, 
+			Vector2f position, 
+			int speed, 
+			Direction direction, 
+			boolean moving, 
+			Weapon primaryWeapon, 
+			Weapon secondaryWeapon,
+			int maxHealth
+			) {
 		super(ss, position, speed, direction, moving);
 		this.primaryWeapon = primaryWeapon;
 		this.secondaryWeapon = secondaryWeapon;
+		this.maxHealth = maxHealth;
+		this.currentHealth = maxHealth;
 	}
 
 	public int getCurrentHealth() {
@@ -38,6 +48,11 @@ public abstract class Character extends MovableItem {
 	// TODO prevent currentHealth to become higher than maxHealth
 	public void updateHealth(int health) {
 		this.currentHealth += health;
+	}
+	
+	public void updateMaxHealth(int health) {
+		maxHealth += health;
+		updateHealth(health);
 	}
 	
 	public Boolean isDead() {
