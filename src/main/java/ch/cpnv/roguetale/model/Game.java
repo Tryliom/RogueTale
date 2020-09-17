@@ -2,7 +2,6 @@ package ch.cpnv.roguetale.model;
 
 import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.BasicGame;
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -65,12 +64,12 @@ public class Game extends BasicGame {
 		EnemyController.getInstance().update(gc, delta);
 		PlayerController.getInstance().update(gc, delta);
 		ProjectileController.getInstance().update(gc, delta);
-		this.uiController.update(gc, delta, player);
+		this.uiController.update(gc, delta);
 		
 		// Test player health
 		testTimer += delta;
 		if (testTimer >= 1000) {
-			player.updateHealth(-1);
+			PlayerController.getInstance().getPlayer().updateHealth(-1);
 			testTimer -= 1000;
 		}
 	}
