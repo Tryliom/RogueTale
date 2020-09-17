@@ -27,10 +27,10 @@ public class MapController implements Controller {
 		int height = gc.getHeight();
 		int width = gc.getWidth();
 		int doubleChunk = TILE_DIMENSION*2;
-		int minScreenX = Math.round(pos.x) - width/2 - doubleChunk;
-		int maxScreenX = Math.round(pos.x) + width/2 + doubleChunk;
-		int minScreenY = Math.round(pos.y) - height/2 - doubleChunk;
-		int maxScreenY = Math.round(pos.y) + height/2 + doubleChunk;
+		float minScreenX = origin.getX() - doubleChunk;
+		float maxScreenX = origin.getX() + width + doubleChunk;
+		float minScreenY = origin.getY() - height - doubleChunk;
+		float maxScreenY = origin.getY() + doubleChunk;
 		// Draw background
 		for (Vector2f vector : map) {
 			// Multiply by 70 for image dimension
@@ -39,7 +39,7 @@ public class MapController implements Controller {
 			float tilePosXDiff = posMapX - Math.round(pos.x);
 			float tilePosYDiff = posMapY - Math.round(pos.y);
 			
-			if (minScreenX < posMapX && maxScreenX > posMapX && minScreenY < posMapY && maxScreenY > posMapY)
+			if (this.isInScreen(minScreenX, maxScreenX, minScreenY, maxScreenY, posMapX, posMapY))
 				g.drawImage(bg, tilePosXDiff + width/2, -tilePosYDiff + height/2);
 		}
 	}
@@ -78,6 +78,11 @@ public class MapController implements Controller {
 	@Override
 	public void mousePressed(int button, int x, int y) {
 		// Nothing to do
+	}
+	
+	private Boolean isInScreen(float minScreenX, float maxScreenX, float minScreenY, float maxScreenY, float posMapX, float posMapY) {
+		return minScreenX < posMapX && maxScreenX > posMapX 
+				&& minScreenY < posMapY && maxScreenY > posMapY;
 	}
 	
 	public Image getBackground() {
