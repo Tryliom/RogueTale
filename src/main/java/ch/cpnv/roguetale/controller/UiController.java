@@ -21,7 +21,7 @@ public class UiController implements Controller {
 	}
 
 	@Override
-	public void render(GameContainer gc, Graphics g, Vector2f origin, Player p) throws SlickException {
+	public void render(GameContainer gc, Graphics g, Vector2f origin) throws SlickException {
 		int x = X_POSITION;
 		for(LifePoint lifePoint : lifePoints) {
 			lifePoint.getSprite().draw(x, Y_POSITION);
@@ -31,17 +31,18 @@ public class UiController implements Controller {
 	}
 
 	@Override
-	public void update(GameContainer gc, int delta, Player p) throws SlickException {
+	public void update(GameContainer gc, int delta) throws SlickException {
 		// Set the correct number of lifePoints
-		while (lifePoints.size() < p.getMaxHealth()) {
+		Player player = PlayerController.getInstance().getPlayer();
+		while (lifePoints.size() < player.getMaxHealth()) {
 			lifePoints.add(new LifePoint());
 		}
-		if (lifePoints.size() > p.getMaxHealth()) {
-			lifePoints = new ArrayList<LifePoint>(lifePoints.subList(0, p.getMaxHealth() - 1));
+		if (lifePoints.size() > player.getMaxHealth()) {
+			lifePoints = new ArrayList<LifePoint>(lifePoints.subList(0, player.getMaxHealth() - 1));
 		}
 		
 		// Set the content of the lifePoints : full/empty
-		int remainingFullLifePoints = p.getCurrentHealth();
+		int remainingFullLifePoints = player.getCurrentHealth();
 		for(LifePoint lifePoint : lifePoints) {
 			if(remainingFullLifePoints > 0) {
 				if(!lifePoint.Full()) {
