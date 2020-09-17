@@ -3,7 +3,6 @@ package ch.cpnv.roguetale.controller;
 import java.util.HashMap;
 
 import org.lwjgl.util.vector.Vector2f;
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -46,9 +45,6 @@ public class PlayerController implements Controller {
 	
 	@Override
 	public void render(GameContainer gc, Graphics g, Vector2f origin) throws SlickException {		
-		g.setColor(new Color(200, 60, 60));
-		g.drawString("Joueur", 0, 20);
-		g.drawString("X: "+player.getPosition().x+", Y: "+player.getPosition().y, 0, 40);
 		player.draw(origin, gc);
 	}
 

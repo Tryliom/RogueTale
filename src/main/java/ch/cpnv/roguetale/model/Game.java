@@ -2,7 +2,6 @@ package ch.cpnv.roguetale.model;
 
 import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.BasicGame;
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -12,16 +11,18 @@ import ch.cpnv.roguetale.controller.EnemyController;
 import ch.cpnv.roguetale.controller.MapController;
 import ch.cpnv.roguetale.controller.PlayerController;
 import ch.cpnv.roguetale.controller.ProjectileController;
+import ch.cpnv.roguetale.controller.UiController;
 import ch.cpnv.roguetale.entity.character.Player;
 import ch.cpnv.roguetale.weapon.Weapon;
 
 public class Game extends BasicGame {
-	
 	private GameContainer gc;
 	private int width;
 	private int height;
 	@SuppressWarnings("unused")
 	private int score;
+	
+	private int testTimer = 0;
 
 	public Game() {
 		// Title windows name
@@ -36,10 +37,11 @@ public class Game extends BasicGame {
 		EnemyController.getInstance().render(gc, g, origin);
 		PlayerController.getInstance().render(gc, g, origin);
 		ProjectileController.getInstance().render(gc, g, origin);
+		UiController.getInstance().render(gc, g, origin);
 		
 		// Define color before an action
-		g.setColor(new Color(60, 60, 200));
-		g.drawString("RogueTale", 0, 0);
+		//g.setColor(new Color(60, 60, 200));
+		//g.drawString("RogueTale", 0, 0);
 	}
 
 	@Override
@@ -56,12 +58,18 @@ public class Game extends BasicGame {
 
 	@Override
 	public void update(GameContainer gc, int delta) throws SlickException {
-		Vector2f origin = getSlickOrigin();
+		MapController.getInstance().update(gc, delta);
+		EnemyController.getInstance().update(gc, delta);
+		PlayerController.getInstance().update(gc, delta);
+		ProjectileController.getInstance().update(gc, delta);
+		UiController.getInstance().update(gc, delta);
 		
-		MapController.getInstance().update(gc, delta, origin);
-		EnemyController.getInstance().update(gc, delta, origin);
-		PlayerController.getInstance().update(gc, delta, origin);
-		ProjectileController.getInstance().update(gc, delta, origin);
+		// Test player health
+		testTimer += delta;
+		if (testTimer >= 1000) {
+			PlayerController.getInstance().getPlayer().updateHealth(-1);
+			testTimer -= 1000;
+		}
 	}
 	
 	@Override
