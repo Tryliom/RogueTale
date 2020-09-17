@@ -33,10 +33,10 @@ public class Game extends BasicGame {
 		Vector2f origin = getSlickOrigin();
 		Player player = PlayerController.getInstance().getPlayer();
 		
-		MapController.getInstance().render(gc, g, origin, player);
-		EnemyController.getInstance().render(gc, g, origin, player);
-		PlayerController.getInstance().render(gc, g, origin, player);
-		ProjectileController.getInstance().render(gc, g, origin, player);
+		MapController.getInstance().render(gc, g, origin);
+		EnemyController.getInstance().render(gc, g, origin);
+		PlayerController.getInstance().render(gc, g, origin);
+		ProjectileController.getInstance().render(gc, g, origin);
 		
 		// Define color before an action
 		g.setColor(new Color(60, 60, 200));
@@ -59,10 +59,10 @@ public class Game extends BasicGame {
 	public void update(GameContainer gc, int delta) throws SlickException {
 		Player player = PlayerController.getInstance().getPlayer();
 		
-		MapController.getInstance().update(gc, delta, player);
-		EnemyController.getInstance().update(gc, delta, player);
-		PlayerController.getInstance().update(gc, delta, player);
-		ProjectileController.getInstance().update(gc, delta, player);
+		MapController.getInstance().update(gc, delta);
+		EnemyController.getInstance().update(gc, delta);
+		PlayerController.getInstance().update(gc, delta);
+		ProjectileController.getInstance().update(gc, delta);
 	}
 	
 	@Override
