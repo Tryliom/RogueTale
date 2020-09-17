@@ -8,8 +8,6 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-import ch.cpnv.roguetale.entity.character.Player;
-
 public class MapController implements Controller {
 	private static MapController instance = null;
 	
@@ -54,8 +52,8 @@ public class MapController implements Controller {
 	}
 	
 	@Override
-	public void update(GameContainer gc, int delta, Player player) {
-		Vector2f pos = player.getPosition();
+	public void update(GameContainer gc, int delta) throws SlickException {
+		Vector2f pos = PlayerController.getInstance().getPlayer().getPosition();
 		int y = Math.round(pos.getY());
 		int x = Math.round(pos.getX());
 		int minHeight = - gc.getHeight()/2 + y;

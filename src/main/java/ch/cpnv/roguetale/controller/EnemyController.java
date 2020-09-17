@@ -8,7 +8,6 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.entity.character.Enemy;
-import ch.cpnv.roguetale.entity.character.Player;
 import ch.cpnv.roguetale.entity.character.enemy.Robot;
 
 public class EnemyController implements Controller {
@@ -37,9 +36,9 @@ public class EnemyController implements Controller {
 	}
 
 	@Override
-	public void update(GameContainer gc, int delta, Player p) throws SlickException {
+	public void update(GameContainer gc, int delta) throws SlickException {
 		for (Enemy en : this.enemies) {		
-			en.chooseAction(p);
+			en.chooseAction(PlayerController.getInstance().getPlayer());
 			if (en.isMoving())
 				en.move(delta);
 			en.reduceCooldown(delta);

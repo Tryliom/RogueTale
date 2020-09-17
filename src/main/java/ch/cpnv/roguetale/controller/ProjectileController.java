@@ -8,7 +8,6 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-import ch.cpnv.roguetale.entity.character.Player;
 import ch.cpnv.roguetale.entity.projectile.Projectile;
 
 public class ProjectileController implements Controller {
@@ -35,7 +34,7 @@ public class ProjectileController implements Controller {
 	}
 
 	@Override
-	public void update(GameContainer gc, int delta, Player p) throws SlickException {
+	public void update(GameContainer gc, int delta) throws SlickException {
 		moveProjectiles(delta);
 		removeExpiredProjectiles();
 	}
