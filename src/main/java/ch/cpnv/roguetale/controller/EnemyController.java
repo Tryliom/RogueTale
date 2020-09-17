@@ -38,7 +38,7 @@ public class EnemyController implements Controller {
 	@Override
 	public void update(GameContainer gc, int delta) throws SlickException {
 		for (Enemy en : this.enemies) {		
-			en.chooseAction(PlayerController.getInstance().getPlayer());
+			en.chooseAction();
 			if (en.isMoving())
 				en.move(delta);
 			en.reduceCooldown(delta);
