@@ -29,10 +29,10 @@ public class MapController implements Controller {
 	}
 	
 	@Override
-	public void render(GameContainer gc, Graphics g, Vector2f origin, Player p) {
+	public void render(GameContainer gc, Graphics g, Vector2f origin) throws SlickException {
 		Image bg = this.getBackground();
 		Vector<Vector2f> map = this.getMap();
-		Vector2f pos = p.getPosition();
+		Vector2f pos = PlayerController.getInstance().getPlayer().getPosition();
 		int height = gc.getHeight();
 		int width = gc.getWidth();
 		int doubleChunk = TILE_DIMENSION*2;

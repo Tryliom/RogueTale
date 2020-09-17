@@ -28,7 +28,7 @@ public class ProjectileController implements Controller {
 	}
 
 	@Override
-	public void render(GameContainer gc, Graphics g, Vector2f origin, Player p) throws SlickException {
+	public void render(GameContainer gc, Graphics g, Vector2f origin) throws SlickException {
 		for(Projectile projectile : projectiles) {
 			projectile.draw(origin, gc);
 		}
