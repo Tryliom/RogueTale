@@ -36,10 +36,10 @@ public class PlayerController implements Controller {
 	}
 	
 	@Override
-	public void render(GameContainer gc, Graphics g, Vector2f origin, Player p) throws SlickException {		
+	public void render(GameContainer gc, Graphics g, Vector2f origin) throws SlickException {		
 		g.setColor(new Color(200, 60, 60));
 		g.drawString("Joueur", 0, 20);
-		g.drawString("X: "+p.getPosition().x+", Y: "+p.getPosition().y, 0, 40);
+		g.drawString("X: "+this.player.getPosition().x+", Y: "+this.player.getPosition().y, 0, 40);
 		player.draw(origin, gc);
 	}
 

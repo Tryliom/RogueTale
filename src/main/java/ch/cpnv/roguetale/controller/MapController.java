@@ -20,10 +20,9 @@ public class MapController implements Controller {
 	}
 	
 	@Override
-	public void render(GameContainer gc, Graphics g, Vector2f origin, Player p) {
+	public void render(GameContainer gc, Graphics g, Vector2f origin) {
 		Image bg = this.getBackground();
 		Vector<Vector2f> map = this.getMap();
-		Vector2f pos = p.getPosition();
 		int height = gc.getHeight();
 		int width = gc.getWidth();
 		int doubleChunk = TILE_DIMENSION*2;
@@ -36,11 +35,11 @@ public class MapController implements Controller {
 			// Multiply by 70 for image dimension
 			float posMapX = vector.x*TILE_DIMENSION;
 			float posMapY = vector.y*TILE_DIMENSION;
-			float tilePosXDiff = posMapX - Math.round(pos.x);
-			float tilePosYDiff = posMapY - Math.round(pos.y);
+			float tilePosXDiff = posMapX - origin.x;
+			float tilePosYDiff = - posMapY + origin.y;
 			
 			if (this.isInScreen(minScreenX, maxScreenX, minScreenY, maxScreenY, posMapX, posMapY))
-				g.drawImage(bg, tilePosXDiff + width/2, -tilePosYDiff + height/2);
+				g.drawImage(bg, tilePosXDiff, tilePosYDiff);
 		}
 	}
 	

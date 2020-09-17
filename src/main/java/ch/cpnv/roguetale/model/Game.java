@@ -35,12 +35,11 @@ public class Game extends BasicGame {
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException {
 		Vector2f origin = getSlickOrigin();
-		Player player = this.playerController.getPlayer();
 		
-		this.mapController.render(gc, g, origin, player);
-		this.playerController.render(gc, g, origin, player);
-		this.projectileController.render(gc, g, origin, player);
-		this.enemyController.render(gc, g, origin, player);
+		this.mapController.render(gc, g, origin);
+		this.playerController.render(gc, g, origin);
+		this.projectileController.render(gc, g, origin);
+		this.enemyController.render(gc, g, origin);
 		
 		// Define color before an action
 		g.setColor(new Color(60, 60, 200));
@@ -94,7 +93,8 @@ public class Game extends BasicGame {
 	// Get the coordinate of the UP LEFT corner of the screen
 	protected Vector2f getSlickOrigin() {
 		Player player = playerController.getPlayer();
-		return new Vector2f(player.getPosition().x - this.width/2, player.getPosition().y + this.height/2);
+		return new Vector2f(player.getPosition().x - this.width/2, 
+				player.getPosition().y + this.height/2);
 	}
 
 }

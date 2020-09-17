@@ -20,7 +20,7 @@ public class EnemyController implements Controller {
 	}
 
 	@Override
-	public void render(GameContainer gc, Graphics g, Vector2f origin, Player p) throws SlickException {
+	public void render(GameContainer gc, Graphics g, Vector2f origin) throws SlickException {
 		for (Enemy en : this.enemies) {
 			en.draw(origin, gc);
 		}
