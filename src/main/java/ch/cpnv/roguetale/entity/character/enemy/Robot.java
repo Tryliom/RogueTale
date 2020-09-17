@@ -10,15 +10,13 @@ import ch.cpnv.roguetale.weapon.ranged.Bow;
 
 public class Robot extends Enemy {
 	private static final int SPEED = 20;
-	private static final Weapon PRIMARY_WEAPON = new Bow();
-	private static final Weapon SECONDARY_WEAPON = null;
 	private static final int MAX_HEALTH = 2;
 	private static final String SPRITESHEET_PATH = "ch\\cpnv\\roguetale\\images\\enemy\\carac.png";
 	private static final int  SPRITESHEET_DIMENSIONS = 48;
 
 	public Robot(Vector2f position) throws SlickException {
 		super(new SpriteSheet(SPRITESHEET_PATH, SPRITESHEET_DIMENSIONS, SPRITESHEET_DIMENSIONS, 0), 
-				position, SPEED, Direction.UP, false, PRIMARY_WEAPON, SECONDARY_WEAPON, MAX_HEALTH);
+				position, SPEED, Direction.UP, false, new Bow(), null, MAX_HEALTH);
 	}
 
 }

@@ -40,7 +40,7 @@ public class UiController implements Controller {
 	}
 
 	@Override
-	public void update(GameContainer gc, int delta) throws SlickException {
+	public void update(GameContainer gc, int delta, Vector2f origin) throws SlickException {
 		// Set the correct number of lifePoints
 		Player player = PlayerController.getInstance().getPlayer();
 		while (lifePoints.size() < player.getMaxHealth()) {

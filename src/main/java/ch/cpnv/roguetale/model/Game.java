@@ -58,11 +58,13 @@ public class Game extends BasicGame {
 
 	@Override
 	public void update(GameContainer gc, int delta) throws SlickException {
-		MapController.getInstance().update(gc, delta);
-		EnemyController.getInstance().update(gc, delta);
-		PlayerController.getInstance().update(gc, delta);
-		ProjectileController.getInstance().update(gc, delta);
-		UiController.getInstance().update(gc, delta);
+		Vector2f origin = getSlickOrigin();
+		
+		MapController.getInstance().update(gc, delta, origin);
+		EnemyController.getInstance().update(gc, delta, origin);
+		PlayerController.getInstance().update(gc, delta, origin);
+		ProjectileController.getInstance().update(gc, delta, origin);
+		UiController.getInstance().update(gc, delta, origin);
 		
 		// Test player health
 		testTimer += delta;
