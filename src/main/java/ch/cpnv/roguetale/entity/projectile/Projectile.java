@@ -2,6 +2,7 @@ package ch.cpnv.roguetale.entity.projectile;
 
 import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
 import ch.cpnv.roguetale.entity.Direction;
@@ -29,7 +30,7 @@ public abstract class Projectile extends MovableItem {
 	}
 	
 	@Override
-	public void move(int delta) {
+	public void move(int delta) throws SlickException {
 		super.move(delta);
 		remainingTime -= delta;
 	}

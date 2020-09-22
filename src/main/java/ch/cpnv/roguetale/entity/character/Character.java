@@ -1,6 +1,7 @@
 package ch.cpnv.roguetale.entity.character;
 
 import org.lwjgl.util.vector.Vector2f;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
 import ch.cpnv.roguetale.entity.Direction;
@@ -28,7 +29,15 @@ public abstract class Character extends MovableItem {
 		this.maxHealth = maxHealth;
 		this.currentHealth = maxHealth;
 	}
-
+	
+	public void move(int delta) throws SlickException {
+		super.move(delta);
+		
+		if (isCollidingWithAnotherCharacter()) {
+			this.move(delta * -1);
+		}
+	}
+	
 	public int getCurrentHealth() {
 		return currentHealth;
 	}

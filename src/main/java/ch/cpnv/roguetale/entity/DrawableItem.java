@@ -3,9 +3,15 @@ package ch.cpnv.roguetale.entity;
 import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
+
+import ch.cpnv.roguetale.controller.EnemyController;
+import ch.cpnv.roguetale.controller.PlayerController;
+import ch.cpnv.roguetale.entity.character.Enemy;
+import ch.cpnv.roguetale.entity.character.Player;
 
 public abstract class DrawableItem {
 	protected SpriteSheet spritesheet;
@@ -81,5 +87,17 @@ public abstract class DrawableItem {
 	
 	protected Shape getHitbox() {
 		return new Rectangle(position.x, position.y, image.getWidth(), image.getHeight());
+	}
+	
+	public boolean isCollidingWithAnotherCharacter() throws SlickException {
+		boolean isCollide = false;
+		for (Enemy en : EnemyController.getInstance().getEnemies()) {
+			if (en != this && this.isColliding(en))
+				isCollide = true;
+		}
+		if (!(this instanceof Player) && this.isColliding(PlayerController.getInstance().getPlayer()))
+			isCollide = true;
+		
+		return isCollide;
 	}
 }

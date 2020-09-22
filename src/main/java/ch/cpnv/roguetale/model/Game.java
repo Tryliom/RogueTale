@@ -60,13 +60,6 @@ public class Game extends BasicGame {
 		PlayerController.getInstance().update(gc, delta, origin);
 		ProjectileController.getInstance().update(gc, delta, origin);
 		UiController.getInstance().update(gc, delta, origin);
-		
-		// Test player health
-		testTimer += delta;
-		if (testTimer >= 1000) {
-			PlayerController.getInstance().getPlayer().updateHealth(-1);
-			testTimer -= 1000;
-		}
 	}
 	
 	@Override
