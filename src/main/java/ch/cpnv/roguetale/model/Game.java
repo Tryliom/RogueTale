@@ -13,7 +13,6 @@ import ch.cpnv.roguetale.controller.PlayerController;
 import ch.cpnv.roguetale.controller.ProjectileController;
 import ch.cpnv.roguetale.controller.UiController;
 import ch.cpnv.roguetale.entity.character.Player;
-import ch.cpnv.roguetale.weapon.Weapon;
 
 public class Game extends BasicGame {
 	private GameContainer gc;
@@ -21,8 +20,6 @@ public class Game extends BasicGame {
 	private int height;
 	@SuppressWarnings("unused")
 	private int score;
-	
-	private int testTimer = 0;
 
 	public Game() {
 		// Title windows name
@@ -49,8 +46,6 @@ public class Game extends BasicGame {
 		this.gc = gc;
 		this.height = gc.getHeight();
 		this.width = gc.getWidth();
-		
-		Weapon.setProjectileController(ProjectileController.getInstance());
 		
 		// Define values
 		gc.setShowFPS(false);

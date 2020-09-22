@@ -1,11 +1,8 @@
 package ch.cpnv.roguetale.weapon;
 
-import ch.cpnv.roguetale.controller.ProjectileController;
 import ch.cpnv.roguetale.entity.character.Character;
 
-public abstract class Weapon {
-	protected static ProjectileController projectileController;
-	
+public abstract class Weapon {	
 	protected String name;
 	protected int damage;
 	// Cooldown in miliseconds
@@ -18,10 +15,6 @@ public abstract class Weapon {
 		this.damage = damage;
 		this.cooldown = cooldown;
 		currentCooldown = 0;
-	}
-
-	public static void setProjectileController(ProjectileController projectileController) {
-		Weapon.projectileController = projectileController;
 	}
 	
 	public String getName() {

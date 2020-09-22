@@ -8,10 +8,9 @@ import ch.cpnv.roguetale.entity.DrawableItem;
 
 public class LifePoint extends DrawableItem {
 	protected static final int DISPLAY_DIMENSION = 30;
+	static protected final String SPRITESHEET_PATH = "ch\\cpnv\\roguetale\\images\\ui\\life.png";
 	
 	protected Boolean full;
-	
-	static protected final String SPRITESHEET_PATH = "ch\\cpnv\\roguetale\\images\\ui\\life.png";
 	
 	public LifePoint() throws SlickException {
 		super(new SpriteSheet(SPRITESHEET_PATH, 300, 300), new Vector2f());
