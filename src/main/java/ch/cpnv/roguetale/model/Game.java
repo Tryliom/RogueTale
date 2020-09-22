@@ -20,8 +20,6 @@ public class Game extends BasicGame {
 	private int height;
 	@SuppressWarnings("unused")
 	private int score;
-	
-	private int testTimer = 0;
 
 	public Game() {
 		// Title windows name
@@ -60,13 +58,6 @@ public class Game extends BasicGame {
 		PlayerController.getInstance().update(gc, delta);
 		ProjectileController.getInstance().update(gc, delta);
 		UiController.getInstance().update(gc, delta);
-		
-		// Test player health
-		testTimer += delta;
-		if (testTimer >= 1000) {
-			PlayerController.getInstance().getPlayer().updateHealth(-1);
-			testTimer -= 1000;
-		}
 	}
 	
 	@Override
