@@ -5,6 +5,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
 import ch.cpnv.roguetale.entity.Direction;
+import ch.cpnv.roguetale.entity.character.Character;
 
 public class Arrow extends Projectile {
 	static protected final int SPEED = 100;
@@ -24,6 +25,11 @@ public class Arrow extends Projectile {
 				);
 		this.image = this.image.getScaledCopy(WIDTH, HEIGHT);
 		this.setImageDirection();
+	}
+	
+	public Arrow(Character attacker, Direction direction, int range, int damage) throws SlickException {
+		this(attacker.getPosition(), direction, range, damage);
+		this.setPositionFromCharacter(attacker, direction);
 	}
 	
 	@Override
