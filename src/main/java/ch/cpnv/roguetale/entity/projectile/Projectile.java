@@ -5,6 +5,7 @@ import org.newdawn.slick.SpriteSheet;
 
 import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.entity.MovableItem;
+import ch.cpnv.roguetale.entity.character.Character;
 
 public abstract class Projectile extends MovableItem {
 	protected int damage;
@@ -44,6 +45,11 @@ public abstract class Projectile extends MovableItem {
 			default:
 				break;
 		}
+	}
+	
+	public void meetCharacter(Character touchedCharacter) {
+		touchedCharacter.updateHealth(-damage);
+		remainingTime = 0;
 	}
 	
 	public Boolean isExpired() {
