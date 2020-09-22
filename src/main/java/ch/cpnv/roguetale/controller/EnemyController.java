@@ -26,6 +26,10 @@ public class EnemyController implements Controller {
 		this.enemies.add(new Robot(new Vector2f(150, 150)));
 		this.enemies.add(new Robot(new Vector2f(200, 200)));
 	}
+	
+	public ArrayList<Enemy> getEnemies() {
+		return enemies;
+	}
 
 	@Override
 	public void render(GameContainer gc, Graphics g, Vector2f origin) throws SlickException {

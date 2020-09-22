@@ -8,6 +8,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
+import ch.cpnv.roguetale.entity.character.Character;
 import ch.cpnv.roguetale.entity.projectile.Projectile;
 
 public class ProjectileController implements Controller {
@@ -36,6 +37,7 @@ public class ProjectileController implements Controller {
 	@Override
 	public void update(GameContainer gc, int delta) throws SlickException {
 		moveProjectiles(delta);
+		collideProjectiles();
 		removeExpiredProjectiles();
 	}
 
@@ -61,6 +63,29 @@ public class ProjectileController implements Controller {
 	private void moveProjectiles(int delta) {
 		for(Projectile projectile : projectiles) {
 			projectile.move(delta);
+		}
+	}
+	
+	private void collideProjectiles() throws SlickException {
+		Character player = PlayerController.getInstance().getPlayer();
+		
+		for(Projectile projectile : projectiles) {
+			Character hit = null;
+			if(projectile.collide(player)) {
+				hit = player;
+			}
+			else {
+				for(Character enemy : EnemyController.getInstance().getEnemies()) {
+					if(projectile.collide(enemy)) {
+						hit = enemy;
+						break;
+					}
+				}
+			}
+			
+			if(hit != null) {
+				projectile.meetCharacter(hit);
+			}
 		}
 	}
 	
