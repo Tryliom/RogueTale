@@ -28,8 +28,6 @@ public class EnemyController implements Controller {
 	}
 
 	private EnemyController() throws SlickException {
-		this.enemies.add(new Robot(new Vector2f(150, 150)));
-		this.enemies.add(new Robot(new Vector2f(200, 200)));
 	}
 	
 	public ArrayList<Enemy> getEnemies() {
