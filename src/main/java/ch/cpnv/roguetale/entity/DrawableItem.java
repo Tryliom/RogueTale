@@ -4,6 +4,8 @@ import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SpriteSheet;
+import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
 
 public abstract class DrawableItem {
 	protected SpriteSheet spritesheet;
@@ -73,4 +75,11 @@ public abstract class DrawableItem {
 				&& getYBottom() <= screenOrigin.y;
 	}
 	
+	public Boolean collide(DrawableItem collisionCandidate) {
+		return getHitbox().intersects(collisionCandidate.getHitbox());
+	}
+	
+	protected Shape getHitbox() {
+		return new Rectangle(position.x, position.y, image.getWidth(), image.getHeight());
+	}
 }
