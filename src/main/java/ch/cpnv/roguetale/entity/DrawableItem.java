@@ -76,10 +76,13 @@ public abstract class DrawableItem {
 	}
 	
 	public Boolean isColliding(DrawableItem collisionCandidate) {
+		if(getHitbox().intersects(collisionCandidate.getHitbox())) {
+			System.out.println("has collided");
+		};
 		return getHitbox().intersects(collisionCandidate.getHitbox());
 	}
 	
-	protected Shape getHitbox() {
-		return new Rectangle(position.x, position.y, image.getWidth(), image.getHeight());
+	public Shape getHitbox() {		
+		return new Rectangle(getXLeft(), getYTop(), image.getWidth(), image.getHeight());
 	}
 }

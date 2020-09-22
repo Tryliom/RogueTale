@@ -3,6 +3,8 @@ package ch.cpnv.roguetale.entity.projectile;
 import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SpriteSheet;
+import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
 
 import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.entity.MovableItem;
@@ -65,19 +67,34 @@ public abstract class Projectile extends MovableItem {
 	protected void setPositionFromCharacter(Character attacker, Direction projectileDirection) {
 		Image attackerSprite = attacker.getSprite();
 		
+		float margin = 1;
+		
 		switch(projectileDirection) {
 		case RIGHT:
-			position.x += attackerSprite.getWidth() / 2 + image.getWidth() / 2;
+			position.x += (attackerSprite.getWidth() + image.getWidth()) / 2 + margin;
 			break;
 		case LEFT:
-			position.x -= attackerSprite.getWidth() / 2 + image.getWidth() / 2;
+			position.x -= (attackerSprite.getWidth() + image.getWidth()) / 2 + margin;
 			break;
 		case UP:
-			position.y += attackerSprite.getHeight() / 2 + image.getHeight() / 2;
+			position.y += (attackerSprite.getHeight() + image.getWidth()) / 2 + margin;
 			break;
 		case DOWN:
-			position.y -= attackerSprite.getHeight() / 2 + image.getHeight() / 2;
+			position.y -= (attackerSprite.getHeight() + image.getWidth()) / 2 + margin;
 			break;
+		}
+	}
+	
+	@Override
+	public Shape getHitbox() {
+		switch(direction) {
+			case UP:
+			case DOWN:
+				return new Rectangle(position.x -  image.getHeight(), position.y + image.getWidth(), image.getHeight(), image.getWidth());
+			case RIGHT:
+			case LEFT:
+			default:
+				return super.getHitbox();
 		}
 	}
 }
