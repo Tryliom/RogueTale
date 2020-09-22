@@ -84,4 +84,10 @@ public abstract class MovableItem extends DrawableItem {
 		}
 	}
 	
+	public double getDistanceToMovableItem(MovableItem otherItem) {
+		Vector2f diff = Vector2f.sub(this.getPosition(), otherItem.getPosition(), null);
+        
+        return diff.length();
+	}
+	
 }
