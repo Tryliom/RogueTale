@@ -1,6 +1,7 @@
 package ch.cpnv.roguetale.entity;
 
 import org.lwjgl.util.vector.Vector2f;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
 public abstract class MovableItem extends DrawableItem {
@@ -45,7 +46,7 @@ public abstract class MovableItem extends DrawableItem {
 		return "MovableItem (" + position.x + ", " + position.y + ")";
 	}
 	
-	public void move(int delta) {
+	public void move(int delta) throws SlickException {
 		float movement = this.speed * delta / 1000f;
 		
 		switch (this.direction) {
