@@ -75,7 +75,7 @@ public abstract class DrawableItem {
 				&& getYBottom() <= screenOrigin.y;
 	}
 	
-	public Boolean collide(DrawableItem collisionCandidate) {
+	public Boolean isColliding(DrawableItem collisionCandidate) {
 		return getHitbox().intersects(collisionCandidate.getHitbox());
 	}
 	

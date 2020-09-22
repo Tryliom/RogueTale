@@ -71,12 +71,12 @@ public class ProjectileController implements Controller {
 		
 		for(Projectile projectile : projectiles) {
 			Character hit = null;
-			if(projectile.collide(player)) {
+			if(projectile.isColliding(player)) {
 				hit = player;
 			}
 			else {
 				for(Character enemy : EnemyController.getInstance().getEnemies()) {
-					if(projectile.collide(enemy)) {
+					if(projectile.isColliding(enemy)) {
 						hit = enemy;
 						break;
 					}
