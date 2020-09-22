@@ -18,7 +18,8 @@ public class Bow extends RangedWeapon {
 	public void attack(Character attacker) {		
 		if(canAttack()) {
 			try {
-				ProjectileController.getInstance().addProjectile(new Arrow(attacker.getPosition(), attacker.getDirection(), this.getRange()));
+				ProjectileController.getInstance().addProjectile(
+						new Arrow(attacker.getPosition(), attacker.getDirection(), range, damage));
 			} catch (SlickException e) {
 				e.printStackTrace();
 			}
