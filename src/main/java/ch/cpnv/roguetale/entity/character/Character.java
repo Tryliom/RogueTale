@@ -61,7 +61,6 @@ public abstract class Character extends MovableItem {
 	// TODO prevent currentHealth to become higher than maxHealth
 	public void updateHealth(int health) {
 		this.currentHealth += health;
-		System.out.println("Character touched. New health : " + currentHealth);
 	}
 	
 	public void updateMaxHealth(int health) {

@@ -2,7 +2,6 @@ package ch.cpnv.roguetale.entity.character;
 
 import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.SpriteSheet;
-
 import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.weapon.Weapon;
 
@@ -54,5 +53,4 @@ public class Player extends Character {
 			currentExp = totExp;
 		}
 	}
-
 }

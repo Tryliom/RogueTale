@@ -18,6 +18,7 @@ public class Game extends BasicGame {
 	private GameContainer gc;
 	private int width;
 	private int height;
+	
 	@SuppressWarnings("unused")
 	private int score;
 
@@ -53,20 +54,25 @@ public class Game extends BasicGame {
 
 	@Override
 	public void update(GameContainer gc, int delta) throws SlickException {
-		Vector2f origin = getSlickOrigin();
-		
-		MapController.getInstance().update(gc, delta, origin);
-		EnemyController.getInstance().update(gc, delta, origin);
-		PlayerController.getInstance().update(gc, delta, origin);
-		ProjectileController.getInstance().update(gc, delta, origin);
-		UiController.getInstance().update(gc, delta, origin);
+		if (!PlayerController.getInstance().getPlayer().isDead()) {
+			Vector2f origin = getSlickOrigin();
+			
+			MapController.getInstance().update(gc, delta, origin);
+			EnemyController.getInstance().update(gc, delta, origin);
+			PlayerController.getInstance().update(gc, delta, origin);
+			ProjectileController.getInstance().update(gc, delta, origin);
+			UiController.getInstance().update(gc, delta, origin);
+		}
 	}
 	
 	@Override
 	public void keyReleased(int key, char c) {
 		try {
-			PlayerController.getInstance().keyReleased(key, c, this.gc);
+			if (!PlayerController.getInstance().getPlayer().isDead()) {
+				PlayerController.getInstance().keyReleased(key, c, this.gc);
+			}
 		} catch (SlickException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -78,7 +84,9 @@ public class Game extends BasicGame {
 	@Override
 	public void keyPressed(int key, char c) {
 		try {
-			PlayerController.getInstance().keyPressed(key, c, this.gc);
+			if (!PlayerController.getInstance().getPlayer().isDead()) {
+				PlayerController.getInstance().keyPressed(key, c, this.gc);
+			}
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
@@ -87,10 +95,12 @@ public class Game extends BasicGame {
 	@Override 
 	public void mousePressed(int button, int x, int y) {
 		try {
-			PlayerController.getInstance().mousePressed(button, x, y);
+			if (!PlayerController.getInstance().getPlayer().isDead()) {
+				PlayerController.getInstance().mousePressed(button, x, y);
+			}
 		} catch (SlickException e) {
 			e.printStackTrace();
-		};
+		}
 	}
 	
 	// Get the coordinate of the UP LEFT corner of the screen

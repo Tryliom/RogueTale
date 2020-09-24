@@ -1,6 +1,8 @@
 package ch.cpnv.roguetale.entity.projectile;
 
 import org.lwjgl.util.vector.Vector2f;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
@@ -56,6 +58,11 @@ public abstract class Projectile extends MovableItem {
 		}
 	}
 	
+	@Override
+	public void draw(Vector2f origin, GameContainer gc) {
+		draw(origin, gc, Color.white);
+	}
+	
 	public void meetCharacter(Character touchedCharacter) {
 		touchedCharacter.updateHealth(-damage);
 		remainingTime = 0;
@@ -91,7 +98,7 @@ public abstract class Projectile extends MovableItem {
 		switch(direction) {
 			case UP:
 			case DOWN:
-				return new Rectangle(position.x -  image.getHeight(), position.y + image.getWidth(), image.getHeight(), image.getWidth());
+				return new Rectangle(position.x -  image.getHeight() / 2, position.y - image.getWidth() / 2, image.getHeight(), image.getWidth());
 			case RIGHT:
 			case LEFT:
 			default:
