@@ -12,7 +12,7 @@ public interface Controller {
 	
 	public void keyReleased(int key, char c, GameContainer gc);
 	
-	public void keyPressed(int key, char c, GameContainer gc);
+	public void keyPressed(int key, char c, GameContainer gc) throws SlickException;
 	
-	public void mousePressed(int button, int x, int y);
+	public void mousePressed(int button, int x, int y) throws SlickException;
 }

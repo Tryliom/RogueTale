@@ -1,4 +1,4 @@
-package ch.cpnv.roguetale.entity.projectile;
+package ch.cpnv.roguetale.entity.projectile.projectiles;
 
 import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.SlickException;
@@ -6,6 +6,7 @@ import org.newdawn.slick.SpriteSheet;
 
 import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.entity.character.Character;
+import ch.cpnv.roguetale.entity.projectile.Projectile;
 
 public class Arrow extends Projectile {
 	static protected final int SPEED = 100;

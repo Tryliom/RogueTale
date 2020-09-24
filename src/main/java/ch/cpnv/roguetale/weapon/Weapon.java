@@ -1,5 +1,7 @@
 package ch.cpnv.roguetale.weapon;
 
+import org.newdawn.slick.SlickException;
+
 import ch.cpnv.roguetale.entity.character.Character;
 
 public abstract class Weapon {	
@@ -25,7 +27,7 @@ public abstract class Weapon {
 		return damage;
 	}
 
-	public void attack(Character attacker) {
+	public void attack(Character attacker) throws SlickException {
 		// The attack is made inside children classes
 		if(canAttack()) {
 			this.currentCooldown = this.cooldown;
