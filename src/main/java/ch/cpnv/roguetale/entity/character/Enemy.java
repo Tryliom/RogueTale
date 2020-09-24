@@ -74,23 +74,24 @@ public class Enemy extends Character {
 	
 	protected Boolean isFacingPlayer() throws SlickException {
 		Player p = PlayerController.getInstance().getPlayer();
-		Rectangle enRect = new Rectangle(this.getPosition().getX(), this.getPosition().getY(), this.getSprite().getWidth(), this.getSprite().getHeight());
-		Rectangle pRect = new Rectangle(p.getPosition().getX(), p.getPosition().getY(), p.getSprite().getWidth(), p.getSprite().getHeight());
+		Rectangle enRect = new Rectangle(this.getPosition().getX(), this.getPosition().getY() - this.getSprite().getHeight(), this.getSprite().getWidth(), this.getSprite().getHeight());
+		Rectangle pRect = new Rectangle(p.getPosition().getX(), p.getPosition().getY() - this.getSprite().getHeight(), p.getSprite().getWidth(), p.getSprite().getHeight());
 
-		//TODO: Fix LEFT direction on this
 		switch (this.getDirection()) {
 			case DOWN:
-				enRect.setY(-1000);
+				enRect.setY(enRect.getY()-1000);
 				enRect.setHeight(1000);
 				break;
 			case LEFT:
-				enRect.setX(-1000);
-				enRect.setWidth(1000);
+				enRect.setX(enRect.getX()-1000);
+				enRect.setWidth(1000 + enRect.getWidth());
 				break;
 			case RIGHT:
+				enRect.setX(enRect.getX() + enRect.getWidth());
 				enRect.setWidth(1000);
 				break;
 			case UP:
+				enRect.setY(enRect.getY() + enRect.getHeight());
 				enRect.setHeight(1000);
 				break;
 		}
