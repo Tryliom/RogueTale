@@ -91,7 +91,7 @@ public abstract class Projectile extends MovableItem {
 		switch(direction) {
 			case UP:
 			case DOWN:
-				return new Rectangle(position.x -  image.getHeight(), position.y + image.getWidth(), image.getHeight(), image.getWidth());
+				return new Rectangle(position.x -  image.getHeight() / 2, position.y - image.getWidth() / 2, image.getHeight(), image.getWidth());
 			case RIGHT:
 			case LEFT:
 			default:
