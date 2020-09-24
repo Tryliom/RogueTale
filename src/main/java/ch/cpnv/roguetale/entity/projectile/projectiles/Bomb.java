@@ -11,13 +11,13 @@ import ch.cpnv.roguetale.entity.projectile.Projectile;
 public class Bomb extends Projectile {
 	static protected final int SPEED = 200;
 	static protected final int WIDTH = 32;
-	static protected final int HEIGHT = 18;
+	static protected final int HEIGHT = 32;
 	
-	static protected final String SPRITESHEET_PATH = "ch\\cpnv\\roguetale\\images\\projectiles\\arrow.png";
+	static protected final String SPRITESHEET_PATH = "ch\\cpnv\\roguetale\\images\\projectiles\\bomb.png";
 
 	public Bomb(Vector2f position, Direction direction, int range, int damage) throws SlickException {
 		super(
-				new SpriteSheet(SPRITESHEET_PATH, 568, 36), 
+				new SpriteSheet(SPRITESHEET_PATH, 128, 128), 
 				position,
 				SPEED, 
 				direction,
@@ -27,10 +27,12 @@ public class Bomb extends Projectile {
 		this.image = this.image.getScaledCopy(WIDTH, HEIGHT);
 		this.setImageDirection();
 	}
+	
+	@Override
+	protected void setImageDirection() {}
 
 	public Bomb(Character attacker, Direction direction, int range, int damage) throws SlickException {
 		this(attacker.getPosition(), direction, range, damage);
 		this.setPositionFromCharacter(attacker, direction);
 	}
-	
 }
