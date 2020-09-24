@@ -20,7 +20,7 @@ public abstract class DrawableItem {
 
 	public DrawableItem(SpriteSheet ss, Vector2f position) {
 		this.setSpritesheet(ss);
-		this.position = position;
+		this.position = position;		
 	}
 	
 	public Vector2f getPosition() {
@@ -82,14 +82,11 @@ public abstract class DrawableItem {
 	}
 	
 	public Boolean isColliding(DrawableItem collisionCandidate) {
-		if(getHitbox().intersects(collisionCandidate.getHitbox())) {
-			System.out.println("has collided");
-		};
 		return getHitbox().intersects(collisionCandidate.getHitbox());
 	}
 	
 	public Shape getHitbox() {		
-		return new Rectangle(getXLeft(), getYTop(), image.getWidth(), image.getHeight());
+		return new Rectangle(getXLeft(), getYBottom(), image.getWidth(), image.getHeight());
 	}
 	
 	public boolean isCollidingWithAnotherCharacter() throws SlickException {
@@ -102,5 +99,10 @@ public abstract class DrawableItem {
 			isCollide = true;
 		
 		return isCollide;
+	}
+	
+	protected void printHitbox() {
+		Shape hitbox = this.getHitbox();
+		System.out.println(this + "hitbox : (" + hitbox.getMinX() + ", " + hitbox.getMinY() + ") - ( " + hitbox.getMaxX() + ", " + hitbox.getMaxY() + ")");
 	}
 }
