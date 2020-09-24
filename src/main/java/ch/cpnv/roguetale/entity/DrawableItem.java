@@ -1,6 +1,7 @@
 package ch.cpnv.roguetale.entity;
 
 import org.lwjgl.util.vector.Vector2f;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -65,12 +66,17 @@ public abstract class DrawableItem {
 		return "DrawableItem (" + position.x + ", " + position.y + ")";
 	}
 	
-	public void draw(Vector2f origin, GameContainer gc) {
+	public void draw(Vector2f origin, GameContainer gc, Color filter) {
 		// Note that the slick y coordinates go the opposite direction of the usual y axis
 		if (isInScreen(gc, origin)) {
 			this.image.draw(this.position.x - origin.x - this.image.getWidth() / 2, 
-					 - (this.position.y - origin.y + this.image.getHeight() / 2));
+					 - (this.position.y - origin.y + this.image.getHeight() / 2),
+					 filter);
 		}
+	}
+	
+	public void draw(Vector2f origin, GameContainer gc) {
+		draw(origin, gc, null);
 	}
 	
 	public Boolean isInScreen(GameContainer gc, Vector2f screenOrigin) {

@@ -1,6 +1,8 @@
 package ch.cpnv.roguetale.entity.projectile;
 
 import org.lwjgl.util.vector.Vector2f;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
@@ -54,6 +56,11 @@ public abstract class Projectile extends MovableItem {
 			default:
 				break;
 		}
+	}
+	
+	@Override
+	public void draw(Vector2f origin, GameContainer gc) {
+		draw(origin, gc, Color.white);
 	}
 	
 	public void meetCharacter(Character touchedCharacter) {
