@@ -93,14 +93,14 @@ public abstract class DrawableItem {
 	}
 	
 	public boolean isCollidingWithAnotherCharacter() throws SlickException {
-		boolean isCollide = false;
+		boolean isColliding = false;
 		for (Enemy en : EnemyController.getInstance().getEnemies()) {
 			if (en != this && this.isColliding(en))
-				isCollide = true;
+				isColliding = true;
 		}
-		if (!(this instanceof Player) && this.isColliding(PlayerController.getInstance().getPlayer()))
-			isCollide = true;
+		if (this != PlayerController.getInstance().getPlayer() && this.isColliding(PlayerController.getInstance().getPlayer()))
+			isColliding = true;
 		
-		return isCollide;
+		return isColliding;
 	}
 }
