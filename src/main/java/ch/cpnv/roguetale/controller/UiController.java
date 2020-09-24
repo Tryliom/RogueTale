@@ -58,14 +58,14 @@ public class UiController implements Controller {
 		int remainingFullLifePoints = player.getCurrentHealth();
 		for(LifePoint lifePoint : lifePoints) {
 			if(remainingFullLifePoints > 0) {
-				if(!lifePoint.Full()) {
-					lifePoint.Full(true);
+				if(!lifePoint.isFull()) {
+					lifePoint.setFull(true);
 				}
 				remainingFullLifePoints--;
 			}
 			else {
-				if(lifePoint.Full()) {
-					lifePoint.Full(false);
+				if(lifePoint.isFull()) {
+					lifePoint.setFull(false);
 				}
 			}
 		}	
@@ -90,6 +90,7 @@ public class UiController implements Controller {
 		// Define color before an action
 		g.setColor(new Color(200, 60, 60));
 		g.drawString("Game Over", 250, 20);
+		// g.resetColor()
 	}
 
 }

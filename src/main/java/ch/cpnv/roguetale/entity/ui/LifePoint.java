@@ -14,14 +14,14 @@ public class LifePoint extends DrawableItem {
 	
 	public LifePoint() throws SlickException {
 		super(new SpriteSheet(SPRITESHEET_PATH, 300, 300), new Vector2f());
-		Full(true);
+		setFull(true);
 	}
 	
-	public Boolean Full()  {
+	public Boolean isFull()  {
 		return full;
 	}
 	
-	public void Full(Boolean full) {
+	public void setFull(Boolean full) {
 		this.full = full;
 		if (full) {
 			this.image = this.spritesheet.getSprite(0, 0);
