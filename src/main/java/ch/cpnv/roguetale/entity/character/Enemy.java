@@ -19,13 +19,35 @@ public class Enemy extends Character {
 	}
 	
 	public void chooseAction() throws SlickException {
+		this.changeDirectionToFacingPlayer();
+		
 		if (isFacingPlayer() && isInPlayerRange()) {
 			this.setMoving(false);
 			this.getRangedWeapon().attack(this);
+		} else {
+			this.moveTowardPlayer();
 		}
+	}
 
-		else 
-			moveTowardPlayer();
+	private void changeDirectionToFacingPlayer() throws SlickException {
+		Player p = PlayerController.getInstance().getPlayer();
+		float diffX = this.getPosition().getX() - p.getPosition().getX();
+		float diffY = this.getPosition().getY() - p.getPosition().getY();
+		
+		if (Math.abs(diffX) >= Math.abs(diffY)) {
+			if (diffX <= 0) {
+				this.setDirection(Direction.RIGHT);
+			} else {
+				this.setDirection(Direction.LEFT);
+			}
+		} else {
+			if (diffY <= 0) {
+				this.setDirection(Direction.UP);
+			} else {
+				this.setDirection(Direction.DOWN);
+			}
+		}
+		
 	}
 
 	protected void moveTowardPlayer() throws SlickException {
@@ -33,14 +55,14 @@ public class Enemy extends Character {
 		float diffX = this.getPosition().getX() - p.getPosition().getX();
 		float diffY = this.getPosition().getY() - p.getPosition().getY();
 		
-		if (Math.abs(diffX) > Math.abs(diffY)) {
-			if (diffX < 0) {
+		if (Math.abs(diffX) <= Math.abs(diffY)) {
+			if (diffX <= 0) {
 				this.setDirection(Direction.RIGHT);
 			} else {
 				this.setDirection(Direction.LEFT);
 			}
 		} else {
-			if (diffY < 0) {
+			if (diffY <= 0) {
 				this.setDirection(Direction.UP);
 			} else {
 				this.setDirection(Direction.DOWN);
@@ -52,22 +74,36 @@ public class Enemy extends Character {
 	
 	protected Boolean isFacingPlayer() throws SlickException {
 		Player p = PlayerController.getInstance().getPlayer();
-		Rectangle enRect = new Rectangle(this.getPosition().getX(), this.getPosition().getY(), this.getSprite().getWidth(), this.getSprite().getHeight());
-		Rectangle pRect = new Rectangle(p.getPosition().getX(), p.getPosition().getY(), p.getSprite().getWidth(), p.getSprite().getHeight());
-		
+		float percent_precision = 0.1f;
+		float border = (1-percent_precision)/2;
+		Rectangle enRect = new Rectangle(
+					this.getPosition().getX() + this.getSprite().getWidth()*border, 
+					this.getPosition().getY() + this.getSprite().getHeight() - this.getSprite().getHeight()*border, 
+					this.getSprite().getWidth()*percent_precision, 
+					this.getSprite().getHeight()*percent_precision
+				);
+		Rectangle pRect = new Rectangle(
+					p.getPosition().getX() + p.getSprite().getWidth()*border, 
+					p.getPosition().getY() + p.getSprite().getHeight() - p.getSprite().getHeight()*border,  
+					p.getSprite().getWidth()*percent_precision, 
+					p.getSprite().getHeight()*percent_precision
+				);
+
 		switch (this.getDirection()) {
 			case DOWN:
-				enRect.setY(-1000);
+				enRect.setY(enRect.getY()-1000);
 				enRect.setHeight(1000);
 				break;
 			case LEFT:
-				enRect.setX(-1000);
-				enRect.setWidth(1000);
+				enRect.setX(enRect.getX()-1000);
+				enRect.setWidth(1000 + enRect.getWidth());
 				break;
 			case RIGHT:
+				enRect.setX(enRect.getX() + enRect.getWidth());
 				enRect.setWidth(1000);
 				break;
 			case UP:
+				enRect.setY(enRect.getY() + enRect.getHeight());
 				enRect.setHeight(1000);
 				break;
 		}

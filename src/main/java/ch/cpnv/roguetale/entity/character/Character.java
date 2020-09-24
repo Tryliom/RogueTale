@@ -34,7 +34,7 @@ public abstract class Character extends MovableItem {
 		super.move(delta);
 		
 		if (isCollidingWithAnotherCharacter()) {
-			this.move(delta * -1);
+			super.move(delta * -1);
 		}
 	}
 	
