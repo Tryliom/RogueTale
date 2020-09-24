@@ -74,8 +74,20 @@ public class Enemy extends Character {
 	
 	protected Boolean isFacingPlayer() throws SlickException {
 		Player p = PlayerController.getInstance().getPlayer();
-		Rectangle enRect = new Rectangle(this.getPosition().getX(), this.getPosition().getY() - this.getSprite().getHeight(), this.getSprite().getWidth(), this.getSprite().getHeight());
-		Rectangle pRect = new Rectangle(p.getPosition().getX(), p.getPosition().getY() - this.getSprite().getHeight(), p.getSprite().getWidth(), p.getSprite().getHeight());
+		float percent_precision = 0.1f;
+		float border = (1-percent_precision)/2;
+		Rectangle enRect = new Rectangle(
+					this.getPosition().getX() + this.getSprite().getWidth()*border, 
+					this.getPosition().getY() + this.getSprite().getHeight() - this.getSprite().getHeight()*border, 
+					this.getSprite().getWidth()*percent_precision, 
+					this.getSprite().getHeight()*percent_precision
+				);
+		Rectangle pRect = new Rectangle(
+					p.getPosition().getX() + p.getSprite().getWidth()*border, 
+					p.getPosition().getY() + p.getSprite().getHeight() - p.getSprite().getHeight()*border,  
+					p.getSprite().getWidth()*percent_precision, 
+					p.getSprite().getHeight()*percent_precision
+				);
 
 		switch (this.getDirection()) {
 			case DOWN:
