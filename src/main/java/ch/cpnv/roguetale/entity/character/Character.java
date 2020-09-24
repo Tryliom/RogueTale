@@ -33,9 +33,13 @@ public abstract class Character extends MovableItem {
 	public void move(int delta) throws SlickException {
 		super.move(delta);
 		
+		// undo the move if there is a collision
 		if (isCollidingWithAnotherCharacter()) {
+			// We don't want to create an inifinite loop, 
+			// so we really don't want to reuse this move
 			super.move(delta * -1);
 		}
+		
 	}
 	
 	public int getCurrentHealth() {
@@ -57,6 +61,7 @@ public abstract class Character extends MovableItem {
 	// TODO prevent currentHealth to become higher than maxHealth
 	public void updateHealth(int health) {
 		this.currentHealth += health;
+		System.out.println("Character touched. New health : " + currentHealth);
 	}
 	
 	public void updateMaxHealth(int health) {
@@ -65,7 +70,7 @@ public abstract class Character extends MovableItem {
 	}
 	
 	public Boolean isDead() {
-		return this.currentHealth == 0;
+		return this.currentHealth <= 0;
 	}
 	
 	public void primaryAttack() {

@@ -15,7 +15,7 @@ public class Enemy extends Character {
 
 	public Enemy(SpriteSheet ss, Vector2f position, int speed, Direction direction, boolean moving,
 			Weapon primaryWeapon, Weapon secondaryWeapon, int maxHealth) {
-		super(ss, position, speed, direction, moving, primaryWeapon, secondaryWeapon, speed);
+		super(ss, position, speed, direction, moving, primaryWeapon, secondaryWeapon, maxHealth);
 	}
 	
 	public void chooseAction() throws SlickException {
