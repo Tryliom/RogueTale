@@ -33,9 +33,13 @@ public abstract class Character extends MovableItem {
 	public void move(int delta) throws SlickException {
 		super.move(delta);
 		
+		// undo the move if there is a collision
 		if (isCollidingWithAnotherCharacter()) {
-			this.move(delta * -1);
+			// We don't want to create an inifinite loop, 
+			// so we really don't want to reuse this move
+			super.move(delta * -1);
 		}
+		
 	}
 	
 	public int getCurrentHealth() {
