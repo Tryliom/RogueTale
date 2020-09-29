@@ -26,6 +26,10 @@ public abstract class Weapon {
 	public int getDamage() {
 		return damage;
 	}
+	
+	public void setDamage(int damage) {
+		this.damage = damage;
+	}
 
 	public void attack(Character attacker) throws SlickException {
 		// The attack is made inside children classes
