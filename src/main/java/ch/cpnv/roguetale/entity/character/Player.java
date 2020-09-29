@@ -13,6 +13,7 @@ public class Player extends Character {
 	protected int maxExp;
 	
 	protected boolean invulnerable = false;
+	protected boolean oneHitKill = false;
 
 	public Player(SpriteSheet ss, 
 			Vector2f position, 
@@ -42,6 +43,20 @@ public class Player extends Character {
 	
 	public void setInvulnerable(boolean invulnerable) {
 		this.invulnerable = invulnerable;
+	}
+	
+	public void setOneHitKill() {
+		this.oneHitKill = true;
+		
+		if(primaryWeapon != null) { 
+			primaryWeapon.setDamage(Integer.MAX_VALUE);
+			//System.out.println("max primary damage");
+		}
+		
+		if(secondaryWeapon != null) { 
+			secondaryWeapon.setDamage(Integer.MAX_VALUE);
+			//System.out.println("max secondary damage");
+		}
 	}
 	
 	public void updateExp(int exp) {
