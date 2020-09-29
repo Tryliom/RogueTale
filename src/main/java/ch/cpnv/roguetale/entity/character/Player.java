@@ -6,6 +6,8 @@ import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.weapon.Weapon;
 
 public class Player extends Character {
+	// not Integer.Max, because it creates some undesired effects when a character is dealt multiple times INFINITEDAMAGE damage
+	protected final static int INFINITEDAMAGE = 10000;
 	protected final static int STARTING_MAX_HEALTH = 3;
 	
 	protected int level;
@@ -49,12 +51,12 @@ public class Player extends Character {
 		this.oneHitKill = true;
 		
 		if(primaryWeapon != null) { 
-			primaryWeapon.setDamage(Integer.MAX_VALUE);
+			primaryWeapon.setDamage(INFINITEDAMAGE);
 			//System.out.println("max primary damage");
 		}
 		
 		if(secondaryWeapon != null) { 
-			secondaryWeapon.setDamage(Integer.MAX_VALUE);
+			secondaryWeapon.setDamage(INFINITEDAMAGE);
 			//System.out.println("max secondary damage");
 		}
 	}
@@ -93,6 +95,7 @@ public class Player extends Character {
 	
 	@Override
 	public void updateHealth(int health) {
+		System.out.println("Player loses health");
 		if(!invulnerable || health >= 0) {
 			super.updateHealth(health);
 		}

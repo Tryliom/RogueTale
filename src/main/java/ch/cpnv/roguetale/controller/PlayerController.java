@@ -34,8 +34,8 @@ public class PlayerController implements Controller {
 				150, 
 				Direction.DOWN, 
 				false, 
-				new Cannon(), 
-				new Bow());
+				new Bow(),
+				new Cannon());
 		// Put Input key who equals to direction
 		this.MOVING_KEYS.put(Input.KEY_W, Direction.UP);
 		this.MOVING_KEYS.put(Input.KEY_A, Direction.LEFT);
