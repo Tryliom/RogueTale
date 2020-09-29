@@ -9,7 +9,7 @@ import ch.cpnv.roguetale.entity.character.Character;
 import ch.cpnv.roguetale.entity.projectile.Projectile;
 
 public class Arrow extends Projectile {
-	static protected final int SPEED = 100;
+	static protected final int SPEED = 200;
 	static protected final int WIDTH = 32;
 	static protected final int HEIGHT = 18;
 	

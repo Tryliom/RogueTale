@@ -31,7 +31,7 @@ public class PlayerController implements Controller {
 		this.player = new Player(
 				new SpriteSheet("ch\\cpnv\\roguetale\\images\\player\\carac.png", 48, 48, 0), 
 				new Vector2f(0,0), 
-				100, 
+				150, 
 				Direction.DOWN, 
 				false, 
 				new Knife(), 

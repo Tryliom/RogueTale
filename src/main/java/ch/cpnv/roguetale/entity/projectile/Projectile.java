@@ -56,6 +56,8 @@ public abstract class Projectile extends MovableItem {
 		}
 	}
 	
+	public void onDeath() throws SlickException {}
+	
 	public void meetCharacter(Character touchedCharacter) {
 		touchedCharacter.updateHealth(-damage);
 		remainingTime = 0;

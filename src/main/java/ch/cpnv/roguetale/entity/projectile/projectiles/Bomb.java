@@ -4,7 +4,9 @@ import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
+import ch.cpnv.roguetale.controller.AreaController;
 import ch.cpnv.roguetale.entity.Direction;
+import ch.cpnv.roguetale.entity.areaofeffect.areas.explosions.MinorExplosion;
 import ch.cpnv.roguetale.entity.character.Character;
 import ch.cpnv.roguetale.entity.projectile.Projectile;
 
@@ -34,5 +36,10 @@ public class Bomb extends Projectile {
 	public Bomb(Character attacker, Direction direction, int range, int damage) throws SlickException {
 		this(attacker.getPosition(), direction, range, damage);
 		this.setPositionFromCharacter(attacker, direction);
+	}
+	
+	public void onDeath() throws SlickException {
+		AreaController.getInstance().getAreas().add(new MinorExplosion(this.getPosition(), this.damage));
+		super.onDeath();
 	}
 }
