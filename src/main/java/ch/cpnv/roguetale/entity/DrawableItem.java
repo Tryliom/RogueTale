@@ -81,9 +81,6 @@ public abstract class DrawableItem {
 	}
 	
 	public Boolean isColliding(DrawableItem collisionCandidate) {
-		if(getHitbox().intersects(collisionCandidate.getHitbox())) {
-			System.out.println("has collided");
-		};
 		return getHitbox().intersects(collisionCandidate.getHitbox());
 	}
 	

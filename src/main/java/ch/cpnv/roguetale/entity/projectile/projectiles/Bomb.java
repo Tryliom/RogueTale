@@ -39,7 +39,7 @@ public class Bomb extends Projectile {
 	}
 	
 	public void onDeath() throws SlickException {
-		AreaController.getInstance().getAreas().add(new MinorExplosion(this.getPosition(), this.damage));
+		AreaController.getInstance().addArea(new MinorExplosion(this.getPosition(), this.damage));
 		super.onDeath();
 	}
 }

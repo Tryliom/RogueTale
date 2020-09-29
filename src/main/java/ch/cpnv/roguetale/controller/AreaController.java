@@ -63,7 +63,7 @@ public class AreaController implements Controller {
 		
 		for (AreaOfEffect area : this.areas) {
 			for (Character en : entities) {
-				if (area.isColliding(en) && area.isEntityInCooldown(en)) {
+				if (area.isColliding(en) && !area.isEntityInCooldown(en)) {
 					area.getCooldownEntites().put(en, area.getDelay());
 					en.updateHealth(-area.getDamage());
 				}
@@ -80,7 +80,7 @@ public class AreaController implements Controller {
 		}
 	}
 	
-	public ArrayList<AreaOfEffect> getAreas() {
-		return areas;
+	public void addArea(AreaOfEffect area) {
+		areas.add(area);
 	}
 }

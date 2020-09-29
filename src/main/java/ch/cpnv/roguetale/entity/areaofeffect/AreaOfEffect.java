@@ -40,7 +40,7 @@ public class AreaOfEffect extends DrawableItem {
 			int delay = this.cooldownEntites.get(en);
 			
 			if (delay > 0) {
-				delay--;
+				delay -= delta;
 				this.cooldownEntites.put(en, delay);
 			}
 		}

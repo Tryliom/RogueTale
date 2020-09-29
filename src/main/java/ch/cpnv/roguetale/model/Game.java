@@ -32,11 +32,11 @@ public class Game extends BasicGame {
 		Vector2f origin = getSlickOrigin();
 		
 		MapController.getInstance().render(gc, g, origin);
+		AreaController.getInstance().render(gc, g, origin);
 		EnemyController.getInstance().render(gc, g, origin);
 		PlayerController.getInstance().render(gc, g, origin);
 		ProjectileController.getInstance().render(gc, g, origin);
 		UiController.getInstance().render(gc, g, origin);
-		AreaController.getInstance().render(gc, g, origin);
 	}
 
 	@Override
