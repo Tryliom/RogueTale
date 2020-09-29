@@ -72,11 +72,11 @@ public abstract class Character extends MovableItem {
 		return this.currentHealth <= 0;
 	}
 	
-	public void primaryAttack() {
+	public void primaryAttack() throws SlickException {
 		primaryWeapon.attack(this);
 	}
 	
-	public void secondaryAttack() {
+	public void secondaryAttack() throws SlickException {
 		secondaryWeapon.attack(this);
 	}
 	

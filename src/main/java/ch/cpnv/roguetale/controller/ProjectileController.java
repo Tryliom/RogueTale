@@ -89,12 +89,13 @@ public class ProjectileController implements Controller {
 		}
 	}
 	
-	private void removeExpiredProjectiles() {
+	private void removeExpiredProjectiles() throws SlickException {
 		// The remove method does not work in a "for(Projectile projectile : projectiles)" loop
 		// https://stackoverflow.com/questions/3184883/concurrentmodificationexception-for-arraylist
 		for(Iterator<Projectile> iterator = projectiles.iterator(); iterator.hasNext();) {
 			Projectile projectile = iterator.next();
 			if (projectile.isExpired()) {
+				projectile.onDeath();
 				iterator.remove();
 			}
 		}

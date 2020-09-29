@@ -7,6 +7,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
+import ch.cpnv.roguetale.controller.AreaController;
 import ch.cpnv.roguetale.controller.EnemyController;
 import ch.cpnv.roguetale.controller.MapController;
 import ch.cpnv.roguetale.controller.PlayerController;
@@ -32,14 +33,11 @@ public class Game extends BasicGame {
 		Vector2f origin = getSlickOrigin();
 		
 		MapController.getInstance().render(gc, g, origin);
+		AreaController.getInstance().render(gc, g, origin);
 		EnemyController.getInstance().render(gc, g, origin);
 		PlayerController.getInstance().render(gc, g, origin);
 		ProjectileController.getInstance().render(gc, g, origin);
 		UiController.getInstance().render(gc, g, origin);
-		
-		// Define color before an action
-		//g.setColor(new Color(60, 60, 200));
-		//g.drawString("RogueTale", 0, 0);
 	}
 
 	@Override
@@ -57,11 +55,12 @@ public class Game extends BasicGame {
 		if (!PlayerController.getInstance().getPlayer().isDead()) {
 			Vector2f origin = getSlickOrigin();
 			
-			MapController.getInstance().update(gc, delta, origin);
-			EnemyController.getInstance().update(gc, delta, origin);
-			PlayerController.getInstance().update(gc, delta, origin);
-			ProjectileController.getInstance().update(gc, delta, origin);
-			UiController.getInstance().update(gc, delta, origin);
+		MapController.getInstance().update(gc, delta, origin);
+		EnemyController.getInstance().update(gc, delta, origin);
+		PlayerController.getInstance().update(gc, delta, origin);
+		ProjectileController.getInstance().update(gc, delta, origin);
+		UiController.getInstance().update(gc, delta, origin);
+		AreaController.getInstance().update(gc, delta, origin);
 		}
 	}
 	

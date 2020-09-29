@@ -10,6 +10,7 @@ import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.entity.character.Enemy;
 import ch.cpnv.roguetale.entity.character.Player;
+import ch.cpnv.roguetale.entity.character.enemy.Bomber;
 import ch.cpnv.roguetale.entity.character.enemy.Robot;
 
 public class EnemyController implements Controller {
@@ -113,7 +114,7 @@ public class EnemyController implements Controller {
 		if (rand < 50) 
 			enemy = new Robot(position);
 		else
-			enemy = new Robot(position);
+			enemy = new Bomber(position);
 		
 		return enemy;
 	}

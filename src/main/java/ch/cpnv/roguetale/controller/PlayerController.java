@@ -31,7 +31,7 @@ public class PlayerController implements Controller {
 		this.player = new Player(
 				new SpriteSheet("ch\\cpnv\\roguetale\\images\\player\\carac.png", 48, 48, 0), 
 				new Vector2f(0,0), 
-				100, 
+				150, 
 				Direction.DOWN, 
 				false, 
 				new Knife(), 
@@ -57,7 +57,7 @@ public class PlayerController implements Controller {
 	}
 	
 	@Override
-	public void keyPressed(int key, char c, GameContainer gc) {
+	public void keyPressed(int key, char c, GameContainer gc) throws SlickException {
 		// If a direction key is pressed, set the direction of player and allow it to move
 		if (this.MOVING_KEYS.containsKey(key)) {
 			this.player.setDirection(MOVING_KEYS.get(key));
@@ -80,7 +80,7 @@ public class PlayerController implements Controller {
 	}
 	
 	@Override
-	public void mousePressed(int button, int x, int y) {
+	public void mousePressed(int button, int x, int y) throws SlickException {
 		switch(button) {
 			case Input.MOUSE_LEFT_BUTTON:
 				player.primaryAttack();

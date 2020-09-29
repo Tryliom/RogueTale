@@ -1,5 +1,6 @@
 package ch.cpnv.roguetale.weapon;
 
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Shape;
 
 import ch.cpnv.roguetale.entity.character.Character;
@@ -13,7 +14,7 @@ public abstract class MeleeWeapon extends Weapon {
 	}
 
 	@Override
-	public void attack(Character attacker) {
+	public void attack(Character attacker) throws SlickException {
 		super.attack(attacker);
 	}
 }

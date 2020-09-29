@@ -58,6 +58,8 @@ public abstract class Projectile extends MovableItem {
 		}
 	}
 	
+	public void onDeath() throws SlickException {}
+	
 	@Override
 	public void draw(Vector2f origin, GameContainer gc) {
 		draw(origin, gc, Color.white);
