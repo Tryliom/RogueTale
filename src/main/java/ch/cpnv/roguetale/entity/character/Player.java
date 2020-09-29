@@ -11,6 +11,8 @@ public class Player extends Character {
 	protected int level;
 	protected int currentExp;
 	protected int maxExp;
+	
+	protected boolean invulnerable = false;
 
 	public Player(SpriteSheet ss, 
 			Vector2f position, 
@@ -38,6 +40,10 @@ public class Player extends Character {
 		return maxExp;
 	}
 	
+	public void setInvulnerable(boolean invulnerable) {
+		this.invulnerable = invulnerable;
+	}
+	
 	public void updateExp(int exp) {
 		int totExp = currentExp + exp;
 		
@@ -51,6 +57,13 @@ public class Player extends Character {
 			
 		} else {
 			currentExp = totExp;
+		}
+	}
+	
+	@Override
+	public void updateHealth(int health) {
+		if(!invulnerable || health >= 0) {
+			super.updateHealth(health);
 		}
 	}
 }

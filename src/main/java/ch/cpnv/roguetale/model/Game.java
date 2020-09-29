@@ -48,8 +48,9 @@ public class Game extends BasicGame {
 		this.height = gc.getHeight();
 		this.width = gc.getWidth();
 		
-		// Define values
 		gc.setShowFPS(false);
+		
+		//PlayerController.getInstance().getPlayer().setInvulnerable(true);
 	}
 
 	@Override
