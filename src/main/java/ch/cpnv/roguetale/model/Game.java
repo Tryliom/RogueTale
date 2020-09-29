@@ -48,22 +48,24 @@ public class Game extends BasicGame {
 		
 		gc.setShowFPS(false);
 		
-		//PlayerController.getInstance().getPlayer().setInvulnerable(true);
-		//PlayerController.getInstance().getPlayer().setOneHitKill();
+		PlayerController.getInstance().getPlayer().setInvulnerable(true);
+		PlayerController.getInstance().getPlayer().setOneHitKill();
 	}
 
 	@Override
 	public void update(GameContainer gc, int delta) throws SlickException {
+		Vector2f origin = getSlickOrigin();
+		
 		if (!PlayerController.getInstance().getPlayer().isDead()) {
-			Vector2f origin = getSlickOrigin();
 			
-		MapController.getInstance().update(gc, delta, origin);
-		EnemyController.getInstance().update(gc, delta, origin);
-		PlayerController.getInstance().update(gc, delta, origin);
-		ProjectileController.getInstance().update(gc, delta, origin);
-		UiController.getInstance().update(gc, delta, origin);
-		AreaController.getInstance().update(gc, delta, origin);
+			MapController.getInstance().update(gc, delta, origin);
+			EnemyController.getInstance().update(gc, delta, origin);
+			PlayerController.getInstance().update(gc, delta, origin);
+			ProjectileController.getInstance().update(gc, delta, origin);
+			AreaController.getInstance().update(gc, delta, origin);
 		}
+		
+		UiController.getInstance().update(gc, delta, origin);
 	}
 	
 	@Override

@@ -31,8 +31,8 @@ public class AreaOfEffect extends DrawableItem {
 	}
 	
 	@Override
-	public Boolean isColliding(DrawableItem collisionCandidate) {
-		return this.area.intersects(collisionCandidate.getHitbox());
+	public Shape getHitbox() {
+		return this.area;
 	}
 	
 	private void updateCooldown(int delta) {

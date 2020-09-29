@@ -11,8 +11,8 @@ import org.newdawn.slick.SpriteSheet;
 
 import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.entity.character.Player;
-import ch.cpnv.roguetale.weapon.melee.Knife;
 import ch.cpnv.roguetale.weapon.ranged.Bow;
+import ch.cpnv.roguetale.weapon.ranged.Cannon;
 
 public class PlayerController implements Controller {
 	private static PlayerController instance = null;
@@ -34,7 +34,7 @@ public class PlayerController implements Controller {
 				150, 
 				Direction.DOWN, 
 				false, 
-				new Knife(), 
+				new Cannon(), 
 				new Bow());
 		// Put Input key who equals to direction
 		this.MOVING_KEYS.put(Input.KEY_W, Direction.UP);

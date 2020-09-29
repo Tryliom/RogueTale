@@ -87,7 +87,7 @@ public abstract class DrawableItem {
 	}
 	
 	public Boolean isColliding(DrawableItem collisionCandidate) {
-		return getHitbox().intersects(collisionCandidate.getHitbox());
+		return getHitbox().intersects(collisionCandidate.getHitbox()) || getHitbox().contains(collisionCandidate.getHitbox()) || collisionCandidate.getHitbox().contains(getHitbox());
 	}
 	
 	public Shape getHitbox() {		
