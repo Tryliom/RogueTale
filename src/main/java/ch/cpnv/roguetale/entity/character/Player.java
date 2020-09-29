@@ -59,6 +59,22 @@ public class Player extends Character {
 		}
 	}
 	
+	@Override
+	public void setPrimaryWeapon(Weapon weapon) {
+		super.setPrimaryWeapon(weapon);
+		if(oneHitKill) {
+			setOneHitKill();
+		}
+	}
+	
+	@Override
+	public void setSecondaryWeapon(Weapon weapon) {
+		super.setSecondaryWeapon(weapon);
+		if(oneHitKill) {
+			setOneHitKill();
+		}
+	}
+	
 	public void updateExp(int exp) {
 		int totExp = currentExp + exp;
 		
