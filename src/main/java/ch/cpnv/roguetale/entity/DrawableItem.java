@@ -12,7 +12,6 @@ import org.newdawn.slick.geom.Shape;
 import ch.cpnv.roguetale.controller.EnemyController;
 import ch.cpnv.roguetale.controller.PlayerController;
 import ch.cpnv.roguetale.entity.character.Enemy;
-import ch.cpnv.roguetale.entity.character.Player;
 
 public abstract class DrawableItem {
 	protected SpriteSheet spritesheet;
