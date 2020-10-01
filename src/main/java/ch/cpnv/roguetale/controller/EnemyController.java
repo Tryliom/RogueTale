@@ -1,8 +1,6 @@
 package ch.cpnv.roguetale.controller;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-
 import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -35,6 +33,10 @@ public class EnemyController implements Controller {
 	public ArrayList<Enemy> getEnemies() {
 		return enemies;
 	}
+	
+	public void removeEnemy(Enemy enemy) {
+		enemies.remove(enemy);
+	}
 
 	@Override
 	public void render(GameContainer gc, Graphics g, Vector2f origin) throws SlickException {
@@ -44,9 +46,7 @@ public class EnemyController implements Controller {
 	}
 
 	@Override
-	public void update(GameContainer gc, int delta, Vector2f origin) throws SlickException {
-		removeDeadEnemies();
-		
+	public void update(GameContainer gc, int delta, Vector2f origin) throws SlickException {		
 		for(Enemy enemy : enemies) {
 			enemy.chooseAction();
 			if (enemy.isMoving())
@@ -117,14 +117,5 @@ public class EnemyController implements Controller {
 			enemy = new Bomber(position);
 		
 		return enemy;
-	}
-	
-	private void removeDeadEnemies() {
-		for(Iterator<Enemy> iterator = enemies.iterator(); iterator.hasNext();) {
-			Enemy enemy = iterator.next();
-			if(enemy.isDead()) {
-				iterator.remove();
-			}
-		}
 	}
 }

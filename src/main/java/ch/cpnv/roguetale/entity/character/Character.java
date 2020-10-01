@@ -59,11 +59,11 @@ public abstract class Character extends MovableItem {
 	}
 	
 	// TODO prevent currentHealth to become higher than maxHealth
-	public void updateHealth(int health) {
+	public void updateHealth(int health) throws SlickException {
 		this.currentHealth += health;
 	}
 	
-	public void updateMaxHealth(int health) {
+	public void updateMaxHealth(int health) throws SlickException {
 		maxHealth += health;
 		updateHealth(health);
 	}
