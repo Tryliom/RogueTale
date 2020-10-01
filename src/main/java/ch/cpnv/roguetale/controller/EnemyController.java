@@ -35,6 +35,10 @@ public class EnemyController implements Controller {
 	public ArrayList<Enemy> getEnemies() {
 		return enemies;
 	}
+	
+	public void removeEnemy(Enemy enemy) {
+		enemies.remove(enemy);
+	}
 
 	@Override
 	public void render(GameContainer gc, Graphics g, Vector2f origin) throws SlickException {
@@ -120,11 +124,10 @@ public class EnemyController implements Controller {
 	}
 	
 	private void removeDeadEnemies() throws SlickException {
-		for(Iterator<Enemy> iterator = enemies.iterator(); iterator.hasNext();) {
-			Enemy enemy = iterator.next();
+		for(int i = 0; i < enemies.size(); i++) {
+			Enemy enemy = enemies.get(i);
 			if(enemy.isDead()) {
 				enemy.die();
-				iterator.remove();
 			}
 		}
 	}
