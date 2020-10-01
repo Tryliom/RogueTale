@@ -18,5 +18,7 @@ public class PickupableLifePoint extends PickupableItem {
 	@Override
 	public void pickup(Player player) throws SlickException {		
 		super.pickup(player);
+		
+		player.updateHealth(1);
 	}
 }
