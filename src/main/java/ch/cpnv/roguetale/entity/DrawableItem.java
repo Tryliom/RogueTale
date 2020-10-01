@@ -23,6 +23,7 @@ public abstract class DrawableItem {
 	protected Image image;
 	protected Vector2f position;
 	protected Animation animation;
+	protected Animation deathAnimation;
 	protected ArrayList<ItemEffect> activeEffects = new ArrayList<ItemEffect>();
 
 	public DrawableItem(SpriteSheet ss, Vector2f position) {

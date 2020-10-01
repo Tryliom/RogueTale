@@ -1,6 +1,8 @@
 package ch.cpnv.roguetale.entity.character;
 
 import org.lwjgl.util.vector.Vector2f;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
@@ -42,6 +44,15 @@ public abstract class Character extends MovableItem {
 			super.move(delta * -1);
 		}
 		
+	}
+	
+	public void draw(Vector2f origin, GameContainer gc, Color filter) {
+		if (this.isDead() && this.deathAnimation != null) {
+			this.deathAnimation.draw(this.position.x - origin.x - this.image.getWidth() / 2, 
+					 - (this.position.y - origin.y + this.image.getHeight() / 2),
+					 filter);
+		} else
+			super.draw(origin, gc, filter);
 	}
 	
 	public int getCurrentHealth() {

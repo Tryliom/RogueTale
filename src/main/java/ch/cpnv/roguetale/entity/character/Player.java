@@ -1,8 +1,11 @@
 package ch.cpnv.roguetale.entity.character;
 
 import org.lwjgl.util.vector.Vector2f;
+import org.newdawn.slick.Animation;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
+
 import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.weapon.Weapon;
 
@@ -10,6 +13,7 @@ public class Player extends Character {
 	// not Integer.Max, because it creates some undesired effects when a character is dealt multiple times INFINITEDAMAGE damage
 	protected final static int INFINITEDAMAGE = 10000;
 	protected final static int STARTING_MAX_HEALTH = 3;
+	private static final String DEAD_ANIMATION = "ch\\cpnv\\roguetale\\images\\player\\dead.png";
 	
 	protected int level;
 	protected int currentExp;
@@ -25,11 +29,17 @@ public class Player extends Character {
 			boolean moving, 
 			Weapon primaryWeapon,
 			Weapon secondaryWeapon
-			) {
+			) throws SlickException {
 		super(ss, position, speed, direction, moving, primaryWeapon, secondaryWeapon, STARTING_MAX_HEALTH);
 		level = 1;
 		currentExp = 0;
 		maxExp = 100;
+		this.initDeathAnimation();
+	}
+
+	private void initDeathAnimation() throws SlickException {
+		this.deathAnimation = new Animation(new SpriteSheet(new Image(DEAD_ANIMATION), 48, 48), 300);
+		
 	}
 
 	public int getLevel() {
