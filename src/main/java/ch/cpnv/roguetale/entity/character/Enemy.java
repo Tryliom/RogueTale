@@ -133,6 +133,14 @@ public class Enemy extends Character {
 		}
 	}
 	
+	//@Override
+	public void updateHealth(int health) throws SlickException {
+		super.updateHealth(health);
+		if(isDead()) {
+			die();
+		}
+	}
+	
 	public void die() throws SlickException {
 		double alea = Math.random();
 		if (alea < lifepointSpawnProbability) {

@@ -1,6 +1,7 @@
 package ch.cpnv.roguetale.entity.character;
 
 import org.lwjgl.util.vector.Vector2f;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.weapon.Weapon;
@@ -77,7 +78,7 @@ public class Player extends Character {
 		}
 	}
 	
-	public void updateExp(int exp) {
+	public void updateExp(int exp) throws SlickException {
 		int totExp = currentExp + exp;
 		
 		if (totExp >= this.maxExp) {
@@ -94,7 +95,7 @@ public class Player extends Character {
 	}
 	
 	@Override
-	public void updateHealth(int health) {
+	public void updateHealth(int health) throws SlickException {
 		System.out.println("Player loses health");
 		if(!invulnerable || health >= 0) {
 			super.updateHealth(health);
