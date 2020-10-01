@@ -10,6 +10,7 @@ import org.newdawn.slick.SlickException;
 import ch.cpnv.roguetale.controller.AreaController;
 import ch.cpnv.roguetale.controller.EnemyController;
 import ch.cpnv.roguetale.controller.MapController;
+import ch.cpnv.roguetale.controller.PickupableItemController;
 import ch.cpnv.roguetale.controller.PlayerController;
 import ch.cpnv.roguetale.controller.ProjectileController;
 import ch.cpnv.roguetale.controller.UiController;
@@ -34,6 +35,7 @@ public class Game extends BasicGame {
 		
 		MapController.getInstance().render(gc, g, origin);
 		AreaController.getInstance().render(gc, g, origin);
+		PickupableItemController.getInstance().render(gc, g, origin);
 		EnemyController.getInstance().render(gc, g, origin);
 		PlayerController.getInstance().render(gc, g, origin);
 		ProjectileController.getInstance().render(gc, g, origin);
