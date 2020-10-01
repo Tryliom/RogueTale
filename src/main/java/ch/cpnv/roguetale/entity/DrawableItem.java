@@ -1,5 +1,8 @@
 package ch.cpnv.roguetale.entity;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
@@ -13,12 +16,14 @@ import org.newdawn.slick.geom.Shape;
 import ch.cpnv.roguetale.controller.EnemyController;
 import ch.cpnv.roguetale.controller.PlayerController;
 import ch.cpnv.roguetale.entity.character.Enemy;
+import ch.cpnv.roguetale.entity.effect.ItemEffect;
 
 public abstract class DrawableItem {
 	protected SpriteSheet spritesheet;
 	protected Image image;
 	protected Vector2f position;
 	protected Animation animation;
+	protected ArrayList<ItemEffect> activeEffects = new ArrayList<ItemEffect>();
 
 	public DrawableItem(SpriteSheet ss, Vector2f position) {
 		this.setSpritesheet(ss);
@@ -87,7 +92,19 @@ public abstract class DrawableItem {
 					 - (this.position.y - origin.y + this.image.getHeight() / 2),
 					 filter);
 			}
+			
+			for (ItemEffect item : this.activeEffects) {
+				item.setPosition(this.getPosition());
+				item.draw(origin, gc, filter);
+			}
 		}
+	}
+	
+	public void update(int delta) throws SlickException {
+		for (ItemEffect item : this.activeEffects) {
+			item.updateRemainingTime(-delta);
+		}
+		this.removeExpiredProjectiles();
 	}
 	
 	public void draw(Vector2f origin, GameContainer gc) {
@@ -125,5 +142,16 @@ public abstract class DrawableItem {
 	protected void printHitbox() {
 		Shape hitbox = this.getHitbox();
 		System.out.println(this + "hitbox : (" + hitbox.getMinX() + ", " + hitbox.getMinY() + ") - ( " + hitbox.getMaxX() + ", " + hitbox.getMaxY() + ")");
+	}
+	
+	private void removeExpiredProjectiles() throws SlickException {
+		// The remove method does not work in a "for(Projectile projectile : projectiles)" loop
+		// https://stackoverflow.com/questions/3184883/concurrentmodificationexception-for-arraylist
+		for(Iterator<ItemEffect> iterator = this.activeEffects.iterator(); iterator.hasNext();) {
+			ItemEffect item = iterator.next();
+			if (item.getRemainingTime() <= 0) {
+				iterator.remove();
+			}
+		}
 	}
 }

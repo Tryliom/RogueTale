@@ -52,6 +52,7 @@ public class EnemyController implements Controller {
 			if (enemy.isMoving())
 				enemy.move(delta);
 			enemy.reduceCooldown(delta);
+			enemy.update(delta);
 		}
 		
 		spawnEnemies();
