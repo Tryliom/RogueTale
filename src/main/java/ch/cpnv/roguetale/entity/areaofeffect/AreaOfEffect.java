@@ -28,6 +28,7 @@ public class AreaOfEffect extends DrawableItem {
 	public void update(int delta) throws SlickException {
 		this.lifespan -= delta;
 		this.updateCooldown(delta);
+		super.update(delta);
 	}
 	
 	@Override

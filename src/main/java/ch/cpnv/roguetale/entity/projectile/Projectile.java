@@ -65,7 +65,7 @@ public abstract class Projectile extends MovableItem {
 		draw(origin, gc, Color.white);
 	}
 	
-	public void meetCharacter(Character touchedCharacter) {
+	public void meetCharacter(Character touchedCharacter) throws SlickException {
 		touchedCharacter.updateHealth(-damage);
 		remainingTime = 0;
 	}

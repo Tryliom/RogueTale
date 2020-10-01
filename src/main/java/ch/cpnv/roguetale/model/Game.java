@@ -48,8 +48,8 @@ public class Game extends BasicGame {
 		
 		gc.setShowFPS(false);
 		
-		PlayerController.getInstance().getPlayer().setInvulnerable(true);
-		PlayerController.getInstance().getPlayer().setOneHitKill();
+		//PlayerController.getInstance().getPlayer().setInvulnerable(true);
+		//PlayerController.getInstance().getPlayer().setOneHitKill();
 	}
 
 	@Override

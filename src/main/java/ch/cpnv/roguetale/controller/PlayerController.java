@@ -53,6 +53,7 @@ public class PlayerController implements Controller {
 		if (this.player.isMoving()) {
 			this.player.move(delta);
 		}
+		this.player.update(delta);
 		this.player.reduceCooldown(delta);
 	}
 	

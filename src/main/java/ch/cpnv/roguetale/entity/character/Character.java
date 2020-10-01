@@ -1,11 +1,15 @@
 package ch.cpnv.roguetale.entity.character;
 
 import org.lwjgl.util.vector.Vector2f;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
 import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.entity.MovableItem;
+import ch.cpnv.roguetale.entity.effect.effects.Damage;
+import ch.cpnv.roguetale.entity.effect.effects.Heal;
 import ch.cpnv.roguetale.weapon.Weapon;
 
 public abstract class Character extends MovableItem {
@@ -42,6 +46,15 @@ public abstract class Character extends MovableItem {
 		
 	}
 	
+	public void draw(Vector2f origin, GameContainer gc, Color filter) {
+		if (this.isDead() && this.deathAnimation != null) {
+			this.deathAnimation.draw(this.position.x - origin.x - this.image.getWidth() / 2, 
+					 - (this.position.y - origin.y + this.image.getHeight() / 2),
+					 filter);
+		} else
+			super.draw(origin, gc, filter);
+	}
+	
 	public int getCurrentHealth() {
 		return currentHealth;
 	}
@@ -59,11 +72,16 @@ public abstract class Character extends MovableItem {
 	}
 	
 	// TODO prevent currentHealth to become higher than maxHealth
-	public void updateHealth(int health) {
+	public void updateHealth(int health) throws SlickException {
+		if (health > 0) {
+			this.activeEffects.add(new Heal(this.getPosition()));
+		} else if (health < 0) {
+			this.activeEffects.add(new Damage(this.getPosition()));
+		}
 		this.currentHealth += health;
 	}
 	
-	public void updateMaxHealth(int health) {
+	public void updateMaxHealth(int health) throws SlickException {
 		maxHealth += health;
 		updateHealth(health);
 	}

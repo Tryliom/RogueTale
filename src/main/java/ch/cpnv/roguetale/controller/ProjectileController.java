@@ -39,6 +39,9 @@ public class ProjectileController implements Controller {
 		moveProjectiles(delta);
 		collideProjectiles();
 		removeExpiredProjectiles();
+		for(Projectile projectile : projectiles) {
+			projectile.update(delta);
+		}
 	}
 
 	@Override
