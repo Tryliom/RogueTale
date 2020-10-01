@@ -25,6 +25,7 @@ public class Heal extends ItemEffect {
 		}
 		
 		this.animation = new Animation(textures, 50);
+		this.animation.setLooping(false);
 	}
 
 }

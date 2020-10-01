@@ -27,6 +27,7 @@ public class Damage extends ItemEffect {
 		}
 		
 		this.animation = new Animation(textures, 50);
+		this.animation.setLooping(false);
 	}
 	
 	public void draw(Vector2f origin, GameContainer gc, Color filter) {
