@@ -105,7 +105,7 @@ public abstract class DrawableItem {
 		for (ItemEffect item : this.activeEffects) {
 			item.updateRemainingTime(-delta);
 		}
-		this.removeExpiredProjectiles();
+		this.removeExpiredEffects();
 	}
 	
 	public void draw(Vector2f origin, GameContainer gc) {
@@ -145,9 +145,7 @@ public abstract class DrawableItem {
 		System.out.println(this + "hitbox : (" + hitbox.getMinX() + ", " + hitbox.getMinY() + ") - ( " + hitbox.getMaxX() + ", " + hitbox.getMaxY() + ")");
 	}
 	
-	private void removeExpiredProjectiles() throws SlickException {
-		// The remove method does not work in a "for(Projectile projectile : projectiles)" loop
-		// https://stackoverflow.com/questions/3184883/concurrentmodificationexception-for-arraylist
+	private void removeExpiredEffects() throws SlickException {
 		for(Iterator<ItemEffect> iterator = this.activeEffects.iterator(); iterator.hasNext();) {
 			ItemEffect item = iterator.next();
 			if (item.getRemainingTime() <= 0) {
