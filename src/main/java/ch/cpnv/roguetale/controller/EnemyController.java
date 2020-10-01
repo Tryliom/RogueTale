@@ -119,10 +119,11 @@ public class EnemyController implements Controller {
 		return enemy;
 	}
 	
-	private void removeDeadEnemies() {
+	private void removeDeadEnemies() throws SlickException {
 		for(Iterator<Enemy> iterator = enemies.iterator(); iterator.hasNext();) {
 			Enemy enemy = iterator.next();
 			if(enemy.isDead()) {
+				enemy.die();
 				iterator.remove();
 			}
 		}
