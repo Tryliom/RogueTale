@@ -8,7 +8,6 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.entity.pickupableitem.PickupableItem;
-import ch.cpnv.roguetale.entity.pickupableitem.PickupableLifePoint;
 
 public class PickupableItemController implements Controller {
 	private static PickupableItemController instance = null;
@@ -24,14 +23,6 @@ public class PickupableItemController implements Controller {
 	
 	private PickupableItemController() {
 		pickupableItems = new ArrayList<PickupableItem>();
-		try {
-			addPickupableItem(new PickupableLifePoint(new Vector2f(0, 0)));
-			addPickupableItem(new PickupableLifePoint(new Vector2f(60, 60)));
-			//addPickupableItem(new PickupableLifePoint(new Vector2f(100, 100)));
-		} catch (SlickException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	
 	public ArrayList<PickupableItem> getPickupableItems() {
