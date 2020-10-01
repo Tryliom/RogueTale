@@ -1,6 +1,7 @@
 package ch.cpnv.roguetale.entity;
 
 import org.lwjgl.util.vector.Vector2f;
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
@@ -69,20 +70,24 @@ public abstract class MovableItem extends DrawableItem {
 	}
 	
 	protected void setImageDirection() {
+		int yPos = 0;
 		switch (this.direction) {
-		case DOWN:
-			this.image = this.spritesheet.getSprite(0, 0);
-			break;
-		case LEFT:
-			this.image =  this.spritesheet.getSprite(0, 1);
-			break;
-		case RIGHT:
-			this.image =  this.spritesheet.getSprite(0, 2);
-			break;
-		case UP:
-			this.image =  this.spritesheet.getSprite(0, 3);
-			break;
+			case LEFT:
+				yPos = 1;
+				break;
+			case RIGHT:
+				yPos = 2;
+				break;
+			case UP:
+				yPos = 3;
+				break;
+			case DOWN:
+				yPos = 0;
+				break;
 		}
+		
+		this.image = this.getSpritesheet().getSprite(0, yPos);
+		this.animation = new Animation(this.spritesheet, 0, yPos, 2, yPos, true, 300, true);
 	}
 	
 	public double getDistanceToMovableItem(MovableItem otherItem) {

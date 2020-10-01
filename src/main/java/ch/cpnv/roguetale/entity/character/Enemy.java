@@ -19,9 +19,8 @@ public class Enemy extends Character {
 	}
 	
 	public void chooseAction() throws SlickException {
-		this.facePlayer();
-		
 		if (canAttackPlayer()) {
+			this.setDirectionToFacePlayer(false);
 			this.setMoving(false);
 			this.getRangedWeapon().attack(this);
 		} else {
@@ -29,31 +28,33 @@ public class Enemy extends Character {
 		}
 	}
 
-	private void facePlayer() throws SlickException {
-		this.changeDirectionDependingOnPlayer(false);
+	protected void setDirectionToFacePlayer(Boolean lateralShorterDistance) throws SlickException {
+		Direction newDirection = this.getDirectionDependingOnPlayer(lateralShorterDistance);
+		if (!newDirection.equals(this.direction))
+			this.setDirection(newDirection);
 	}
-
+	
 	protected void moveInAttackPosition() throws SlickException {
-		this.changeDirectionDependingOnPlayer(true);
+		this.setDirectionToFacePlayer(true);
 		this.setMoving(true);
 	}
 	
-	protected void changeDirectionDependingOnPlayer(Boolean lateralShorterDistance) throws SlickException {
+	protected Direction getDirectionDependingOnPlayer(Boolean lateralShorterDistance) throws SlickException {
 		Player p = PlayerController.getInstance().getPlayer();
 		float diffX = this.getPosition().getX() - p.getPosition().getX();
 		float diffY = this.getPosition().getY() - p.getPosition().getY();
 		
 		if (lateralShorterDistance ? Math.abs(diffX) <= Math.abs(diffY) : Math.abs(diffX) >= Math.abs(diffY)) {
 			if (diffX <= 0) {
-				this.setDirection(Direction.RIGHT);
+				return Direction.RIGHT;
 			} else {
-				this.setDirection(Direction.LEFT);
+				return Direction.LEFT;
 			}
 		} else {
 			if (diffY <= 0) {
-				this.setDirection(Direction.UP);
+				return Direction.UP;
 			} else {
-				this.setDirection(Direction.DOWN);
+				return Direction.DOWN;
 			}
 		}
 	}
@@ -75,8 +76,9 @@ public class Enemy extends Character {
 					p.getSprite().getWidth()*percent_precision, 
 					p.getSprite().getHeight()*percent_precision
 				);
+		Direction directionToPlayer = this.getDirectionDependingOnPlayer(false);
 
-		switch (this.getDirection()) {
+		switch (directionToPlayer) {
 			case DOWN:
 				enRect.setY(enRect.getY()-range);
 				enRect.setHeight(range);
@@ -97,7 +99,7 @@ public class Enemy extends Character {
 
 		return enRect.intersects(pRect) || enRect.contains(pRect);
 	}
-	
+
 	protected RangedWeapon getRangedWeapon() {
 		if (this.primaryWeapon != null && this.primaryWeapon instanceof RangedWeapon) {
 			return (RangedWeapon) this.primaryWeapon;
