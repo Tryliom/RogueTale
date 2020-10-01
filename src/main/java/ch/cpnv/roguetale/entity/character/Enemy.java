@@ -5,13 +5,18 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 
+import ch.cpnv.roguetale.controller.EnemyController;
+import ch.cpnv.roguetale.controller.PickupableItemController;
 import ch.cpnv.roguetale.controller.PlayerController;
 import ch.cpnv.roguetale.entity.Direction;
+import ch.cpnv.roguetale.entity.pickupableitem.PickupableLifePoint;
 import ch.cpnv.roguetale.weapon.MeleeWeapon;
 import ch.cpnv.roguetale.weapon.RangedWeapon;
 import ch.cpnv.roguetale.weapon.Weapon;
 
 public class Enemy extends Character {
+	
+	protected double lifepointSpawnProbability = 0.1;
 
 	public Enemy(SpriteSheet ss, Vector2f position, int speed, Direction direction, boolean moving,
 			Weapon primaryWeapon, Weapon secondaryWeapon, int maxHealth) {
@@ -128,6 +133,22 @@ public class Enemy extends Character {
 		} else {
 			return Math.abs(diffY);
 		}
+	}
+	
+	//@Override
+	public void updateHealth(int health) throws SlickException {
+		super.updateHealth(health);
+		if(isDead()) {
+			die();
+		}
+	}
+	
+	protected void die() throws SlickException {
+		double alea = Math.random();
+		if (alea < lifepointSpawnProbability) {
+			PickupableItemController.getInstance().addPickupableItem(new PickupableLifePoint(position));
+		}
+		EnemyController.getInstance().removeEnemy(this);
 	}
 
 }

@@ -1,7 +1,7 @@
 package ch.cpnv.roguetale.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-
 import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -11,6 +11,7 @@ import org.newdawn.slick.SpriteSheet;
 
 import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.entity.character.Player;
+import ch.cpnv.roguetale.entity.pickupableitem.PickupableItem;
 import ch.cpnv.roguetale.weapon.ranged.Bow;
 import ch.cpnv.roguetale.weapon.ranged.Cannon;
 
@@ -53,6 +54,7 @@ public class PlayerController implements Controller {
 		if (this.player.isMoving()) {
 			this.player.move(delta);
 		}
+		pickup();
 		this.player.update(delta);
 		this.player.reduceCooldown(delta);
 	}
@@ -110,5 +112,16 @@ public class PlayerController implements Controller {
 		}
 		
 		player.setMoving(isStillMoving);
+	}
+	
+	protected void pickup() throws SlickException {
+		ArrayList<PickupableItem> items = PickupableItemController.getInstance().getPickupableItems();
+		
+		for(int i = 0; i < items.size(); i++) {
+			PickupableItem item = items.get(i);
+			if(player.isColliding(item)) {
+				item.pickup(player);
+			}
+		}
 	}
 }

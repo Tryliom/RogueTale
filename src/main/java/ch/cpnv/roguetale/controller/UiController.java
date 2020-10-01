@@ -9,7 +9,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.entity.character.Player;
-import ch.cpnv.roguetale.entity.ui.LifePoint;
+import ch.cpnv.roguetale.entity.ui.UiLifePoint;
 
 public class UiController implements Controller {
 	private static UiController instance = null;
@@ -17,7 +17,7 @@ public class UiController implements Controller {
 	protected static final int Y_POSITION = 5;
 	protected static final int X_POSITION = 5;
 	
-	protected ArrayList<LifePoint> lifePoints;
+	protected ArrayList<UiLifePoint> lifePoints;
 	
 	public static UiController getInstance() throws SlickException {
 		if(instance == null) {
@@ -27,20 +27,19 @@ public class UiController implements Controller {
 	}
 	
 	private UiController() {
-		lifePoints = new ArrayList<LifePoint>();
+		lifePoints = new ArrayList<UiLifePoint>();
 	}
 
 	@Override
 	public void render(GameContainer gc, Graphics g, Vector2f origin) throws SlickException {
 		int x = X_POSITION;
-		for(LifePoint lifePoint : lifePoints) {
+		for(UiLifePoint lifePoint : lifePoints) {
 			lifePoint.getSprite().draw(x, Y_POSITION);
 			x += lifePoint.getSprite().getWidth();
 		}
 		if(PlayerController.getInstance().getPlayer().isDead()) {
 			this.displayGameOver(g);
 		}
-
 	}
 
 	@Override
@@ -48,15 +47,15 @@ public class UiController implements Controller {
 		// Set the correct number of lifePoints
 		Player player = PlayerController.getInstance().getPlayer();
 		while (lifePoints.size() < player.getMaxHealth()) {
-			lifePoints.add(new LifePoint());
+			lifePoints.add(new UiLifePoint());
 		}
 		if (lifePoints.size() > player.getMaxHealth()) {
-			lifePoints = new ArrayList<LifePoint>(lifePoints.subList(0, player.getMaxHealth() - 1));
+			lifePoints = new ArrayList<UiLifePoint>(lifePoints.subList(0, player.getMaxHealth() - 1));
 		}
 		
 		// Set the content of the lifePoints : full/empty
 		int remainingFullLifePoints = player.getCurrentHealth();
-		for(LifePoint lifePoint : lifePoints) {
+		for(UiLifePoint lifePoint : lifePoints) {
 			if(remainingFullLifePoints > 0) {
 				if(!lifePoint.isFull()) {
 					lifePoint.setFull(true);
