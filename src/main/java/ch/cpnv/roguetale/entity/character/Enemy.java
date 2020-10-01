@@ -141,7 +141,7 @@ public class Enemy extends Character {
 		}
 	}
 	
-	public void die() throws SlickException {
+	protected void die() throws SlickException {
 		double alea = Math.random();
 		if (alea < lifepointSpawnProbability) {
 			PickupableItemController.getInstance().addPickupableItem(new PickupableLifePoint(position));
