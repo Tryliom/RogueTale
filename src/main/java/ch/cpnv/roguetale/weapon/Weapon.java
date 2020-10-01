@@ -1,11 +1,10 @@
 package ch.cpnv.roguetale.weapon;
 
-import ch.cpnv.roguetale.controller.ProjectileController;
+import org.newdawn.slick.SlickException;
+
 import ch.cpnv.roguetale.entity.character.Character;
 
-public abstract class Weapon {
-	protected static ProjectileController projectileController;
-	
+public abstract class Weapon {	
 	protected String name;
 	protected int damage;
 	// Cooldown in miliseconds
@@ -19,10 +18,6 @@ public abstract class Weapon {
 		this.cooldown = cooldown;
 		currentCooldown = 0;
 	}
-
-	public static void setProjectileController(ProjectileController projectileController) {
-		Weapon.projectileController = projectileController;
-	}
 	
 	public String getName() {
 		return name;
@@ -31,8 +26,12 @@ public abstract class Weapon {
 	public int getDamage() {
 		return damage;
 	}
+	
+	public void setDamage(int damage) {
+		this.damage = damage;
+	}
 
-	public void attack(Character attacker) {
+	public void attack(Character attacker) throws SlickException {
 		// The attack is made inside children classes
 		if(canAttack()) {
 			this.currentCooldown = this.cooldown;

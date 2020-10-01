@@ -10,11 +10,5 @@ public abstract class RangedWeapon extends Weapon {
 
 	public int getRange() {
 		return range;
-	}
-
-	public void setRange(int range) {
-		this.range = range;
-	}
-	
-	
+	}	
 }

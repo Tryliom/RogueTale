@@ -1,6 +1,7 @@
 package ch.cpnv.roguetale.entity;
 
 import org.lwjgl.util.vector.Vector2f;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
 public abstract class MovableItem extends DrawableItem {
@@ -17,6 +18,10 @@ public abstract class MovableItem extends DrawableItem {
 	
 	public void setSpeed(int speed) {
 		this.speed = speed;
+	}
+	
+	public int getSpeed() {
+		return this.speed;
 	}
 	
 	public Direction getDirection() {
@@ -41,7 +46,7 @@ public abstract class MovableItem extends DrawableItem {
 		return "MovableItem (" + position.x + ", " + position.y + ")";
 	}
 	
-	public void move(int delta) {
+	public void move(int delta) throws SlickException {
 		float movement = this.speed * delta / 1000f;
 		
 		switch (this.direction) {
@@ -78,6 +83,12 @@ public abstract class MovableItem extends DrawableItem {
 			this.image =  this.spritesheet.getSprite(0, 3);
 			break;
 		}
+	}
+	
+	public double getDistanceToMovableItem(MovableItem otherItem) {
+		Vector2f diff = Vector2f.sub(this.getPosition(), otherItem.getPosition(), null);
+        
+        return diff.length();
 	}
 	
 }
