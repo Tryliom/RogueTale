@@ -1,8 +1,10 @@
 package ch.cpnv.roguetale.entity.pickupableitem;
 
 import org.lwjgl.util.vector.Vector2f;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
+import ch.cpnv.roguetale.controller.PickupableItemController;
 import ch.cpnv.roguetale.entity.DrawableItem;
 import ch.cpnv.roguetale.entity.character.Player;
 
@@ -11,5 +13,7 @@ public abstract class PickupableItem extends DrawableItem {
 		super(ss, position);
 	}
 	
-	public abstract void pickup(Player player);
+	public void pickup(Player player) throws SlickException {
+		PickupableItemController.getInstance().removePickupableItem(this);
+	}
 }

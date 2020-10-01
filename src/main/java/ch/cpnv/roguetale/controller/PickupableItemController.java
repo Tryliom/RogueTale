@@ -27,14 +27,23 @@ public class PickupableItemController implements Controller {
 		try {
 			addPickupableItem(new PickupableLifePoint(new Vector2f(0, 0)));
 			addPickupableItem(new PickupableLifePoint(new Vector2f(60, 60)));
+			//addPickupableItem(new PickupableLifePoint(new Vector2f(100, 100)));
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
+	public ArrayList<PickupableItem> getPickupableItems() {
+		return pickupableItems;
+	}
+	
 	public void addPickupableItem(PickupableItem pickupableItem) {
-		this.pickupableItems.add(pickupableItem);
+		pickupableItems.add(pickupableItem);
+	}
+	
+	public void removePickupableItem(PickupableItem pickupableItem) {
+		pickupableItems.remove(pickupableItem);
 	}
 
 	@Override

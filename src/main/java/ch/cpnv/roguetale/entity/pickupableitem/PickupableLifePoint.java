@@ -16,8 +16,7 @@ public class PickupableLifePoint extends PickupableItem {
 	}
 
 	@Override
-	public void pickup(Player player) {
-		// TODO implementation
-		System.out.println("Item picked");
+	public void pickup(Player player) throws SlickException {		
+		super.pickup(player);
 	}
 }
