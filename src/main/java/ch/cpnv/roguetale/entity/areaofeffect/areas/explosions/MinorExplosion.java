@@ -22,7 +22,8 @@ public class MinorExplosion extends Explosion {
 		textures = new Image[9];
 		for (int i=1;i<10;i++)
 			textures[i-1] = new Image("ch\\cpnv\\roguetale\\images\\areas\\explosions\\explosion1\\"+i+".png");
-		this.animation = new Animation(textures, 100);
+		this.animation = new Animation(textures, 50);
+		this.animation.setLooping(false);
 	}
 
 }
