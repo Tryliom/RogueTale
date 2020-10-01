@@ -1,6 +1,7 @@
 package ch.cpnv.roguetale.entity;
 
 import org.lwjgl.util.vector.Vector2f;
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
@@ -17,6 +18,7 @@ public abstract class DrawableItem {
 	protected SpriteSheet spritesheet;
 	protected Image image;
 	protected Vector2f position;
+	protected Animation animation;
 
 	public DrawableItem(SpriteSheet ss, Vector2f position) {
 		this.setSpritesheet(ss);
@@ -61,6 +63,14 @@ public abstract class DrawableItem {
 		return this.image;
 	}
 	
+	public Animation getAnimation() {
+		return animation;
+	}
+
+	public void setAnimation(Animation animation) {
+		this.animation = animation;
+	}
+
 	public String toString() {
 		return "DrawableItem (" + position.x + ", " + position.y + ")";
 	}
@@ -68,9 +78,15 @@ public abstract class DrawableItem {
 	public void draw(Vector2f origin, GameContainer gc, Color filter) {
 		// Note that the slick y coordinates go the opposite direction of the usual y axis
 		if (isInScreen(gc, origin)) {
-			this.image.draw(this.position.x - origin.x - this.image.getWidth() / 2, 
+			if (this.animation != null) {
+				this.animation.draw(this.position.x - origin.x - this.image.getWidth() / 2, 
 					 - (this.position.y - origin.y + this.image.getHeight() / 2),
 					 filter);
+			} else {
+				this.image.draw(this.position.x - origin.x - this.image.getWidth() / 2, 
+					 - (this.position.y - origin.y + this.image.getHeight() / 2),
+					 filter);
+			}
 		}
 	}
 	
