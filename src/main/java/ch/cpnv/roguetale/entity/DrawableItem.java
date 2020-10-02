@@ -17,6 +17,7 @@ import ch.cpnv.roguetale.controller.EnemyController;
 import ch.cpnv.roguetale.controller.PlayerController;
 import ch.cpnv.roguetale.entity.character.Enemy;
 import ch.cpnv.roguetale.entity.effect.ItemEffect;
+import ch.cpnv.roguetale.main.Main;
 
 public abstract class DrawableItem {
 	protected SpriteSheet spritesheet;
@@ -115,8 +116,8 @@ public abstract class DrawableItem {
 	public Boolean isInScreen(GameContainer gc, Vector2f screenOrigin) {
 		// Note that the screen origin is the UP LEFT corner
 		return getXRight() >= screenOrigin.x
-				&& getXLeft() <= screenOrigin.x + gc.getWidth()
-				&& getYTop() >= screenOrigin.y - gc.getHeight()
+				&& getXLeft() <= screenOrigin.x + Main.BASE_WIDTH
+				&& getYTop() >= screenOrigin.y - Main.BASE_HEIGHT
 				&& getYBottom() <= screenOrigin.y;
 	}
 	

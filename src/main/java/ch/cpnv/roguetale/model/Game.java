@@ -15,11 +15,10 @@ import ch.cpnv.roguetale.controller.PlayerController;
 import ch.cpnv.roguetale.controller.ProjectileController;
 import ch.cpnv.roguetale.controller.UiController;
 import ch.cpnv.roguetale.entity.character.Player;
+import ch.cpnv.roguetale.main.Main;
 
 public class Game extends BasicGame {
 	private GameContainer gc;
-	private int width;
-	private int height;
 	
 	@SuppressWarnings("unused")
 	private int score;
@@ -45,12 +44,10 @@ public class Game extends BasicGame {
 	@Override
 	public void init(GameContainer gc) throws SlickException {
 		this.gc = gc;
-		this.height = gc.getHeight();
-		this.width = gc.getWidth();
 		
 		gc.setShowFPS(false);
 		
-		//PlayerController.getInstance().getPlayer().setInvulnerable(true);
+		PlayerController.getInstance().getPlayer().setInvulnerable(true);
 		//PlayerController.getInstance().getPlayer().setOneHitKill();
 	}
 
@@ -111,7 +108,7 @@ public class Game extends BasicGame {
 	// Get the coordinate of the UP LEFT corner of the screen
 	protected Vector2f getSlickOrigin() throws SlickException {
 		Player player = PlayerController.getInstance().getPlayer();
-		return new Vector2f(player.getPosition().x - this.width/2, player.getPosition().y + this.height/2);
+		return new Vector2f(player.getPosition().x - Main.BASE_WIDTH/2, player.getPosition().y + Main.BASE_HEIGHT/2);
 	}
 
 }
