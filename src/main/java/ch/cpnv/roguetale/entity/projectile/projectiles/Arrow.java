@@ -12,8 +12,8 @@ public class Arrow extends Projectile {
 	static protected final int IMAGE_WIDTH = 64;
 	static protected final int IMAGE_HEIGHT = IMAGE_WIDTH;
 	
-	static protected final int HITBOX_WIDTH = 32;
-	static protected final int HITBOX_HEIGHT = 8;
+	static protected final int HITBOX_WIDTH = IMAGE_WIDTH / 2;
+	static protected final int HITBOX_HEIGHT = IMAGE_HEIGHT / 10;
 	
 	static protected final String SPRITESHEET_PATH = "ch\\cpnv\\roguetale\\images\\projectiles\\arrow.png";
 
