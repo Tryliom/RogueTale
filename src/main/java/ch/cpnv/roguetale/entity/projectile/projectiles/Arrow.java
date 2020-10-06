@@ -9,21 +9,22 @@ import ch.cpnv.roguetale.entity.projectile.Projectile;
 
 public class Arrow extends Projectile {
 	static protected final int SPEED = 200;
-	static protected final int WIDTH = 32;
-	static protected final int HEIGHT = 18;
+	static protected final int IMAGE_WIDTH = 64;
+	static protected final int IMAGE_HEIGHT = IMAGE_WIDTH;
 	
 	static protected final String SPRITESHEET_PATH = "ch\\cpnv\\roguetale\\images\\projectiles\\arrow.png";
 
 	public Arrow(Vector2f position, Direction direction, int range, int damage) throws SlickException {
 		super(
-				new SpriteSheet(SPRITESHEET_PATH, 568, 36), 
+				new SpriteSheet(SPRITESHEET_PATH, 256, 256), 
 				position,
 				SPEED, 
 				direction,
 				range,
 				damage
 				);
-		this.image = this.image.getScaledCopy(WIDTH, HEIGHT);
+		this.image = this.spritesheet.getSprite(3, 0);
+		this.image = this.image.getScaledCopy(IMAGE_WIDTH, IMAGE_HEIGHT);
 		this.setImageDirection();
 	}
 	
@@ -35,5 +36,24 @@ public class Arrow extends Projectile {
 	@Override
 	public String toString() {
 		return "Arrow (" + position.x + ", " + position.y + ")";
+	}
+	
+	@Override
+	protected void setImageDirection() {
+		switch (this.direction) {
+			case UP:
+				image.setRotation(270);
+				break;
+			case DOWN:
+				image.setRotation(90);
+				break;
+			case LEFT:
+				image.setRotation(180);
+				break;
+			case RIGHT:
+				break;
+			default:
+				break;
+		}
 	}
 }
