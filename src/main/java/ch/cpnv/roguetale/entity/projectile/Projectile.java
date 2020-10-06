@@ -6,9 +6,6 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
-import org.newdawn.slick.geom.Rectangle;
-import org.newdawn.slick.geom.Shape;
-
 import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.entity.MovableItem;
 import ch.cpnv.roguetale.entity.character.Character;
@@ -81,30 +78,43 @@ public abstract class Projectile extends MovableItem {
 		
 		switch(projectileDirection) {
 		case RIGHT:
-			position.x += (attackerSprite.getWidth() + image.getWidth()) / 2 + margin;
+			position.x += (attackerSprite.getWidth() + getImageWidth()) / 2 + margin;
 			break;
 		case LEFT:
-			position.x -= (attackerSprite.getWidth() + image.getWidth()) / 2 + margin;
+			position.x -= (attackerSprite.getWidth() + getImageWidth()) / 2 + margin;
 			break;
 		case UP:
-			position.y += (attackerSprite.getHeight() + image.getWidth()) / 2 + margin;
+			position.y += (attackerSprite.getHeight() + getImageWidth()) / 2 + margin;
 			break;
 		case DOWN:
-			position.y -= (attackerSprite.getHeight() + image.getWidth()) / 2 + margin;
+			position.y -= (attackerSprite.getHeight() + getImageWidth()) / 2 + margin;
 			break;
 		}
 	}
 	
-	@Override
-	public Shape getHitbox() {
+	@Override 
+	public int getImageWidth() {
 		switch(direction) {
-			case UP:
-			case DOWN:
-				return new Rectangle(position.x -  image.getHeight() / 2, position.y - image.getWidth() / 2, image.getHeight(), image.getWidth());
-			case RIGHT:
-			case LEFT:
-			default:
-				return super.getHitbox();
+		case UP:
+		case DOWN:
+			return super.getImageHeight();
+		case RIGHT:
+		case LEFT:
+		default:
+			return super.getImageWidth();
+		}
+	}
+	
+	@Override 
+	public int getImageHeight() {
+		switch(direction) {
+		case UP:
+		case DOWN:
+			return super.getImageWidth();
+		case RIGHT:
+		case LEFT:
+		default:
+			return super.getImageHeight();
 		}
 	}
 }

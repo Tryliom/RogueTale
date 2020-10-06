@@ -50,20 +50,28 @@ public abstract class DrawableItem {
 		this.image = this.spritesheet.getSprite(0, 0);
 	}
 	
+	public int getImageWidth() {
+		return image.getWidth();
+	}
+	
+	public int getImageHeight() {
+		return image.getHeight();
+	}
+	
 	public float getXLeft() {
-		return position.x - image.getWidth() / 2;
+		return position.x - getImageWidth() / 2;
 	}
 	
 	public float getXRight() {
-		return position.x + image.getWidth() / 2;
+		return position.x + getImageWidth() / 2;
 	}
 	
 	public float getYBottom() {
-		return position.y - image.getHeight() / 2;
+		return position.y - getImageHeight() / 2;
 	}
 	
 	public float getYTop() {
-		return position.y + image.getHeight() / 2;
+		return position.y + getImageHeight() / 2;
 	}
 	
 	public Image getSprite() {		
@@ -84,15 +92,13 @@ public abstract class DrawableItem {
 	
 	public void draw(Vector2f origin, GameContainer gc, Color filter) {
 		// Note that the slick y coordinates go the opposite direction of the usual y axis
+		float xPosition = getXLeft() - origin.x;
+		float yPosition =  - (getYTop() - origin.y);
 		if (isInScreen(gc, origin)) {
 			if (this.animation != null) {
-				this.animation.draw(this.position.x - origin.x - this.image.getWidth() / 2, 
-					 - (this.position.y - origin.y + this.image.getHeight() / 2),
-					 filter);
+				this.animation.draw(xPosition, yPosition, filter);
 			} else {
-				this.image.draw(this.position.x - origin.x - this.image.getWidth() / 2, 
-					 - (this.position.y - origin.y + this.image.getHeight() / 2),
-					 filter);
+				this.image.draw(xPosition, yPosition, filter);
 			}
 			
 			for (ItemEffect item : this.activeEffects) {
@@ -126,7 +132,7 @@ public abstract class DrawableItem {
 	}
 	
 	public Shape getHitbox() {		
-		return new Rectangle(getXLeft(), getYBottom(), image.getWidth(), image.getHeight());
+		return new Rectangle(getHitboxXLeft(), getHitboxYBottom(), getHitboxWidth(), getHitboxHeight());
 	}
 	
 	public boolean isCollidingWithAnotherCharacter() throws SlickException {
@@ -139,6 +145,30 @@ public abstract class DrawableItem {
 			isColliding = true;
 		
 		return isColliding;
+	}
+	
+	protected int getHitboxWidth() {
+		return getImageWidth();
+	}
+	
+	protected int getHitboxHeight() {
+		return getImageHeight();
+	}
+	
+	protected float getHitboxXLeft() {
+		return getXLeft() + (getImageWidth() - getHitboxWidth()) / 2;
+	}
+	
+	protected float getHitboxXRight() {
+		return getXRight() - (getImageWidth() - getHitboxWidth()) / 2;
+	}
+	
+	protected float getHitboxYBottom() {
+		return getYBottom() + (getImageHeight() - getHitboxHeight()) / 2;
+	}
+	
+	protected float getHitboxYTop() {
+		return getYTop() - (getImageHeight() - getHitboxHeight()) / 2;
 	}
 	
 	protected void printHitbox() {
