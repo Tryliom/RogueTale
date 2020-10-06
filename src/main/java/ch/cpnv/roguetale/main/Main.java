@@ -15,7 +15,7 @@ public class Main {
 	public static void main(String[] args) throws SlickException {
 		ScalableGame scalable = new ScalableGame(new Game(), BASE_WIDTH, BASE_HEIGHT, false);
 		app = new AppGameContainer(scalable);
-		app.setDisplayMode(BASE_WIDTH*2, BASE_HEIGHT*2, false);
+		app.setDisplayMode(BASE_WIDTH*3/2, BASE_HEIGHT*3/2, false);
 		app.start();
 	}
 

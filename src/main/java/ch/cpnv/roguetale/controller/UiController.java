@@ -92,4 +92,10 @@ public class UiController implements Controller {
 		// g.resetColor()
 	}
 
+	@Override
+	public void mouseMoved(int oldx, int oldy, int newx, int newy) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

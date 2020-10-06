@@ -119,4 +119,10 @@ public class EnemyController implements Controller {
 		
 		return enemy;
 	}
+
+	@Override
+	public void mouseMoved(int oldx, int oldy, int newx, int newy) {
+		// TODO Auto-generated method stub
+		
+	}
 }

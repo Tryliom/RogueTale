@@ -104,4 +104,10 @@ public class ProjectileController implements Controller {
 		}
 	}
 
+	@Override
+	public void mouseMoved(int oldx, int oldy, int newx, int newy) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

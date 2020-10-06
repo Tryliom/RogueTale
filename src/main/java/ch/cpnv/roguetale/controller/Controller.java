@@ -10,9 +10,11 @@ public interface Controller {
 	
 	public void update(GameContainer gc, int delta, Vector2f origin) throws SlickException;
 	
-	public void keyReleased(int key, char c, GameContainer gc);
+	public void keyReleased(int key, char c, GameContainer gc) throws SlickException;
 	
 	public void keyPressed(int key, char c, GameContainer gc) throws SlickException;
 	
 	public void mousePressed(int button, int x, int y) throws SlickException;
+
+	public void mouseMoved(int oldx, int oldy, int newx, int newy);
 }

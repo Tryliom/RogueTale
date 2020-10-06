@@ -29,6 +29,14 @@ public class PlayerController implements Controller {
 	}
 
 	private PlayerController() throws SlickException {
+		// Put Input key who equals to direction
+		this.MOVING_KEYS.put(Input.KEY_W, Direction.UP);
+		this.MOVING_KEYS.put(Input.KEY_A, Direction.LEFT);
+		this.MOVING_KEYS.put(Input.KEY_D, Direction.RIGHT);
+		this.MOVING_KEYS.put(Input.KEY_S, Direction.DOWN);
+	}
+	
+	public void init() throws SlickException {
 		this.player = new Player(
 				new SpriteSheet("ch\\cpnv\\roguetale\\images\\player\\carac.png", 48, 48, 0), 
 				new Vector2f(0,0), 
@@ -37,11 +45,6 @@ public class PlayerController implements Controller {
 				false, 
 				new Bow(),
 				new Cannon());
-		// Put Input key who equals to direction
-		this.MOVING_KEYS.put(Input.KEY_W, Direction.UP);
-		this.MOVING_KEYS.put(Input.KEY_A, Direction.LEFT);
-		this.MOVING_KEYS.put(Input.KEY_D, Direction.RIGHT);
-		this.MOVING_KEYS.put(Input.KEY_S, Direction.DOWN);
 	}
 	
 	@Override
@@ -123,5 +126,11 @@ public class PlayerController implements Controller {
 				item.pickup(player);
 			}
 		}
+	}
+
+	@Override
+	public void mouseMoved(int oldx, int oldy, int newx, int newy) {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -106,5 +106,11 @@ public class MapController implements Controller {
 	public Vector<Vector2f> getMap() {
 		return map;
 	}
+
+	@Override
+	public void mouseMoved(int oldx, int oldy, int newx, int newy) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }
