@@ -12,6 +12,9 @@ public class Arrow extends Projectile {
 	static protected final int IMAGE_WIDTH = 64;
 	static protected final int IMAGE_HEIGHT = IMAGE_WIDTH;
 	
+	static protected final int HITBOX_WIDTH = 32;
+	static protected final int HITBOX_HEIGHT = 8;
+	
 	static protected final String SPRITESHEET_PATH = "ch\\cpnv\\roguetale\\images\\projectiles\\arrow.png";
 
 	public Arrow(Vector2f position, Direction direction, int range, int damage) throws SlickException {
@@ -54,6 +57,32 @@ public class Arrow extends Projectile {
 				break;
 			default:
 				break;
+		}
+	}
+	
+	@Override
+	public int getHitboxWidth() {
+		switch(direction) {
+		case UP:
+		case DOWN:
+			return HITBOX_HEIGHT;
+		case RIGHT:
+		case LEFT:
+		default:
+			return HITBOX_WIDTH;
+		}
+	}
+	
+	@Override
+	public int getHitboxHeight() {
+		switch(direction) {
+		case UP:
+		case DOWN:
+			return HITBOX_WIDTH;
+		case RIGHT:
+		case LEFT:
+		default:
+			return HITBOX_HEIGHT;
 		}
 	}
 }
