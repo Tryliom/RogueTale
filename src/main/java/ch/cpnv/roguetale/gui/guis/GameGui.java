@@ -59,6 +59,8 @@ public class GameGui extends Gui {
 			PlayerController.getInstance().update(gc, delta, origin);
 			ProjectileController.getInstance().update(gc, delta, origin);
 			AreaController.getInstance().update(gc, delta, origin);
+		} else {
+			GuiController.getInstance().setDisplayGui(new GameOverGui(this));
 		}
 		
 		UiController.getInstance().update(gc, delta, origin);
