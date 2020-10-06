@@ -148,11 +148,11 @@ public abstract class DrawableItem {
 	}
 	
 	protected int getHitboxWidth() {
-		return image.getWidth();
+		return getImageWidth();
 	}
 	
 	protected int getHitboxHeight() {
-		return image.getWidth();
+		return getImageHeight();
 	}
 	
 	protected float getHitboxXLeft() {
