@@ -2,12 +2,12 @@ package ch.cpnv.roguetale.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
 import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.SpriteSheet;
 
 import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.entity.character.Player;
@@ -37,8 +37,7 @@ public class PlayerController implements Controller {
 	}
 	
 	public void init() throws SlickException {
-		this.player = new Player(
-				new SpriteSheet("ch\\cpnv\\roguetale\\images\\player\\carac.png", 48, 48, 0), 
+		this.player = new Player( 
 				new Vector2f(0,0), 
 				150, 
 				Direction.DOWN, 

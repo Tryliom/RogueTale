@@ -110,4 +110,9 @@ public class ProjectileController implements Controller {
 		
 	}
 
+	public void init() {
+		projectiles.clear();
+		
+	}
+
 }

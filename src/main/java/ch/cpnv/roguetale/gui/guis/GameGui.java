@@ -31,6 +31,11 @@ public class GameGui extends Gui {
 	
 	private void init() throws SlickException {
 		PlayerController.getInstance().init();
+		MapController.getInstance().init();
+		AreaController.getInstance().init();
+		EnemyController.getInstance().init();
+		ProjectileController.getInstance().init();
+		UiController.getInstance().init();
 		//PlayerController.getInstance().getPlayer().setInvulnerable(true);
 		//PlayerController.getInstance().getPlayer().setOneHitKill();
 	}

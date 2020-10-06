@@ -3,7 +3,6 @@ package ch.cpnv.roguetale.controller;
 import java.util.ArrayList;
 
 import org.lwjgl.util.vector.Vector2f;
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -36,9 +35,6 @@ public class UiController implements Controller {
 		for(UiLifePoint lifePoint : lifePoints) {
 			lifePoint.getSprite().draw(x, Y_POSITION);
 			x += lifePoint.getSprite().getWidth();
-		}
-		if(PlayerController.getInstance().getPlayer().isDead()) {
-			this.displayGameOver(g);
 		}
 	}
 
@@ -84,17 +80,15 @@ public class UiController implements Controller {
 	public void mousePressed(int button, int x, int y) {
 		// Do nothing
 	}
-	
-	protected void displayGameOver(Graphics g) {
-		// Define color before an action
-		g.setColor(new Color(200, 60, 60));
-		g.drawString("Game Over", 250, 20);
-		// g.resetColor()
-	}
 
 	@Override
 	public void mouseMoved(int oldx, int oldy, int newx, int newy) {
 		// TODO Auto-generated method stub
+		
+	}
+
+	public void init() {
+		lifePoints.clear();
 		
 	}
 

@@ -1,12 +1,10 @@
-package ch.cpnv.roguetale.gui.button;
+package ch.cpnv.roguetale.gui;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
-
-import ch.cpnv.roguetale.gui.Execute;
-import ch.cpnv.roguetale.gui.State;
 
 public class GuiButton {
 	private static final String PATH_BTN = "ch\\cpnv\\roguetale\\images\\ui\\button\\btn1.png";
@@ -31,14 +29,17 @@ public class GuiButton {
 	
 	public void render(GameContainer gc, Graphics g) throws SlickException {
 		// Default display of a button
-		Image btn = new Image(PATH_BTN);
-		
-		if (this.state.equals(State.HOVERED))
-			btn = new Image(PATH_BTN_HOVERED);
+		Boolean hover = this.state.equals(State.HOVERED);
+		Image btn = new Image(hover ? PATH_BTN_HOVERED : PATH_BTN);
+		btn.setFilter(Image.FILTER_NEAREST);
 		
 		btn.draw(x, y, width, height);
-		int xCenter = x + width/2 - (content.length() * 9 )/ 2;
-		g.drawString(content, xCenter, y + height/4);
+		
+		Color old = g.getColor();
+		g.setColor(new Color(195, 197, 213));
+		int xCenter = x + width/2 - g.getFont().getWidth(content) / 2;
+		g.drawString(content, xCenter, y + (height-g.getFont().getHeight(content))/2 - 2);
+		g.setColor(old);
 	}
 	
 	public void onClick() throws SlickException {
@@ -50,10 +51,16 @@ public class GuiButton {
 	}
 	
 	public void mouseHover(int oldx, int oldy, int newx, int newy) {
+		State futurState = null;
 		if (this.isHoveringButton(newx, newy)) {
-			this.state = State.HOVERED;
-		} else if (this.isHoveringButton(oldx, oldy)) {
-			this.state = State.NONE;
+			futurState = State.HOVERED;
+		} else {
+			futurState = State.NONE;
+		}
+		
+		if (futurState != null && !futurState.equals(this.state)) {
+			this.y += futurState.equals(State.HOVERED) ? 3 : -3;
+			this.state = futurState;
 		}
 	}
 

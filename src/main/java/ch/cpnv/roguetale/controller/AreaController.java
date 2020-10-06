@@ -89,4 +89,8 @@ public class AreaController implements Controller {
 		// TODO Auto-generated method stub
 		
 	}
+
+	public void init() {
+		this.areas.clear();
+	}
 }

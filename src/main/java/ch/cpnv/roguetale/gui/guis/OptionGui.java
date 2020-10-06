@@ -1,28 +1,39 @@
 package ch.cpnv.roguetale.gui.guis;
 
 import org.lwjgl.util.vector.Vector2f;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.controller.GuiController;
 import ch.cpnv.roguetale.gui.Gui;
+import ch.cpnv.roguetale.main.Main;
 
 public class OptionGui extends Gui {
+	private static final String PATH_PANEL = "ch\\cpnv\\roguetale\\images\\ui\\panel\\panel_blue.png";
+	private Image background;
 
 	public OptionGui(Gui prevGui) {
 		super(prevGui);
-		this.init();
+		try {
+			this.init();
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
 	}
 
-	private void init() {
-		
+	private void init() throws SlickException {
+		this.background = new Image(PATH_PANEL);
+		this.background.setFilter(Image.FILTER_NEAREST);
 	}
 	
 	public void render(GameContainer gc, Graphics g, Vector2f origin) throws SlickException {
 		super.render(gc, g, origin);
 		this.prevGui.render(gc, g, origin);
+		this.background.draw(Main.BASE_WIDTH/10, Main.BASE_HEIGHT/10, Main.BASE_WIDTH - Main.BASE_WIDTH/5, Main.BASE_HEIGHT - Main.BASE_HEIGHT/5, Color.red);
 	}
 
 	public void update(GameContainer gc, int delta, Vector2f origin) throws SlickException {

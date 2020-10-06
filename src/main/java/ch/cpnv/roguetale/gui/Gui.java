@@ -7,9 +7,6 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-import ch.cpnv.roguetale.gui.button.GuiButton;
-import ch.cpnv.roguetale.gui.label.GuiLabel;
-
 public class Gui {
 	protected Gui prevGui;
 	protected ArrayList<GuiButton> buttonList = new ArrayList<GuiButton>();
