@@ -126,7 +126,7 @@ public abstract class DrawableItem {
 	}
 	
 	public Shape getHitbox() {		
-		return new Rectangle(getXLeft(), getYBottom(), image.getWidth(), image.getHeight());
+		return new Rectangle(getHitboxXLeft(), getHitboxYBottom(), getHitBoxWidth(), getHitboxHeight());
 	}
 	
 	public boolean isCollidingWithAnotherCharacter() throws SlickException {
@@ -139,6 +139,30 @@ public abstract class DrawableItem {
 			isColliding = true;
 		
 		return isColliding;
+	}
+	
+	protected int getHitBoxWidth() {
+		return image.getWidth();
+	}
+	
+	protected int getHitboxHeight() {
+		return image.getWidth();
+	}
+	
+	protected float getHitboxXLeft() {
+		return getXLeft() + (image.getWidth() - getHitBoxWidth()) / 2;
+	}
+	
+	protected float getHitboxXRight() {
+		return getXRight() - (image.getWidth() - getHitBoxWidth()) / 2;
+	}
+	
+	protected float getHitboxYBottom() {
+		return getYBottom() + (image.getHeight() - getHitboxHeight()) / 2;
+	}
+	
+	protected float getHitboxYTop() {
+		return getYTop() - (image.getHeight() - getHitboxHeight()) / 2;
 	}
 	
 	protected void printHitbox() {

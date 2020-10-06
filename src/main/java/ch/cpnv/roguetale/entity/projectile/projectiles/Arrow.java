@@ -18,7 +18,7 @@ public class Arrow extends Projectile {
 		super(
 				new SpriteSheet(SPRITESHEET_PATH, 256, 256), 
 				position,
-				SPEED, 
+				SPEED,
 				direction,
 				range,
 				damage
