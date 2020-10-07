@@ -28,13 +28,68 @@ public class Enemy extends Character {
 			this.setDirectionToFacePlayer(false);
 			this.setMoving(false);
 			this.getRangedWeapon().attack(this);
+			
+			if (!this.getRangedWeapon().canAttack()) {
+				if (this.shouldMoveFarFromPlayer()) {
+					this.setDirectionToRunFromPlayer();
+					this.setMoving(true);
+				} else if (this.shouldMoveNearPlayer()) {
+					this.setDirectionToFacePlayer(false);
+					this.setMoving(true);
+				}
+			}
+		} else if (this.getRangeToPlayer() > this.getRangedWeapon().getRange()) {
+			this.setDirectionToFacePlayer(false);
+			this.setMoving(true);
 		} else {
 			this.moveInAttackPosition();
 		}
 	}
+	
+	protected Boolean shouldMoveNearPlayer() throws SlickException {
+		int rangePercent = getRangePercentReliatiedPlayer();
+		
+		return rangePercent > 50;
+	}
+	
+	protected Boolean shouldMoveFarFromPlayer() throws SlickException {
+		int rangePercent = getRangePercentReliatiedPlayer();
+		
+		return rangePercent < 25;
+	}
+	
+	protected int getRangePercentReliatiedPlayer() throws SlickException {
+		float distanceToPlayer = this.getRangeToPlayer();
+		int range = this.getRangedWeapon().getRange();
+		int positionPercent = Math.round(distanceToPlayer/range*100);
+		
+		return positionPercent;
+	}
 
 	protected void setDirectionToFacePlayer(Boolean lateralShorterDistance) throws SlickException {
 		Direction newDirection = this.getDirectionDependingOnPlayer(lateralShorterDistance);
+		if (!newDirection.equals(this.direction))
+			this.setDirection(newDirection);
+	}
+	
+	protected void setDirectionToRunFromPlayer() throws SlickException {
+		Direction newDirection = this.getDirectionDependingOnPlayer(false);
+
+		switch (newDirection) {
+			case DOWN:
+				newDirection = Direction.UP;
+				break;
+			case LEFT:
+				newDirection = Direction.RIGHT;
+				break;
+			case RIGHT:
+				newDirection = Direction.LEFT;
+				break;
+			case UP:
+				newDirection = Direction.DOWN;
+				break;
+		}
+		
 		if (!newDirection.equals(this.direction))
 			this.setDirection(newDirection);
 	}
@@ -66,11 +121,11 @@ public class Enemy extends Character {
 	
 	protected Boolean canAttackPlayer() throws SlickException {
 		Player p = PlayerController.getInstance().getPlayer();
-		float percent_precision = 0.1f;
+		float percent_precision = 0.35f;
 		float border = (1-percent_precision)/2;
 		float range = this.getRangedWeapon() != null ? this.getRangedWeapon().getRange() : 0;
 		Rectangle enRect = new Rectangle(
-					this.getPosition().getX() + this.getSprite().getWidth()*border, 
+					this.getPosition().getX() + this.getSprite().getWidth()*border,
 					this.getPosition().getY() + this.getSprite().getHeight()*(border+percent_precision), 
 					this.getSprite().getWidth()*percent_precision, 
 					this.getSprite().getHeight()*percent_precision
@@ -94,7 +149,7 @@ public class Enemy extends Character {
 				break;
 			case RIGHT:
 				enRect.setX(enRect.getX() + enRect.getWidth());
-				enRect.setWidth(1000);
+				enRect.setWidth(range);
 				break;
 			case UP:
 				enRect.setY(enRect.getY() + enRect.getHeight());

@@ -112,7 +112,7 @@ public class EnemyController implements Controller {
 		Enemy enemy;
 		int rand = (int) (Math.random() * 100);
 		
-		if (rand < 50) 
+		if (rand < 80) 
 			enemy = new Robot(position);
 		else
 			enemy = new Bomber(position);
