@@ -14,7 +14,7 @@ public class MapController implements Controller {
 	private static MapController instance = null;
 	
 	private Image background;
-	private final Vector<Vector2f> map = new Vector<Vector2f>();
+	private Vector<Vector2f> map = new Vector<Vector2f>();
 	private static final int TILE_DIMENSION = 70;
 	
 	public static MapController getInstance() throws SlickException {
@@ -105,6 +105,17 @@ public class MapController implements Controller {
 
 	public Vector<Vector2f> getMap() {
 		return map;
+	}
+
+	@Override
+	public void mouseMoved(int oldx, int oldy, int newx, int newy) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void init() {
+		this.map.clear();
+		
 	}
 	
 }

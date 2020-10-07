@@ -64,4 +64,10 @@ public class PickupableItemController implements Controller {
 		// Nothing to do
 	}
 
+	@Override
+	public void mouseMoved(int oldx, int oldy, int newx, int newy) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

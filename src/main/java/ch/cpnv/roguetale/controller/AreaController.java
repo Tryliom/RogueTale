@@ -83,4 +83,14 @@ public class AreaController implements Controller {
 	public void addArea(AreaOfEffect area) {
 		areas.add(area);
 	}
+
+	@Override
+	public void mouseMoved(int oldx, int oldy, int newx, int newy) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void init() {
+		this.areas.clear();
+	}
 }

@@ -13,7 +13,7 @@ import ch.cpnv.roguetale.entity.character.enemy.Robot;
 
 public class EnemyController implements Controller {
 	private static EnemyController instance = null;
-	private final int MAX_ENEMIES = 5;
+	private final int MAX_ENEMIES = 3;
 	private final int DISTANCE_NEAR_PLAYER = 500;
 	private final int SPAWN_DISTANCE_MIN = 350;
 	private final int SPAWN_DISTANCE_MAX = 450;
@@ -118,5 +118,16 @@ public class EnemyController implements Controller {
 			enemy = new Bomber(position);
 		
 		return enemy;
+	}
+
+	@Override
+	public void mouseMoved(int oldx, int oldy, int newx, int newy) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void init() {
+		enemies.clear();
+		
 	}
 }

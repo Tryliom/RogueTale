@@ -12,8 +12,10 @@ import ch.cpnv.roguetale.weapon.Weapon;
 public class Player extends Character {
 	// not Integer.Max, because it creates some undesired effects when a character is dealt multiple times INFINITEDAMAGE damage
 	protected final static int INFINITEDAMAGE = 10000;
-	protected final static int STARTING_MAX_HEALTH = 3;
+	protected final static int STARTING_MAX_HEALTH = 5;
 	private static final String DEAD_ANIMATION = "ch\\cpnv\\roguetale\\images\\player\\dead.png";
+	private static final String SPRITESHEET_PATH = "ch\\cpnv\\roguetale\\images\\player\\carac.png";
+	private static final int SPRITESHEET_DIMENSIONS = 48;
 	
 	protected int level;
 	protected int currentExp;
@@ -22,7 +24,7 @@ public class Player extends Character {
 	protected boolean invulnerable = false;
 	protected boolean oneHitKill = false;
 
-	public Player(SpriteSheet ss, 
+	public Player(
 			Vector2f position, 
 			int speed, 
 			Direction direction, 
@@ -30,7 +32,7 @@ public class Player extends Character {
 			Weapon primaryWeapon,
 			Weapon secondaryWeapon
 			) throws SlickException {
-		super(ss, position, speed, direction, moving, primaryWeapon, secondaryWeapon, STARTING_MAX_HEALTH);
+		super(new SpriteSheet(SPRITESHEET_PATH, SPRITESHEET_DIMENSIONS, SPRITESHEET_DIMENSIONS, 0), position, speed, direction, moving, primaryWeapon, secondaryWeapon, STARTING_MAX_HEALTH);
 		level = 1;
 		currentExp = 0;
 		maxExp = 100;
