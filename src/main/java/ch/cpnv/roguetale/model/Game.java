@@ -11,6 +11,7 @@ import org.newdawn.slick.TrueTypeFont;
 import ch.cpnv.roguetale.controller.GuiController;
 
 public class Game extends BasicGame {
+	private static Game instance;
 	private GameContainer gc;
 	private Font font;
 	private TrueTypeFont ttf;
@@ -21,6 +22,11 @@ public class Game extends BasicGame {
 	public Game() {
 		// Title windows name
 		super("RogueTale");
+		instance = this;
+	}
+
+	public static Game getInstance() {
+		return instance;
 	}
 
 	@Override
@@ -79,4 +85,9 @@ public class Game extends BasicGame {
 		GuiController.getInstance().mouseMoved(oldx, oldy, newx, newy);
 	}
 
+	public GameContainer getGc() {
+		return gc;
+	}
+
+	
 }

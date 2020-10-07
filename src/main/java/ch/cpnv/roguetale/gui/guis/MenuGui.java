@@ -34,6 +34,10 @@ public class MenuGui extends Gui {
 			GuiController.getInstance().setDisplayGui(new GameGui(this));
 		};
 		this.buttonList.add(new GuiButton("Jouer", Main.BASE_WIDTH/2 - 100, Main.BASE_HEIGHT*3/4, 200, 40, startGame));
+		Execute openOption = () -> {
+			GuiController.getInstance().setDisplayGui(new OptionGui(this));
+		};
+		this.buttonList.add(new GuiButton("Options", Main.BASE_WIDTH/2 - 100, Main.BASE_HEIGHT*5/8, 200, 40, openOption));
 		this.displayPlayer = new Animation(new SpriteSheet("ch\\cpnv\\roguetale\\images\\player\\carac.png", 48, 48, 0), 0, 0, 2, 0, true, 300, true);
 		this.displayBomber = new Animation(new SpriteSheet("ch\\cpnv\\roguetale\\images\\enemy\\bomber\\carac.png", 48, 48, 0), 0, 0, 2, 0, true, 300, true);
 		this.background = new Image("ch\\cpnv\\roguetale\\images\\background\\tile.png");
