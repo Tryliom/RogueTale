@@ -16,7 +16,7 @@ public class Robot extends Enemy {
 
 	public Robot(Vector2f position) throws SlickException {
 		super(new SpriteSheet(SPRITESHEET_PATH, SPRITESHEET_DIMENSIONS, SPRITESHEET_DIMENSIONS, 0), 
-				position, SPEED, Direction.UP, false, new Bow(), null, MAX_HEALTH);
+				position, SPEED, Direction.UP, false, new Bow(2000), null, MAX_HEALTH);
 	}
 
 }

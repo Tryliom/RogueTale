@@ -44,7 +44,7 @@ public abstract class Weapon {
 			this.currentCooldown = 0;
 	}
 	
-	protected boolean canAttack() {
+	public boolean canAttack() {
 		return currentCooldown <= 0;
 	}
 }

@@ -13,6 +13,10 @@ public class Bow extends RangedWeapon {
 	public Bow() {
 		super("Bow", 1, 500, 500);
 	}
+	
+	public Bow(int cooldown) {
+		super("Bow", 1, cooldown, 500);
+	}
 
 	@Override
 	public void attack(Character attacker) throws SlickException {		

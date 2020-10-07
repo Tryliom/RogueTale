@@ -10,7 +10,7 @@ import ch.cpnv.roguetale.weapon.RangedWeapon;
 public class Cannon extends RangedWeapon {
 
 	public Cannon() {
-		super("Cannon", 1, 2000, 400);
+		super("Cannon", 1, 2000, 200);
 	}
 
 	@Override
