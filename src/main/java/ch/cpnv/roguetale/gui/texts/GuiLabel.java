@@ -1,4 +1,4 @@
-package ch.cpnv.roguetale.gui;
+package ch.cpnv.roguetale.gui.texts;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;

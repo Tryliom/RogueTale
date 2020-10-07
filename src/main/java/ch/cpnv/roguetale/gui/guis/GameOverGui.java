@@ -7,10 +7,10 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.controller.GuiController;
-import ch.cpnv.roguetale.gui.Execute;
 import ch.cpnv.roguetale.gui.Gui;
-import ch.cpnv.roguetale.gui.GuiButton;
-import ch.cpnv.roguetale.gui.GuiLabel;
+import ch.cpnv.roguetale.gui.buttons.GuiButton;
+import ch.cpnv.roguetale.gui.functions.Execute;
+import ch.cpnv.roguetale.gui.texts.GuiLabel;
 import ch.cpnv.roguetale.main.Main;
 
 public class GameOverGui extends Gui {

@@ -8,6 +8,8 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.controller.Controller;
+import ch.cpnv.roguetale.gui.buttons.GuiButton;
+import ch.cpnv.roguetale.gui.texts.GuiLabel;
 
 public class Gui implements Controller {
 	protected Gui prevGui;

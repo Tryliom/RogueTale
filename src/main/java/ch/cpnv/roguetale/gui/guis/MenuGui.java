@@ -9,9 +9,9 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
 import ch.cpnv.roguetale.controller.GuiController;
-import ch.cpnv.roguetale.gui.Execute;
 import ch.cpnv.roguetale.gui.Gui;
-import ch.cpnv.roguetale.gui.GuiButton;
+import ch.cpnv.roguetale.gui.buttons.GuiButton;
+import ch.cpnv.roguetale.gui.functions.Execute;
 import ch.cpnv.roguetale.main.Main;
 
 public class MenuGui extends Gui {

@@ -1,10 +1,13 @@
-package ch.cpnv.roguetale.gui;
+package ch.cpnv.roguetale.gui.buttons;
 
 import java.util.ArrayList;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+
+import ch.cpnv.roguetale.gui.functions.ExecuteWithArgs;
+import ch.cpnv.roguetale.gui.functions.Transforming;
 
 public class GuiSwitchButton extends GuiButton {
 	private Transforming funcTransform;

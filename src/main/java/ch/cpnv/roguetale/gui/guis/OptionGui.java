@@ -10,12 +10,12 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.controller.GuiController;
-import ch.cpnv.roguetale.gui.Execute;
-import ch.cpnv.roguetale.gui.ExecuteWithArgs;
 import ch.cpnv.roguetale.gui.Gui;
-import ch.cpnv.roguetale.gui.GuiButton;
-import ch.cpnv.roguetale.gui.GuiSwitchButton;
-import ch.cpnv.roguetale.gui.Transforming;
+import ch.cpnv.roguetale.gui.buttons.GuiButton;
+import ch.cpnv.roguetale.gui.buttons.GuiSwitchButton;
+import ch.cpnv.roguetale.gui.functions.Execute;
+import ch.cpnv.roguetale.gui.functions.ExecuteWithArgs;
+import ch.cpnv.roguetale.gui.functions.Transforming;
 import ch.cpnv.roguetale.main.Main;
 import ch.cpnv.roguetale.model.Game;
 

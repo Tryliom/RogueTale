@@ -1,10 +1,13 @@
-package ch.cpnv.roguetale.gui;
+package ch.cpnv.roguetale.gui.buttons;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+
+import ch.cpnv.roguetale.gui.enums.State;
+import ch.cpnv.roguetale.gui.functions.Execute;
 
 public class GuiButton {
 	private static final String PATH_BTN = "ch\\cpnv\\roguetale\\images\\ui\\button\\btn1.png";

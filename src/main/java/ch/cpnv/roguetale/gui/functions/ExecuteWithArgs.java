@@ -1,4 +1,4 @@
-package ch.cpnv.roguetale.gui;
+package ch.cpnv.roguetale.gui.functions;
 
 import org.newdawn.slick.SlickException;
 
