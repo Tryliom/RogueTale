@@ -106,7 +106,7 @@ public class GameGui extends Gui {
 	}
 
 	// Get the coordinate of the UP LEFT corner of the screen
-	protected Vector2f getSlickOrigin() throws SlickException {
+	private Vector2f getSlickOrigin() throws SlickException {
 		Player player = PlayerController.getInstance().getPlayer();
 		return new Vector2f(player.getPosition().x - Main.BASE_WIDTH/2, player.getPosition().y + Main.BASE_HEIGHT/2);
 	}
