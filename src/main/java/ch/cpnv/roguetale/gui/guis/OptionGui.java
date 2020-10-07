@@ -35,6 +35,8 @@ public class OptionGui extends Gui {
 
 	private void init() throws SlickException {
 		GameContainer gc = Game.getInstance().getGc();
+		this.buttonList.clear();
+		this.labelList.clear();
 		int w = Main.BASE_WIDTH,
 			h = Main.BASE_HEIGHT;
 		this.background = new Image(PATH_PANEL);
@@ -65,14 +67,21 @@ public class OptionGui extends Gui {
 			return Math.round(res.x) + "x" + Math.round(res.y);
 		};
 		
-		this.buttonList.add(new GuiSwitchButton(w/2 - 100, h/4, 200, 40, changeResolution, transform, listResolution, selected));
+		if (!gc.isFullscreen())
+			this.buttonList.add(new GuiSwitchButton(w/2 - 100, h/4, 200, 40, changeResolution, transform, listResolution, selected));
 		
 		ArrayList<Boolean> listFs = new ArrayList<Boolean>();
 		listFs.add(true); listFs.add(false);
 		
 		ExecuteWithArgs changeFs = (Object obj) -> {
 			Boolean fs = (Boolean) obj;
-			gc.setFullscreen(fs);
+			try {
+				gc.setFullscreen(fs);
+			} catch(Exception e) {
+				Vector2f res = listResolution.get(2);
+				Main.app.setDisplayMode(Math.round(res.x), Math.round(res.y), fs);
+			}
+			this.init();
 		};
 		Transforming transformFs = (Object obj) -> {
 			Boolean fs = (Boolean) obj;
