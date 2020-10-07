@@ -7,7 +7,9 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-public class Gui {
+import ch.cpnv.roguetale.controller.Controller;
+
+public class Gui implements Controller {
 	protected Gui prevGui;
 	protected ArrayList<GuiButton> buttonList = new ArrayList<GuiButton>();
 	protected ArrayList<GuiLabel> labelList = new ArrayList<GuiLabel>();
