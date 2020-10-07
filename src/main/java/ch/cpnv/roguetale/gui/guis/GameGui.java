@@ -79,7 +79,7 @@ public class GameGui extends Gui {
 		}
 		
 		if (Input.KEY_ESCAPE == key) {
-			GuiController.getInstance().setDisplayGui(new OptionGui(this));
+			GuiController.getInstance().setDisplayGui(new InGameMenuGui(this));
 		}
 
 		super.keyReleased(key, c, gc);
