@@ -14,6 +14,7 @@ import ch.cpnv.roguetale.gui.Execute;
 import ch.cpnv.roguetale.gui.ExecuteWithArgs;
 import ch.cpnv.roguetale.gui.Gui;
 import ch.cpnv.roguetale.gui.GuiButton;
+import ch.cpnv.roguetale.gui.GuiSwitchButton;
 import ch.cpnv.roguetale.gui.Transforming;
 import ch.cpnv.roguetale.main.Main;
 import ch.cpnv.roguetale.model.Game;
