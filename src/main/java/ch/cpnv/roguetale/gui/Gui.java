@@ -8,7 +8,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.controller.Controller;
-import ch.cpnv.roguetale.gui.buttons.GuiButton;
+import ch.cpnv.roguetale.gui.button.GuiButton;
 import ch.cpnv.roguetale.gui.texts.GuiLabel;
 
 public class Gui implements Controller {
@@ -19,6 +19,8 @@ public class Gui implements Controller {
 	public Gui(Gui prevGui) {
 		this.prevGui = prevGui;
 	}
+	
+	public void init() throws SlickException {}
 	
 	public void render(GameContainer gc, Graphics g, Vector2f origin) throws SlickException {
 		for (GuiButton btn : buttonList) {
@@ -59,4 +61,7 @@ public class Gui implements Controller {
 		}
 	}
 
+	public Gui getPrevGui() {
+		return prevGui;
+	}
 }

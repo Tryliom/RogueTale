@@ -8,10 +8,9 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
-import ch.cpnv.roguetale.controller.GuiController;
 import ch.cpnv.roguetale.gui.Gui;
-import ch.cpnv.roguetale.gui.buttons.GuiButton;
-import ch.cpnv.roguetale.gui.functions.Execute;
+import ch.cpnv.roguetale.gui.button.buttons.OptionButton;
+import ch.cpnv.roguetale.gui.button.buttons.PlayButton;
 import ch.cpnv.roguetale.main.Main;
 
 public class MenuGui extends Gui {
@@ -29,15 +28,9 @@ public class MenuGui extends Gui {
 		}
 	}
 
-	private void init() throws SlickException {
-		Execute startGame = () -> {
-			GuiController.getInstance().setDisplayGui(new GameGui(this));
-		};
-		this.buttonList.add(new GuiButton("Jouer", Main.BASE_WIDTH/2 - 100, Main.BASE_HEIGHT*3/4, 200, 40, startGame));
-		Execute openOption = () -> {
-			GuiController.getInstance().setDisplayGui(new OptionGui(this));
-		};
-		this.buttonList.add(new GuiButton("Options", Main.BASE_WIDTH/2 - 100, Main.BASE_HEIGHT*5/8, 200, 40, openOption));
+	public void init() throws SlickException {
+		this.buttonList.add(new PlayButton("Jouer", Main.BASE_WIDTH/2 - 100, Main.BASE_HEIGHT*3/4, 200, 40, this));
+		this.buttonList.add(new OptionButton(Main.BASE_WIDTH/2 - 100, Main.BASE_HEIGHT*5/8, 200, 40, this));
 		this.displayPlayer = new Animation(new SpriteSheet("ch\\cpnv\\roguetale\\images\\player\\carac.png", 48, 48, 0), 0, 0, 2, 0, true, 300, true);
 		this.displayBomber = new Animation(new SpriteSheet("ch\\cpnv\\roguetale\\images\\enemy\\bomber\\carac.png", 48, 48, 0), 0, 0, 2, 0, true, 300, true);
 		this.background = new Image("ch\\cpnv\\roguetale\\images\\background\\tile.png");
