@@ -20,12 +20,12 @@ public class GuiButton {
 	protected State state;
 	protected Gui parentGui;
 	
-	public GuiButton(int x, int y, int width, int height, Gui parentGui) {
+	public GuiButton(int x, int y, Gui parentGui) {
 		this.content = "";
-		this.x = x;
+		this.width = 200;
+		this.x = x - this.width/2;
 		this.y = y;
-		this.width = width;
-		this.height = height;
+		this.height = 40;
 		this.parentGui = parentGui;
 		this.state = State.NONE;
 	}

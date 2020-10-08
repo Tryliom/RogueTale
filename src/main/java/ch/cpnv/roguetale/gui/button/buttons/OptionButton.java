@@ -7,8 +7,8 @@ import ch.cpnv.roguetale.gui.guis.OptionGui;
 
 public class OptionButton extends GuiButton {
 
-	public OptionButton(int x, int y, int width, int height, Gui parentGui) {
-		super(x, y, width, height, parentGui);
+	public OptionButton(int x, int y, Gui parentGui) {
+		super(x, y, parentGui);
 		this.content = "Options...";
 	}
 	

@@ -7,8 +7,8 @@ import ch.cpnv.roguetale.gui.guis.GameGui;
 
 public class PlayButton extends GuiButton {
 
-	public PlayButton(String content, int x, int y, int width, int height, Gui parentGui) {
-		super(x, y, width, height, parentGui);
+	public PlayButton(String content, int x, int y, Gui parentGui) {
+		super(x, y, parentGui);
 		this.content = content;
 	}
 	

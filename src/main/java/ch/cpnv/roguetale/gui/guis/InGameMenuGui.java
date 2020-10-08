@@ -32,8 +32,8 @@ public class InGameMenuGui extends Gui {
 		this.background = new Image(PATH_PANEL);
 		this.background.setFilter(Image.FILTER_NEAREST);
 
-		this.buttonList.add(new OptionButton(w/2 - 100, h/3, 200, 40, this));		
-		this.buttonList.add(new ReturnButton(w/2 - 100, h*2/3, 200, 40, this));
+		this.buttonList.add(new OptionButton(w/2, h/3, this));		
+		this.buttonList.add(new ReturnButton(w/2, h*2/3, this));
 		
 	}
 	
