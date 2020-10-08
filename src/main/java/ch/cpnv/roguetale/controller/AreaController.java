@@ -8,8 +8,8 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-import ch.cpnv.roguetale.entity.areaofeffect.AreaOfEffect;
 import ch.cpnv.roguetale.entity.character.Character;
+import ch.cpnv.roguetale.entity.temporaryeffect.areaofeffect.AreaOfEffect;
 
 public class AreaController implements Controller {
 	private static AreaController instance;

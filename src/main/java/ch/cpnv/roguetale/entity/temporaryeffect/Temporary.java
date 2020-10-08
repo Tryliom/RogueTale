@@ -1,4 +1,4 @@
-package ch.cpnv.roguetale.entity;
+package ch.cpnv.roguetale.entity.temporaryeffect;
 
 public interface Temporary {
 	public int getRemainingTime();

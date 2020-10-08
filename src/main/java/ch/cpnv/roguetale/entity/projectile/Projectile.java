@@ -8,8 +8,8 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.entity.MovableItem;
-import ch.cpnv.roguetale.entity.Temporary;
 import ch.cpnv.roguetale.entity.character.Character;
+import ch.cpnv.roguetale.entity.temporaryeffect.Temporary;
 
 public abstract class Projectile extends MovableItem implements Temporary {
 	protected int damage;

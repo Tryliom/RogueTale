@@ -16,7 +16,7 @@ import org.newdawn.slick.geom.Shape;
 import ch.cpnv.roguetale.controller.EnemyController;
 import ch.cpnv.roguetale.controller.PlayerController;
 import ch.cpnv.roguetale.entity.character.Enemy;
-import ch.cpnv.roguetale.entity.effect.ItemEffect;
+import ch.cpnv.roguetale.entity.temporaryeffect.itemeffect.ItemEffect;
 import ch.cpnv.roguetale.main.Main;
 
 public abstract class DrawableItem {
