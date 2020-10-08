@@ -68,10 +68,6 @@ public abstract class Projectile extends MovableItem implements Temporary {
 		remainingTime = 0;
 	}
 	
-	public Boolean isExpired() {
-		return remainingTime <= 0;
-	}
-	
 	protected void setPositionFromCharacter(Character attacker, Direction projectileDirection) {
 		Image attackerSprite = attacker.getSprite();
 		
@@ -130,5 +126,9 @@ public abstract class Projectile extends MovableItem implements Temporary {
 	@Override
 	public void updateRemainingTime(int delta) {
 		remainingTime += delta;
+	}
+	@Override
+	public Boolean isExpired() {
+		return remainingTime <= 0;
 	}
 }
