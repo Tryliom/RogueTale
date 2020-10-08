@@ -8,10 +8,9 @@ import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Shape;
 
 import ch.cpnv.roguetale.entity.character.Character;
-import ch.cpnv.roguetale.entity.temporaryeffect.Temporary;
 import ch.cpnv.roguetale.entity.temporaryeffect.TemporaryEffect;
 
-public class AreaOfEffect extends TemporaryEffect implements Temporary {
+public class AreaOfEffect extends TemporaryEffect {
 	protected int damage;
 	protected Shape area;
 	protected int delay;
