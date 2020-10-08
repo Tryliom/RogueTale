@@ -15,8 +15,8 @@ import ch.cpnv.roguetale.save.SaveManager;
 
 public class ResolutionButton extends GuiSwitchButton {
 
-	public ResolutionButton(int x, int y, int width, int height, Gui parentGui) {
-		super(x, y, width, height, parentGui);
+	public ResolutionButton(int x, int y, Gui parentGui) {
+		super(x, y, parentGui);
 		this.init();
 	}
 	

@@ -15,8 +15,8 @@ import ch.cpnv.roguetale.save.SaveManager;
 
 public class FullscreenButton extends GuiSwitchButton {
 
-	public FullscreenButton(int x, int y, int width, int height, Gui parentGui) {
-		super(x, y, width, height, parentGui);
+	public FullscreenButton(int x, int y, Gui parentGui) {
+		super(x, y, parentGui);
 		this.init();
 	}
 	

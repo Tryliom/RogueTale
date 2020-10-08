@@ -38,11 +38,9 @@ public class OptionGui extends Gui {
 			h = Main.BASE_HEIGHT;
 		
 		if (!gc.isFullscreen())
-			this.buttonList.add(new ResolutionButton(w/2 - 100, h/4, 200, 40, this));
-		
-		this.buttonList.add(new FullscreenButton(w/2 - 100, h*3/8, 200, 40, this));
-		
-		this.buttonList.add(new ReturnButton(w/2 - 100, h*3/4, 200, 40, this));
+			this.buttonList.add(new ResolutionButton(w/2, h/4, this));
+		this.buttonList.add(new FullscreenButton(w/2, h*3/8, this));
+		this.buttonList.add(new ReturnButton(w/2, h*3/4, this));
 		
 	}
 	

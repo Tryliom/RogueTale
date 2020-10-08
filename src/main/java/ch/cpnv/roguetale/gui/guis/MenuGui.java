@@ -12,6 +12,7 @@ import ch.cpnv.roguetale.entity.character.enemy.Bomber;
 import ch.cpnv.roguetale.gui.Gui;
 import ch.cpnv.roguetale.gui.button.buttons.OptionButton;
 import ch.cpnv.roguetale.gui.button.buttons.PlayButton;
+import ch.cpnv.roguetale.gui.button.buttons.QuitButton;
 import ch.cpnv.roguetale.main.Main;
 
 public class MenuGui extends Gui {
@@ -30,8 +31,11 @@ public class MenuGui extends Gui {
 	}
 
 	public void init() throws SlickException {
-		this.buttonList.add(new PlayButton("Jouer", Main.BASE_WIDTH/2 - 100, Main.BASE_HEIGHT*3/4, 200, 40, this));
-		this.buttonList.add(new OptionButton(Main.BASE_WIDTH/2 - 100, Main.BASE_HEIGHT*5/8, 200, 40, this));
+		int w = Main.BASE_WIDTH,
+			h = Main.BASE_HEIGHT;
+		this.buttonList.add(new PlayButton("Jouer", w/2, h * 5/8, this));
+		this.buttonList.add(new OptionButton(w - 110, h - 50, this));
+		this.buttonList.add(new QuitButton(110, h - 50, this));
 		this.displayPlayer = Player.getBaseAnimation();
 		this.displayBomber = Bomber.getBaseAnimation();
 		this.background = new Image("ch\\cpnv\\roguetale\\images\\background\\tile.png");

@@ -20,8 +20,8 @@ public class GameOverGui extends Gui {
 	}
 	
 	public void init() {
-		this.buttonList.add(new PlayButton("Rejouer", Main.BASE_WIDTH/2 - 100, Main.BASE_HEIGHT*5/8, 200, 40, this));
-		this.buttonList.add(new ReturnToMenuButton(Main.BASE_WIDTH/2 - 100, Main.BASE_HEIGHT*3/4, 200, 40, this));
+		this.buttonList.add(new PlayButton("Rejouer", Main.BASE_WIDTH/2, Main.BASE_HEIGHT*5/8, this));
+		this.buttonList.add(new ReturnToMenuButton(Main.BASE_WIDTH/2, Main.BASE_HEIGHT*3/4, this));
 		this.labelList.add(new GuiLabel("Game Over", Main.BASE_WIDTH/2, Main.BASE_HEIGHT/4, new Color(190, 83, 83)));
 	}
 	

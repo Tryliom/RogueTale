@@ -10,8 +10,8 @@ public class GuiSwitchButton extends GuiButton {
 	protected ArrayList<?> data;
 	protected int selected;
 	
-	public GuiSwitchButton(int x, int y, int width, int height, Gui parentGui) {
-		super(x, y, width, height, parentGui);
+	public GuiSwitchButton(int x, int y, Gui parentGui) {
+		super(x, y, parentGui);
 	}
 	
 	@Override

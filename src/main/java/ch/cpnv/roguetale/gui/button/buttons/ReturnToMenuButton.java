@@ -7,8 +7,8 @@ import ch.cpnv.roguetale.gui.guis.MenuGui;
 
 public class ReturnToMenuButton extends GuiButton {
 
-	public ReturnToMenuButton(int x, int y, int width, int height, Gui parentGui) {
-		super(x, y, width, height, parentGui);
+	public ReturnToMenuButton(int x, int y, Gui parentGui) {
+		super(x, y, parentGui);
 		this.content = "Retour au menu";
 	}
 	

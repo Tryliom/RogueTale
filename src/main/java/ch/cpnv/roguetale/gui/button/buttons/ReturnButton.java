@@ -6,8 +6,8 @@ import ch.cpnv.roguetale.gui.button.GuiButton;
 
 public class ReturnButton extends GuiButton {
 
-	public ReturnButton(int x, int y, int width, int height, Gui parentGui) {
-		super(x, y, width, height, parentGui);
+	public ReturnButton(int x, int y, Gui parentGui) {
+		super(x, y, parentGui);
 		this.content = "Retour";
 	}
 	
