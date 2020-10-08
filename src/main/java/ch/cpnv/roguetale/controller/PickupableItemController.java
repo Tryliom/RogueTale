@@ -10,20 +10,7 @@ import org.newdawn.slick.SlickException;
 import ch.cpnv.roguetale.entity.pickupableitem.PickupableItem;
 
 public class PickupableItemController implements Controller {
-	private static PickupableItemController instance = null;
-	
-	private ArrayList<PickupableItem> pickupableItems;
-	
-	public static PickupableItemController getInstance() throws SlickException {
-		if(instance == null) {
-			instance = new PickupableItemController();
-		}
-		return instance;
-	}
-	
-	private PickupableItemController() {
-		pickupableItems = new ArrayList<PickupableItem>();
-	}
+	private ArrayList<PickupableItem> pickupableItems = new ArrayList<PickupableItem>();
 	
 	public ArrayList<PickupableItem> getPickupableItems() {
 		return pickupableItems;

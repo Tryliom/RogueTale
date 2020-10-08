@@ -5,11 +5,9 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 
-import ch.cpnv.roguetale.controller.EnemyController;
-import ch.cpnv.roguetale.controller.PickupableItemController;
-import ch.cpnv.roguetale.controller.PlayerController;
 import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.entity.pickupableitem.PickupableLifePoint;
+import ch.cpnv.roguetale.gui.guis.GameGui;
 import ch.cpnv.roguetale.weapon.MeleeWeapon;
 import ch.cpnv.roguetale.weapon.RangedWeapon;
 import ch.cpnv.roguetale.weapon.Weapon;
@@ -100,7 +98,7 @@ public class Enemy extends Character {
 	}
 	
 	protected Direction getDirectionDependingOnPlayer(Boolean lateralShorterDistance) throws SlickException {
-		Player p = PlayerController.getInstance().getPlayer();
+		Player p = GameGui.getPlayerController().getPlayer();
 		float diffX = this.getPosition().getX() - p.getPosition().getX();
 		float diffY = this.getPosition().getY() - p.getPosition().getY();
 		
@@ -120,7 +118,7 @@ public class Enemy extends Character {
 	}
 	
 	protected Boolean canAttackPlayer() throws SlickException {
-		Player p = PlayerController.getInstance().getPlayer();
+		Player p = GameGui.getPlayerController().getPlayer();
 		float border = (1-PRECISION)/2;
 		float range = this.getRangedWeapon() != null ? this.getRangedWeapon().getRange() : 0;
 		Rectangle enRect = new Rectangle(
@@ -178,7 +176,7 @@ public class Enemy extends Character {
 	}
 	
 	protected float getRangeToPlayer() throws SlickException {
-		Player p = PlayerController.getInstance().getPlayer();
+		Player p = GameGui.getPlayerController().getPlayer();
 		float diffX = this.getPosition().getX() - p.getPosition().getX();
 		float diffY = this.getPosition().getY() - p.getPosition().getY();
 		
@@ -200,9 +198,9 @@ public class Enemy extends Character {
 	protected void die() throws SlickException {
 		double alea = Math.random();
 		if (alea < lifepointSpawnProbability) {
-			PickupableItemController.getInstance().addPickupableItem(new PickupableLifePoint(position));
+			GameGui.getPickupableItemController().addPickupableItem(new PickupableLifePoint(position));
 		}
-		EnemyController.getInstance().removeEnemy(this);
+		GameGui.getEnemyController().removeEnemy(this);
 	}
 
 }
