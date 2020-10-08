@@ -15,7 +15,7 @@ import ch.cpnv.roguetale.weapon.RangedWeapon;
 import ch.cpnv.roguetale.weapon.Weapon;
 
 public class Enemy extends Character {
-	
+	private static final float PRECISION = 0.35f;
 	protected double lifepointSpawnProbability = 0.1;
 
 	public Enemy(SpriteSheet ss, Vector2f position, int speed, Direction direction, boolean moving,
@@ -30,10 +30,10 @@ public class Enemy extends Character {
 			this.getRangedWeapon().attack(this);
 			
 			if (!this.getRangedWeapon().canAttack()) {
-				if (this.shouldMoveFarFromPlayer()) {
+				if (this.shouldMoveAwayFromPlayer()) {
 					this.setDirectionToRunFromPlayer();
 					this.setMoving(true);
-				} else if (this.shouldMoveNearPlayer()) {
+				} else if (this.shouldMoveTowardPlayer()) {
 					this.setDirectionToFacePlayer(false);
 					this.setMoving(true);
 				}
@@ -46,13 +46,13 @@ public class Enemy extends Character {
 		}
 	}
 	
-	protected Boolean shouldMoveNearPlayer() throws SlickException {
+	protected Boolean shouldMoveTowardPlayer() throws SlickException {
 		int rangePercent = getRangePercentReliatiedPlayer();
 		
 		return rangePercent > 50;
 	}
 	
-	protected Boolean shouldMoveFarFromPlayer() throws SlickException {
+	protected Boolean shouldMoveAwayFromPlayer() throws SlickException {
 		int rangePercent = getRangePercentReliatiedPlayer();
 		
 		return rangePercent < 25;
@@ -121,20 +121,19 @@ public class Enemy extends Character {
 	
 	protected Boolean canAttackPlayer() throws SlickException {
 		Player p = PlayerController.getInstance().getPlayer();
-		float percent_precision = 0.35f;
-		float border = (1-percent_precision)/2;
+		float border = (1-PRECISION)/2;
 		float range = this.getRangedWeapon() != null ? this.getRangedWeapon().getRange() : 0;
 		Rectangle enRect = new Rectangle(
 					this.getPosition().getX() + this.getSprite().getWidth()*border,
-					this.getPosition().getY() + this.getSprite().getHeight()*(border+percent_precision), 
-					this.getSprite().getWidth()*percent_precision, 
-					this.getSprite().getHeight()*percent_precision
+					this.getPosition().getY() + this.getSprite().getHeight()*(border+PRECISION), 
+					this.getSprite().getWidth()*PRECISION, 
+					this.getSprite().getHeight()*PRECISION
 				);
 		Rectangle pRect = new Rectangle(
 					p.getPosition().getX() + p.getSprite().getWidth()*border, 
-					p.getPosition().getY() + p.getSprite().getHeight()*(border+percent_precision),
-					p.getSprite().getWidth()*percent_precision, 
-					p.getSprite().getHeight()*percent_precision
+					p.getPosition().getY() + p.getSprite().getHeight()*(border+PRECISION),
+					p.getSprite().getWidth()*PRECISION, 
+					p.getSprite().getHeight()*PRECISION
 				);
 		Direction directionToPlayer = this.getDirectionDependingOnPlayer(false);
 

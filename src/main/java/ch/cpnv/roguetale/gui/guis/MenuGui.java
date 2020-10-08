@@ -6,8 +6,9 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.SpriteSheet;
 
+import ch.cpnv.roguetale.entity.character.Player;
+import ch.cpnv.roguetale.entity.character.enemy.Bomber;
 import ch.cpnv.roguetale.gui.Gui;
 import ch.cpnv.roguetale.gui.button.buttons.OptionButton;
 import ch.cpnv.roguetale.gui.button.buttons.PlayButton;
@@ -31,8 +32,8 @@ public class MenuGui extends Gui {
 	public void init() throws SlickException {
 		this.buttonList.add(new PlayButton("Jouer", Main.BASE_WIDTH/2 - 100, Main.BASE_HEIGHT*3/4, 200, 40, this));
 		this.buttonList.add(new OptionButton(Main.BASE_WIDTH/2 - 100, Main.BASE_HEIGHT*5/8, 200, 40, this));
-		this.displayPlayer = new Animation(new SpriteSheet("ch\\cpnv\\roguetale\\images\\player\\carac.png", 48, 48, 0), 0, 0, 2, 0, true, 300, true);
-		this.displayBomber = new Animation(new SpriteSheet("ch\\cpnv\\roguetale\\images\\enemy\\bomber\\carac.png", 48, 48, 0), 0, 0, 2, 0, true, 300, true);
+		this.displayPlayer = Player.getBaseAnimation();
+		this.displayBomber = Bomber.getBaseAnimation();
 		this.background = new Image("ch\\cpnv\\roguetale\\images\\background\\tile.png");
 		this.background.setFilter(Image.FILTER_NEAREST);
 	}

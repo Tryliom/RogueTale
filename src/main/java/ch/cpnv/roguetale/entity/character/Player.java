@@ -16,6 +16,7 @@ public class Player extends Character {
 	private static final String DEAD_ANIMATION = "ch\\cpnv\\roguetale\\images\\player\\dead.png";
 	private static final String SPRITESHEET_PATH = "ch\\cpnv\\roguetale\\images\\player\\carac.png";
 	private static final int SPRITESHEET_DIMENSIONS = 48;
+	private static final int animationLength = 300;
 	
 	protected int level;
 	protected int currentExp;
@@ -32,7 +33,7 @@ public class Player extends Character {
 			Weapon primaryWeapon,
 			Weapon secondaryWeapon
 			) throws SlickException {
-		super(new SpriteSheet(SPRITESHEET_PATH, SPRITESHEET_DIMENSIONS, SPRITESHEET_DIMENSIONS, 0), position, speed, direction, moving, primaryWeapon, secondaryWeapon, STARTING_MAX_HEALTH);
+		super(getSpriteSheet(), position, speed, direction, moving, primaryWeapon, secondaryWeapon, STARTING_MAX_HEALTH);
 		level = 1;
 		currentExp = 0;
 		maxExp = 100;
@@ -40,8 +41,16 @@ public class Player extends Character {
 	}
 
 	private void initDeathAnimation() throws SlickException {
-		this.deathAnimation = new Animation(new SpriteSheet(new Image(DEAD_ANIMATION), 48, 48), 300);
+		this.deathAnimation = new Animation(new SpriteSheet(new Image(DEAD_ANIMATION), SPRITESHEET_DIMENSIONS, SPRITESHEET_DIMENSIONS), animationLength);
 		
+	}
+	
+	public static SpriteSheet getSpriteSheet() throws SlickException {
+		return new SpriteSheet(SPRITESHEET_PATH, SPRITESHEET_DIMENSIONS, SPRITESHEET_DIMENSIONS, 0);
+	}
+
+	public static Animation getBaseAnimation() throws SlickException {
+		return new Animation(getSpriteSheet(), 0, 0, 2, 0, true, animationLength, true);
 	}
 
 	public int getLevel() {

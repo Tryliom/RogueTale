@@ -36,7 +36,7 @@ public class GameGui extends Gui {
 		EnemyController.getInstance().init();
 		ProjectileController.getInstance().init();
 		UiController.getInstance().init();
-		//PlayerController.getInstance().getPlayer().setInvulnerable(true);
+		PlayerController.getInstance().getPlayer().setInvulnerable(true);
 		//PlayerController.getInstance().getPlayer().setOneHitKill();
 	}
 	
