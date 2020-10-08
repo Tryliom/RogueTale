@@ -1,4 +1,4 @@
-package ch.cpnv.roguetale.entity.areaofeffect.areas;
+package ch.cpnv.roguetale.entity.temporaryeffect.areaofeffect.areas;
 
 import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.SlickException;

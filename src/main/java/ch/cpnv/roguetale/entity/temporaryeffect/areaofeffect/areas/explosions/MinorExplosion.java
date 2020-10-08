@@ -1,4 +1,4 @@
-package ch.cpnv.roguetale.entity.areaofeffect.areas.explosions;
+package ch.cpnv.roguetale.entity.temporaryeffect.areaofeffect.areas.explosions;
 
 import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.Animation;
@@ -7,7 +7,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Circle;
 
-import ch.cpnv.roguetale.entity.areaofeffect.areas.Explosion;
+import ch.cpnv.roguetale.entity.temporaryeffect.areaofeffect.areas.Explosion;
 
 public class MinorExplosion extends Explosion {
 	private static final String PATH_DEFAULT_EXPLOSION = "ch\\cpnv\\roguetale\\images\\areas\\explosions\\explosion1\\1.png";

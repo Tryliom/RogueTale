@@ -5,9 +5,9 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
 import ch.cpnv.roguetale.entity.Direction;
-import ch.cpnv.roguetale.entity.areaofeffect.areas.explosions.MinorExplosion;
 import ch.cpnv.roguetale.entity.character.Character;
 import ch.cpnv.roguetale.entity.projectile.Projectile;
+import ch.cpnv.roguetale.entity.temporaryeffect.areaofeffect.areas.explosions.MinorExplosion;
 import ch.cpnv.roguetale.gui.guis.GameGui;
 
 public class Bomb extends Projectile {

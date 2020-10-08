@@ -8,8 +8,8 @@ import org.newdawn.slick.SpriteSheet;
 
 import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.entity.MovableItem;
-import ch.cpnv.roguetale.entity.effect.effects.Damage;
-import ch.cpnv.roguetale.entity.effect.effects.Heal;
+import ch.cpnv.roguetale.entity.temporaryeffect.itemeffect.effects.Damage;
+import ch.cpnv.roguetale.entity.temporaryeffect.itemeffect.effects.Heal;
 import ch.cpnv.roguetale.weapon.Weapon;
 
 public abstract class Character extends MovableItem {
