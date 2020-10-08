@@ -1,7 +1,5 @@
 package ch.cpnv.roguetale.gui.guis;
 
-import java.util.ArrayList;
-
 import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -11,18 +9,15 @@ import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.controller.GuiController;
 import ch.cpnv.roguetale.gui.Gui;
-import ch.cpnv.roguetale.gui.buttons.GuiButton;
-import ch.cpnv.roguetale.gui.buttons.GuiSwitchButton;
-import ch.cpnv.roguetale.gui.functions.Execute;
-import ch.cpnv.roguetale.gui.functions.ExecuteWithArgs;
-import ch.cpnv.roguetale.gui.functions.Transforming;
+import ch.cpnv.roguetale.gui.button.buttons.FullscreenButton;
+import ch.cpnv.roguetale.gui.button.buttons.ResolutionButton;
+import ch.cpnv.roguetale.gui.button.buttons.ReturnButton;
 import ch.cpnv.roguetale.main.Main;
 import ch.cpnv.roguetale.model.Game;
 
 public class OptionGui extends Gui {
 	private static final String PATH_PANEL = "ch\\cpnv\\roguetale\\images\\ui\\panel\\panel_blue.png";
 	private Image background;
-	private Vector2f resolution;
 
 	public OptionGui(Gui prevGui) {
 		super(prevGui);
@@ -33,59 +28,21 @@ public class OptionGui extends Gui {
 		}
 	}
 
-	private void init() throws SlickException {
+	public void init() throws SlickException {
 		GameContainer gc = Game.getInstance().getGc();
 		this.buttonList.clear();
 		this.labelList.clear();
-		int w = Main.BASE_WIDTH,
-			h = Main.BASE_HEIGHT;
-		Vector2f fallbackForFullscreen = new Vector2f(w*2, h*2);
 		this.background = new Image(PATH_PANEL);
 		this.background.setFilter(Image.FILTER_NEAREST);
-		this.resolution = new Vector2f(gc.getWidth(), gc.getHeight());
-		
-		ArrayList<Vector2f> listResolution = new ArrayList<Vector2f>();
-		listResolution.add(new Vector2f(w, h));
-		listResolution.add(new Vector2f(w*3/2, h*3/2));
-		listResolution.add(new Vector2f(w*2, h*2));
-		listResolution.add(new Vector2f(w*3, h*3));
-		int selected = listResolution.indexOf(this.resolution);
-		
-		ExecuteWithArgs changeResolution = (Object obj) -> {
-			Vector2f res = (Vector2f) obj;
-			Main.app.setDisplayMode(Math.round(res.x), Math.round(res.y), gc.isFullscreen());
-		};
-		Transforming transform = (Object obj) -> {
-			Vector2f res = (Vector2f) obj;
-			return Math.round(res.x) + "x" + Math.round(res.y);
-		};
+		int w = Main.BASE_WIDTH,
+			h = Main.BASE_HEIGHT;
 		
 		if (!gc.isFullscreen())
-			this.buttonList.add(new GuiSwitchButton(w/2 - 100, h/4, 200, 40, changeResolution, transform, listResolution, selected));
+			this.buttonList.add(new ResolutionButton(w/2 - 100, h/4, 200, 40, this));
 		
-		ArrayList<Boolean> listFs = new ArrayList<Boolean>();
-		listFs.add(true); listFs.add(false);
+		this.buttonList.add(new FullscreenButton(w/2 - 100, h*3/8, 200, 40, this));
 		
-		
-		ExecuteWithArgs changeFs = (Object obj) -> {
-			Boolean fs = (Boolean) obj;
-			try {
-				gc.setFullscreen(fs);
-			} catch(Exception e) {
-				Main.app.setDisplayMode(Math.round(fallbackForFullscreen.x), Math.round(fallbackForFullscreen.y), fs);
-			}
-			this.init();
-		};
-		Transforming transformFs = (Object obj) -> {
-			Boolean fs = (Boolean) obj;
-			return "Plein écran: "+(fs ? "Oui" : "Non");
-		};
-		
-		this.buttonList.add(new GuiSwitchButton(w/2 - 100, h*3/8, 200, 40, changeFs, transformFs, listFs, gc.isFullscreen() ? 0 : 1));
-		
-		Execute funcReturn = () -> {GuiController.getInstance().setDisplayGui(this.prevGui);};
-		
-		this.buttonList.add(new GuiButton("Retour", w/2 - 100, h*3/4, 200, 40, funcReturn));
+		this.buttonList.add(new ReturnButton(w/2 - 100, h*3/4, 200, 40, this));
 		
 	}
 	

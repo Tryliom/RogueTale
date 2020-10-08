@@ -1,4 +1,4 @@
-package ch.cpnv.roguetale.gui.buttons;
+package ch.cpnv.roguetale.gui.button;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -6,8 +6,8 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
+import ch.cpnv.roguetale.gui.Gui;
 import ch.cpnv.roguetale.gui.enums.State;
-import ch.cpnv.roguetale.gui.functions.Execute;
 
 public class GuiButton {
 	private static final String PATH_BTN = "ch\\cpnv\\roguetale\\images\\ui\\button\\btn1.png";
@@ -18,16 +18,16 @@ public class GuiButton {
 	protected int width;
 	protected int height;
 	protected State state;
-	protected Execute func;
+	protected Gui parentGui;
 	
-	public GuiButton(String content, int x, int y, int width, int height, Execute func) {
-		this.content = content;
+	public GuiButton(int x, int y, int width, int height, Gui parentGui) {
+		this.content = "";
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
+		this.parentGui = parentGui;
 		this.state = State.NONE;
-		this.func = func;
 	}
 	
 	public void render(GameContainer gc, Graphics g) throws SlickException {
@@ -45,9 +45,7 @@ public class GuiButton {
 		g.setColor(old);
 	}
 	
-	public void onClick() throws SlickException {
-		this.func.execute();
-	}
+	public void onClick() throws SlickException {}
 	
 	public boolean isHoveringButton(int x, int y) {
 		return this.x < x && this.x+this.width > x && this.y < y && this.y+this.height > y;

@@ -6,10 +6,9 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-import ch.cpnv.roguetale.controller.GuiController;
 import ch.cpnv.roguetale.gui.Gui;
-import ch.cpnv.roguetale.gui.buttons.GuiButton;
-import ch.cpnv.roguetale.gui.functions.Execute;
+import ch.cpnv.roguetale.gui.button.buttons.PlayButton;
+import ch.cpnv.roguetale.gui.button.buttons.ReturnToMenuButton;
 import ch.cpnv.roguetale.gui.texts.GuiLabel;
 import ch.cpnv.roguetale.main.Main;
 
@@ -20,12 +19,9 @@ public class GameOverGui extends Gui {
 		this.init();
 	}
 	
-	private void init() {
-		Execute restartGame = () -> {GuiController.getInstance().setDisplayGui(new GameGui(this));};
-		Execute returnToMenu = () -> {GuiController.getInstance().setDisplayGui(new MenuGui(this));};
-		
-		this.buttonList.add(new GuiButton("Rejouer", Main.BASE_WIDTH/2 - 100, Main.BASE_HEIGHT*5/8, 200, 40, restartGame));
-		this.buttonList.add(new GuiButton("Retour au menu", Main.BASE_WIDTH/2 - 100, Main.BASE_HEIGHT*3/4, 200, 40, returnToMenu));
+	public void init() {
+		this.buttonList.add(new PlayButton("Rejouer", Main.BASE_WIDTH/2 - 100, Main.BASE_HEIGHT*5/8, 200, 40, this));
+		this.buttonList.add(new ReturnToMenuButton(Main.BASE_WIDTH/2 - 100, Main.BASE_HEIGHT*3/4, 200, 40, this));
 		this.labelList.add(new GuiLabel("Game Over", Main.BASE_WIDTH/2, Main.BASE_HEIGHT/4, new Color(190, 83, 83)));
 	}
 	

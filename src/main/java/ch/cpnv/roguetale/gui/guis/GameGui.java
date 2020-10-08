@@ -29,7 +29,7 @@ public class GameGui extends Gui {
 		}
 	}
 	
-	private void init() throws SlickException {
+	public void init() throws SlickException {
 		PlayerController.getInstance().init();
 		MapController.getInstance().init();
 		AreaController.getInstance().init();

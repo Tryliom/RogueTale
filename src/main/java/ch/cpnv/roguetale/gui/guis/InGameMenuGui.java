@@ -9,8 +9,8 @@ import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.controller.GuiController;
 import ch.cpnv.roguetale.gui.Gui;
-import ch.cpnv.roguetale.gui.buttons.GuiButton;
-import ch.cpnv.roguetale.gui.functions.Execute;
+import ch.cpnv.roguetale.gui.button.buttons.OptionButton;
+import ch.cpnv.roguetale.gui.button.buttons.ReturnButton;
 import ch.cpnv.roguetale.main.Main;
 
 public class InGameMenuGui extends Gui {
@@ -26,19 +26,14 @@ public class InGameMenuGui extends Gui {
 		}
 	}
 
-	private void init() throws SlickException {
+	public void init() throws SlickException {
 		int w = Main.BASE_WIDTH,
 			h = Main.BASE_HEIGHT;
 		this.background = new Image(PATH_PANEL);
 		this.background.setFilter(Image.FILTER_NEAREST);
-		
-		Execute funcOption = () -> {GuiController.getInstance().setDisplayGui(new OptionGui(this));};
-		
-		this.buttonList.add(new GuiButton("Options", w/2 - 100, h/3, 200, 40, funcOption));
-		
-		Execute funcReturn = () -> {GuiController.getInstance().setDisplayGui(this.prevGui);};
-		
-		this.buttonList.add(new GuiButton("Retour", w/2 - 100, h*2/3, 200, 40, funcReturn));
+
+		this.buttonList.add(new OptionButton(w/2 - 100, h/3, 200, 40, this));		
+		this.buttonList.add(new ReturnButton(w/2 - 100, h*2/3, 200, 40, this));
 		
 	}
 	
