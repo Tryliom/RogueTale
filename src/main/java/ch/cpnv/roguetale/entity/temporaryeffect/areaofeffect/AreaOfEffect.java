@@ -1,4 +1,4 @@
-package ch.cpnv.roguetale.entity.areaofeffect;
+package ch.cpnv.roguetale.entity.temporaryeffect.areaofeffect;
 
 import java.util.HashMap;
 
@@ -7,9 +7,9 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Shape;
 
-import ch.cpnv.roguetale.entity.Temporary;
-import ch.cpnv.roguetale.entity.TemporaryEffect;
 import ch.cpnv.roguetale.entity.character.Character;
+import ch.cpnv.roguetale.entity.temporaryeffect.Temporary;
+import ch.cpnv.roguetale.entity.temporaryeffect.TemporaryEffect;
 
 public class AreaOfEffect extends TemporaryEffect implements Temporary {
 	protected int damage;
