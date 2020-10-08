@@ -44,13 +44,14 @@ public class FullscreenButton extends GuiSwitchButton {
 		} catch(Exception e) {
 			Main.app.setDisplayMode(Math.round(fallbackForFullscreen.x), Math.round(fallbackForFullscreen.y), fullscreen);
 			Main.data.setResolution(fallbackForFullscreen);
-			
-			try {
-				new SaveManager().saveSettings();
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
 		}
+		
+		try {
+			new SaveManager().saveSettings();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		
 		this.content = "Plein écran: "+(fullscreen ? "Oui" : "Non");
 		this.parentGui.init();
 	}
