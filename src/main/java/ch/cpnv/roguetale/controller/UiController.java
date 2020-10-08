@@ -75,9 +75,4 @@ public class UiController implements Controller {
 		
 	}
 
-	public void init() {
-		lifePoints.clear();
-		
-	}
-
 }

@@ -84,7 +84,4 @@ public class AreaController implements Controller {
 		
 	}
 
-	public void init() {
-		this.areas.clear();
-	}
 }
