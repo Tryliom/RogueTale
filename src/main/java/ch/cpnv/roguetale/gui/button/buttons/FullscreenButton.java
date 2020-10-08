@@ -1,5 +1,6 @@
 package ch.cpnv.roguetale.gui.button.buttons;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.lwjgl.util.vector.Vector2f;
@@ -10,6 +11,7 @@ import ch.cpnv.roguetale.gui.Gui;
 import ch.cpnv.roguetale.gui.button.GuiSwitchButton;
 import ch.cpnv.roguetale.main.Main;
 import ch.cpnv.roguetale.model.Game;
+import ch.cpnv.roguetale.save.SaveManager;
 
 public class FullscreenButton extends GuiSwitchButton {
 
@@ -37,9 +39,17 @@ public class FullscreenButton extends GuiSwitchButton {
 		Boolean fullscreen = (Boolean) this.data.get(this.selected);
 		
 		try {
+			Main.data.setFullscreen(fullscreen);
 			Main.app.setFullscreen(fullscreen);
 		} catch(Exception e) {
 			Main.app.setDisplayMode(Math.round(fallbackForFullscreen.x), Math.round(fallbackForFullscreen.y), fullscreen);
+			Main.data.setResolution(fallbackForFullscreen);
+			
+			try {
+				new SaveManager().saveSettings();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 		}
 		this.content = "Plein écran: "+(fullscreen ? "Oui" : "Non");
 		this.parentGui.init();

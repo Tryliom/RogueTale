@@ -1,5 +1,6 @@
 package ch.cpnv.roguetale.gui.button.buttons;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.lwjgl.util.vector.Vector2f;
@@ -10,6 +11,7 @@ import ch.cpnv.roguetale.gui.Gui;
 import ch.cpnv.roguetale.gui.button.GuiSwitchButton;
 import ch.cpnv.roguetale.main.Main;
 import ch.cpnv.roguetale.model.Game;
+import ch.cpnv.roguetale.save.SaveManager;
 
 public class ResolutionButton extends GuiSwitchButton {
 
@@ -41,11 +43,17 @@ public class ResolutionButton extends GuiSwitchButton {
 	public void onClick() throws SlickException {
 		super.onClick();
 		Vector2f res = (Vector2f) this.data.get(this.selected);
+		Main.data.setResolution(res);
 		int x = Math.round(res.x),
 			y = Math.round(res.y);
 		
 		this.content = x + "x" + y;
 		Main.app.setDisplayMode(x, y, Main.app.isFullscreen());
+		try {
+			new SaveManager().saveSettings();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 	}
 
 }
