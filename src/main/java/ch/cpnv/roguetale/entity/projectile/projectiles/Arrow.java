@@ -3,13 +3,14 @@ package ch.cpnv.roguetale.entity.projectile.projectiles;
 import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
+
 import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.entity.character.Character;
 import ch.cpnv.roguetale.entity.projectile.Projectile;
 
 public class Arrow extends Projectile {
 	static protected final int SPEED = 200;
-	static protected final int IMAGE_WIDTH = 64;
+	static protected final int IMAGE_WIDTH = 32;
 	static protected final int IMAGE_HEIGHT = IMAGE_WIDTH;
 	
 	static protected final int HITBOX_WIDTH = IMAGE_WIDTH / 2;
@@ -19,14 +20,14 @@ public class Arrow extends Projectile {
 
 	public Arrow(Vector2f position, Direction direction, int range, int damage) throws SlickException {
 		super(
-				new SpriteSheet(SPRITESHEET_PATH, 256, 256), 
+				new SpriteSheet(SPRITESHEET_PATH, 128, 128), 
 				position,
 				SPEED,
 				direction,
 				range,
 				damage
 				);
-		this.image = this.spritesheet.getSprite(3, 0);
+		this.image = this.spritesheet.getSprite(0, 0);
 		this.image = this.image.getScaledCopy(IMAGE_WIDTH, IMAGE_HEIGHT);
 		this.setImageDirection();
 	}
@@ -45,17 +46,16 @@ public class Arrow extends Projectile {
 	protected void setImageDirection() {
 		switch (this.direction) {
 			case UP:
-				image.setRotation(270);
+				this.image.rotate(-43);
 				break;
 			case DOWN:
-				image.setRotation(90);
+				this.image.rotate(138);
 				break;
 			case LEFT:
-				image.setRotation(180);
+				this.image.rotate(-133);
 				break;
 			case RIGHT:
-				break;
-			default:
+				this.image.rotate(48);
 				break;
 		}
 	}

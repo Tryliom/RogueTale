@@ -37,14 +37,12 @@ public class GameGui extends Gui {
 			GameGui.projectileController = new ProjectileController();
 			GameGui.uiController = new UiController();
 			GameGui.pickupableItemController = new PickupableItemController();
+			
+			GameGui.playerController.getPlayer().setInvulnerable(true);
+			//GameGui.playerController.getPlayer().setOneHitKill();
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
-	}
-	
-	public void init() throws SlickException {
-		GameGui.playerController.getPlayer().setInvulnerable(true);
-		//GameGui.playerController.getPlayer().setOneHitKill();
 	}
 	
 	public void render(GameContainer gc, Graphics g, Vector2f o) throws SlickException {
