@@ -5,7 +5,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Shape;
 
-import ch.cpnv.roguetale.entity.areaofeffect.AreaOfEffect;
+import ch.cpnv.roguetale.entity.temporaryeffect.areaofeffect.AreaOfEffect;
 
 public class Explosion extends AreaOfEffect {
 	private final static int LIFE = 500;

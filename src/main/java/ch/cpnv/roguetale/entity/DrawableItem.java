@@ -14,7 +14,7 @@ import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
 import ch.cpnv.roguetale.entity.character.Enemy;
-import ch.cpnv.roguetale.entity.effect.ItemEffect;
+import ch.cpnv.roguetale.entity.temporaryeffect.itemeffect.ItemEffect;
 import ch.cpnv.roguetale.gui.guis.GameGui;
 import ch.cpnv.roguetale.main.Main;
 
