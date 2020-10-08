@@ -6,7 +6,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
-import ch.cpnv.roguetale.entity.effect.ItemEffect;
+import ch.cpnv.roguetale.entity.temporaryeffect.itemeffect.ItemEffect;
 
 public class Heal extends ItemEffect {
 	private static final String DEFAULT_PATH = "ch\\cpnv\\roguetale\\images\\effects\\heal.png";

@@ -1,4 +1,4 @@
-package ch.cpnv.roguetale.entity.areaofeffect;
+package ch.cpnv.roguetale.entity.temporaryeffect.areaofeffect;
 
 import java.util.HashMap;
 
@@ -7,26 +7,25 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Shape;
 
-import ch.cpnv.roguetale.entity.DrawableItem;
 import ch.cpnv.roguetale.entity.character.Character;
+import ch.cpnv.roguetale.entity.temporaryeffect.Temporary;
+import ch.cpnv.roguetale.entity.temporaryeffect.TemporaryEffect;
 
-public class AreaOfEffect extends DrawableItem {
-	protected int lifespan;
+public class AreaOfEffect extends TemporaryEffect implements Temporary {
 	protected int damage;
 	protected Shape area;
 	protected int delay;
 	protected HashMap<Character, Integer> cooldownEntites = new HashMap<Character, Integer>();
 
 	public AreaOfEffect(SpriteSheet ss, Vector2f position, int lifespan, int damage, Shape area, int delay) {
-		super(ss, position);
-		this.lifespan = lifespan;
+		super(ss, position, lifespan);
 		this.damage = damage;
 		this.area = area;
 		this.delay = delay;
 	}
 	
 	public void update(int delta) throws SlickException {
-		this.lifespan -= delta;
+		this.remainingTime -= delta;
 		this.updateCooldown(delta);
 		super.update(delta);
 	}
@@ -54,17 +53,13 @@ public class AreaOfEffect extends DrawableItem {
 	public boolean hasEntityCooldown(Character entity) {
 		return cooldownEntites.containsKey(entity);
 	}
-	
-	public boolean isExpired() {
-		return this.lifespan <= 0;
-	}
 
 	public int getLifespan() {
-		return lifespan;
+		return remainingTime;
 	}
 
 	public void setLifespan(int lifespan) {
-		this.lifespan = lifespan;
+		this.remainingTime = lifespan;
 	}
 
 	public int getDamage() {
@@ -94,5 +89,4 @@ public class AreaOfEffect extends DrawableItem {
 	public HashMap<Character, Integer> getCooldownEntites() {
 		return cooldownEntites;
 	}
-
 }
