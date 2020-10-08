@@ -8,9 +8,10 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.entity.MovableItem;
+import ch.cpnv.roguetale.entity.Temporary;
 import ch.cpnv.roguetale.entity.character.Character;
 
-public abstract class Projectile extends MovableItem {
+public abstract class Projectile extends MovableItem implements Temporary {
 	protected int damage;
 	protected int remainingTime;
 	
@@ -116,5 +117,18 @@ public abstract class Projectile extends MovableItem {
 		default:
 			return super.getImageHeight();
 		}
+	}
+	
+	@Override
+	public int getRemainingTime() {
+		return remainingTime;
+	}
+	@Override
+	public void setRemainingTime(int remainingTime) {
+		this.remainingTime = remainingTime;
+	}
+	@Override
+	public void updateRemainingTime(int delta) {
+		remainingTime += delta;
 	}
 }
