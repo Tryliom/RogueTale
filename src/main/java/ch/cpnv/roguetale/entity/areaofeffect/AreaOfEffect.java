@@ -7,20 +7,18 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Shape;
 
-import ch.cpnv.roguetale.entity.DrawableItem;
 import ch.cpnv.roguetale.entity.Temporary;
+import ch.cpnv.roguetale.entity.TemporaryEffect;
 import ch.cpnv.roguetale.entity.character.Character;
 
-public class AreaOfEffect extends DrawableItem implements Temporary {
-	protected int remainingTime;
+public class AreaOfEffect extends TemporaryEffect implements Temporary {
 	protected int damage;
 	protected Shape area;
 	protected int delay;
 	protected HashMap<Character, Integer> cooldownEntites = new HashMap<Character, Integer>();
 
 	public AreaOfEffect(SpriteSheet ss, Vector2f position, int lifespan, int damage, Shape area, int delay) {
-		super(ss, position);
-		this.remainingTime = lifespan;
+		super(ss, position, lifespan);
 		this.damage = damage;
 		this.area = area;
 		this.delay = delay;
@@ -90,22 +88,5 @@ public class AreaOfEffect extends DrawableItem implements Temporary {
 
 	public HashMap<Character, Integer> getCooldownEntites() {
 		return cooldownEntites;
-	}
-	
-	@Override
-	public int getRemainingTime() {
-		return remainingTime;
-	}
-	@Override
-	public void setRemainingTime(int remainingTime) {
-		this.remainingTime = remainingTime;
-	}
-	@Override
-	public void updateRemainingTime(int delta) {
-		remainingTime += delta;
-	}
-	@Override
-	public Boolean isExpired() {
-		return remainingTime <= 0;
 	}
 }
