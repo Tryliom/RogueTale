@@ -10,16 +10,10 @@ import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.entity.areaofeffect.AreaOfEffect;
 import ch.cpnv.roguetale.entity.character.Character;
+import ch.cpnv.roguetale.gui.guis.GameGui;
 
 public class AreaController implements Controller {
-	private static AreaController instance;
 	private ArrayList<AreaOfEffect> areas = new ArrayList<AreaOfEffect>();
-	
-	public static AreaController getInstance() {
-		return instance == null ? instance = new AreaController() : instance;
-	}
-
-	private AreaController() {}
 
 	@Override
 	public void render(GameContainer gc, Graphics g, Vector2f origin) throws SlickException {
@@ -58,8 +52,8 @@ public class AreaController implements Controller {
 	
 	private void damageEntities() throws SlickException {
 		ArrayList<Character> entities = new ArrayList<Character>();
-		entities.add(PlayerController.getInstance().getPlayer());
-		entities.addAll(EnemyController.getInstance().getEnemies());
+		entities.add(GameGui.getPlayerController().getPlayer());
+		entities.addAll(GameGui.getEnemyController().getEnemies());
 		
 		for (AreaOfEffect area : this.areas) {
 			for (Character en : entities) {

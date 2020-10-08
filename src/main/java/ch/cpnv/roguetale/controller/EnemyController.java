@@ -1,6 +1,7 @@
 package ch.cpnv.roguetale.controller;
 
 import java.util.ArrayList;
+
 import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -10,25 +11,15 @@ import ch.cpnv.roguetale.entity.character.Enemy;
 import ch.cpnv.roguetale.entity.character.Player;
 import ch.cpnv.roguetale.entity.character.enemy.Bomber;
 import ch.cpnv.roguetale.entity.character.enemy.Robot;
+import ch.cpnv.roguetale.gui.guis.GameGui;
 
 public class EnemyController implements Controller {
-	private static EnemyController instance = null;
 	private final int MAX_ENEMIES = 3;
 	private final int DISTANCE_NEAR_PLAYER = 500;
 	private final int SPAWN_DISTANCE_MIN = 350;
 	private final int SPAWN_DISTANCE_MAX = 450;
 	
 	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-	
-	public static EnemyController getInstance() throws SlickException {
-		if(instance == null) {
-			instance = new EnemyController();
-		}
-		return instance;
-	}
-
-	private EnemyController() throws SlickException {
-	}
 	
 	public ArrayList<Enemy> getEnemies() {
 		return enemies;
@@ -78,7 +69,7 @@ public class EnemyController implements Controller {
 	
 	private void spawnEnemies() throws SlickException {
 		if (countEnemiesAroundPlayer() < MAX_ENEMIES) {
-			Player p = PlayerController.getInstance().getPlayer();
+			Player p = GameGui.getPlayerController().getPlayer();
 			Vector2f position = getRandomPositionNearPlayer(p);
 			Enemy en = createRandomEnemy(position);
 			
@@ -88,7 +79,7 @@ public class EnemyController implements Controller {
 	}
 
 	private int countEnemiesAroundPlayer() throws SlickException {
-		Player p = PlayerController.getInstance().getPlayer();
+		Player p = GameGui.getPlayerController().getPlayer();
 		int count = 0;
 		
 		for (Enemy en : this.enemies) {

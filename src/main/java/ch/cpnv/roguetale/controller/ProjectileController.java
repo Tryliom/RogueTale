@@ -10,22 +10,10 @@ import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.entity.character.Character;
 import ch.cpnv.roguetale.entity.projectile.Projectile;
+import ch.cpnv.roguetale.gui.guis.GameGui;
 
 public class ProjectileController implements Controller {
-	private static ProjectileController instance = null;
-	
-	private final ArrayList<Projectile> projectiles;
-	
-	public static ProjectileController getInstance() throws SlickException {
-		if(instance == null) {
-			instance = new ProjectileController();
-		}
-		return instance;
-	}
-	
-	private ProjectileController() {
-		projectiles = new ArrayList<Projectile>();
-	}
+	private final ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
 
 	@Override
 	public void render(GameContainer gc, Graphics g, Vector2f origin) throws SlickException {
@@ -70,7 +58,7 @@ public class ProjectileController implements Controller {
 	}
 	
 	private void collideProjectiles() throws SlickException {
-		Character player = PlayerController.getInstance().getPlayer();
+		Character player = GameGui.getPlayerController().getPlayer();
 		
 		for(Projectile projectile : projectiles) {
 			Character hit = null;
@@ -78,7 +66,7 @@ public class ProjectileController implements Controller {
 				hit = player;
 			}
 			else {
-				for(Character enemy : EnemyController.getInstance().getEnemies()) {
+				for(Character enemy : GameGui.getEnemyController().getEnemies()) {
 					if(projectile.isColliding(enemy)) {
 						hit = enemy;
 						break;

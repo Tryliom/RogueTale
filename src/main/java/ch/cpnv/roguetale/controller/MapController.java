@@ -11,20 +11,11 @@ import org.newdawn.slick.SlickException;
 import ch.cpnv.roguetale.main.Main;
 
 public class MapController implements Controller {
-	private static MapController instance = null;
-	
 	private Image background;
 	private Vector<Vector2f> map = new Vector<Vector2f>();
 	private static final int TILE_DIMENSION = 70;
 	
-	public static MapController getInstance() throws SlickException {
-		if(instance == null) {
-			instance = new MapController();
-		}
-		return instance;
-	}
-	
-	private MapController() throws SlickException {
+	public MapController() throws SlickException {
 		this.background = new Image("ch\\cpnv\\roguetale\\images\\background\\tile.png");
 		this.background.setFilter(Image.FILTER_NEAREST);
 	}

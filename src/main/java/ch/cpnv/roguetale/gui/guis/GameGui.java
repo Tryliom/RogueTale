@@ -19,37 +19,44 @@ import ch.cpnv.roguetale.gui.Gui;
 import ch.cpnv.roguetale.main.Main;
 
 public class GameGui extends Gui {
+	private static PlayerController playerController;
+	private static MapController mapController;
+	private static AreaController areaController;
+	private static EnemyController enemyController;
+	private static ProjectileController projectileController;
+	private static UiController uiController;
+	private static PickupableItemController pickupableItemController;
 
 	public GameGui(Gui prevGui) {
 		super(prevGui);
 		try {
-			this.init();
+			GameGui.playerController = new PlayerController();
+			GameGui.mapController = new MapController();
+			GameGui.areaController = new AreaController();
+			GameGui.enemyController = new EnemyController();
+			GameGui.projectileController = new ProjectileController();
+			GameGui.uiController = new UiController();
+			GameGui.pickupableItemController = new PickupableItemController();
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
 	}
 	
 	public void init() throws SlickException {
-		PlayerController.getInstance().init();
-		MapController.getInstance().init();
-		AreaController.getInstance().init();
-		EnemyController.getInstance().init();
-		ProjectileController.getInstance().init();
-		UiController.getInstance().init();
-		PlayerController.getInstance().getPlayer().setInvulnerable(true);
-		//PlayerController.getInstance().getPlayer().setOneHitKill();
+		GameGui.playerController.getPlayer().setInvulnerable(true);
+		//GameGui.playerController.getPlayer().setOneHitKill();
 	}
 	
 	public void render(GameContainer gc, Graphics g, Vector2f o) throws SlickException {
 		Vector2f origin = getSlickOrigin();
 		
-		MapController.getInstance().render(gc, g, origin);
-		AreaController.getInstance().render(gc, g, origin);
-		PickupableItemController.getInstance().render(gc, g, origin);
-		EnemyController.getInstance().render(gc, g, origin);
-		PlayerController.getInstance().render(gc, g, origin);
-		ProjectileController.getInstance().render(gc, g, origin);
-		UiController.getInstance().render(gc, g, origin);
+		GameGui.mapController.render(gc, g, origin);
+		GameGui.areaController.render(gc, g, origin);
+		GameGui.pickupableItemController.render(gc, g, origin);
+		GameGui.enemyController.render(gc, g, origin);
+		GameGui.playerController.render(gc, g, origin);
+		GameGui.projectileController.render(gc, g, origin);
+		GameGui.uiController.render(gc, g, origin);
 		
 		super.render(gc, g, origin);
 	}
@@ -57,25 +64,25 @@ public class GameGui extends Gui {
 	public void update(GameContainer gc, int delta, Vector2f o) throws SlickException {
 		Vector2f origin = getSlickOrigin();
 		
-		if (!PlayerController.getInstance().getPlayer().isDead()) {
+		if (!GameGui.playerController.getPlayer().isDead()) {
 			
-			MapController.getInstance().update(gc, delta, origin);
-			EnemyController.getInstance().update(gc, delta, origin);
-			PlayerController.getInstance().update(gc, delta, origin);
-			ProjectileController.getInstance().update(gc, delta, origin);
-			AreaController.getInstance().update(gc, delta, origin);
+			GameGui.mapController.update(gc, delta, origin);
+			GameGui.enemyController.update(gc, delta, origin);
+			GameGui.playerController.update(gc, delta, origin);
+			GameGui.projectileController.update(gc, delta, origin);
+			GameGui.areaController.update(gc, delta, origin);
 		} else {
 			GuiController.getInstance().setDisplayGui(new GameOverGui(this));
 		}
 		
-		UiController.getInstance().update(gc, delta, origin);
+		GameGui.uiController.update(gc, delta, origin);
 
 		super.update(gc, delta, origin);
 	}
 
 	public void keyReleased(int key, char c, GameContainer gc) throws SlickException {
-		if (!PlayerController.getInstance().getPlayer().isDead()) {
-			PlayerController.getInstance().keyReleased(key, c, gc);
+		if (!GameGui.playerController.getPlayer().isDead()) {
+			GameGui.playerController.keyReleased(key, c, gc);
 		}
 		
 		if (Input.KEY_ESCAPE == key) {
@@ -86,16 +93,16 @@ public class GameGui extends Gui {
 	}
 
 	public void keyPressed(int key, char c, GameContainer gc) throws SlickException {
-		if (!PlayerController.getInstance().getPlayer().isDead()) {
-			PlayerController.getInstance().keyPressed(key, c, gc);
+		if (!GameGui.playerController.getPlayer().isDead()) {
+			GameGui.playerController.keyPressed(key, c, gc);
 		}
 		
 		super.keyPressed(key, c, gc);
 	}
 
 	public void mousePressed(int button, int x, int y) throws SlickException {
-		if (!PlayerController.getInstance().getPlayer().isDead()) {
-			PlayerController.getInstance().mousePressed(button, x, y);
+		if (!GameGui.playerController.getPlayer().isDead()) {
+			GameGui.playerController.mousePressed(button, x, y);
 		}
 
 		super.mousePressed(button, x, y);
@@ -107,7 +114,37 @@ public class GameGui extends Gui {
 
 	// Get the coordinate of the UP LEFT corner of the screen
 	private Vector2f getSlickOrigin() throws SlickException {
-		Player player = PlayerController.getInstance().getPlayer();
+		Player player = GameGui.playerController.getPlayer();
 		return new Vector2f(player.getPosition().x - Main.BASE_WIDTH/2, player.getPosition().y + Main.BASE_HEIGHT/2);
 	}
+
+	public static PlayerController getPlayerController() {
+		return playerController;
+	}
+
+	public static MapController getMapController() {
+		return mapController;
+	}
+
+	public static AreaController getAreaController() {
+		return areaController;
+	}
+
+	public static EnemyController getEnemyController() {
+		return enemyController;
+	}
+
+	public static ProjectileController getProjectileController() {
+		return projectileController;
+	}
+
+	public static UiController getUiController() {
+		return uiController;
+	}
+
+	public static PickupableItemController getPickupableItemController() {
+		return pickupableItemController;
+	}
+	
+	
 }

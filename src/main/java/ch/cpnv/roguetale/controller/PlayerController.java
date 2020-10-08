@@ -12,31 +12,20 @@ import org.newdawn.slick.SlickException;
 import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.entity.character.Player;
 import ch.cpnv.roguetale.entity.pickupableitem.PickupableItem;
+import ch.cpnv.roguetale.gui.guis.GameGui;
 import ch.cpnv.roguetale.weapon.ranged.Bow;
 import ch.cpnv.roguetale.weapon.ranged.Cannon;
 
 public class PlayerController implements Controller {
-	private static PlayerController instance = null;
-	
 	private Player player;
 	private final HashMap<Integer, Direction> MOVING_KEYS = new HashMap<Integer, Direction>();
-	
-	public static PlayerController getInstance() throws SlickException {
-		if(instance == null) {
-			instance = new PlayerController();
-		}
-		return instance;
-	}
 
-	private PlayerController() throws SlickException {
+	public PlayerController() throws SlickException {
 		// Put Input key who equals to direction
 		this.MOVING_KEYS.put(Input.KEY_W, Direction.UP);
 		this.MOVING_KEYS.put(Input.KEY_A, Direction.LEFT);
 		this.MOVING_KEYS.put(Input.KEY_D, Direction.RIGHT);
 		this.MOVING_KEYS.put(Input.KEY_S, Direction.DOWN);
-	}
-	
-	public void init() throws SlickException {
 		this.player = new Player( 
 				new Vector2f(0,0), 
 				150, 
@@ -117,7 +106,7 @@ public class PlayerController implements Controller {
 	}
 	
 	protected void pickup() throws SlickException {
-		ArrayList<PickupableItem> items = PickupableItemController.getInstance().getPickupableItems();
+		ArrayList<PickupableItem> items = GameGui.getPickupableItemController().getPickupableItems();
 		
 		for(int i = 0; i < items.size(); i++) {
 			PickupableItem item = items.get(i);

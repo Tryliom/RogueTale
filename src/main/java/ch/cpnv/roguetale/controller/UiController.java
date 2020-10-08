@@ -9,25 +9,13 @@ import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.entity.character.Player;
 import ch.cpnv.roguetale.entity.ui.UiLifePoint;
+import ch.cpnv.roguetale.gui.guis.GameGui;
 
 public class UiController implements Controller {
-	private static UiController instance = null;
-	
 	protected static final int Y_POSITION = 5;
 	protected static final int X_POSITION = 5;
 	
-	protected ArrayList<UiLifePoint> lifePoints;
-	
-	public static UiController getInstance() throws SlickException {
-		if(instance == null) {
-			instance = new UiController();
-		}
-		return instance;
-	}
-	
-	private UiController() {
-		lifePoints = new ArrayList<UiLifePoint>();
-	}
+	protected ArrayList<UiLifePoint> lifePoints = new ArrayList<UiLifePoint>();
 
 	@Override
 	public void render(GameContainer gc, Graphics g, Vector2f origin) throws SlickException {
@@ -41,7 +29,7 @@ public class UiController implements Controller {
 	@Override
 	public void update(GameContainer gc, int delta, Vector2f origin) throws SlickException {
 		// Set the correct number of lifePoints
-		Player player = PlayerController.getInstance().getPlayer();
+		Player player = GameGui.getPlayerController().getPlayer();
 		while (lifePoints.size() < player.getMaxHealth()) {
 			lifePoints.add(new UiLifePoint());
 		}
