@@ -39,6 +39,7 @@ public class OptionGui extends Gui {
 		this.labelList.clear();
 		int w = Main.BASE_WIDTH,
 			h = Main.BASE_HEIGHT;
+		Vector2f fallbackForFullscreen = new Vector2f(w*2, h*2);
 		this.background = new Image(PATH_PANEL);
 		this.background.setFilter(Image.FILTER_NEAREST);
 		this.resolution = new Vector2f(gc.getWidth(), gc.getHeight());
@@ -48,15 +49,7 @@ public class OptionGui extends Gui {
 		listResolution.add(new Vector2f(w*3/2, h*3/2));
 		listResolution.add(new Vector2f(w*2, h*2));
 		listResolution.add(new Vector2f(w*3, h*3));
-		int selected = 0;
-		
-		for (int i = 0;i<listResolution.size();i++) {
-			Vector2f obj = listResolution.get(i);
-			if (obj.x == this.resolution.x) {
-				selected = i;
-				break;
-			}
-		}
+		int selected = listResolution.indexOf(this.resolution);
 		
 		ExecuteWithArgs changeResolution = (Object obj) -> {
 			Vector2f res = (Vector2f) obj;
@@ -73,13 +66,13 @@ public class OptionGui extends Gui {
 		ArrayList<Boolean> listFs = new ArrayList<Boolean>();
 		listFs.add(true); listFs.add(false);
 		
+		
 		ExecuteWithArgs changeFs = (Object obj) -> {
 			Boolean fs = (Boolean) obj;
 			try {
 				gc.setFullscreen(fs);
 			} catch(Exception e) {
-				Vector2f res = listResolution.get(2);
-				Main.app.setDisplayMode(Math.round(res.x), Math.round(res.y), fs);
+				Main.app.setDisplayMode(Math.round(fallbackForFullscreen.x), Math.round(fallbackForFullscreen.y), fs);
 			}
 			this.init();
 		};
