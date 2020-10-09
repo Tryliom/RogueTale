@@ -7,6 +7,8 @@ import org.newdawn.slick.SpriteSheet;
 
 import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.entity.character.Enemy;
+import ch.cpnv.roguetale.sound.SoundManager;
+import ch.cpnv.roguetale.sound.SoundType;
 import ch.cpnv.roguetale.weapon.ranged.Bow;
 
 public class Robot extends Enemy {
@@ -27,5 +29,10 @@ public class Robot extends Enemy {
 	
 	public static Animation getBaseAnimation() throws SlickException {
 		return new Animation(getSpriteSheet(), 0, 0, 2, 0, true, animationLength, true);
+	}
+	
+	public void die() throws SlickException {
+		super.die();
+		SoundManager.getInstance().play(SoundType.RobotDeath, 5f);
 	}
 }

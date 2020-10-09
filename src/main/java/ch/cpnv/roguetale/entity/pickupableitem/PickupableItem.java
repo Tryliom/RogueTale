@@ -7,6 +7,8 @@ import org.newdawn.slick.SpriteSheet;
 import ch.cpnv.roguetale.entity.DrawableItem;
 import ch.cpnv.roguetale.entity.character.Player;
 import ch.cpnv.roguetale.gui.guis.GameGui;
+import ch.cpnv.roguetale.sound.SoundManager;
+import ch.cpnv.roguetale.sound.SoundType;
 
 public abstract class PickupableItem extends DrawableItem {
 	public PickupableItem(SpriteSheet ss, Vector2f position) {
@@ -14,6 +16,7 @@ public abstract class PickupableItem extends DrawableItem {
 	}
 	
 	public void pickup(Player player) throws SlickException {
+		SoundManager.getInstance().play(SoundType.LifePickup, 0.2f);
 		GameGui.getPickupableItemController().removePickupableItem(this);
 	}
 }

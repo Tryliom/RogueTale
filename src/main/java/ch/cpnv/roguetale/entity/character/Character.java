@@ -10,6 +10,8 @@ import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.entity.MovableItem;
 import ch.cpnv.roguetale.entity.temporaryeffect.itemeffect.effects.Damage;
 import ch.cpnv.roguetale.entity.temporaryeffect.itemeffect.effects.Heal;
+import ch.cpnv.roguetale.sound.SoundManager;
+import ch.cpnv.roguetale.sound.SoundType;
 import ch.cpnv.roguetale.weapon.Weapon;
 
 public abstract class Character extends MovableItem {
@@ -76,6 +78,7 @@ public abstract class Character extends MovableItem {
 		if (health > 0) {
 			this.activeEffects.add(new Heal(this.getPosition()));
 		} else if (health < 0) {
+			SoundManager.getInstance().play(SoundType.Hurt);
 			this.activeEffects.add(new Damage(this.getPosition()));
 		}
 		this.currentHealth += health;

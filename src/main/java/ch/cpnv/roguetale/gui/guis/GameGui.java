@@ -17,6 +17,8 @@ import ch.cpnv.roguetale.controller.UiController;
 import ch.cpnv.roguetale.entity.character.Player;
 import ch.cpnv.roguetale.gui.Gui;
 import ch.cpnv.roguetale.main.Main;
+import ch.cpnv.roguetale.sound.SoundManager;
+import ch.cpnv.roguetale.sound.SoundType;
 
 public class GameGui extends Gui {
 	private static PlayerController playerController;
@@ -38,7 +40,7 @@ public class GameGui extends Gui {
 			GameGui.uiController = new UiController();
 			GameGui.pickupableItemController = new PickupableItemController();
 			
-			GameGui.playerController.getPlayer().setInvulnerable(true);
+			//GameGui.playerController.getPlayer().setInvulnerable(true);
 			//GameGui.playerController.getPlayer().setOneHitKill();
 		} catch (SlickException e) {
 			e.printStackTrace();
@@ -85,6 +87,7 @@ public class GameGui extends Gui {
 		
 		if (Input.KEY_ESCAPE == key) {
 			GuiController.getInstance().setDisplayGui(new InGameMenuGui(this));
+			SoundManager.getInstance().stop(SoundType.MainTheme);
 		}
 
 		super.keyReleased(key, c, gc);

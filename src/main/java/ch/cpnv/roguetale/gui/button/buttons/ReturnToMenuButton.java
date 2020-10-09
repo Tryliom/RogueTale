@@ -1,5 +1,7 @@
 package ch.cpnv.roguetale.gui.button.buttons;
 
+import org.newdawn.slick.SlickException;
+
 import ch.cpnv.roguetale.controller.GuiController;
 import ch.cpnv.roguetale.gui.Gui;
 import ch.cpnv.roguetale.gui.button.GuiButton;
@@ -12,8 +14,9 @@ public class ReturnToMenuButton extends GuiButton {
 		this.content = "Retour au menu";
 	}
 	
-	@Override
-	public void onClick() {
+
+	public void onClick() throws SlickException {
+		super.onClick();
 		GuiController.getInstance().setDisplayGui(new MenuGui(this.parentGui));
 	}
 }
