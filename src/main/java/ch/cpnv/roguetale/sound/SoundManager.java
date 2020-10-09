@@ -12,6 +12,7 @@ public class SoundManager {
 	
 	private SoundManager() throws SlickException {
 		this.sounds.put(SoundType.MainTheme, new Sound(getPath("maintheme")));
+		this.sounds.put(SoundType.Click, new Sound(getPath("click")));
 	}
 
 	public static SoundManager getInstance() throws SlickException {
@@ -30,6 +31,11 @@ public class SoundManager {
 	public void play(SoundType type) {
 		Sound theme = getSoundByType(type);
 		theme.play();
+	}
+	
+	public void play(SoundType type, float volume) {
+		Sound theme = getSoundByType(type);
+		theme.play(1f, volume);
 	}
 	
 	public void stop(SoundType type) {

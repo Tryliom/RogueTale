@@ -14,8 +14,8 @@ public class GuiSwitchButton extends GuiButton {
 		super(x, y, parentGui);
 	}
 	
-	@Override
 	public void onClick() throws SlickException {
+		super.onClick();
 		selected++;
 		if (selected == data.size()) {
 			selected = 0;

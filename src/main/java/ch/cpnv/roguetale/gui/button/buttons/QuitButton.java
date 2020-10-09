@@ -1,5 +1,7 @@
 package ch.cpnv.roguetale.gui.button.buttons;
 
+import org.newdawn.slick.SlickException;
+
 import ch.cpnv.roguetale.gui.Gui;
 import ch.cpnv.roguetale.gui.button.GuiButton;
 import ch.cpnv.roguetale.model.Game;
@@ -12,7 +14,8 @@ public class QuitButton extends GuiButton {
 	}
 	
 	@Override
-	public void onClick() {
+	public void onClick() throws SlickException {
+		super.onClick();
 		Game.getInstance().getGc().exit();
 	}
 }

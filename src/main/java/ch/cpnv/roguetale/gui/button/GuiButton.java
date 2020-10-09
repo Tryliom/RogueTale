@@ -8,6 +8,8 @@ import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.gui.Gui;
 import ch.cpnv.roguetale.gui.enums.State;
+import ch.cpnv.roguetale.sound.SoundManager;
+import ch.cpnv.roguetale.sound.SoundType;
 
 public class GuiButton {
 	private static final String PATH_BTN = "ch\\cpnv\\roguetale\\images\\ui\\button\\btn1.png";
@@ -45,7 +47,9 @@ public class GuiButton {
 		g.setColor(old);
 	}
 	
-	public void onClick() throws SlickException {}
+	public void onClick() throws SlickException {
+		SoundManager.getInstance().play(SoundType.Click, 0.2f);
+	}
 	
 	public boolean isHoveringButton(int x, int y) {
 		return this.x < x && this.x+this.width > x && this.y < y && this.y+this.height > y;
