@@ -8,11 +8,17 @@ import org.newdawn.slick.Sound;
 public class SoundManager {
 	private static SoundManager instance;
 	private HashMap<SoundType, Sound> sounds = new HashMap<>();
-	
-	
+		
 	private SoundManager() throws SlickException {
-		this.sounds.put(SoundType.MainTheme, new Sound(getPath("maintheme")));
-		this.sounds.put(SoundType.Click, new Sound(getPath("click")));
+		this.addNewSound(SoundType.MainTheme);
+		this.addNewSound(SoundType.Click);
+		this.addNewSound(SoundType.LifePickup);
+		this.addNewSound(SoundType.RobotDeath);
+		this.addNewSound(SoundType.KnifeSlice);
+	}
+	
+	private void addNewSound(SoundType type) throws SlickException {
+		this.sounds.put(type, new Sound(getPath(type.name().toLowerCase())));
 	}
 
 	public static SoundManager getInstance() throws SlickException {
