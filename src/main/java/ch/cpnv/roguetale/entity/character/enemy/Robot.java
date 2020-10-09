@@ -33,6 +33,6 @@ public class Robot extends Enemy {
 	
 	public void die() throws SlickException {
 		super.die();
-		SoundManager.getInstance().play(SoundType.RobotDeath);
+		SoundManager.getInstance().play(SoundType.RobotDeath, 5f);
 	}
 }

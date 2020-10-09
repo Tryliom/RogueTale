@@ -11,18 +11,22 @@ import ch.cpnv.roguetale.gui.button.buttons.PlayButton;
 import ch.cpnv.roguetale.gui.button.buttons.ReturnToMenuButton;
 import ch.cpnv.roguetale.gui.texts.GuiLabel;
 import ch.cpnv.roguetale.main.Main;
+import ch.cpnv.roguetale.sound.SoundManager;
+import ch.cpnv.roguetale.sound.SoundType;
 
 public class GameOverGui extends Gui {
 
-	public GameOverGui(Gui prevGui) {
+	public GameOverGui(Gui prevGui) throws SlickException {
 		super(prevGui);
 		this.init();
 	}
 	
-	public void init() {
+	public void init() throws SlickException {
 		this.buttonList.add(new PlayButton("Rejouer", Main.BASE_WIDTH/2, Main.BASE_HEIGHT*5/8, this));
 		this.buttonList.add(new ReturnToMenuButton(Main.BASE_WIDTH/2, Main.BASE_HEIGHT*3/4, this));
 		this.labelList.add(new GuiLabel("Game Over", Main.BASE_WIDTH/2, Main.BASE_HEIGHT/4, new Color(190, 83, 83)));
+		SoundManager.getInstance().stop(SoundType.MainTheme);
+		SoundManager.getInstance().play(SoundType.GameOver);
 	}
 	
 	public void render(GameContainer gc, Graphics g, Vector2f origin) throws SlickException {

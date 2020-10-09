@@ -40,7 +40,7 @@ public class GameGui extends Gui {
 			GameGui.uiController = new UiController();
 			GameGui.pickupableItemController = new PickupableItemController();
 			
-			GameGui.playerController.getPlayer().setInvulnerable(true);
+			//GameGui.playerController.getPlayer().setInvulnerable(true);
 			//GameGui.playerController.getPlayer().setOneHitKill();
 		} catch (SlickException e) {
 			e.printStackTrace();

@@ -17,6 +17,8 @@ public class SoundManager {
 		this.addNewSound(SoundType.Explosion);
 		this.addNewSound(SoundType.RobotDeath);
 		this.addNewSound(SoundType.Arrow);
+		this.addNewSound(SoundType.GameOver);
+		this.addNewSound(SoundType.Hurt);
 	}
 	
 	private void addNewSound(SoundType type) throws SlickException {
