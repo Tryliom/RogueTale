@@ -6,7 +6,10 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.gui.Gui;
+import ch.cpnv.roguetale.gui.guis.GameGui;
 import ch.cpnv.roguetale.gui.guis.MenuGui;
+import ch.cpnv.roguetale.sound.SoundManager;
+import ch.cpnv.roguetale.sound.SoundType;
 
 public class GuiController implements Controller {
 	private Gui currentGui;
@@ -57,6 +60,12 @@ public class GuiController implements Controller {
 	
 	public void setDisplayGui(Gui gui) {
 		this.currentGui = gui;
+		if (gui instanceof GameGui)
+			try {
+				SoundManager.getInstance().loop(SoundType.MainTheme);
+			} catch (SlickException e) {
+				e.printStackTrace();
+			}
 	}
 
 }
