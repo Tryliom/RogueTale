@@ -13,8 +13,10 @@ public class SoundManager {
 		this.addNewSound(SoundType.MainTheme);
 		this.addNewSound(SoundType.Click);
 		this.addNewSound(SoundType.LifePickup);
-		this.addNewSound(SoundType.RobotDeath);
 		this.addNewSound(SoundType.KnifeSlice);
+		this.addNewSound(SoundType.Explosion);
+		this.addNewSound(SoundType.RobotDeath);
+		this.addNewSound(SoundType.Arrow);
 	}
 	
 	private void addNewSound(SoundType type) throws SlickException {
