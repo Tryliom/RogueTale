@@ -26,6 +26,10 @@ public class PlayerController implements Controller {
 		this.MOVING_KEYS.put(Input.KEY_A, Direction.LEFT);
 		this.MOVING_KEYS.put(Input.KEY_D, Direction.RIGHT);
 		this.MOVING_KEYS.put(Input.KEY_S, Direction.DOWN);
+		this.MOVING_KEYS.put(Input.KEY_UP, Direction.UP);
+		this.MOVING_KEYS.put(Input.KEY_LEFT, Direction.LEFT);
+		this.MOVING_KEYS.put(Input.KEY_RIGHT, Direction.RIGHT);
+		this.MOVING_KEYS.put(Input.KEY_DOWN, Direction.DOWN);
 		this.player = new Player( 
 				new Vector2f(0,0), 
 				150, 

@@ -14,7 +14,7 @@ import ch.cpnv.roguetale.weapon.Weapon;
 
 public class Enemy extends Character {
 	private static final float PRECISION = 0.35f;
-	protected double lifepointSpawnProbability = 0.1;
+	protected double lifepointSpawnProbability = 0.2;
 
 	public Enemy(SpriteSheet ss, Vector2f position, int speed, Direction direction, boolean moving,
 			Weapon primaryWeapon, Weapon secondaryWeapon, int maxHealth) {
