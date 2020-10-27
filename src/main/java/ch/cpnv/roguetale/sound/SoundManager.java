@@ -10,15 +10,9 @@ public class SoundManager {
 	private HashMap<SoundType, Sound> sounds = new HashMap<>();
 		
 	private SoundManager() throws SlickException {
-		this.addNewSound(SoundType.MainTheme);
-		this.addNewSound(SoundType.Click);
-		this.addNewSound(SoundType.LifePickup);
-		this.addNewSound(SoundType.KnifeSlice);
-		this.addNewSound(SoundType.Explosion);
-		this.addNewSound(SoundType.RobotDeath);
-		this.addNewSound(SoundType.Arrow);
-		this.addNewSound(SoundType.GameOver);
-		this.addNewSound(SoundType.Hurt);
+		for (SoundType type : SoundType.values()) {
+			this.addNewSound(type);
+		}
 	}
 	
 	private void addNewSound(SoundType type) throws SlickException {
