@@ -9,6 +9,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.entity.character.Character;
+import ch.cpnv.roguetale.entity.character.Enemy;
 import ch.cpnv.roguetale.entity.temporaryeffect.meleeattack.MeleeAttack;
 import ch.cpnv.roguetale.gui.guis.GameGui;
 
@@ -65,14 +66,21 @@ public class MeleeAttackController implements Controller {
 	}
 	
 	private void collideAttack(MeleeAttack attack) throws SlickException {
+		ArrayList<Character> hits = new ArrayList<Character>();
+		
 		Character player = GameGui.getPlayerController().getPlayer();
 		if(attack.isColliding(player)) {
-			attack.meetCharacter(player);
+			hits.add(player);
 		}
-		for(Character enemy : GameGui.getEnemyController().getEnemies()) {
+		
+		for(Enemy enemy : GameGui.getEnemyController().getEnemies()) {
 			if(attack.isColliding(enemy)) {
-				attack.meetCharacter(enemy);
+				hits.add(enemy);
 			}
+		}
+		
+		for(Character hit : hits) {
+			attack.meetCharacter(hit);
 		}
 	}
 }
