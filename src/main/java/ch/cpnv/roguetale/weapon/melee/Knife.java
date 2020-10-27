@@ -19,6 +19,6 @@ public class Knife extends MeleeWeapon {
 		super.attack(attacker);
 		// TODO correct position + orientation
 		GameGui.getMeleeAttackController().addAttack(
-				new KnifeAttack(attacker.getPosition(), this));
+				new KnifeAttack(attacker.getPosition(), attacker.getDirection(), this));
 	}
 }
