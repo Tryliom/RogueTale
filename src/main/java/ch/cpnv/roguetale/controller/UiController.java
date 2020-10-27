@@ -9,20 +9,36 @@ import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.entity.character.Player;
 import ch.cpnv.roguetale.entity.ui.UiLifePoint;
+import ch.cpnv.roguetale.entity.ui.UiWeaponSlot;
 import ch.cpnv.roguetale.gui.guis.GameGui;
+import ch.cpnv.roguetale.main.Main;
+import ch.cpnv.roguetale.weapon.Weapon;
 
 public class UiController implements Controller {
 	protected static final int Y_POSITION = 5;
 	protected static final int X_POSITION = 5;
+	private static final String MOUSE_LEFT_PATH = "ch\\cpnv\\roguetale\\images\\ui\\icon\\mouseLeft.png";
+	private static final String MOUSE_RIGHT_PATH = "ch\\cpnv\\roguetale\\images\\ui\\icon\\mouseRight.png";
 	
 	protected ArrayList<UiLifePoint> lifePoints = new ArrayList<UiLifePoint>();
+	protected ArrayList<UiWeaponSlot> weapons = new ArrayList<UiWeaponSlot>();
 
+	public UiController() {
+		Player player = GameGui.getPlayerController().getPlayer();
+		weapons.add(new UiWeaponSlot(Main.BASE_WIDTH/4, Main.BASE_HEIGHT - 10, MOUSE_LEFT_PATH, player.getPrimaryWeapon()));
+		weapons.add(new UiWeaponSlot(Main.BASE_WIDTH*3/4, Main.BASE_HEIGHT - 10, MOUSE_RIGHT_PATH, player.getSecondaryWeapon()));
+	}
+	
 	@Override
 	public void render(GameContainer gc, Graphics g, Vector2f origin) throws SlickException {
 		int x = X_POSITION;
 		for(UiLifePoint lifePoint : lifePoints) {
 			lifePoint.getSprite().draw(x, Y_POSITION);
 			x += lifePoint.getSprite().getWidth();
+		}
+		
+		for (UiWeaponSlot weapon : weapons) {
+			weapon.render(gc, g, origin);
 		}
 	}
 
@@ -51,7 +67,20 @@ public class UiController implements Controller {
 					lifePoint.setFull(false);
 				}
 			}
-		}	
+		}
+		
+		Weapon primary = player.getPrimaryWeapon();
+		UiWeaponSlot first = weapons.get(0);
+		Weapon secondary = player.getSecondaryWeapon();
+		UiWeaponSlot second = weapons.get(1);
+		
+		if (first.getWeapon() != primary) {
+			first.setWeapon(primary);
+		}
+		
+		if (second.getWeapon() != secondary) {
+			second.setWeapon(secondary);
+		}
 	}
 
 	@Override
