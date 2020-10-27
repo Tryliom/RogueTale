@@ -15,7 +15,6 @@ import ch.cpnv.roguetale.entity.pickupableitem.PickupableItem;
 import ch.cpnv.roguetale.gui.guis.GameGui;
 import ch.cpnv.roguetale.weapon.melee.Knife;
 import ch.cpnv.roguetale.weapon.ranged.Bow;
-import ch.cpnv.roguetale.weapon.ranged.Cannon;
 
 public class PlayerController implements Controller {
 	private Player player;
