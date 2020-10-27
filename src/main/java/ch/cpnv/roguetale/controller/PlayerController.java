@@ -13,6 +13,7 @@ import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.entity.character.Player;
 import ch.cpnv.roguetale.entity.pickupableitem.PickupableItem;
 import ch.cpnv.roguetale.gui.guis.GameGui;
+import ch.cpnv.roguetale.weapon.melee.Knife;
 import ch.cpnv.roguetale.weapon.ranged.Bow;
 import ch.cpnv.roguetale.weapon.ranged.Cannon;
 
@@ -35,8 +36,8 @@ public class PlayerController implements Controller {
 				150, 
 				Direction.DOWN, 
 				false, 
-				new Bow(),
-				new Cannon());
+				new Knife(),
+				new Bow());
 	}
 	
 	@Override

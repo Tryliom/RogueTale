@@ -10,6 +10,7 @@ import ch.cpnv.roguetale.controller.AreaController;
 import ch.cpnv.roguetale.controller.EnemyController;
 import ch.cpnv.roguetale.controller.GuiController;
 import ch.cpnv.roguetale.controller.MapController;
+import ch.cpnv.roguetale.controller.MeleeAttackController;
 import ch.cpnv.roguetale.controller.PickupableItemController;
 import ch.cpnv.roguetale.controller.PlayerController;
 import ch.cpnv.roguetale.controller.ProjectileController;
@@ -26,6 +27,7 @@ public class GameGui extends Gui {
 	private static AreaController areaController;
 	private static EnemyController enemyController;
 	private static ProjectileController projectileController;
+	private static MeleeAttackController meleeAttackController;
 	private static UiController uiController;
 	private static PickupableItemController pickupableItemController;
 
@@ -39,6 +41,7 @@ public class GameGui extends Gui {
 			GameGui.projectileController = new ProjectileController();
 			GameGui.uiController = new UiController();
 			GameGui.pickupableItemController = new PickupableItemController();
+			GameGui.meleeAttackController = new MeleeAttackController();
 			
 			//GameGui.playerController.getPlayer().setInvulnerable(true);
 			//GameGui.playerController.getPlayer().setOneHitKill();
@@ -55,6 +58,7 @@ public class GameGui extends Gui {
 		GameGui.pickupableItemController.render(gc, g, origin);
 		GameGui.enemyController.render(gc, g, origin);
 		GameGui.playerController.render(gc, g, origin);
+		GameGui.meleeAttackController.render(gc, g, origin);
 		GameGui.projectileController.render(gc, g, origin);
 		GameGui.uiController.render(gc, g, origin);
 		
@@ -70,6 +74,7 @@ public class GameGui extends Gui {
 			GameGui.enemyController.update(gc, delta, origin);
 			GameGui.playerController.update(gc, delta, origin);
 			GameGui.projectileController.update(gc, delta, origin);
+			GameGui.meleeAttackController.update(gc, delta, origin);
 			GameGui.areaController.update(gc, delta, origin);
 		} else {
 			GuiController.getInstance().setDisplayGui(new GameOverGui(this));
@@ -137,6 +142,10 @@ public class GameGui extends Gui {
 
 	public static ProjectileController getProjectileController() {
 		return projectileController;
+	}
+	
+	public static MeleeAttackController getMeleeAttackController() {
+		return meleeAttackController;
 	}
 
 	public static UiController getUiController() {

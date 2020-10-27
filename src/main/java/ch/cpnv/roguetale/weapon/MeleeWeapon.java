@@ -12,9 +12,8 @@ public abstract class MeleeWeapon extends Weapon {
 		super(name, damage, cooldown);
 		this.hitbox = hitbox;
 	}
-
-	@Override
-	public void attack(Character attacker) throws SlickException {
-		super.attack(attacker);
+	
+	public void meetCharacter(Character attackedCharacter) throws SlickException {
+		attackedCharacter.updateHealth(-damage);
 	}
 }
