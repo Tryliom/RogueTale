@@ -1,6 +1,7 @@
 package ch.cpnv.roguetale.entity.temporaryeffect.meleeattack;
 
 import org.lwjgl.util.vector.Vector2f;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
 import ch.cpnv.roguetale.entity.character.Character;
@@ -15,7 +16,7 @@ public abstract class MeleeAttack extends TemporaryEffect {
 		this.weapon = weapon;
 	}
 	
-	public void meetCharacter(Character character) {
-		
+	public void meetCharacter(Character attackedCharacter) throws SlickException {
+		weapon.meetCharacter(attackedCharacter);
 	}
 }

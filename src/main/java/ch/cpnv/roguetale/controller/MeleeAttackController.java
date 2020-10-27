@@ -50,7 +50,7 @@ public class MeleeAttackController implements Controller {
 		// Nothing to do
 	}
 	
-	public void addAttack(MeleeAttack attack) {
+	public void addAttack(MeleeAttack attack) throws SlickException {
 		attacks.add(attack);
 		collideAttack(attack);
 	}
@@ -64,7 +64,7 @@ public class MeleeAttackController implements Controller {
 		}
 	}
 	
-	private void collideAttack(MeleeAttack attack) {
+	private void collideAttack(MeleeAttack attack) throws SlickException {
 		Character player = GameGui.getPlayerController().getPlayer();
 		if(attack.isColliding(player)) {
 			attack.meetCharacter(player);
