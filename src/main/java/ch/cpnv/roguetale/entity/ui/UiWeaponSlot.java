@@ -1,0 +1,68 @@
+package ch.cpnv.roguetale.entity.ui;
+
+import org.lwjgl.util.vector.Vector2f;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Rectangle;
+
+import ch.cpnv.roguetale.weapon.Weapon;
+
+public class UiWeaponSlot {
+	private static final int DIMENSION_ICON = 32;
+	private static final int DIMENSION_MOUSE = 16;
+	private static final int WIDTH_RECTANGLE_ICON = 2;
+	private static final int DIMENSION = DIMENSION_ICON + WIDTH_RECTANGLE_ICON;
+	private int x;
+	private int y;
+	private String path_image;
+	private Weapon weapon;
+
+	public UiWeaponSlot(int x, int y, String path_image, Weapon weapon) {
+		this.x = x;
+		this.y = y;
+		this.path_image = path_image;
+		this.weapon = weapon;
+	}
+
+	public void render(GameContainer gc, Graphics g, Vector2f origin) throws SlickException {
+		Color old = g.getColor();
+		Rectangle rect = new Rectangle(x - (DIMENSION_ICON + WIDTH_RECTANGLE_ICON)/2, y - (DIMENSION_ICON + WIDTH_RECTANGLE_ICON), DIMENSION, DIMENSION);
+		
+		// Fill box where the weapons are
+		float firstAlpha = 0.6f * (weapon != null ? weapon.getCurrentCooldown() / weapon.getCooldown() : 0);
+		float base = 0.4f;
+		g.setColor(new Color(base + firstAlpha, base, base, 0.6f));	
+		g.fill(rect);
+		
+		// Draw border on the weapons
+		g.setColor(Color.white);
+		g.setLineWidth(WIDTH_RECTANGLE_ICON);
+		g.draw(rect);
+		
+		g.resetLineWidth();
+		g.setColor(old);
+		
+		// Draw the weapons
+		if (weapon != null) {
+			weapon.getIcon().getScaledCopy(DIMENSION_ICON, DIMENSION_ICON).draw(rect.getX(), rect.getY());
+		}
+
+		// Draw button for the weapons
+		g.setColor(Color.darkGray);
+		g.fill(new Rectangle(rect.getMaxX()-DIMENSION_MOUSE/2, rect.getMaxY()-DIMENSION_MOUSE/2, DIMENSION_MOUSE, DIMENSION_MOUSE));
+		new Image(path_image).getScaledCopy(DIMENSION_MOUSE, DIMENSION_MOUSE).draw(rect.getMaxX() - DIMENSION_MOUSE/2, rect.getMaxY() - DIMENSION_MOUSE/2);
+		
+		g.setColor(old);
+	}
+
+	public Weapon getWeapon() {
+		return weapon;
+	}
+
+	public void setWeapon(Weapon weapon) {
+		this.weapon = weapon;
+	}
+}

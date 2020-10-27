@@ -73,6 +73,14 @@ public abstract class Character extends MovableItem {
 		this.secondaryWeapon = weapon;
 	}
 	
+	public Weapon getPrimaryWeapon() {
+		return primaryWeapon;
+	}
+
+	public Weapon getSecondaryWeapon() {
+		return secondaryWeapon;
+	}
+
 	// TODO prevent currentHealth to become higher than maxHealth
 	public void updateHealth(int health) throws SlickException {
 		if (health > 0) {
@@ -94,11 +102,13 @@ public abstract class Character extends MovableItem {
 	}
 	
 	public void primaryAttack() throws SlickException {
-		primaryWeapon.attack(this);
+		if (primaryWeapon != null)
+			primaryWeapon.attack(this);
 	}
 	
 	public void secondaryAttack() throws SlickException {
-		secondaryWeapon.attack(this);
+		if (secondaryWeapon != null)
+			secondaryWeapon.attack(this);
 	}
 	
 	public void reduceCooldown(int delta) {

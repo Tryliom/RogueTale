@@ -1,5 +1,6 @@
 package ch.cpnv.roguetale.weapon;
 
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.entity.character.Character;
@@ -10,12 +11,14 @@ public abstract class Weapon {
 	// Cooldown in miliseconds
 	protected int cooldown;
 	protected int currentCooldown;
+	protected Image icon;
 	
-	public Weapon(String name, int damage, int cooldown) {
+	public Weapon(String name, int damage, int cooldown, Image icon) {
 		super();
 		this.name = name;
 		this.damage = damage;
 		this.cooldown = cooldown;
+		this.icon = icon;
 		currentCooldown = 0;
 	}
 	
@@ -46,5 +49,17 @@ public abstract class Weapon {
 	
 	public boolean canAttack() {
 		return currentCooldown <= 0;
+	}
+
+	public Image getIcon() {
+		return icon;
+	}
+
+	public int getCooldown() {
+		return cooldown;
+	}
+
+	public int getCurrentCooldown() {
+		return currentCooldown;
 	}
 }

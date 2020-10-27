@@ -1,5 +1,6 @@
 package ch.cpnv.roguetale.weapon.ranged;
 
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.entity.character.Character;
@@ -10,9 +11,10 @@ import ch.cpnv.roguetale.sound.SoundType;
 import ch.cpnv.roguetale.weapon.RangedWeapon;
 
 public class Cannon extends RangedWeapon {
+	private static String ICON_PATH = "ch\\cpnv\\roguetale\\images\\ui\\icon\\cannon.png";
 
-	public Cannon() {
-		super("Cannon", 1, 2000, 200);
+	public Cannon() throws SlickException {
+		super("Cannon", 1, 2000, 200, new Image(ICON_PATH));
 	}
 
 	@Override
