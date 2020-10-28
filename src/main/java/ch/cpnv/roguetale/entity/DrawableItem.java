@@ -14,6 +14,7 @@ import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
 import ch.cpnv.roguetale.entity.character.Enemy;
+import ch.cpnv.roguetale.entity.character.Player;
 import ch.cpnv.roguetale.entity.temporaryeffect.itemeffect.ItemEffect;
 import ch.cpnv.roguetale.gui.guis.GameGui;
 import ch.cpnv.roguetale.main.Main;
@@ -135,15 +136,21 @@ public abstract class DrawableItem {
 	}
 	
 	public boolean isCollidingWithAnotherCharacter() throws SlickException {
-		boolean isColliding = false;
+		DrawableItem entity = this.getCollidingEntity();
+		
+		return entity != null;
+	}
+	
+	public DrawableItem getCollidingEntity() {
 		for (Enemy en : GameGui.getEnemyController().getEnemies()) {
 			if (en != this && this.isColliding(en))
-				isColliding = true;
+				return en;
 		}
-		if (this != GameGui.getPlayerController().getPlayer() && this.isColliding(GameGui.getPlayerController().getPlayer()))
-			isColliding = true;
+		Player player = GameGui.getPlayerController().getPlayer();
+		if (this != player && this.isColliding(player))
+			return player;
 		
-		return isColliding;
+		return null;
 	}
 	
 	protected int getHitboxWidth() {
