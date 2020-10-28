@@ -38,12 +38,16 @@ public abstract class Character extends MovableItem {
 	
 	public void move(int delta) throws SlickException {
 		super.move(delta);
-		
+		Character collidingEntity = (Character) getCollidingEntity();
 		// undo the move if there is a collision
 		if (isCollidingWithAnotherCharacter()) {
 			// We don't want to create an inifinite loop, 
 			// so we really don't want to reuse this move
-			super.move(delta * -1);
+			Direction old = collidingEntity.getDirection();
+			collidingEntity.setDirection(this.getDirection());
+			this.move(delta * -1);
+			collidingEntity.move(delta);
+			collidingEntity.setDirection(old);
 		}
 		
 	}
