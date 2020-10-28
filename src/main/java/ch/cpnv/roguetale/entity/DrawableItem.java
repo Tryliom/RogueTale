@@ -103,9 +103,15 @@ public abstract class DrawableItem {
 				}
 			}
 			if (this.animation != null) {
-				this.animation.draw(xPosition, yPosition, filter);
+				if (filter != null)
+					this.animation.draw(xPosition, yPosition, filter);
+				else
+					this.animation.draw(xPosition, yPosition);
 			} else {
-				this.image.draw(xPosition, yPosition, filter);
+				if (filter != null)
+					this.image.draw(xPosition, yPosition, filter);
+				else
+					this.image.draw(xPosition, yPosition);
 			}
 			
 			for (ItemEffect item : this.activeEffects) {
