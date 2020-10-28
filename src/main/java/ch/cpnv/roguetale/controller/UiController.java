@@ -74,13 +74,8 @@ public class UiController implements Controller {
 		Weapon secondary = player.getSecondaryWeapon();
 		UiWeaponSlot second = weapons.get(1);
 		
-		if (first.getWeapon() != primary) {
-			first.setWeapon(primary);
-		}
-		
-		if (second.getWeapon() != secondary) {
-			second.setWeapon(secondary);
-		}
+		first.setWeapon(primary);
+		second.setWeapon(secondary);
 	}
 
 	@Override
