@@ -7,6 +7,7 @@ import org.newdawn.slick.SpriteSheet;
 import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.entity.character.Character;
 import ch.cpnv.roguetale.entity.projectile.Projectile;
+import ch.cpnv.roguetale.entity.temporaryeffect.itemeffect.effects.PlantedArrow;
 
 public class Arrow extends Projectile {
 	static protected final int SPEED = 200;
@@ -84,5 +85,12 @@ public class Arrow extends Projectile {
 		default:
 			return HITBOX_HEIGHT;
 		}
+	}
+	
+	public void meetCharacter(Character touchedCharacter) throws SlickException {
+		super.meetCharacter(touchedCharacter);
+		// More planted in character
+		this.move(50);
+		touchedCharacter.addActiveEffect(new PlantedArrow(position, direction, touchedCharacter));
 	}
 }
