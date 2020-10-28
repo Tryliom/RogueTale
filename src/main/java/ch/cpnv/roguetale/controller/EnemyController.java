@@ -14,7 +14,7 @@ import ch.cpnv.roguetale.entity.character.enemy.Robot;
 import ch.cpnv.roguetale.gui.guis.GameGui;
 
 public class EnemyController implements Controller {
-	private final int MAX_ENEMIES = 30;
+	private final int MAX_ENEMIES = 3;
 	private final int DISTANCE_NEAR_PLAYER = 500;
 	private final int SPAWN_DISTANCE_MIN = 350;
 	private final int SPAWN_DISTANCE_MAX = 450;
