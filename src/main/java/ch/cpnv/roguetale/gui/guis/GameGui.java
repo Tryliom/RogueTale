@@ -117,6 +117,14 @@ public class GameGui extends Gui {
 	public void mouseMoved(int oldx, int oldy, int newx, int newy) {
 		super.mouseMoved(oldx, oldy, newx, newy);
 	}
+	
+	public void mouseReleased(int button, int x, int y) throws SlickException {
+		if (!GameGui.playerController.getPlayer().isDead()) {
+			GameGui.playerController.mouseReleased(button, x, y);
+		}
+		super.mouseReleased(button, x, y);
+		
+	}
 
 	// Get the coordinate of the UP LEFT corner of the screen
 	private Vector2f getSlickOrigin() throws SlickException {

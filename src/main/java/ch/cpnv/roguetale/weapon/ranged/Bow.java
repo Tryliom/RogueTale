@@ -11,21 +11,27 @@ import ch.cpnv.roguetale.sound.SoundType;
 import ch.cpnv.roguetale.weapon.RangedWeapon;
 
 public class Bow extends RangedWeapon {
-	private static String ICON_PATH = "ch\\cpnv\\roguetale\\images\\ui\\icon\\bow.png";
+	private static final String ICON_PATH = "ch\\cpnv\\roguetale\\images\\ui\\icon\\bow.png";
+	private static final int MIN_CHARGE_TIME = 500;
+	private static final int MAX_CHARGE_TIME = 1000;
 
 	public Bow() throws SlickException {
-		super("Bow", 1, 500, 500, new Image(ICON_PATH));
+		super("Bow", 1, 100, 500, new Image(ICON_PATH), MIN_CHARGE_TIME, MAX_CHARGE_TIME);
 	}
 	
 	public Bow(int cooldown) throws SlickException {
-		super("Bow", 1, cooldown, 500, new Image(ICON_PATH));
+		super("Bow", 1, cooldown, 500, new Image(ICON_PATH), MIN_CHARGE_TIME, MAX_CHARGE_TIME);
 	}
 
-	@Override
 	public void attack(Character attacker) throws SlickException {		
 		if (canAttack()) {
 			SoundManager.getInstance().play(SoundType.Arrow, 0.2f);
-			GameGui.getProjectileController().addProjectile(new Arrow(attacker, attacker.getDirection(), range, damage));
+			Arrow arrow = new Arrow(attacker, attacker.getDirection(), range, damage);
+			if (this.isChargedShoot()) {
+				arrow.setDamage(arrow.getDamage()*2);
+				arrow.setSpeed(arrow.getSpeed()*2);
+			}
+			GameGui.getProjectileController().addProjectile(arrow);
 		}
 		
 		super.attack(attacker);

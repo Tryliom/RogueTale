@@ -120,4 +120,10 @@ public class EnemyController implements Controller {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void mouseReleased(int button, int x, int y) throws SlickException {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -99,4 +99,10 @@ public class UiController implements Controller {
 		
 	}
 
+	@Override
+	public void mouseReleased(int button, int x, int y) throws SlickException {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

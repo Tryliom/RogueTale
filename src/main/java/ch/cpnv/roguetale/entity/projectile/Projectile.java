@@ -131,4 +131,12 @@ public abstract class Projectile extends MovableItem implements Temporary {
 	public Boolean isExpired() {
 		return remainingTime <= 0;
 	}
+
+	public int getDamage() {
+		return damage;
+	}
+
+	public void setDamage(int damage) {
+		this.damage = damage;
+	}
 }
