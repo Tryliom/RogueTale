@@ -12,6 +12,7 @@ import ch.cpnv.roguetale.entity.temporaryeffect.itemeffect.effects.Damage;
 import ch.cpnv.roguetale.entity.temporaryeffect.itemeffect.effects.Heal;
 import ch.cpnv.roguetale.sound.SoundManager;
 import ch.cpnv.roguetale.sound.SoundType;
+import ch.cpnv.roguetale.weapon.RangedWeapon;
 import ch.cpnv.roguetale.weapon.Weapon;
 
 public abstract class Character extends MovableItem {
@@ -105,14 +106,16 @@ public abstract class Character extends MovableItem {
 		return this.currentHealth <= 0;
 	}
 	
-	public void primaryAttack() throws SlickException {
-		if (primaryWeapon != null)
-			primaryWeapon.attack(this);
+	public void aimWeapon(Weapon weapon, int delta) {
+		if (weapon != null && weapon instanceof RangedWeapon) {
+			((RangedWeapon) weapon).aim(delta);
+		}
 	}
 	
-	public void secondaryAttack() throws SlickException {
-		if (secondaryWeapon != null)
-			secondaryWeapon.attack(this);
+	public void attackWithWeapon(Weapon weapon) throws SlickException {
+		if (weapon != null) {
+			weapon.attack(this);
+		}
 	}
 	
 	public void reduceCooldown(int delta) {
