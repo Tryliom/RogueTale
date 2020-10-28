@@ -30,11 +30,8 @@ public class Damage extends ItemEffect {
 		this.animation.setLooping(false);
 	}
 	
-	public void draw(Vector2f origin, GameContainer gc, Color filter) {
-		Color oldColor = gc.getGraphics().getColor();
-		gc.getGraphics().setColor(Color.red);
-		super.draw(origin, gc, filter);
-		gc.getGraphics().setColor(oldColor);
+	public void draw(Vector2f origin, GameContainer gc) {
+		super.draw(origin, gc, Color.red);
 	}
 
 
