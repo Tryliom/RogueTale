@@ -31,11 +31,12 @@ public class UiWeaponSlot {
 	public void render(GameContainer gc, Graphics g, Vector2f origin) throws SlickException {
 		Color old = g.getColor();
 		Rectangle rect = new Rectangle(x - DIMENSION/2, y - DIMENSION, DIMENSION, DIMENSION);
-		// Fill box where the weapons are
-		float firstAlpha = 0.6f * (weapon != null ? (float) weapon.getCurrentCooldown() / weapon.getCooldown() : 0);
+		// Fill box where the weapons are in cooldown
 		float base = 0.4f;
-		g.setColor(new Color(base + firstAlpha, base, base, 0.6f));	
+		g.setColor(new Color(base, base, base, 0.6f));
 		g.fill(rect);
+		g.setColor(new Color(0.9f, base, base, 0.9f));	
+		g.fill(new Rectangle(rect.getX(), rect.getY(), rect.getWidth() * ((float) weapon.getCurrentCooldown() / weapon.getCooldown()), rect.getHeight()));
 		
 		// Draw charge completion
 		if (weapon instanceof RangedWeapon) {
