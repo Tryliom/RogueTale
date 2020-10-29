@@ -7,6 +7,8 @@ import org.newdawn.slick.geom.Rectangle;
 import ch.cpnv.roguetale.entity.character.Character;
 import ch.cpnv.roguetale.entity.temporaryeffect.meleeattack.attacks.KnifeAttack;
 import ch.cpnv.roguetale.gui.guis.GameGui;
+import ch.cpnv.roguetale.sound.SoundManager;
+import ch.cpnv.roguetale.sound.SoundType;
 import ch.cpnv.roguetale.weapon.MeleeWeapon;
 
 public class Knife extends MeleeWeapon {
@@ -21,6 +23,7 @@ public class Knife extends MeleeWeapon {
 		if(canAttack()) {
 			GameGui.getMeleeAttackController().addAttack(
 					new KnifeAttack(attacker, this));
+			SoundManager.getInstance().play(SoundType.KnifeSlice, 0.2f);
 		}
 		super.attack(attacker);
 	}
