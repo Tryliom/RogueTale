@@ -15,7 +15,7 @@ public class PlantedArrow extends ItemEffect {
 	private static final int maxRemainingTime = 300;
 
 	public PlantedArrow(Vector2f position, Direction direction, Character target) throws SlickException {
-		super(new SpriteSheet(DEFAULT_PATH, 128, 128, 0), position, maxRemainingTime);
+		super(new SpriteSheet(DEFAULT_PATH, 128, 128, 0), position, maxRemainingTime, false);
 		initImage(direction);
 		this.offsetX = target.getPosition().getX() - position.getX();
 		this.offsetY = target.getPosition().getY() - position.getY();

@@ -14,7 +14,7 @@ public class Damage extends ItemEffect {
 	private static final String DEFAULT_PATH = "ch\\cpnv\\roguetale\\images\\effects\\heal.png";
 
 	public Damage(Vector2f position) throws SlickException {
-		super(new SpriteSheet(DEFAULT_PATH, 128, 128, 0), position, 800);
+		super(new SpriteSheet(DEFAULT_PATH, 128, 128, 0), position, 800, true);
 		initAnimation();
 	}
 		

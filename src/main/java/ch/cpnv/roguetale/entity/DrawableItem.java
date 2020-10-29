@@ -16,7 +16,6 @@ import org.newdawn.slick.geom.Shape;
 import ch.cpnv.roguetale.entity.character.Enemy;
 import ch.cpnv.roguetale.entity.character.Player;
 import ch.cpnv.roguetale.entity.temporaryeffect.itemeffect.ItemEffect;
-import ch.cpnv.roguetale.entity.temporaryeffect.itemeffect.effects.PlantedArrow;
 import ch.cpnv.roguetale.gui.guis.GameGui;
 import ch.cpnv.roguetale.main.Main;
 
@@ -98,7 +97,7 @@ public abstract class DrawableItem {
 		if (isInScreen(gc, origin)) {
 			for (ItemEffect item : this.activeEffects) {
 				item.setPosition(this.getPosition());
-				if (item instanceof PlantedArrow) {
+				if (!item.getForeground()) {
 					item.draw(origin, gc);
 				}
 			}
@@ -115,7 +114,7 @@ public abstract class DrawableItem {
 			}
 			
 			for (ItemEffect item : this.activeEffects) {
-				if (!(item instanceof PlantedArrow))
+				if (item.getForeground())
 					item.draw(origin, gc);
 			}
 		}
