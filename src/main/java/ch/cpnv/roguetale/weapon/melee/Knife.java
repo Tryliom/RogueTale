@@ -17,7 +17,6 @@ public class Knife extends MeleeWeapon {
 	@Override
 	public void attack(Character attacker) throws SlickException {
 		super.attack(attacker);
-		// TODO correct position + orientation
 		GameGui.getMeleeAttackController().addAttack(
 				new KnifeAttack(attacker, this));
 	}
