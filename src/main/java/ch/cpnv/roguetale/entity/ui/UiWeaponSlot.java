@@ -43,10 +43,10 @@ public class UiWeaponSlot {
 			
 			if (rangedWeapon.isAiming()) {
 				
-				g.setColor(new Color(0.5f, 0.9f, 0.5f, 0.6f));
+				g.setColor(new Color(0.5f, 0.9f, 0.5f, 0.9f));
 				g.fill(new Rectangle(rect.getX(), rect.getY(), rect.getWidth() * rangedWeapon.getMinChargePercentCompletion(), rect.getHeight()));
 				
-				g.setColor(new Color(1f, 0.8f, 0f, 0.6f));
+				g.setColor(new Color(1f, 0.6f, 0f, 0.9f));
 				g.fill(new Rectangle(rect.getX(), rect.getY(), rect.getWidth() * rangedWeapon.getMaxChargePercentCompletion(), rect.getHeight()));
 			}
 		}

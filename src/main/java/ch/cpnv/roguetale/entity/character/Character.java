@@ -50,7 +50,7 @@ public abstract class Character extends MovableItem {
 			// so we really don't want to reuse this move
 			Direction old = collidingEntity.getDirection();
 			collidingEntity.setDirection(this.getDirection());
-			this.move(delta * -1);
+			super.move(delta * -1);
 			collidingEntity.move(delta);
 			collidingEntity.setDirection(old);
 		}

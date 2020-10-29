@@ -20,7 +20,7 @@ public class Robot extends Enemy {
 
 	public Robot(Vector2f position) throws SlickException {
 		super(getSpriteSheet(), 
-				position, SPEED, Direction.UP, false, new Bow(2000), null, MAX_HEALTH);
+				position, SPEED, Direction.UP, false, new Bow(1000), null, MAX_HEALTH);
 	}
 	
 	public static SpriteSheet getSpriteSheet() throws SlickException {

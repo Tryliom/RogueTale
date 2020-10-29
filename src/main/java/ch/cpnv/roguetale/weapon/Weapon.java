@@ -62,4 +62,8 @@ public abstract class Weapon {
 	public int getCurrentCooldown() {
 		return currentCooldown;
 	}
+	
+	public boolean isInCooldown() {
+		return this.currentCooldown != 0;
+	}
 }
