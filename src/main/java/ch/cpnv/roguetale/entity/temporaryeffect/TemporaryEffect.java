@@ -9,6 +9,7 @@ public abstract class TemporaryEffect extends DrawableItem implements Temporary 
 
 	protected int remainingTime;
 	
+	
 	public TemporaryEffect(SpriteSheet ss, Vector2f position, int remainingTime) {
 		super(ss, position);
 		this.remainingTime = remainingTime;
