@@ -1,5 +1,6 @@
 package ch.cpnv.roguetale.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.lwjgl.util.vector.Vector2f;
@@ -7,40 +8,35 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.SpriteSheet;
 
 import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.entity.character.Player;
+import ch.cpnv.roguetale.entity.pickupableitem.PickupableItem;
+import ch.cpnv.roguetale.gui.guis.GameGui;
+import ch.cpnv.roguetale.weapon.melee.Knife;
 import ch.cpnv.roguetale.weapon.ranged.Bow;
-import ch.cpnv.roguetale.weapon.ranged.Cannon;
 
 public class PlayerController implements Controller {
-	private static PlayerController instance = null;
-	
 	private Player player;
 	private final HashMap<Integer, Direction> MOVING_KEYS = new HashMap<Integer, Direction>();
-	
-	public static PlayerController getInstance() throws SlickException {
-		if(instance == null) {
-			instance = new PlayerController();
-		}
-		return instance;
-	}
 
-	private PlayerController() throws SlickException {
-		this.player = new Player(
-				new SpriteSheet("ch\\cpnv\\roguetale\\images\\player\\carac.png", 48, 48, 0), 
-				new Vector2f(0,0), 
-				150, 
-				Direction.DOWN, 
-				false, 
-				new Bow(),
-				new Cannon());
+	public PlayerController() throws SlickException {
 		// Put Input key who equals to direction
 		this.MOVING_KEYS.put(Input.KEY_W, Direction.UP);
 		this.MOVING_KEYS.put(Input.KEY_A, Direction.LEFT);
 		this.MOVING_KEYS.put(Input.KEY_D, Direction.RIGHT);
 		this.MOVING_KEYS.put(Input.KEY_S, Direction.DOWN);
+		this.MOVING_KEYS.put(Input.KEY_UP, Direction.UP);
+		this.MOVING_KEYS.put(Input.KEY_LEFT, Direction.LEFT);
+		this.MOVING_KEYS.put(Input.KEY_RIGHT, Direction.RIGHT);
+		this.MOVING_KEYS.put(Input.KEY_DOWN, Direction.DOWN);
+		this.player = new Player( 
+				new Vector2f(0,0), 
+				150, 
+				Direction.DOWN, 
+				false, 
+				new Knife(),
+				new Bow());
 	}
 	
 	@Override
@@ -53,7 +49,17 @@ public class PlayerController implements Controller {
 		if (this.player.isMoving()) {
 			this.player.move(delta);
 		}
+		pickup();
+		this.player.update(delta);
 		this.player.reduceCooldown(delta);
+		
+		if (gc.getInput().isMouseButtonDown(0)) {
+			this.player.aimWeapon(this.player.getPrimaryWeapon(), delta);
+		}
+		
+		if (gc.getInput().isMouseButtonDown(1)) {
+			this.player.aimWeapon(this.player.getSecondaryWeapon(), delta);
+		}
 	}
 	
 	@Override
@@ -63,32 +69,36 @@ public class PlayerController implements Controller {
 			this.player.setDirection(MOVING_KEYS.get(key));
 			this.player.setMoving(true);
 		}
-		else if (Input.KEY_Q == key) {
-			player.primaryAttack();
-		}
-		else if (Input.KEY_E == key) {
-			player.secondaryAttack();
-		}
 	}
 	
 	@Override
-	public void keyReleased(int key, char c, GameContainer gc) {
+	public void keyReleased(int key, char c, GameContainer gc) throws SlickException {
 		// If direction key is released, check that other key are not pressed to disallowing player to move unless change direction of player
 		if (this.MOVING_KEYS.containsKey(key)) {
 			updateDirection(gc);
+		} else if (Input.KEY_Q == key) {
+			player.attackWithWeapon(player.getPrimaryWeapon());
+		} else if (Input.KEY_E == key) {
+			player.attackWithWeapon(player.getSecondaryWeapon());
 		}
 	}
 	
 	@Override
 	public void mousePressed(int button, int x, int y) throws SlickException {
+		
+	}
+	
+	@Override
+	public void mouseReleased(int button, int x, int y) throws SlickException {
 		switch(button) {
 			case Input.MOUSE_LEFT_BUTTON:
-				player.primaryAttack();
+				player.attackWithWeapon(player.getPrimaryWeapon());
 				break;
 			case Input.MOUSE_RIGHT_BUTTON:
-				player.secondaryAttack();
+				player.attackWithWeapon(player.getSecondaryWeapon());
 				break;
 		}
+		
 	}
 
 	public Player getPlayer() {
@@ -109,5 +119,22 @@ public class PlayerController implements Controller {
 		}
 		
 		player.setMoving(isStillMoving);
+	}
+	
+	protected void pickup() throws SlickException {
+		ArrayList<PickupableItem> items = GameGui.getPickupableItemController().getPickupableItems();
+		
+		for(int i = 0; i < items.size(); i++) {
+			PickupableItem item = items.get(i);
+			if(player.isColliding(item)) {
+				item.pickup(player);
+			}
+		}
+	}
+
+	@Override
+	public void mouseMoved(int oldx, int oldy, int newx, int newy) {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -8,18 +8,12 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-import ch.cpnv.roguetale.entity.areaofeffect.AreaOfEffect;
 import ch.cpnv.roguetale.entity.character.Character;
+import ch.cpnv.roguetale.entity.temporaryeffect.areaofeffect.AreaOfEffect;
+import ch.cpnv.roguetale.gui.guis.GameGui;
 
 public class AreaController implements Controller {
-	private static AreaController instance;
 	private ArrayList<AreaOfEffect> areas = new ArrayList<AreaOfEffect>();
-	
-	public static AreaController getInstance() {
-		return instance == null ? instance = new AreaController() : instance;
-	}
-
-	private AreaController() {}
 
 	@Override
 	public void render(GameContainer gc, Graphics g, Vector2f origin) throws SlickException {
@@ -58,8 +52,8 @@ public class AreaController implements Controller {
 	
 	private void damageEntities() throws SlickException {
 		ArrayList<Character> entities = new ArrayList<Character>();
-		entities.add(PlayerController.getInstance().getPlayer());
-		entities.addAll(EnemyController.getInstance().getEnemies());
+		entities.add(GameGui.getPlayerController().getPlayer());
+		entities.addAll(GameGui.getEnemyController().getEnemies());
 		
 		for (AreaOfEffect area : this.areas) {
 			for (Character en : entities) {
@@ -83,4 +77,17 @@ public class AreaController implements Controller {
 	public void addArea(AreaOfEffect area) {
 		areas.add(area);
 	}
+
+	@Override
+	public void mouseMoved(int oldx, int oldy, int newx, int newy) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(int button, int x, int y) throws SlickException {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
