@@ -12,6 +12,7 @@ import ch.cpnv.roguetale.entity.temporaryeffect.itemeffect.effects.Damage;
 import ch.cpnv.roguetale.entity.temporaryeffect.itemeffect.effects.Heal;
 import ch.cpnv.roguetale.sound.SoundManager;
 import ch.cpnv.roguetale.sound.SoundType;
+import ch.cpnv.roguetale.weapon.RangedWeapon;
 import ch.cpnv.roguetale.weapon.Weapon;
 
 public abstract class Character extends MovableItem {
@@ -37,6 +38,10 @@ public abstract class Character extends MovableItem {
 	}
 	
 	public void move(int delta) throws SlickException {
+		int oldSpeed = this.speed;
+		if (isAiming()) {
+			this.speed /= 2;
+		}
 		super.move(delta);
 		Character collidingEntity = (Character) getCollidingEntity();
 		// undo the move if there is a collision
@@ -45,11 +50,12 @@ public abstract class Character extends MovableItem {
 			// so we really don't want to reuse this move
 			Direction old = collidingEntity.getDirection();
 			collidingEntity.setDirection(this.getDirection());
-			this.move(delta * -1);
+			super.move(delta * -1);
 			collidingEntity.move(delta);
 			collidingEntity.setDirection(old);
 		}
 		
+		this.speed = oldSpeed;
 	}
 	
 	public void draw(Vector2f origin, GameContainer gc, Color filter) {
@@ -105,14 +111,16 @@ public abstract class Character extends MovableItem {
 		return this.currentHealth <= 0;
 	}
 	
-	public void primaryAttack() throws SlickException {
-		if (primaryWeapon != null)
-			primaryWeapon.attack(this);
+	public void aimWeapon(Weapon weapon, int delta) {
+		if (weapon != null && weapon instanceof RangedWeapon) {
+			((RangedWeapon) weapon).aim(delta);
+		}
 	}
 	
-	public void secondaryAttack() throws SlickException {
-		if (secondaryWeapon != null)
-			secondaryWeapon.attack(this);
+	public void attackWithWeapon(Weapon weapon) throws SlickException {
+		if (weapon != null) {
+			weapon.attack(this);
+		}
 	}
 	
 	public void reduceCooldown(int delta) {
@@ -120,5 +128,13 @@ public abstract class Character extends MovableItem {
 			primaryWeapon.reduceCooldown(delta);
 		if (secondaryWeapon != null)
 			secondaryWeapon.reduceCooldown(delta);
+	}
+	
+	public boolean isAiming() {
+		Weapon first = this.getPrimaryWeapon();
+		Weapon second = this.getSecondaryWeapon();
+		
+		return first instanceof RangedWeapon && ((RangedWeapon) first).isAiming() 
+				|| second instanceof RangedWeapon && ((RangedWeapon) second).isAiming();
 	}
 }

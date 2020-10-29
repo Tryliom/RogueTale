@@ -64,4 +64,10 @@ public class Gui implements Controller {
 	public Gui getPrevGui() {
 		return prevGui;
 	}
+
+	@Override
+	public void mouseReleased(int button, int x, int y) throws SlickException {
+		// TODO Auto-generated method stub
+		
+	}
 }

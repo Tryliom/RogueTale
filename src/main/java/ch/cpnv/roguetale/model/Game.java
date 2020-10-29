@@ -80,6 +80,15 @@ public class Game extends BasicGame {
 		}
 	}
 	
+	@Override
+	public void mouseReleased(int button, int x, int y) {
+		try {
+			GuiController.getInstance().mouseReleased(button, x, y);
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	@Override 
 	public void mouseMoved(int oldx, int oldy, int newx, int newy) {
 		GuiController.getInstance().mouseMoved(oldx, oldy, newx, newy);

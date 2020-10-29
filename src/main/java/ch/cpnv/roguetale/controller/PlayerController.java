@@ -52,6 +52,14 @@ public class PlayerController implements Controller {
 		pickup();
 		this.player.update(delta);
 		this.player.reduceCooldown(delta);
+		
+		if (gc.getInput().isMouseButtonDown(0)) {
+			this.player.aimWeapon(this.player.getPrimaryWeapon(), delta);
+		}
+		
+		if (gc.getInput().isMouseButtonDown(1)) {
+			this.player.aimWeapon(this.player.getSecondaryWeapon(), delta);
+		}
 	}
 	
 	@Override
@@ -61,32 +69,36 @@ public class PlayerController implements Controller {
 			this.player.setDirection(MOVING_KEYS.get(key));
 			this.player.setMoving(true);
 		}
-		else if (Input.KEY_Q == key) {
-			player.primaryAttack();
-		}
-		else if (Input.KEY_E == key) {
-			player.secondaryAttack();
-		}
 	}
 	
 	@Override
-	public void keyReleased(int key, char c, GameContainer gc) {
+	public void keyReleased(int key, char c, GameContainer gc) throws SlickException {
 		// If direction key is released, check that other key are not pressed to disallowing player to move unless change direction of player
 		if (this.MOVING_KEYS.containsKey(key)) {
 			updateDirection(gc);
+		} else if (Input.KEY_Q == key) {
+			player.attackWithWeapon(player.getPrimaryWeapon());
+		} else if (Input.KEY_E == key) {
+			player.attackWithWeapon(player.getSecondaryWeapon());
 		}
 	}
 	
 	@Override
 	public void mousePressed(int button, int x, int y) throws SlickException {
+		
+	}
+	
+	@Override
+	public void mouseReleased(int button, int x, int y) throws SlickException {
 		switch(button) {
 			case Input.MOUSE_LEFT_BUTTON:
-				player.primaryAttack();
+				player.attackWithWeapon(player.getPrimaryWeapon());
 				break;
 			case Input.MOUSE_RIGHT_BUTTON:
-				player.secondaryAttack();
+				player.attackWithWeapon(player.getSecondaryWeapon());
 				break;
 		}
+		
 	}
 
 	public Player getPlayer() {

@@ -68,4 +68,9 @@ public class GuiController implements Controller {
 			}
 	}
 
+	@Override
+	public void mouseReleased(int button, int x, int y) throws SlickException {
+		this.currentGui.mouseReleased(button, x, y);
+	}
+
 }

@@ -84,4 +84,10 @@ public class MeleeAttackController implements Controller {
 			attack.meetCharacter(hit);
 		}
 	}
+
+	@Override
+	public void mouseReleased(int button, int x, int y) throws SlickException {
+		// TODO Auto-generated method stub
+		
+	}
 }

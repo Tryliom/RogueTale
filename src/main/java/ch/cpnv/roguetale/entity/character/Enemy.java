@@ -25,7 +25,8 @@ public class Enemy extends Character {
 		if (canAttackPlayer()) {
 			this.setDirectionToFacePlayer(false);
 			this.setMoving(false);
-			this.getRangedWeapon().attack(this);
+			if (this.getRangedWeapon().canShoot())
+				this.getRangedWeapon().attack(this);
 			
 			if (!this.getRangedWeapon().canAttack()) {
 				if (this.shouldMoveAwayFromPlayer()) {
@@ -42,6 +43,16 @@ public class Enemy extends Character {
 		} else {
 			this.moveInAttackPosition();
 		}
+	}
+	
+	public void update(int delta) throws SlickException {
+		super.update(delta);
+		
+		if ((this.isAiming() || canAttackPlayer()) && !this.getRangedWeapon().canShoot() && !this.getRangedWeapon().isInCooldown())
+			this.getRangedWeapon().aim(delta);
+		
+		if (!canAttackPlayer() && this.getDistanceToMovableItem(GameGui.getPlayerController().getPlayer()) > 400)
+			this.getRangedWeapon().attack(this);
 	}
 	
 	protected Boolean shouldMoveTowardPlayer() throws SlickException {
