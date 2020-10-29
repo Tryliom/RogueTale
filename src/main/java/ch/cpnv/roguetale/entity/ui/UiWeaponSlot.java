@@ -29,7 +29,7 @@ public class UiWeaponSlot {
 
 	public void render(GameContainer gc, Graphics g, Vector2f origin) throws SlickException {
 		Color old = g.getColor();
-		Rectangle rect = new Rectangle(x - (DIMENSION_ICON + WIDTH_RECTANGLE_ICON)/2, y - (DIMENSION_ICON + WIDTH_RECTANGLE_ICON), DIMENSION, DIMENSION);
+		Rectangle rect = new Rectangle(x - DIMENSION/2, y - DIMENSION, DIMENSION, DIMENSION);
 		// Fill box where the weapons are
 		float firstAlpha = 0.6f * (weapon != null ? (float) weapon.getCurrentCooldown() / weapon.getCooldown() : 0);
 		float base = 0.4f;
