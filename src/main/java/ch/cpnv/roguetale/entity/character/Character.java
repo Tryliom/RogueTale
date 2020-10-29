@@ -38,6 +38,10 @@ public abstract class Character extends MovableItem {
 	}
 	
 	public void move(int delta) throws SlickException {
+		int oldSpeed = this.speed;
+		if (isAiming()) {
+			this.speed /= 2;
+		}
 		super.move(delta);
 		Character collidingEntity = (Character) getCollidingEntity();
 		// undo the move if there is a collision
@@ -51,6 +55,7 @@ public abstract class Character extends MovableItem {
 			collidingEntity.setDirection(old);
 		}
 		
+		this.speed = oldSpeed;
 	}
 	
 	public void draw(Vector2f origin, GameContainer gc, Color filter) {
@@ -123,5 +128,13 @@ public abstract class Character extends MovableItem {
 			primaryWeapon.reduceCooldown(delta);
 		if (secondaryWeapon != null)
 			secondaryWeapon.reduceCooldown(delta);
+	}
+	
+	public boolean isAiming() {
+		Weapon first = this.getPrimaryWeapon();
+		Weapon second = this.getSecondaryWeapon();
+		
+		return first instanceof RangedWeapon && ((RangedWeapon) first).isAiming() 
+				|| second instanceof RangedWeapon && ((RangedWeapon) second).isAiming();
 	}
 }

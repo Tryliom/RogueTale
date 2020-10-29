@@ -8,6 +8,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 
+import ch.cpnv.roguetale.weapon.RangedWeapon;
 import ch.cpnv.roguetale.weapon.Weapon;
 
 public class UiWeaponSlot {
@@ -35,6 +36,20 @@ public class UiWeaponSlot {
 		float base = 0.4f;
 		g.setColor(new Color(base + firstAlpha, base, base, 0.6f));	
 		g.fill(rect);
+		
+		// Draw charge completion
+		if (weapon instanceof RangedWeapon) {
+			RangedWeapon rangedWeapon = (RangedWeapon) weapon;
+			
+			if (rangedWeapon.isAiming()) {
+				
+				g.setColor(new Color(0.5f, 0.9f, 0.5f, 0.6f));
+				g.fill(new Rectangle(rect.getX(), rect.getY(), rect.getWidth() * rangedWeapon.getMinChargePercentCompletion(), rect.getHeight()));
+				
+				g.setColor(new Color(1f, 0.8f, 0f, 0.6f));
+				g.fill(new Rectangle(rect.getX(), rect.getY(), rect.getWidth() * rangedWeapon.getMaxChargePercentCompletion(), rect.getHeight()));
+			}
+		}
 		
 		// Draw border on the weapons
 		g.setColor(Color.white);

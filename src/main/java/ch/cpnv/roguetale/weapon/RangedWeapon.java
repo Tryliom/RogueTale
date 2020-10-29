@@ -38,6 +38,29 @@ public abstract class RangedWeapon extends Weapon {
 		return this.currentChargeTime > this.maxChargeTime;
 	}
 	
+	public boolean isAiming() {
+		return this.currentChargeTime > 0;
+	}
+	
+	// Return 0f to 1f for 0 to 100%
+	public float getMinChargePercentCompletion() {
+		if (this.currentChargeTime < this.minChargeTime) {
+			return (float) this.currentChargeTime / this.minChargeTime;
+		} else
+			return 1;
+	}
+	
+	// Return 0f to 1f for 0 to 100%
+	public float getMaxChargePercentCompletion() {
+		if (this.currentChargeTime < this.minChargeTime) {
+			return 0;
+		} else if (this.currentChargeTime > this.maxChargeTime) {
+			return 1;
+		} else {
+			return (float) (this.currentChargeTime - this.minChargeTime) / (this.maxChargeTime - this.minChargeTime);
+		}
+	}
+	
 	public void aim(int delta) {
 		this.currentChargeTime += delta;
 	}
