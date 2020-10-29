@@ -60,12 +60,13 @@ public class GuiController implements Controller {
 	
 	public void setDisplayGui(Gui gui) {
 		this.currentGui = gui;
-		if (gui instanceof GameGui)
+		if (gui instanceof GameGui) {
 			try {
 				SoundManager.getInstance().loop(SoundType.MainTheme);
 			} catch (SlickException e) {
 				e.printStackTrace();
 			}
+		}
 	}
 
 	@Override

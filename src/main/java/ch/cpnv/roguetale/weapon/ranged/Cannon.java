@@ -23,7 +23,12 @@ public class Cannon extends RangedWeapon {
 	public void attack(Character attacker) throws SlickException {		
 		if(canAttack()) {
 			SoundManager.getInstance().play(SoundType.Arrow, 0.2f);
-			GameGui.getProjectileController().addProjectile(new Bomb(attacker, attacker.getDirection(), range, damage));
+			Bomb bomb = new Bomb(attacker, attacker.getDirection(), range, damage);
+			if (this.isChargedShoot()) {
+				bomb.setSpeed(bomb.getSpeed()*2);
+				bomb.setDamage(bomb.getDamage()*2);
+			}
+			GameGui.getProjectileController().addProjectile(bomb);
 		}
 		
 		super.attack(attacker);
