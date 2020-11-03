@@ -1,11 +1,15 @@
 package ch.cpnv.roguetale.gui.guis;
 
+import java.io.IOException;
+import java.util.Properties;
+
 import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
+import ch.cpnv.roguetale.config.ConfigReader;
 import ch.cpnv.roguetale.controller.AreaController;
 import ch.cpnv.roguetale.controller.EnemyController;
 import ch.cpnv.roguetale.controller.GuiController;
@@ -43,9 +47,18 @@ public class GameGui extends Gui {
 			GameGui.pickupableItemController = new PickupableItemController();
 			GameGui.meleeAttackController = new MeleeAttackController();
 			
-			GameGui.playerController.getPlayer().setInvulnerable(true);
-			//GameGui.playerController.getPlayer().setOneHitKill();
+			Properties config = new ConfigReader().getProperties();
+			Boolean invulnerable = Boolean.parseBoolean(config.getProperty("invulnerable"));
+			if(invulnerable) {
+				GameGui.playerController.getPlayer().setInvulnerable(true);
+			}
+			Boolean oneHitKill = Boolean.parseBoolean(config.getProperty("onehitkill"));
+			if(oneHitKill) {
+				GameGui.playerController.getPlayer().setOneHitKill();
+			}
 		} catch (SlickException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
