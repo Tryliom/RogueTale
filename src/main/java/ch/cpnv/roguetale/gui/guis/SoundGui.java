@@ -9,11 +9,10 @@ import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.controller.GuiController;
 import ch.cpnv.roguetale.gui.Gui;
-import ch.cpnv.roguetale.gui.button.buttons.FullscreenButton;
-import ch.cpnv.roguetale.gui.button.buttons.ResolutionButton;
+import ch.cpnv.roguetale.gui.button.buttons.MusicButton;
 import ch.cpnv.roguetale.gui.button.buttons.ReturnButton;
+import ch.cpnv.roguetale.gui.button.buttons.SoundButton;
 import ch.cpnv.roguetale.main.Main;
-import ch.cpnv.roguetale.model.Game;
 
 public class SoundGui extends Gui {
 	private static final String PATH_PANEL = "ch\\cpnv\\roguetale\\images\\ui\\panel\\panel_blue.png";
@@ -36,8 +35,8 @@ public class SoundGui extends Gui {
 		int w = Main.BASE_WIDTH,
 			h = Main.BASE_HEIGHT;
 		
-		this.buttonList.add(new ResolutionButton(w/2, h/4, this));
-		this.buttonList.add(new FullscreenButton(w/2, h*3/8, this));
+		this.buttonList.add(new MusicButton(w/2, h/4, this));
+		this.buttonList.add(new SoundButton(w/2, h*3/8, this));
 		this.buttonList.add(new ReturnButton(w/2, h*3/4, this));
 		
 	}

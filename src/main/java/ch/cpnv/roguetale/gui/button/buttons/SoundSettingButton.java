@@ -5,18 +5,18 @@ import org.newdawn.slick.SlickException;
 import ch.cpnv.roguetale.controller.GuiController;
 import ch.cpnv.roguetale.gui.Gui;
 import ch.cpnv.roguetale.gui.button.GuiButton;
-import ch.cpnv.roguetale.gui.guis.GraphicGui;
+import ch.cpnv.roguetale.gui.guis.SoundGui;
 
-public class GraphicButton extends GuiButton {
+public class SoundSettingButton extends GuiButton {
 
-	public GraphicButton(int x, int y, Gui parentGui) {
+	public SoundSettingButton(int x, int y, Gui parentGui) {
 		super(x, y, parentGui);
-		this.content = "Graphique";
+		this.content = "Son";
 	}
 	
 	@Override
 	public void onClick() throws SlickException {
 		super.onClick();
-		GuiController.getInstance().setDisplayGui(new GraphicGui(this.parentGui));
+		GuiController.getInstance().setDisplayGui(new SoundGui(this.parentGui));
 	}
 }

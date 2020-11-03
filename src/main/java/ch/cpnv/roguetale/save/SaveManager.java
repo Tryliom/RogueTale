@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
 import ch.cpnv.roguetale.main.Main;
 
@@ -40,7 +41,7 @@ public class SaveManager {
 			file.createNewFile();
 	}
 	
-	private void saveContentToFile(String filename, SaveGraphic data) throws IOException {
+	private void saveContentToFile(String filename, Serializable data) throws IOException {
 		this.createSaveDirIfNotExist();
 		File file = new File(this.getAppPath() + File.separator + filename + ".config");
 		FileOutputStream fos = new FileOutputStream(file.getPath());
@@ -53,14 +54,14 @@ public class SaveManager {
 		
 	}
 	
-	private SaveGraphic getContentFromFile(String filename) throws IOException, ClassNotFoundException {
+	private Serializable getContentFromFile(String filename) throws IOException, ClassNotFoundException {
 		this.createSaveDirIfNotExist();
 		File file = new File(this.getAppPath() + File.separator + filename + ".config");
 		
 		if (file.exists()) {
 			FileInputStream fin = new FileInputStream(file.getPath());
 			ObjectInputStream ois = new ObjectInputStream(fin);
-			SaveGraphic data = (SaveGraphic) ois.readObject();
+			Serializable data = (Serializable) ois.readObject();
 			ois.close();
 			fin.close();
 			return data;
@@ -69,19 +70,34 @@ public class SaveManager {
 		return null;
 	}
 	
+	public void saveSound() throws IOException {
+		this.saveContentToFile("sound", Main.saveController.getSound());
+	}
+	
+	public void loadSound() throws ClassNotFoundException, IOException {
+		SaveSound data = (SaveSound) this.getContentFromFile("sound");
+
+		if (data == null) {
+			data = new SaveSound();
+			data.setDefaultData();
+		}
+		
+		Main.saveController.setSound(data);
+	}
+	
 	public void saveGraphic() throws IOException {
-		this.saveContentToFile("graphic", Main.data);
+		this.saveContentToFile("graphic", Main.saveController.getGraphic());
 	}
 	
 	public void loadGraphic() throws ClassNotFoundException, IOException {
-		SaveGraphic data = this.getContentFromFile("graphic");
+		SaveGraphic data = (SaveGraphic) this.getContentFromFile("graphic");
 
 		if (data == null) {
 			data = new SaveGraphic();
 			data.setDefaultData();
 		}
 		
-		Main.data = data;
+		Main.saveController.setGraphic(data);
 	}
 	
 	private boolean isWindows(String OS) {

@@ -43,7 +43,7 @@ public class ResolutionButton extends GuiSwitchButton {
 	public void onClick() throws SlickException {
 		super.onClick();
 		Vector2f res = (Vector2f) this.data.get(this.selected);
-		Main.data.setResolution(res);
+		Main.saveController.getGraphic().setResolution(res);
 		int x = Math.round(res.x),
 			y = Math.round(res.y);
 		

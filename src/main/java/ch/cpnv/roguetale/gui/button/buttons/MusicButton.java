@@ -7,7 +7,7 @@ import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.gui.Gui;
 import ch.cpnv.roguetale.gui.button.GuiSwitchButton;
-import ch.cpnv.roguetale.save.SaveManager;
+import ch.cpnv.roguetale.main.Main;
 
 public class MusicButton extends GuiSwitchButton {
 
@@ -21,9 +21,9 @@ public class MusicButton extends GuiSwitchButton {
 		for (int i=0;i<=10;i++)
 			data.add(i);
 		
-		this.selected = -1;
+		this.selected = data.indexOf(Main.saveController.getSound().getMusic());
 		this.data = data;
-		this.content = data.get(this.selected) * 10 + "%";
+		this.content = "Musique à " + data.get(this.selected) * 10 + "%";
 	}
 	
 	@Override
@@ -31,11 +31,12 @@ public class MusicButton extends GuiSwitchButton {
 		super.onClick();
 		Integer volume = (Integer) this.data.get(this.selected);
 		
-		
-		this.content = volume * 10 + "%";
+		this.content = "Musique à " + volume * 10 + "%";
 
+		Main.saveController.getSound().setMusic(volume);
+		
 		try {
-			new SaveManager().saveGraphic();
+			Main.saveController.saveAll();
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
