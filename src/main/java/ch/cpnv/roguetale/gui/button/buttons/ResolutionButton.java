@@ -50,7 +50,7 @@ public class ResolutionButton extends GuiSwitchButton {
 		this.content = x + "x" + y;
 		Main.app.setDisplayMode(x, y, Main.app.isFullscreen());
 		try {
-			new SaveManager().saveSettings();
+			new SaveManager().saveGraphic();
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}

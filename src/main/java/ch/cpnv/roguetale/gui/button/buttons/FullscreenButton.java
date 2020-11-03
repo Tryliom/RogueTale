@@ -47,7 +47,7 @@ public class FullscreenButton extends GuiSwitchButton {
 		}
 		
 		try {
-			new SaveManager().saveSettings();
+			new SaveManager().saveGraphic();
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}

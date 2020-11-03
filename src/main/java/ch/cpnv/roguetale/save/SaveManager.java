@@ -40,7 +40,7 @@ public class SaveManager {
 			file.createNewFile();
 	}
 	
-	private void saveContentToFile(String filename, SaveData data) throws IOException {
+	private void saveContentToFile(String filename, SaveGraphic data) throws IOException {
 		this.createSaveDirIfNotExist();
 		File file = new File(this.getAppPath() + File.separator + filename + ".config");
 		FileOutputStream fos = new FileOutputStream(file.getPath());
@@ -53,14 +53,14 @@ public class SaveManager {
 		
 	}
 	
-	private SaveData getContentFromFile(String filename) throws IOException, ClassNotFoundException {
+	private SaveGraphic getContentFromFile(String filename) throws IOException, ClassNotFoundException {
 		this.createSaveDirIfNotExist();
 		File file = new File(this.getAppPath() + File.separator + filename + ".config");
 		
 		if (file.exists()) {
 			FileInputStream fin = new FileInputStream(file.getPath());
 			ObjectInputStream ois = new ObjectInputStream(fin);
-			SaveData data = (SaveData) ois.readObject();
+			SaveGraphic data = (SaveGraphic) ois.readObject();
 			ois.close();
 			fin.close();
 			return data;
@@ -69,15 +69,15 @@ public class SaveManager {
 		return null;
 	}
 	
-	public void saveSettings() throws IOException {
-		this.saveContentToFile("settings", Main.data);
+	public void saveGraphic() throws IOException {
+		this.saveContentToFile("graphic", Main.data);
 	}
 	
-	public void loadSettings() throws ClassNotFoundException, IOException {
-		SaveData data = this.getContentFromFile("settings");
+	public void loadGraphic() throws ClassNotFoundException, IOException {
+		SaveGraphic data = this.getContentFromFile("graphic");
 
 		if (data == null) {
-			data = new SaveData();
+			data = new SaveGraphic();
 			data.setDefaultData();
 		}
 		

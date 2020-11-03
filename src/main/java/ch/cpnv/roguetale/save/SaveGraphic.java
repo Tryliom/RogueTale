@@ -6,7 +6,7 @@ import org.lwjgl.util.vector.Vector2f;
 
 import ch.cpnv.roguetale.main.Main;
 
-public class SaveData implements Serializable {
+public class SaveGraphic implements Serializable {
 	private static final long serialVersionUID = 2310369966017704006L;
 	private Vector2f resolution;
 	private Boolean fullscreen;
