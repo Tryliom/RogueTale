@@ -43,14 +43,14 @@ public class ResolutionButton extends GuiSwitchButton {
 	public void onClick() throws SlickException {
 		super.onClick();
 		Vector2f res = (Vector2f) this.data.get(this.selected);
-		Main.data.setResolution(res);
+		Main.saveController.getGraphic().setResolution(res);
 		int x = Math.round(res.x),
 			y = Math.round(res.y);
 		
 		this.content = x + "x" + y;
 		Main.app.setDisplayMode(x, y, Main.app.isFullscreen());
 		try {
-			new SaveManager().saveSettings();
+			new SaveManager().saveGraphic();
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}

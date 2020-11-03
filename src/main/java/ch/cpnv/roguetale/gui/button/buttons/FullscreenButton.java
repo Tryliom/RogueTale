@@ -39,15 +39,15 @@ public class FullscreenButton extends GuiSwitchButton {
 		Boolean fullscreen = (Boolean) this.data.get(this.selected);
 		
 		try {
-			Main.data.setFullscreen(fullscreen);
+			Main.saveController.getGraphic().setFullscreen(fullscreen);
 			Main.app.setFullscreen(fullscreen);
 		} catch(Exception e) {
 			Main.app.setDisplayMode(Math.round(fallbackForFullscreen.x), Math.round(fallbackForFullscreen.y), fullscreen);
-			Main.data.setResolution(fallbackForFullscreen);
+			Main.saveController.getGraphic().setResolution(fallbackForFullscreen);
 		}
 		
 		try {
-			new SaveManager().saveSettings();
+			new SaveManager().saveGraphic();
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}

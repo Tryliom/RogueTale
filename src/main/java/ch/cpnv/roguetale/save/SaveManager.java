@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
 import ch.cpnv.roguetale.main.Main;
 
@@ -40,7 +41,7 @@ public class SaveManager {
 			file.createNewFile();
 	}
 	
-	private void saveContentToFile(String filename, SaveData data) throws IOException {
+	private void saveContentToFile(String filename, Serializable data) throws IOException {
 		this.createSaveDirIfNotExist();
 		File file = new File(this.getAppPath() + File.separator + filename + ".config");
 		FileOutputStream fos = new FileOutputStream(file.getPath());
@@ -53,14 +54,14 @@ public class SaveManager {
 		
 	}
 	
-	private SaveData getContentFromFile(String filename) throws IOException, ClassNotFoundException {
+	private Serializable getContentFromFile(String filename) throws IOException, ClassNotFoundException {
 		this.createSaveDirIfNotExist();
 		File file = new File(this.getAppPath() + File.separator + filename + ".config");
 		
 		if (file.exists()) {
 			FileInputStream fin = new FileInputStream(file.getPath());
 			ObjectInputStream ois = new ObjectInputStream(fin);
-			SaveData data = (SaveData) ois.readObject();
+			Serializable data = (Serializable) ois.readObject();
 			ois.close();
 			fin.close();
 			return data;
@@ -69,19 +70,34 @@ public class SaveManager {
 		return null;
 	}
 	
-	public void saveSettings() throws IOException {
-		this.saveContentToFile("settings", Main.data);
+	public void saveSound() throws IOException {
+		this.saveContentToFile("sound", Main.saveController.getSound());
 	}
 	
-	public void loadSettings() throws ClassNotFoundException, IOException {
-		SaveData data = this.getContentFromFile("settings");
+	public void loadSound() throws ClassNotFoundException, IOException {
+		SaveSound data = (SaveSound) this.getContentFromFile("sound");
 
 		if (data == null) {
-			data = new SaveData();
+			data = new SaveSound();
 			data.setDefaultData();
 		}
 		
-		Main.data = data;
+		Main.saveController.setSound(data);
+	}
+	
+	public void saveGraphic() throws IOException {
+		this.saveContentToFile("graphic", Main.saveController.getGraphic());
+	}
+	
+	public void loadGraphic() throws ClassNotFoundException, IOException {
+		SaveGraphic data = (SaveGraphic) this.getContentFromFile("graphic");
+
+		if (data == null) {
+			data = new SaveGraphic();
+			data.setDefaultData();
+		}
+		
+		Main.saveController.setGraphic(data);
 	}
 	
 	private boolean isWindows(String OS) {
