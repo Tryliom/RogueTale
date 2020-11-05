@@ -78,7 +78,7 @@ public class MapController implements Controller {
 					Vector2f obstaclePosition = (Vector2f) new Vector2f(newPosition).scale(TILE_DIMENSION);
 					double random = Math.random();
 					Obstacle newObstacle = null;
-					if(random < 0.05) {
+					if(random < 0.02) {
 						newObstacle = new Rock(obstaclePosition);
 					} else if(random < 0.1) {
 						newObstacle = new Vegetation(obstaclePosition);
