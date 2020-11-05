@@ -51,18 +51,21 @@ public class AreaController implements Controller {
 	}
 	
 	private void damageEntities() throws SlickException {
-		ArrayList<Character> entities = new ArrayList<Character>();
-		entities.add(GameGui.getPlayerController().getPlayer());
-		entities.addAll(GameGui.getEnemyController().getEnemies());
+		ArrayList<Character> characters = new ArrayList<Character>();
+		characters.add(GameGui.getPlayerController().getPlayer());
+		characters.addAll(GameGui.getEnemyController().getEnemies());
 		
 		for (AreaOfEffect area : this.areas) {
-			for (Character en : entities) {
-				if (area.isColliding(en) && !area.isEntityInCooldown(en)) {
-					area.getCooldownEntites().put(en, area.getDelay());
-					en.updateHealth(-area.getDamage());
+			for (Character character : characters) {
+				if (area.isColliding(character) && !area.isEntityInCooldown(character)) {
+					area.getCooldownEntites().put(character, area.getDelay());
+					character.updateHealth(-area.getDamage());
 				}
 			}
 		}
+		
+		// TODO damage obstacles hit
+		// TODO create Attackable Interface (or class ?) to simplify obstacle or character attack
 	}
 
 	private void removeExpiredAreas() {
