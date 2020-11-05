@@ -73,7 +73,7 @@ public class EnemyController implements Controller {
 			Vector2f position = getRandomPositionNearPlayer(p);
 			Enemy en = createRandomEnemy(position);
 			
-			if (en.isCollidingWithAnotherCharacter()) {
+			if (en.getCollidingCharacter() != null) {
 				// Respawn somewhere else if spawning on another entity
 				this.spawnEnemies();
 			} else if (en.getDistanceToMovableItem(p) > SPAWN_DISTANCE_MIN) {

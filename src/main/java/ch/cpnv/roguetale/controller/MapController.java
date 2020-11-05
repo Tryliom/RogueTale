@@ -72,8 +72,6 @@ public class MapController implements Controller {
 				Vector2f newPosition = new Vector2f(w, h);
 				// Check to not add duplicate
 				if (!this.map.contains(newPosition)) {
-					System.out.println("new position");
-					System.out.println(newPosition);
 					this.map.add(newPosition);
 					
 					Vector2f obstaclePosition = (Vector2f) new Vector2f(newPosition).scale(TILE_DIMENSION);
@@ -85,6 +83,10 @@ public class MapController implements Controller {
 			}
 		}
 		System.out.println(map.size());
+	}
+	
+	public ArrayList<Obstacle> getObstacles() {
+		return obstacles;
 	}
 	
 	@Override
