@@ -40,6 +40,16 @@ public class Vegetation extends Obstacle {
 	}
 	
 	@Override
+	public void updateHealth(int health) {
+		this.health += health;
+	}
+	
+	@Override
+	public Boolean isDead() {
+		return health <= 0;
+	}
+	
+	@Override
 	protected int getHitboxWidth() {
 		return hitboxDimension;
 	}

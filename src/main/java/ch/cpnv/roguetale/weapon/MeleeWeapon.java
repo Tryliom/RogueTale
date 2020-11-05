@@ -5,6 +5,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Shape;
 
 import ch.cpnv.roguetale.entity.character.Character;
+import ch.cpnv.roguetale.entity.obstacle.Obstacle;
 
 public abstract class MeleeWeapon extends Weapon {
 	protected Shape hitbox;
@@ -16,5 +17,9 @@ public abstract class MeleeWeapon extends Weapon {
 	
 	public void meetCharacter(Character attackedCharacter) throws SlickException {
 		attackedCharacter.updateHealth(-damage);
+	}
+	
+	public void meetObstacle(Obstacle attackedObstacle) throws SlickException {
+		attackedObstacle.updateHealth(-damage);
 	}
 }
