@@ -9,6 +9,7 @@ import org.newdawn.slick.SpriteSheet;
 import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.entity.MovableItem;
 import ch.cpnv.roguetale.entity.character.Character;
+import ch.cpnv.roguetale.entity.obstacle.Obstacle;
 import ch.cpnv.roguetale.entity.temporaryeffect.Temporary;
 
 public abstract class Projectile extends MovableItem implements Temporary {
@@ -65,6 +66,10 @@ public abstract class Projectile extends MovableItem implements Temporary {
 	
 	public void meetCharacter(Character touchedCharacter) throws SlickException {
 		touchedCharacter.updateHealth(-damage);
+		remainingTime = 0;
+	}
+	
+	public void meetObstacle(Obstacle touchedObstacle) {
 		remainingTime = 0;
 	}
 	

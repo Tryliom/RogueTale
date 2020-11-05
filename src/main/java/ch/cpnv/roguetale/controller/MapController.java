@@ -1,5 +1,6 @@
 package ch.cpnv.roguetale.controller;
 
+import java.util.ArrayList;
 import java.util.Vector;
 
 import org.lwjgl.util.vector.Vector2f;
@@ -8,11 +9,14 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
+import ch.cpnv.roguetale.entity.obstacle.Obstacle;
+import ch.cpnv.roguetale.entity.obstacle.Rock;
 import ch.cpnv.roguetale.main.Main;
 
 public class MapController implements Controller {
 	private Image background;
 	private Vector<Vector2f> map = new Vector<Vector2f>();
+	private ArrayList<Obstacle> obstacles = new ArrayList<>();
 	private static final int TILE_DIMENSION = 70;
 	
 	public MapController() throws SlickException {
@@ -48,6 +52,10 @@ public class MapController implements Controller {
 				bg.drawCentered(tilePosXDiff, tilePosYDiff);
 			}
 		}
+		
+		for (Obstacle obstacle : obstacles) {
+			obstacle.draw(origin, gc);
+		}
 	}
 	
 	@Override
@@ -61,13 +69,27 @@ public class MapController implements Controller {
 		
 		for (int h = minHeight/TILE_DIMENSION - 2; h < maxHeight/TILE_DIMENSION + 2; h++) {
 			for (int w = minWidth/TILE_DIMENSION - 2; w < maxWidth/TILE_DIMENSION + 2; w++) {
-				Vector2f newPos = new Vector2f(w, h);
-				// Check to not add duplicata
-				if (!this.map.contains(newPos)) {
-					this.map.add(newPos);
+				Vector2f newPosition = new Vector2f(w, h);
+				// Check to not add duplicate
+				if (!this.map.contains(newPosition)) {
+					this.map.add(newPosition);
+					
+					Vector2f obstaclePosition = (Vector2f) new Vector2f(newPosition).scale(TILE_DIMENSION);
+					double random = Math.random();
+					if(random < 0.1) {
+						Rock rock = new Rock(obstaclePosition);
+						if(rock.getCollidingCharacter() == null) {
+							obstacles.add(rock);
+						}
+					}
 				}
 			}
 		}
+		System.out.println(map.size());
+	}
+	
+	public ArrayList<Obstacle> getObstacles() {
+		return obstacles;
 	}
 	
 	@Override

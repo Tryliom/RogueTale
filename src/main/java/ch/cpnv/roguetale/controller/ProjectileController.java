@@ -9,6 +9,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.entity.character.Character;
+import ch.cpnv.roguetale.entity.obstacle.Obstacle;
 import ch.cpnv.roguetale.entity.projectile.Projectile;
 import ch.cpnv.roguetale.gui.guis.GameGui;
 
@@ -57,25 +58,18 @@ public class ProjectileController implements Controller {
 		}
 	}
 	
-	private void collideProjectiles() throws SlickException {
-		Character player = GameGui.getPlayerController().getPlayer();
-		
+	private void collideProjectiles() throws SlickException {		
 		for(Projectile projectile : projectiles) {
-			Character hit = null;
-			if(projectile.isColliding(player)) {
-				hit = player;
-			}
-			else {
-				for(Character enemy : GameGui.getEnemyController().getEnemies()) {
-					if(projectile.isColliding(enemy)) {
-						hit = enemy;
-						break;
-					}
-				}
-			}
-			
+			Character hit = projectile.getCollidingCharacter();			
 			if(hit != null) {
 				projectile.meetCharacter(hit);
+			}
+		}
+		
+		for(Projectile projectile : projectiles) {
+			Obstacle hit = projectile.getCollidingObstacle();
+			if(hit != null) {
+				projectile.meetObstacle(hit);
 			}
 		}
 	}

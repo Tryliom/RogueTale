@@ -8,6 +8,7 @@ import org.newdawn.slick.SpriteSheet;
 
 import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.entity.MovableItem;
+import ch.cpnv.roguetale.entity.obstacle.Obstacle;
 import ch.cpnv.roguetale.entity.temporaryeffect.itemeffect.effects.Damage;
 import ch.cpnv.roguetale.entity.temporaryeffect.itemeffect.effects.Heal;
 import ch.cpnv.roguetale.sound.SoundManager;
@@ -43,16 +44,19 @@ public abstract class Character extends MovableItem {
 			this.speed /= 2;
 		}
 		super.move(delta);
-		Character collidingEntity = (Character) getCollidingEntity();
+		Character collidingEntity = getCollidingCharacter();
+		Obstacle collidingObstacle = getCollidingObstacle();
 		// undo the move if there is a collision
-		if (isCollidingWithAnotherCharacter()) {
-			// We don't want to create an inifinite loop, 
-			// so we really don't want to reuse this move
+		if (collidingEntity != null) {
 			Direction old = collidingEntity.getDirection();
 			collidingEntity.setDirection(this.getDirection());
+			// We don't want to create an infinite loop, 
+			// so we really don't want to reuse this.move
 			super.move(delta * -1);
 			collidingEntity.move(delta);
 			collidingEntity.setDirection(old);
+		} else if(collidingObstacle != null) {
+			super.move(delta * -1);
 		}
 		
 		this.speed = oldSpeed;
