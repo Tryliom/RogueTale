@@ -1,5 +1,7 @@
 package ch.cpnv.roguetale.entity.character;
 
+import java.util.ArrayList;
+
 import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -11,6 +13,7 @@ import ch.cpnv.roguetale.entity.MovableItem;
 import ch.cpnv.roguetale.entity.obstacle.Obstacle;
 import ch.cpnv.roguetale.entity.temporaryeffect.itemeffect.effects.Damage;
 import ch.cpnv.roguetale.entity.temporaryeffect.itemeffect.effects.Heal;
+import ch.cpnv.roguetale.gui.guis.GameGui;
 import ch.cpnv.roguetale.sound.SoundManager;
 import ch.cpnv.roguetale.sound.SoundType;
 import ch.cpnv.roguetale.weapon.RangedWeapon;
@@ -21,6 +24,7 @@ public abstract class Character extends MovableItem {
 	protected int maxHealth;
 	protected Weapon primaryWeapon;
 	protected Weapon secondaryWeapon;
+	protected Faction faction;
 
 	public Character(SpriteSheet ss, 
 			Vector2f position, 
@@ -36,6 +40,7 @@ public abstract class Character extends MovableItem {
 		this.secondaryWeapon = secondaryWeapon;
 		this.maxHealth = maxHealth;
 		this.currentHealth = maxHealth;
+		this.faction = new Faction();
 	}
 	
 	public void move(int delta) throws SlickException {
@@ -140,5 +145,38 @@ public abstract class Character extends MovableItem {
 		
 		return first instanceof RangedWeapon && ((RangedWeapon) first).isAiming() 
 				|| second instanceof RangedWeapon && ((RangedWeapon) second).isAiming();
+	}
+
+	public Character getNearestEnemy() {
+		ArrayList<Character> list = this.getCharacterList();
+		int MAX_RANGE = 1000;
+		
+		Character nearest = null;
+		for (Character entity : list) {
+			
+			if (entity.getFaction().getId() != this.getFaction().getId()) {
+				if ((nearest == null || this.getDistanceToMovableItem(entity) < this.getDistanceToMovableItem(nearest)) && this.getDistanceToMovableItem(entity) < MAX_RANGE) {
+					nearest = entity;
+				}
+			}
+		}
+		
+		return nearest;
+	}
+	
+	public ArrayList<Character> getCharacterList() {
+		ArrayList<Character> list = new ArrayList<Character>();
+		list.addAll(GameGui.getEnemyController().getEnemies());
+		list.add(GameGui.getPlayerController().getPlayer());
+		
+		return list;
+	}
+	
+	public Faction getFaction() {
+		return faction;
+	}
+
+	public void setFaction(Faction faction) {
+		this.faction = faction;
 	}
 }

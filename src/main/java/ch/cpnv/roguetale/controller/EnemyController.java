@@ -9,17 +9,17 @@ import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.entity.character.Enemy;
 import ch.cpnv.roguetale.entity.character.Player;
-import ch.cpnv.roguetale.entity.character.enemy.Bomber;
-import ch.cpnv.roguetale.entity.character.enemy.Robot;
+import ch.cpnv.roguetale.entity.character.enemy.Invocator;
 import ch.cpnv.roguetale.gui.guis.GameGui;
 
 public class EnemyController implements Controller {
-	private final int MAX_ENEMIES = 3;
+	private final int MAX_ENEMIES = 1;
 	private final int DISTANCE_NEAR_PLAYER = 500;
 	private final int SPAWN_DISTANCE_MIN = 350;
 	private final int SPAWN_DISTANCE_MAX = 450;
 	
 	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+	private ArrayList<Enemy> enemiesToAdd = new ArrayList<Enemy>();
 	
 	public ArrayList<Enemy> getEnemies() {
 		return enemies;
@@ -45,6 +45,12 @@ public class EnemyController implements Controller {
 			enemy.reduceCooldown(delta);
 			enemy.update(delta);
 		}
+		
+		for (Enemy enemy : this.enemiesToAdd) {
+			this.enemies.add(enemy);
+		}
+		
+		this.enemiesToAdd.clear();
 		
 		spawnEnemies();
 		
@@ -104,13 +110,11 @@ public class EnemyController implements Controller {
 	}
 	
 	private Enemy createRandomEnemy(Vector2f position) throws SlickException {
-		Enemy enemy;
+		Enemy enemy = null;
 		int rand = (int) (Math.random() * 100);
 		
-		if (rand < 80) 
-			enemy = new Robot(position);
-		else
-			enemy = new Bomber(position);
+		if (rand <= 100) 
+			enemy = new Invocator(position);
 		
 		return enemy;
 	}
@@ -125,5 +129,9 @@ public class EnemyController implements Controller {
 	public void mouseReleased(int button, int x, int y) throws SlickException {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void addEnemyToAdd(Enemy enemy) {
+		this.enemiesToAdd.add(enemy);
 	}
 }
