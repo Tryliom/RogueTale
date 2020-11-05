@@ -6,6 +6,8 @@ import org.newdawn.slick.SpriteSheet;
 
 import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.entity.character.Enemy;
+import ch.cpnv.roguetale.entity.pickupableitem.PickupableLifePoint;
+import ch.cpnv.roguetale.gui.guis.GameGui;
 import ch.cpnv.roguetale.sound.SoundManager;
 import ch.cpnv.roguetale.sound.SoundType;
 import ch.cpnv.roguetale.weapon.Weapon;
@@ -19,7 +21,7 @@ public class Invocator extends Enemy {
 
 	public Invocator(Vector2f position) throws SlickException {
 		super(getSpriteSheet(), 
-				position, SPEED, Direction.UP, false, new CreationOfLife(), null, MAX_HEALTH);
+				position, SPEED, Direction.DOWN, false, new CreationOfLife(), null, MAX_HEALTH);
 	}
 	
 	public static SpriteSheet getSpriteSheet() throws SlickException {
@@ -28,6 +30,7 @@ public class Invocator extends Enemy {
 	
 	public void die() throws SlickException {
 		super.die();
+		GameGui.getPickupableItemController().addPickupableItem(new PickupableLifePoint(position));
 		SoundManager.getInstance().play(SoundType.RobotDeath, 5f);
 	}
 	
@@ -38,5 +41,25 @@ public class Invocator extends Enemy {
 				weapon.attack(this);
 			}
 		}
+	}
+	
+	public void setImageDirection() {
+		int yPos = 0;
+		switch (this.direction) {
+			case LEFT:
+				yPos = 1;
+				break;
+			case RIGHT:
+				yPos = 2;
+				break;
+			case UP:
+				yPos = 3;
+				break;
+			case DOWN:
+				yPos = 0;
+				break;
+		}
+		
+		this.image = this.getSpritesheet().getSprite(0, yPos);
 	}
 }

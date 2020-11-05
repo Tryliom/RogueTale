@@ -12,7 +12,7 @@ import ch.cpnv.roguetale.gui.guis.GameGui;
 import ch.cpnv.roguetale.weapon.Weapon;
 
 public class CreationOfLife extends Weapon {
-	private static final String ICON_PATH = "ch\\cpnv\\roguetale\\images\\ui\\icon\\bow.png";
+	private static final String ICON_PATH = "ch\\cpnv\\roguetale\\images\\ui\\icon\\creationoflife.png";
 	private static final int SPAWN_DISTANCE_MAX = 200;
 	private static final int DISTANCE_NEAR_USER = 500;
 	private static final int MAX_ENEMIES = 5;
