@@ -13,4 +13,14 @@ public class Rock extends Obstacle {
 		this.image = this.spritesheet.getSprite(7, 0);
 		this.image = this.image.getScaledCopy(DISPLAY_DIMENSION, DISPLAY_DIMENSION);
 	}
+	
+	@Override
+	protected int getHitboxWidth() {
+		return 16;
+	}
+	
+	@Override
+	protected int getHitboxHeight() {
+		return getHitboxWidth();
+	}
 }
