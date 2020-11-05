@@ -70,6 +70,7 @@ public abstract class Projectile extends MovableItem implements Temporary {
 	}
 	
 	public void meetObstacle(Obstacle touchedObstacle) {
+		touchedObstacle.updateHealth(-damage);
 		remainingTime = 0;
 	}
 	
