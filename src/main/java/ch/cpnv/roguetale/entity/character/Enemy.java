@@ -22,23 +22,23 @@ public class Enemy extends Character {
 	}
 	
 	public void chooseAction() throws SlickException {
-		if (canAttackPlayer()) {
-			this.setDirectionToFacePlayer(false);
+		if (canAttackEnemy()) {
+			this.setDirectionToFaceEnemy(false);
 			this.setMoving(false);
 			if (this.getRangedWeapon().canShoot())
 				this.getRangedWeapon().attack(this);
 			
 			if (!this.getRangedWeapon().canAttack()) {
-				if (this.shouldMoveAwayFromPlayer()) {
-					this.setDirectionToRunFromPlayer();
+				if (this.shouldMoveAwayFromEnemy()) {
+					this.setDirectionToRunFromEnemy();
 					this.setMoving(true);
-				} else if (this.shouldMoveTowardPlayer()) {
-					this.setDirectionToFacePlayer(false);
+				} else if (this.shouldMoveTowardEnemy()) {
+					this.setDirectionToFaceEnemy(false);
 					this.setMoving(true);
 				}
 			}
-		} else if (this.getRangeToPlayer() > this.getRangedWeapon().getRange()) {
-			this.setDirectionToFacePlayer(false);
+		} else if (this.getRangeToEnemy() > this.getRangedWeapon().getRange()) {
+			this.setDirectionToFaceEnemy(false);
 			this.setMoving(true);
 		} else {
 			this.moveInAttackPosition();
@@ -48,41 +48,41 @@ public class Enemy extends Character {
 	public void update(int delta) throws SlickException {
 		super.update(delta);
 		
-		if ((this.isAiming() || canAttackPlayer()) && !this.getRangedWeapon().canShoot() && !this.getRangedWeapon().isInCooldown())
+		if ((this.isAiming() || canAttackEnemy()) && !this.getRangedWeapon().canShoot() && !this.getRangedWeapon().isInCooldown())
 			this.getRangedWeapon().aim(delta);
 		
-		if (!canAttackPlayer() && this.getDistanceToMovableItem(GameGui.getPlayerController().getPlayer()) > 400)
+		if (!canAttackEnemy() && this.getDistanceToMovableItem(GameGui.getPlayerController().getPlayer()) > 400)
 			this.getRangedWeapon().attack(this);
 	}
 	
-	protected Boolean shouldMoveTowardPlayer() throws SlickException {
-		int rangePercent = getRangePercentReliatiedPlayer();
+	protected Boolean shouldMoveTowardEnemy() throws SlickException {
+		int rangePercent = getRangePercentReliatiedEnemy();
 		
 		return rangePercent > 50;
 	}
 	
-	protected Boolean shouldMoveAwayFromPlayer() throws SlickException {
-		int rangePercent = getRangePercentReliatiedPlayer();
+	protected Boolean shouldMoveAwayFromEnemy() throws SlickException {
+		int rangePercent = getRangePercentReliatiedEnemy();
 		
 		return rangePercent < 25;
 	}
 	
-	protected int getRangePercentReliatiedPlayer() throws SlickException {
-		float distanceToPlayer = this.getRangeToPlayer();
+	protected int getRangePercentReliatiedEnemy() throws SlickException {
+		float distanceToEnemy = this.getRangeToEnemy();
 		int range = this.getRangedWeapon().getRange();
-		int positionPercent = Math.round(distanceToPlayer/range*100);
+		int positionPercent = Math.round(distanceToEnemy/range*100);
 		
 		return positionPercent;
 	}
 
-	protected void setDirectionToFacePlayer(Boolean lateralShorterDistance) throws SlickException {
-		Direction newDirection = this.getDirectionDependingOnPlayer(lateralShorterDistance);
+	protected void setDirectionToFaceEnemy(Boolean lateralShorterDistance) throws SlickException {
+		Direction newDirection = this.getDirectionDependingOnEnemy(lateralShorterDistance);
 		if (!newDirection.equals(this.direction))
 			this.setDirection(newDirection);
 	}
 	
-	protected void setDirectionToRunFromPlayer() throws SlickException {
-		Direction newDirection = this.getDirectionDependingOnPlayer(false);
+	protected void setDirectionToRunFromEnemy() throws SlickException {
+		Direction newDirection = this.getDirectionDependingOnEnemy(false);
 
 		switch (newDirection) {
 			case DOWN:
@@ -104,14 +104,14 @@ public class Enemy extends Character {
 	}
 	
 	protected void moveInAttackPosition() throws SlickException {
-		this.setDirectionToFacePlayer(true);
+		this.setDirectionToFaceEnemy(true);
 		this.setMoving(true);
 	}
 	
-	protected Direction getDirectionDependingOnPlayer(Boolean lateralShorterDistance) throws SlickException {
-		Player p = GameGui.getPlayerController().getPlayer();
-		float diffX = this.getPosition().getX() - p.getPosition().getX();
-		float diffY = this.getPosition().getY() - p.getPosition().getY();
+	protected Direction getDirectionDependingOnEnemy(Boolean lateralShorterDistance) throws SlickException {
+		Character target = this.getNearestEnemy();
+		float diffX = this.getPosition().getX() - target.getPosition().getX();
+		float diffY = this.getPosition().getY() - target.getPosition().getY();
 		
 		if (lateralShorterDistance ? Math.abs(diffX) <= Math.abs(diffY) : Math.abs(diffX) >= Math.abs(diffY)) {
 			if (diffX <= 0) {
@@ -128,8 +128,8 @@ public class Enemy extends Character {
 		}
 	}
 	
-	protected Boolean canAttackPlayer() throws SlickException {
-		Player p = GameGui.getPlayerController().getPlayer();
+	protected Boolean canAttackEnemy() throws SlickException {
+		Character target = this.getNearestEnemy();
 		float border = (1-PRECISION)/2;
 		float range = this.getRangedWeapon() != null ? this.getRangedWeapon().getRange() : 0;
 		Rectangle enRect = new Rectangle(
@@ -139,14 +139,14 @@ public class Enemy extends Character {
 					this.getSprite().getHeight()*PRECISION
 				);
 		Rectangle pRect = new Rectangle(
-					p.getPosition().getX() + p.getSprite().getWidth()*border, 
-					p.getPosition().getY() + p.getSprite().getHeight()*(border+PRECISION),
-					p.getSprite().getWidth()*PRECISION, 
-					p.getSprite().getHeight()*PRECISION
+				target.getPosition().getX() + target.getSprite().getWidth()*border, 
+				target.getPosition().getY() + target.getSprite().getHeight()*(border+PRECISION),
+				target.getSprite().getWidth()*PRECISION, 
+				target.getSprite().getHeight()*PRECISION
 				);
-		Direction directionToPlayer = this.getDirectionDependingOnPlayer(false);
+		Direction directionToEnemy = this.getDirectionDependingOnEnemy(false);
 
-		switch (directionToPlayer) {
+		switch (directionToEnemy) {
 			case DOWN:
 				enRect.setY(enRect.getY()-range);
 				enRect.setHeight(range);
@@ -186,10 +186,10 @@ public class Enemy extends Character {
 			return null;
 	}
 	
-	protected float getRangeToPlayer() throws SlickException {
-		Player p = GameGui.getPlayerController().getPlayer();
-		float diffX = this.getPosition().getX() - p.getPosition().getX();
-		float diffY = this.getPosition().getY() - p.getPosition().getY();
+	protected float getRangeToEnemy() throws SlickException {
+		Character target = this.getNearestEnemy();
+		float diffX = this.getPosition().getX() - target.getPosition().getX();
+		float diffY = this.getPosition().getY() - target.getPosition().getY();
 		
 		if (Math.abs(diffX) > Math.abs(diffY)) {
 			return Math.abs(diffX);
@@ -198,7 +198,6 @@ public class Enemy extends Character {
 		}
 	}
 	
-	//@Override
 	public void updateHealth(int health) throws SlickException {
 		super.updateHealth(health);
 		if(isDead()) {
