@@ -77,7 +77,10 @@ public class MapController implements Controller {
 					Vector2f obstaclePosition = (Vector2f) new Vector2f(newPosition).scale(TILE_DIMENSION);
 					double random = Math.random();
 					if(random < 0.1) {
-						obstacles.add(new Rock(obstaclePosition));
+						Rock rock = new Rock(obstaclePosition);
+						if(rock.getCollidingCharacter() == null) {
+							obstacles.add(rock);
+						}
 					}
 				}
 			}
