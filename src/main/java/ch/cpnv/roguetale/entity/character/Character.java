@@ -145,12 +145,13 @@ public abstract class Character extends MovableItem {
 
 	public Character getNearestEnemy() {
 		ArrayList<Character> list = this.getCharacterList();
+		int MAX_RANGE = 1000;
 		
 		Character nearest = null;
 		for (Character entity : list) {
 			
 			if (entity.getFaction().getId() != this.getFaction().getId()) {
-				if (nearest == null || this.getDistanceToMovableItem(entity) < this.getDistanceToMovableItem(nearest)) {
+				if ((nearest == null || this.getDistanceToMovableItem(entity) < this.getDistanceToMovableItem(nearest)) && this.getDistanceToMovableItem(entity) < MAX_RANGE) {
 					nearest = entity;
 				}
 			}

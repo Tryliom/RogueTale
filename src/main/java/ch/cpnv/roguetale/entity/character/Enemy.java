@@ -22,37 +22,52 @@ public class Enemy extends Character {
 	}
 	
 	public void chooseAction() throws SlickException {
-		if (canAttackEnemy()) {
-			this.setDirectionToFaceEnemy(false);
-			this.setMoving(false);
-			if (this.getRangedWeapon().canShoot())
-				this.getRangedWeapon().attack(this);
-			
-			if (!this.getRangedWeapon().canAttack()) {
-				if (this.shouldMoveAwayFromEnemy()) {
-					this.setDirectionToRunFromEnemy();
-					this.setMoving(true);
-				} else if (this.shouldMoveTowardEnemy()) {
-					this.setDirectionToFaceEnemy(false);
-					this.setMoving(true);
+		if (this.getNearestEnemy() != null)
+			if (canAttackEnemy()) {
+				this.setDirectionToFaceEnemy(false);
+				this.setMoving(false);
+				
+				RangedWeapon rangedWeapon = this.getRangedWeapon();
+				Weapon weapon = this.getWeapon();
+				// RangeWeapon action
+				if (rangedWeapon != null) {
+					if (rangedWeapon.canShoot())
+						rangedWeapon.attack(this);
+					
+					if (!rangedWeapon.canAttack()) {
+						if (this.shouldMoveAwayFromEnemy()) {
+							this.setDirectionToRunFromEnemy();
+							this.setMoving(true);
+						} else if (this.shouldMoveTowardEnemy()) {
+							this.setDirectionToFaceEnemy(false);
+							this.setMoving(true);
+						}
+					}
 				}
+				// Other weapon action
+				if (weapon != null) {
+					if (weapon.canAttack()) {
+						weapon.attack(this);
+					}
+				}
+			} else if (this.getRangedWeapon() != null && this.getRangeToEnemy() > this.getRangedWeapon().getRange()) {
+				this.setDirectionToFaceEnemy(false);
+				this.setMoving(true);
+			} else {
+				this.moveInAttackPosition();
 			}
-		} else if (this.getRangeToEnemy() > this.getRangedWeapon().getRange()) {
-			this.setDirectionToFaceEnemy(false);
-			this.setMoving(true);
-		} else {
-			this.moveInAttackPosition();
-		}
 	}
 	
 	public void update(int delta) throws SlickException {
 		super.update(delta);
 		
-		if ((this.isAiming() || canAttackEnemy()) && !this.getRangedWeapon().canShoot() && !this.getRangedWeapon().isInCooldown())
-			this.getRangedWeapon().aim(delta);
-		
-		if (!canAttackEnemy() && this.getDistanceToMovableItem(GameGui.getPlayerController().getPlayer()) > 400)
-			this.getRangedWeapon().attack(this);
+		if (this.getRangedWeapon() != null ) {
+			if ((this.isAiming() || canAttackEnemy()) && !this.getRangedWeapon().canShoot() && !this.getRangedWeapon().isInCooldown())
+				this.getRangedWeapon().aim(delta);
+			
+			if (!canAttackEnemy() && this.getDistanceToMovableItem(GameGui.getPlayerController().getPlayer()) > 400)
+				this.getRangedWeapon().attack(this);
+		}
 	}
 	
 	protected Boolean shouldMoveTowardEnemy() throws SlickException {
@@ -182,6 +197,15 @@ public class Enemy extends Character {
 			return (MeleeWeapon) this.primaryWeapon;
 		} else if (this.secondaryWeapon != null && this.secondaryWeapon instanceof MeleeWeapon) {
 			return (MeleeWeapon) this.secondaryWeapon;
+		} else
+			return null;
+	}
+	
+	protected Weapon getWeapon() {
+		if (this.primaryWeapon != null && !(this.primaryWeapon instanceof MeleeWeapon) && !(this.primaryWeapon instanceof RangedWeapon)) {
+			return this.primaryWeapon;
+		} else if (this.secondaryWeapon != null && !(this.secondaryWeapon instanceof MeleeWeapon) && !(this.secondaryWeapon instanceof RangedWeapon)) {
+			return this.secondaryWeapon;
 		} else
 			return null;
 	}
