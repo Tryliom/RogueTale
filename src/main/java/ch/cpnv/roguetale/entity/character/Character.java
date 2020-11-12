@@ -43,12 +43,12 @@ public abstract class Character extends MovableItem {
 		this.faction = new Faction();
 	}
 	
-	public void move(int delta) throws SlickException {
+	public void move(int delta, boolean canPush) throws SlickException {
 		int oldSpeed = this.speed;
 		if (isAiming()) {
 			this.speed /= 2;
 		}
-		super.move(delta);
+		super.move(delta, false);
 		Character collidingEntity = getCollidingCharacter();
 		Obstacle collidingObstacle = getCollidingObstacle();
 		// undo the move if there is a collision
@@ -57,11 +57,12 @@ public abstract class Character extends MovableItem {
 			collidingEntity.setDirection(this.getDirection());
 			// We don't want to create an infinite loop, 
 			// so we really don't want to reuse this.move
-			super.move(delta * -1);
-			collidingEntity.move(delta);
+			super.move(delta * -1, false);
+			if (canPush)
+				collidingEntity.move(delta, false);
 			collidingEntity.setDirection(old);
 		} else if(collidingObstacle != null) {
-			super.move(delta * -1);
+			super.move(delta * -1, false);
 		}
 		
 		this.speed = oldSpeed;

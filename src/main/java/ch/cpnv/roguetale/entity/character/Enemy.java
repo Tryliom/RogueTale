@@ -145,6 +145,8 @@ public class Enemy extends Character {
 	
 	protected Boolean canAttackOpponent() throws SlickException {
 		Character target = this.getNearestOpponent();
+		if (target == null)
+			return false;
 		float border = (1-PRECISION)/2;
 		float range = this.getRangedWeapon() != null ? this.getRangedWeapon().getRange() : 0;
 		Rectangle enRect = new Rectangle(

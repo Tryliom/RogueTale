@@ -54,7 +54,7 @@ public class ProjectileController implements Controller {
 	
 	private void moveProjectiles(int delta) throws SlickException {
 		for(Projectile projectile : projectiles) {
-			projectile.move(delta);
+			projectile.move(delta, false);
 		}
 	}
 	
