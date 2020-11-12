@@ -147,7 +147,7 @@ public abstract class Character extends MovableItem {
 				|| second instanceof RangedWeapon && ((RangedWeapon) second).isAiming();
 	}
 
-	public Character getNearestEnemy() {
+	public Character getNearestOpponent() {
 		ArrayList<Character> list = this.getCharacterList();
 		int MAX_RANGE = 1000;
 		

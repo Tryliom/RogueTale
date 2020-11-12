@@ -161,6 +161,15 @@ public abstract class DrawableItem {
 		return null;
 	}
 	
+	public Character getToCreateCollidingCharacter() {
+		for (Enemy en : GameGui.getEnemyController().getEnemiesToCreate()) {
+			if (en != this && this.isColliding(en))
+				return en;
+		}
+		
+		return null;
+	}
+	
 	public Obstacle getCollidingObstacle() {
 		for (Obstacle obstacle : GameGui.getMapController().getObstacles()) {
 			if (obstacle != this && this.isColliding(obstacle))

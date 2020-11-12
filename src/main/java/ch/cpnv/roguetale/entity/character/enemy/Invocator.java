@@ -35,7 +35,7 @@ public class Invocator extends Enemy {
 	}
 	
 	public void chooseAction() throws SlickException {
-		if (this.getNearestEnemy() != null) {
+		if (this.getNearestOpponent() != null) {
 			Weapon weapon = this.getWeapon();
 			if (weapon.canAttack()) {
 				weapon.attack(this);

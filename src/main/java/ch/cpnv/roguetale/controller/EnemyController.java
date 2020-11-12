@@ -19,8 +19,12 @@ public class EnemyController implements Controller {
 	private final int SPAWN_DISTANCE_MAX = 450;
 	
 	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-	private ArrayList<Enemy> enemiesToAdd = new ArrayList<Enemy>();
+	private ArrayList<Enemy> enemiesToCreate = new ArrayList<Enemy>();
 	
+	public ArrayList<Enemy> getEnemiesToCreate() {
+		return enemiesToCreate;
+	}
+
 	public ArrayList<Enemy> getEnemies() {
 		return enemies;
 	}
@@ -46,11 +50,11 @@ public class EnemyController implements Controller {
 			enemy.update(delta);
 		}
 		
-		for (Enemy enemy : this.enemiesToAdd) {
+		for (Enemy enemy : this.enemiesToCreate) {
 			this.enemies.add(enemy);
 		}
 		
-		this.enemiesToAdd.clear();
+		this.enemiesToCreate.clear();
 		
 		spawnEnemies();
 		
@@ -79,7 +83,7 @@ public class EnemyController implements Controller {
 			Vector2f position = getRandomPositionNearPlayer(p);
 			Enemy en = createRandomEnemy(position);
 			
-			if (en.getCollidingCharacter() != null || en.getCollidingObstacle() != null) {
+			if (en.getToCreateCollidingCharacter() != null && en.getCollidingCharacter() != null || en.getCollidingObstacle() != null) {
 				// Respawn somewhere else if spawning on another entity
 				this.spawnEnemies();
 			} else if (en.getDistanceToMovableItem(p) > SPAWN_DISTANCE_MIN) {
@@ -132,6 +136,6 @@ public class EnemyController implements Controller {
 	}
 	
 	public void addEnemyToAdd(Enemy enemy) {
-		this.enemiesToAdd.add(enemy);
+		this.enemiesToCreate.add(enemy);
 	}
 }

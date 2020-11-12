@@ -85,7 +85,6 @@ public class MapController implements Controller {
 				}
 			}
 		}
-		System.out.println(map.size());
 	}
 	
 	public ArrayList<Obstacle> getObstacles() {

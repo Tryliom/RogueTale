@@ -22,9 +22,9 @@ public class Enemy extends Character {
 	}
 	
 	public void chooseAction() throws SlickException {
-		if (this.getNearestEnemy() != null)
-			if (canAttackEnemy()) {
-				this.setDirectionToFaceEnemy(false);
+		if (this.getNearestOpponent() != null)
+			if (canAttackOpponent()) {
+				this.setDirectionToFaceOpponent(false);
 				this.setMoving(false);
 				
 				RangedWeapon rangedWeapon = this.getRangedWeapon();
@@ -35,11 +35,11 @@ public class Enemy extends Character {
 						rangedWeapon.attack(this);
 					
 					if (!rangedWeapon.canAttack()) {
-						if (this.shouldMoveAwayFromEnemy()) {
-							this.setDirectionToRunFromEnemy();
+						if (this.shouldMoveAwayFromOpponent()) {
+							this.setDirectionToRunFromOpponent();
 							this.setMoving(true);
-						} else if (this.shouldMoveTowardEnemy()) {
-							this.setDirectionToFaceEnemy(false);
+						} else if (this.shouldMoveTowardOpponent()) {
+							this.setDirectionToFaceOpponent(false);
 							this.setMoving(true);
 						}
 					}
@@ -50,8 +50,8 @@ public class Enemy extends Character {
 						weapon.attack(this);
 					}
 				}
-			} else if (this.getRangedWeapon() != null && this.getRangeToEnemy() > this.getRangedWeapon().getRange()) {
-				this.setDirectionToFaceEnemy(false);
+			} else if (this.getRangedWeapon() != null && this.getRangeToOpponent() > this.getRangedWeapon().getRange()) {
+				this.setDirectionToFaceOpponent(false);
 				this.setMoving(true);
 			} else {
 				this.moveInAttackPosition();
@@ -62,42 +62,42 @@ public class Enemy extends Character {
 		super.update(delta);
 		
 		if (this.getRangedWeapon() != null ) {
-			if ((this.isAiming() || canAttackEnemy()) && !this.getRangedWeapon().canShoot() && !this.getRangedWeapon().isInCooldown())
+			if ((this.isAiming() || canAttackOpponent()) && !this.getRangedWeapon().canShoot() && !this.getRangedWeapon().isInCooldown())
 				this.getRangedWeapon().aim(delta);
 			
-			if (!canAttackEnemy() && this.getDistanceToMovableItem(GameGui.getPlayerController().getPlayer()) > 400)
+			if (!canAttackOpponent() && this.getDistanceToMovableItem(GameGui.getPlayerController().getPlayer()) > 400)
 				this.getRangedWeapon().attack(this);
 		}
 	}
 	
-	protected Boolean shouldMoveTowardEnemy() throws SlickException {
-		int rangePercent = getRangePercentReliatiedEnemy();
+	protected Boolean shouldMoveTowardOpponent() throws SlickException {
+		int rangePercent = getRangePercentReliatiedOpponent();
 		
 		return rangePercent > 50;
 	}
 	
-	protected Boolean shouldMoveAwayFromEnemy() throws SlickException {
-		int rangePercent = getRangePercentReliatiedEnemy();
+	protected Boolean shouldMoveAwayFromOpponent() throws SlickException {
+		int rangePercent = getRangePercentReliatiedOpponent();
 		
 		return rangePercent < 25;
 	}
 	
-	protected int getRangePercentReliatiedEnemy() throws SlickException {
-		float distanceToEnemy = this.getRangeToEnemy();
+	protected int getRangePercentReliatiedOpponent() throws SlickException {
+		float distanceToOpponent = this.getRangeToOpponent();
 		int range = this.getRangedWeapon().getRange();
-		int positionPercent = Math.round(distanceToEnemy/range*100);
+		int positionPercent = Math.round(distanceToOpponent/range*100);
 		
 		return positionPercent;
 	}
 
-	protected void setDirectionToFaceEnemy(Boolean lateralShorterDistance) throws SlickException {
-		Direction newDirection = this.getDirectionDependingOnEnemy(lateralShorterDistance);
+	protected void setDirectionToFaceOpponent(Boolean lateralShorterDistance) throws SlickException {
+		Direction newDirection = this.getDirectionDependingOnOpponent(lateralShorterDistance);
 		if (!newDirection.equals(this.direction))
 			this.setDirection(newDirection);
 	}
 	
-	protected void setDirectionToRunFromEnemy() throws SlickException {
-		Direction newDirection = this.getDirectionDependingOnEnemy(false);
+	protected void setDirectionToRunFromOpponent() throws SlickException {
+		Direction newDirection = this.getDirectionDependingOnOpponent(false);
 
 		switch (newDirection) {
 			case DOWN:
@@ -119,12 +119,12 @@ public class Enemy extends Character {
 	}
 	
 	protected void moveInAttackPosition() throws SlickException {
-		this.setDirectionToFaceEnemy(true);
+		this.setDirectionToFaceOpponent(true);
 		this.setMoving(true);
 	}
 	
-	protected Direction getDirectionDependingOnEnemy(Boolean lateralShorterDistance) throws SlickException {
-		Character target = this.getNearestEnemy();
+	protected Direction getDirectionDependingOnOpponent(Boolean lateralShorterDistance) throws SlickException {
+		Character target = this.getNearestOpponent();
 		float diffX = this.getPosition().getX() - target.getPosition().getX();
 		float diffY = this.getPosition().getY() - target.getPosition().getY();
 		
@@ -143,8 +143,8 @@ public class Enemy extends Character {
 		}
 	}
 	
-	protected Boolean canAttackEnemy() throws SlickException {
-		Character target = this.getNearestEnemy();
+	protected Boolean canAttackOpponent() throws SlickException {
+		Character target = this.getNearestOpponent();
 		float border = (1-PRECISION)/2;
 		float range = this.getRangedWeapon() != null ? this.getRangedWeapon().getRange() : 0;
 		Rectangle enRect = new Rectangle(
@@ -159,9 +159,9 @@ public class Enemy extends Character {
 				target.getSprite().getWidth()*PRECISION, 
 				target.getSprite().getHeight()*PRECISION
 				);
-		Direction directionToEnemy = this.getDirectionDependingOnEnemy(false);
+		Direction directionToOpponent = this.getDirectionDependingOnOpponent(false);
 
-		switch (directionToEnemy) {
+		switch (directionToOpponent) {
 			case DOWN:
 				enRect.setY(enRect.getY()-range);
 				enRect.setHeight(range);
@@ -210,8 +210,8 @@ public class Enemy extends Character {
 			return null;
 	}
 	
-	protected float getRangeToEnemy() throws SlickException {
-		Character target = this.getNearestEnemy();
+	protected float getRangeToOpponent() throws SlickException {
+		Character target = this.getNearestOpponent();
 		float diffX = this.getPosition().getX() - target.getPosition().getX();
 		float diffY = this.getPosition().getY() - target.getPosition().getY();
 		
