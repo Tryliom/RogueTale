@@ -66,7 +66,7 @@ public abstract class Character extends MovableItem implements Damageable {
 		Character collidingEntity = getCollidingCharacter();
 		Obstacle collidingObstacle = getCollidingObstacle();
 		// undo the move if there is a collision
-		if (collidingEntity != null) {
+		if (collidingEntity != null && this.hasState(Phantom.class)) {
 			Direction old = collidingEntity.getDirection();
 			collidingEntity.setDirection(this.getDirection());
 			// We don't want to create an infinite loop, 
@@ -210,19 +210,13 @@ public abstract class Character extends MovableItem implements Damageable {
 		this.abilities.add(ability);
 	}
 	
-	public boolean hasPhantomState() {
+	/*
+	 * Check if character is in a certain state
+	 * Class<?> cls		State class
+	 */
+	public boolean hasState(Class<?> cls) {
 		for (State state : this.states) {
-			if (state instanceof Phantom) {
-				return true;
-			}
-		}
-		
-		return false;
-	}
-	
-	public boolean hasInvincibleState() {
-		for (State state : this.states) {
-			if (state instanceof Invincible) {
+			if (cls.isInstance(state)) {
 				return true;
 			}
 		}
