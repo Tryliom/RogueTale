@@ -6,8 +6,8 @@ import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.entity.character.Character;
 import ch.cpnv.roguetale.entity.character.Enemy;
-import ch.cpnv.roguetale.entity.character.enemy.Bomber;
-import ch.cpnv.roguetale.entity.character.enemy.Robot;
+import ch.cpnv.roguetale.entity.character.enemies.Bomber;
+import ch.cpnv.roguetale.entity.character.enemies.Robot;
 import ch.cpnv.roguetale.gui.guis.GameGui;
 import ch.cpnv.roguetale.weapon.Weapon;
 
