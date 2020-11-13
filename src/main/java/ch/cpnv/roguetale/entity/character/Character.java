@@ -11,6 +11,7 @@ import org.newdawn.slick.SpriteSheet;
 
 import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.entity.MovableItem;
+import ch.cpnv.roguetale.entity.character.states.Invincible;
 import ch.cpnv.roguetale.entity.character.states.Phantom;
 import ch.cpnv.roguetale.entity.obstacle.Obstacle;
 import ch.cpnv.roguetale.entity.temporaryeffect.itemeffect.effects.Damage;
@@ -203,8 +204,18 @@ public abstract class Character extends MovableItem {
 	}
 	
 	public boolean hasPhantomState() {
-		for (State stat : this.states) {
-			if (stat instanceof Phantom) {
+		for (State state : this.states) {
+			if (state instanceof Phantom) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	public boolean hasInvincibleState() {
+		for (State state : this.states) {
+			if (state instanceof Invincible) {
 				return true;
 			}
 		}
@@ -213,9 +224,7 @@ public abstract class Character extends MovableItem {
 	}
 	
 	private void removeExpiredStates() throws SlickException {
-		// The remove method does not work in a "for(Projectile projectile : projectiles)" loop
-		// https://stackoverflow.com/questions/3184883/concurrentmodificationexception-for-arraylist
-		for(Iterator<State> iterator = this.states.iterator(); iterator.hasNext();) {
+		for (Iterator<State> iterator = this.states.iterator(); iterator.hasNext();) {
 			State state = iterator.next();
 			if (state.isExpired()) {
 				iterator.remove();

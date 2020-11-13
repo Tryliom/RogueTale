@@ -4,6 +4,7 @@ import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.entity.character.Ability;
 import ch.cpnv.roguetale.entity.character.Character;
+import ch.cpnv.roguetale.entity.character.states.Invincible;
 import ch.cpnv.roguetale.entity.character.states.Phantom;
 
 public class Dash extends Ability {
@@ -17,6 +18,7 @@ public class Dash extends Ability {
 		if (this.canUse()) {
 			super.activate(user);
 			user.addState(new Phantom(this.getDuration()));
+			user.addState(new Invincible(this.getDuration()));
 		}
 	}
 	
