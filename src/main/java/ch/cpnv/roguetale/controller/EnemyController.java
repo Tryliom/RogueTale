@@ -9,7 +9,7 @@ import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.entity.character.Enemy;
 import ch.cpnv.roguetale.entity.character.Player;
-import ch.cpnv.roguetale.entity.character.enemy.Invocator;
+import ch.cpnv.roguetale.entity.character.enemies.Invocator;
 import ch.cpnv.roguetale.gui.guis.GameGui;
 
 public class EnemyController implements Controller {

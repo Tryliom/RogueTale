@@ -1,4 +1,4 @@
-package ch.cpnv.roguetale.entity.character.enemy;
+package ch.cpnv.roguetale.entity.character.enemies;
 
 import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.SlickException;

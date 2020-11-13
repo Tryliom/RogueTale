@@ -1,6 +1,7 @@
 package ch.cpnv.roguetale.entity.character;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.Color;
@@ -10,6 +11,7 @@ import org.newdawn.slick.SpriteSheet;
 
 import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.entity.MovableItem;
+import ch.cpnv.roguetale.entity.character.states.Phantom;
 import ch.cpnv.roguetale.entity.damageable.Damageable;
 import ch.cpnv.roguetale.entity.damageable.HpDamage;
 import ch.cpnv.roguetale.entity.obstacle.Obstacle;
@@ -26,6 +28,8 @@ public abstract class Character extends MovableItem implements Damageable {
 	protected Weapon secondaryWeapon;
 	protected Faction faction;
 	protected HpDamage hpDamageStrategy;
+	protected ArrayList<State> states = new ArrayList<State>();
+	protected ArrayList<Ability> abilities = new ArrayList<Ability>();
 
 	public Character(SpriteSheet ss, 
 			Vector2f position, 
@@ -41,6 +45,15 @@ public abstract class Character extends MovableItem implements Damageable {
 		this.primaryWeapon = primaryWeapon;
 		this.secondaryWeapon = secondaryWeapon;
 		this.faction = new Faction();
+	}
+	
+	public void update(int delta) throws SlickException {
+		super.update(delta);
+		for (State state : this.states)
+			state.update(delta);
+		for (Ability ability : this.abilities)
+			ability.update(delta, this);
+		this.removeExpiredStates();
 	}
 	
 	public void move(int delta, boolean canPush) throws SlickException {
@@ -186,5 +199,34 @@ public abstract class Character extends MovableItem implements Damageable {
 
 	public void setFaction(Faction faction) {
 		this.faction = faction;
+	}
+	
+	public void addState(State state) {
+		this.states.add(state);
+	}
+	
+	public void addAbility(Ability ability) {
+		this.abilities.add(ability);
+	}
+	
+	public boolean hasPhantomState() {
+		for (State stat : this.states) {
+			if (stat instanceof Phantom) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	private void removeExpiredStates() throws SlickException {
+		// The remove method does not work in a "for(Projectile projectile : projectiles)" loop
+		// https://stackoverflow.com/questions/3184883/concurrentmodificationexception-for-arraylist
+		for(Iterator<State> iterator = this.states.iterator(); iterator.hasNext();) {
+			State state = iterator.next();
+			if (state.isExpired()) {
+				iterator.remove();
+			}
+		}
 	}
 }
