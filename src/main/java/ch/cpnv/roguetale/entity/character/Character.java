@@ -66,7 +66,7 @@ public abstract class Character extends MovableItem {
 		Character collidingEntity = getCollidingCharacter();
 		Obstacle collidingObstacle = getCollidingObstacle();
 		// undo the move if there is a collision
-		if (collidingEntity != null) {
+		if (collidingEntity != null && this.hasState(Phantom.class)) {
 			Direction old = collidingEntity.getDirection();
 			collidingEntity.setDirection(this.getDirection());
 			// We don't want to create an infinite loop, 
@@ -119,7 +119,7 @@ public abstract class Character extends MovableItem {
 	public void updateHealth(int health) throws SlickException {
 		if (health > 0) {
 			this.activeEffects.add(new Heal(this.getPosition()));
-		} else if (health < 0) {
+		} else if (health < 0 && this.hasState(Invincible.class)) {
 			SoundManager.getInstance().play(SoundType.Hurt);
 			this.activeEffects.add(new Damage(this.getPosition()));
 		}
@@ -203,19 +203,13 @@ public abstract class Character extends MovableItem {
 		this.abilities.add(ability);
 	}
 	
-	public boolean hasPhantomState() {
+	/*
+	 * Check if character is in a certain state
+	 * Class<?> cls		State class
+	 */
+	public boolean hasState(Class<?> cls) {
 		for (State state : this.states) {
-			if (state instanceof Phantom) {
-				return true;
-			}
-		}
-		
-		return false;
-	}
-	
-	public boolean hasInvincibleState() {
-		for (State state : this.states) {
-			if (state instanceof Invincible) {
+			if (cls.isInstance(state)) {
 				return true;
 			}
 		}
