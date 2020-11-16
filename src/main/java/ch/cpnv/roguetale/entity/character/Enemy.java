@@ -224,10 +224,14 @@ public class Enemy extends Character {
 		}
 	}
 	
-	public void updateHealth(int health) throws SlickException {
-		super.updateHealth(health);
+	public void damage(int damage) {
+		super.damage(damage);
 		if(isDead()) {
-			die();
+			try {
+				die();
+			} catch (SlickException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -238,5 +242,4 @@ public class Enemy extends Character {
 		}
 		GameGui.getEnemyController().removeEnemy(this);
 	}
-
 }

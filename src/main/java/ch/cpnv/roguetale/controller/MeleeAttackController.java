@@ -10,6 +10,7 @@ import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.entity.character.Character;
 import ch.cpnv.roguetale.entity.character.Enemy;
+import ch.cpnv.roguetale.entity.obstacle.Obstacle;
 import ch.cpnv.roguetale.entity.temporaryeffect.meleeattack.MeleeAttack;
 import ch.cpnv.roguetale.gui.guis.GameGui;
 
@@ -66,23 +67,34 @@ public class MeleeAttackController implements Controller {
 	}
 	
 	private void collideAttack(MeleeAttack attack) throws SlickException {
-		ArrayList<Character> hits = new ArrayList<Character>();
+		ArrayList<Character> charactersHit = new ArrayList<>();
 		
 		Character player = GameGui.getPlayerController().getPlayer();
 		if(attack.isColliding(player)) {
-			hits.add(player);
+			charactersHit.add(player);
 		}
 		
 		// We have to call attack.meetCharacter later, because it can potentially remove the character from the enemies list
 		for(Enemy enemy : GameGui.getEnemyController().getEnemies()) {
 			if(attack.isColliding(enemy)) {
-				hits.add(enemy);
+				charactersHit.add(enemy);
 			}
 		}
 		
-		for(Character hit : hits) {
+		for(Character hit : charactersHit) {
 			attack.meetCharacter(hit);
 		}
+		
+		ArrayList<Obstacle> obstaclesHit = new ArrayList<>();
+		for(Obstacle obstacle : GameGui.getMapController().getObstacles()) {
+			if(attack.isColliding(obstacle)) {
+				obstaclesHit.add(obstacle);
+			}
+		}
+		for(Obstacle hit : obstaclesHit) {
+			attack.meetObstacle(hit);
+		}
+		
 	}
 
 	@Override

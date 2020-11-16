@@ -7,6 +7,7 @@ import org.newdawn.slick.SpriteSheet;
 
 import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.entity.character.Character;
+import ch.cpnv.roguetale.entity.obstacle.Obstacle;
 import ch.cpnv.roguetale.entity.temporaryeffect.TemporaryEffect;
 import ch.cpnv.roguetale.weapon.MeleeWeapon;
 
@@ -29,6 +30,10 @@ public abstract class MeleeAttack extends TemporaryEffect {
 	
 	public void meetCharacter(Character attackedCharacter) throws SlickException {
 		weapon.meetCharacter(attackedCharacter);
+	}
+	
+	public void meetObstacle(Obstacle attackedObstacle) throws SlickException {
+		weapon.meetObstacle(attackedObstacle);
 	}
 	
 	protected void setImageDirection() {

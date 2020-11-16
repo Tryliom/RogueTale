@@ -10,6 +10,8 @@ import org.newdawn.slick.SpriteSheet;
 
 import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.entity.MovableItem;
+import ch.cpnv.roguetale.entity.damageable.Damageable;
+import ch.cpnv.roguetale.entity.damageable.HpDamage;
 import ch.cpnv.roguetale.entity.obstacle.Obstacle;
 import ch.cpnv.roguetale.entity.temporaryeffect.itemeffect.effects.Damage;
 import ch.cpnv.roguetale.entity.temporaryeffect.itemeffect.effects.Heal;
@@ -19,12 +21,11 @@ import ch.cpnv.roguetale.sound.SoundType;
 import ch.cpnv.roguetale.weapon.RangedWeapon;
 import ch.cpnv.roguetale.weapon.Weapon;
 
-public abstract class Character extends MovableItem {
-	protected int currentHealth;
-	protected int maxHealth;
+public abstract class Character extends MovableItem implements Damageable {
 	protected Weapon primaryWeapon;
 	protected Weapon secondaryWeapon;
 	protected Faction faction;
+	protected HpDamage hpDamageStrategy;
 
 	public Character(SpriteSheet ss, 
 			Vector2f position, 
@@ -36,10 +37,9 @@ public abstract class Character extends MovableItem {
 			int maxHealth
 			) {
 		super(ss, position, speed, direction, moving);
+		hpDamageStrategy = new HpDamage(maxHealth);
 		this.primaryWeapon = primaryWeapon;
 		this.secondaryWeapon = secondaryWeapon;
-		this.maxHealth = maxHealth;
-		this.currentHealth = maxHealth;
 		this.faction = new Faction();
 	}
 	
@@ -77,12 +77,39 @@ public abstract class Character extends MovableItem {
 			super.draw(origin, gc, filter);
 	}
 	
+	@Override
+	public void damage(int damage) {
+		try {
+			this.activeEffects.add(new Damage(this.getPosition()));
+			SoundManager.getInstance().play(SoundType.Hurt);
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
+		hpDamageStrategy.damage(damage);
+	};
+	@Override
+	public void heal(int heal) {
+		hpDamageStrategy.heal(heal);
+		try {
+			this.activeEffects.add(new Heal(this.getPosition()));
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
+	};
+	@Override
+	public Boolean isDead() {
+		return hpDamageStrategy.isDead();
+	};
+	
 	public int getCurrentHealth() {
-		return currentHealth;
+		return hpDamageStrategy.getCurrentHealth();
 	}
-
 	public int getMaxHealth() {
-		return maxHealth;
+		return hpDamageStrategy.getMaxHealth();
+	}
+	
+	public void updateMaxHealth(int health) throws SlickException {
+		hpDamageStrategy.updateMaxHealth(health);
 	}
 
 	public void setPrimaryWeapon(Weapon weapon) {
@@ -99,26 +126,6 @@ public abstract class Character extends MovableItem {
 
 	public Weapon getSecondaryWeapon() {
 		return secondaryWeapon;
-	}
-
-	// TODO prevent currentHealth to become higher than maxHealth
-	public void updateHealth(int health) throws SlickException {
-		if (health > 0) {
-			this.activeEffects.add(new Heal(this.getPosition()));
-		} else if (health < 0) {
-			SoundManager.getInstance().play(SoundType.Hurt);
-			this.activeEffects.add(new Damage(this.getPosition()));
-		}
-		this.currentHealth += health;
-	}
-	
-	public void updateMaxHealth(int health) throws SlickException {
-		maxHealth += health;
-		updateHealth(health);
-	}
-	
-	public Boolean isDead() {
-		return this.currentHealth <= 0;
 	}
 	
 	public void aimWeapon(Weapon weapon, int delta) {
