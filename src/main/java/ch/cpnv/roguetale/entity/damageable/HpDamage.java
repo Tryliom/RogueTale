@@ -5,6 +5,7 @@ public class HpDamage implements DamageStrategy {
 	protected int currentHealth;
 	
 	public HpDamage(int maxHp) {
+		this.maxHealth = maxHp;
 		this.currentHealth = maxHp;
 	}
 
