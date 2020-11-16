@@ -16,10 +16,10 @@ public abstract class MeleeWeapon extends Weapon {
 	}
 	
 	public void meetCharacter(Character attackedCharacter) throws SlickException {
-		attackedCharacter.updateHealth(-damage);
+		attackedCharacter.damage(damage);
 	}
 	
 	public void meetObstacle(Obstacle attackedObstacle) throws SlickException {
-		attackedObstacle.updateHealth(-damage);
+		attackedObstacle.damage(damage);
 	}
 }

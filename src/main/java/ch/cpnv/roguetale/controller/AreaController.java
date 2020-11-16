@@ -59,13 +59,12 @@ public class AreaController implements Controller {
 			for (Character character : characters) {
 				if (area.isColliding(character) && !area.isEntityInCooldown(character)) {
 					area.getCooldownEntites().put(character, area.getDelay());
-					character.updateHealth(-area.getDamage());
+					character.damage(area.getDamage());
 				}
 			}
 		}
 		
 		// TODO damage obstacles hit
-		// TODO create Attackable Interface (or class ?) to simplify obstacle or character attack
 	}
 
 	private void removeExpiredAreas() {

@@ -105,18 +105,16 @@ public class Player extends Character {
 			currentExp = totExp - maxExp;
 			maxExp += 50;
 			level++;
-			maxHealth++;
-			updateHealth(1);
-			
+			updateMaxHealth(1);			
 		} else {
 			currentExp = totExp;
 		}
 	}
 	
 	@Override
-	public void updateHealth(int health) throws SlickException {
-		if(!invulnerable || health >= 0) {
-			super.updateHealth(health);
+	public void damage(int damage) {
+		if(!invulnerable) {
+			super.damage(damage);
 		}
 	}
 	
