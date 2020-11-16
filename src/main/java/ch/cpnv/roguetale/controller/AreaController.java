@@ -8,7 +8,10 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
+import ch.cpnv.roguetale.entity.DrawableItem;
 import ch.cpnv.roguetale.entity.character.Character;
+import ch.cpnv.roguetale.entity.damageable.Damageable;
+import ch.cpnv.roguetale.entity.obstacle.Obstacle;
 import ch.cpnv.roguetale.entity.temporaryeffect.areaofeffect.AreaOfEffect;
 import ch.cpnv.roguetale.gui.guis.GameGui;
 
@@ -51,20 +54,23 @@ public class AreaController implements Controller {
 	}
 	
 	private void damageEntities() throws SlickException {
-		ArrayList<Character> characters = new ArrayList<Character>();
-		characters.add(GameGui.getPlayerController().getPlayer());
-		characters.addAll(GameGui.getEnemyController().getEnemies());
+		ArrayList<DrawableItem> damageCandidates = new ArrayList<>();
+		damageCandidates.add(GameGui.getPlayerController().getPlayer());
+		damageCandidates.addAll(GameGui.getEnemyController().getEnemies());
+		damageCandidates.addAll(GameGui.getMapController().getObstacles());
 		
 		for (AreaOfEffect area : this.areas) {
-			for (Character character : characters) {
-				if (area.isColliding(character) && !area.isEntityInCooldown(character)) {
-					area.getCooldownEntites().put(character, area.getDelay());
-					character.damage(area.getDamage());
+			for (DrawableItem damageCandidate : damageCandidates) {
+				if (area.isColliding(damageCandidate) && !area.isInCooldown(damageCandidate)) {
+					area.getCooldownEntites().put(damageCandidate, area.getDelay());
+					if(damageCandidate instanceof Damageable) {
+						Damageable damageable = (Damageable) damageCandidate;
+						damageable.damage(area.getDamage());
+					}
+					
 				}
 			}
 		}
-		
-		// TODO damage obstacles hit
 	}
 
 	private void removeExpiredAreas() {
