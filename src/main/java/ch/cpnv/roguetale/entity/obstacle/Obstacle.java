@@ -15,7 +15,7 @@ public abstract class Obstacle extends DrawableItem {
 	}
 	
 	public Boolean isDead() {
-		return true;
+		return false;
 	}
 	
 	public void onDeath() {
