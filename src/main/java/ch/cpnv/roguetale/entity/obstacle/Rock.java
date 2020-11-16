@@ -4,7 +4,7 @@ import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
-import ch.cpnv.roguetale.damageable.NoDamage;
+import ch.cpnv.roguetale.entity.damageable.NoDamage;
 
 public class Rock extends Obstacle {
 	protected static final int DISPLAY_DIMENSION = 32;

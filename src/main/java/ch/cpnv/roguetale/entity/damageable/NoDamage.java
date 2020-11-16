@@ -1,12 +1,6 @@
-package ch.cpnv.roguetale.damageable;
+package ch.cpnv.roguetale.entity.damageable;
 
 public class NoDamage implements DamageStrategy {
-
-	@Override
-	public void updateHealth(int health) {
-		// Do nothing
-	}
-
 	@Override
 	public void damage(int damage) {
 		// Do nothing

@@ -7,7 +7,7 @@ import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
-import ch.cpnv.roguetale.damageable.HpDamage;
+import ch.cpnv.roguetale.entity.damageable.HpDamage;
 
 public class Vegetation extends Obstacle {
 	static protected final String SPRITESHEET_PATH = "ch\\cpnv\\roguetale\\images\\obstacles\\vegetation.png";

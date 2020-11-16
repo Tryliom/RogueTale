@@ -1,15 +1,10 @@
-package ch.cpnv.roguetale.damageable;
+package ch.cpnv.roguetale.entity.damageable;
 
 public class HpDamage implements DamageStrategy {
 	protected int health;
 	
 	public HpDamage(int maxHp) {
 		this.health = maxHp;
-	}
-
-	@Override
-	public void updateHealth(int health) {
-		this.health += health;
 	}
 
 	@Override
