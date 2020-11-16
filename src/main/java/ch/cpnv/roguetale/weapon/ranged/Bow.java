@@ -16,11 +16,11 @@ public class Bow extends RangedWeapon {
 	private static final int MAX_CHARGE_TIME = 1000;
 
 	public Bow() throws SlickException {
-		super("Bow", 1, 300, 500, new Image(ICON_PATH), MIN_CHARGE_TIME, MAX_CHARGE_TIME);
+		super("Arc", 1, 300, 500, new Image(ICON_PATH), MIN_CHARGE_TIME, MAX_CHARGE_TIME);
 	}
 	
 	public Bow(int cooldown) throws SlickException {
-		super("Bow", 1, cooldown, 500, new Image(ICON_PATH), MIN_CHARGE_TIME, MAX_CHARGE_TIME);
+		super("Arc", 1, cooldown, 500, new Image(ICON_PATH), MIN_CHARGE_TIME, MAX_CHARGE_TIME);
 	}
 
 	public void attack(Character attacker) throws SlickException {		

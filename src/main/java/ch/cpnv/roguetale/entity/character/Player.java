@@ -74,12 +74,10 @@ public class Player extends Character {
 		
 		if(primaryWeapon != null) { 
 			primaryWeapon.setDamage(INFINITEDAMAGE);
-			//System.out.println("max primary damage");
 		}
 		
 		if(secondaryWeapon != null) { 
 			secondaryWeapon.setDamage(INFINITEDAMAGE);
-			//System.out.println("max secondary damage");
 		}
 	}
 	
@@ -117,7 +115,6 @@ public class Player extends Character {
 	
 	@Override
 	public void updateHealth(int health) throws SlickException {
-		System.out.println("Player loses health");
 		if(!invulnerable || health >= 0) {
 			super.updateHealth(health);
 		}

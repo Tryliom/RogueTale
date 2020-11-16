@@ -12,8 +12,8 @@ import ch.cpnv.roguetale.save.SaveGraphic;
 
 public class Main {
 	public static AppGameContainer app;
-	public static int BASE_WIDTH = (int) 1920/3;
-	public static int BASE_HEIGHT = (int) 1080/3;
+	public static int BASE_WIDTH = (int) 1920/2;
+	public static int BASE_HEIGHT = (int) 1080/2;
 	public static SaveController saveController = new SaveController();
 	
 	public static void main(String[] args) throws SlickException, ClassNotFoundException, IOException {

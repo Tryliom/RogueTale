@@ -1,5 +1,7 @@
 package ch.cpnv.roguetale.entity.character;
 
+import java.util.ArrayList;
+
 import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -11,6 +13,7 @@ import ch.cpnv.roguetale.entity.MovableItem;
 import ch.cpnv.roguetale.entity.obstacle.Obstacle;
 import ch.cpnv.roguetale.entity.temporaryeffect.itemeffect.effects.Damage;
 import ch.cpnv.roguetale.entity.temporaryeffect.itemeffect.effects.Heal;
+import ch.cpnv.roguetale.gui.guis.GameGui;
 import ch.cpnv.roguetale.sound.SoundManager;
 import ch.cpnv.roguetale.sound.SoundType;
 import ch.cpnv.roguetale.weapon.RangedWeapon;
@@ -21,6 +24,7 @@ public abstract class Character extends MovableItem {
 	protected int maxHealth;
 	protected Weapon primaryWeapon;
 	protected Weapon secondaryWeapon;
+	protected Faction faction;
 
 	public Character(SpriteSheet ss, 
 			Vector2f position, 
@@ -36,14 +40,15 @@ public abstract class Character extends MovableItem {
 		this.secondaryWeapon = secondaryWeapon;
 		this.maxHealth = maxHealth;
 		this.currentHealth = maxHealth;
+		this.faction = new Faction();
 	}
 	
-	public void move(int delta) throws SlickException {
+	public void move(int delta, boolean canPush) throws SlickException {
 		int oldSpeed = this.speed;
 		if (isAiming()) {
 			this.speed /= 2;
 		}
-		super.move(delta);
+		super.move(delta, false);
 		Character collidingEntity = getCollidingCharacter();
 		Obstacle collidingObstacle = getCollidingObstacle();
 		// undo the move if there is a collision
@@ -52,11 +57,12 @@ public abstract class Character extends MovableItem {
 			collidingEntity.setDirection(this.getDirection());
 			// We don't want to create an infinite loop, 
 			// so we really don't want to reuse this.move
-			super.move(delta * -1);
-			collidingEntity.move(delta);
+			super.move(delta * -1, false);
+			if (canPush)
+				collidingEntity.move(delta, false);
 			collidingEntity.setDirection(old);
 		} else if(collidingObstacle != null) {
-			super.move(delta * -1);
+			super.move(delta * -1, false);
 		}
 		
 		this.speed = oldSpeed;
@@ -140,5 +146,38 @@ public abstract class Character extends MovableItem {
 		
 		return first instanceof RangedWeapon && ((RangedWeapon) first).isAiming() 
 				|| second instanceof RangedWeapon && ((RangedWeapon) second).isAiming();
+	}
+
+	public Character getNearestOpponent() {
+		ArrayList<Character> list = this.getCharacterList();
+		int MAX_RANGE = 1000;
+		
+		Character nearest = null;
+		for (Character entity : list) {
+			
+			if (entity.getFaction().getId() != this.getFaction().getId()) {
+				if ((nearest == null || this.getDistanceToMovableItem(entity) < this.getDistanceToMovableItem(nearest)) && this.getDistanceToMovableItem(entity) < MAX_RANGE) {
+					nearest = entity;
+				}
+			}
+		}
+		
+		return nearest;
+	}
+	
+	public ArrayList<Character> getCharacterList() {
+		ArrayList<Character> list = new ArrayList<Character>();
+		list.addAll(GameGui.getEnemyController().getEnemies());
+		list.add(GameGui.getPlayerController().getPlayer());
+		
+		return list;
+	}
+	
+	public Faction getFaction() {
+		return faction;
+	}
+
+	public void setFaction(Faction faction) {
+		this.faction = faction;
 	}
 }

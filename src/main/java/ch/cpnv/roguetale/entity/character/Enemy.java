@@ -22,67 +22,82 @@ public class Enemy extends Character {
 	}
 	
 	public void chooseAction() throws SlickException {
-		if (canAttackPlayer()) {
-			this.setDirectionToFacePlayer(false);
-			this.setMoving(false);
-			if (this.getRangedWeapon().canShoot())
-				this.getRangedWeapon().attack(this);
-			
-			if (!this.getRangedWeapon().canAttack()) {
-				if (this.shouldMoveAwayFromPlayer()) {
-					this.setDirectionToRunFromPlayer();
-					this.setMoving(true);
-				} else if (this.shouldMoveTowardPlayer()) {
-					this.setDirectionToFacePlayer(false);
-					this.setMoving(true);
+		if (this.getNearestOpponent() != null)
+			if (canAttackOpponent()) {
+				this.setDirectionToFaceOpponent(false);
+				this.setMoving(false);
+				
+				RangedWeapon rangedWeapon = this.getRangedWeapon();
+				Weapon weapon = this.getWeapon();
+				// RangeWeapon action
+				if (rangedWeapon != null) {
+					if (rangedWeapon.canShoot())
+						rangedWeapon.attack(this);
+					
+					if (!rangedWeapon.canAttack()) {
+						if (this.shouldMoveAwayFromOpponent()) {
+							this.setDirectionToRunFromOpponent();
+							this.setMoving(true);
+						} else if (this.shouldMoveTowardOpponent()) {
+							this.setDirectionToFaceOpponent(false);
+							this.setMoving(true);
+						}
+					}
 				}
+				// Other weapon action
+				if (weapon != null) {
+					if (weapon.canAttack()) {
+						weapon.attack(this);
+					}
+				}
+			} else if (this.getRangedWeapon() != null && this.getRangeToOpponent() > this.getRangedWeapon().getRange()) {
+				this.setDirectionToFaceOpponent(false);
+				this.setMoving(true);
+			} else {
+				this.moveInAttackPosition();
 			}
-		} else if (this.getRangeToPlayer() > this.getRangedWeapon().getRange()) {
-			this.setDirectionToFacePlayer(false);
-			this.setMoving(true);
-		} else {
-			this.moveInAttackPosition();
-		}
 	}
 	
 	public void update(int delta) throws SlickException {
 		super.update(delta);
 		
-		if ((this.isAiming() || canAttackPlayer()) && !this.getRangedWeapon().canShoot() && !this.getRangedWeapon().isInCooldown())
-			this.getRangedWeapon().aim(delta);
-		
-		if (!canAttackPlayer() && this.getDistanceToMovableItem(GameGui.getPlayerController().getPlayer()) > 400)
-			this.getRangedWeapon().attack(this);
+		if (this.getRangedWeapon() != null ) {
+			if ((this.isAiming() || canAttackOpponent()) && !this.getRangedWeapon().canShoot() && !this.getRangedWeapon().isInCooldown())
+				this.getRangedWeapon().aim(delta);
+			
+			if (!canAttackOpponent() && this.getDistanceToMovableItem(GameGui.getPlayerController().getPlayer()) > 400)
+				this.getRangedWeapon().attack(this);
+		}
 	}
 	
-	protected Boolean shouldMoveTowardPlayer() throws SlickException {
-		int rangePercent = getRangePercentReliatiedPlayer();
+	protected Boolean shouldMoveTowardOpponent() throws SlickException {
+		int rangePercent = getRangePercentReliatiedOpponent();
 		
 		return rangePercent > 50;
 	}
 	
-	protected Boolean shouldMoveAwayFromPlayer() throws SlickException {
-		int rangePercent = getRangePercentReliatiedPlayer();
+	protected Boolean shouldMoveAwayFromOpponent() throws SlickException {
+		int rangePercent = getRangePercentReliatiedOpponent();
 		
 		return rangePercent < 25;
 	}
 	
-	protected int getRangePercentReliatiedPlayer() throws SlickException {
-		float distanceToPlayer = this.getRangeToPlayer();
+	protected int getRangePercentReliatiedOpponent() throws SlickException {
+		float distanceToOpponent = this.getRangeToOpponent();
 		int range = this.getRangedWeapon().getRange();
-		int positionPercent = Math.round(distanceToPlayer/range*100);
+		int positionPercent = Math.round(distanceToOpponent/range*100);
 		
 		return positionPercent;
 	}
 
-	protected void setDirectionToFacePlayer(Boolean lateralShorterDistance) throws SlickException {
-		Direction newDirection = this.getDirectionDependingOnPlayer(lateralShorterDistance);
+	protected void setDirectionToFaceOpponent(Boolean lateralShorterDistance) throws SlickException {
+		Direction newDirection = this.getDirectionDependingOnOpponent(lateralShorterDistance);
 		if (!newDirection.equals(this.direction))
 			this.setDirection(newDirection);
 	}
 	
-	protected void setDirectionToRunFromPlayer() throws SlickException {
-		Direction newDirection = this.getDirectionDependingOnPlayer(false);
+	protected void setDirectionToRunFromOpponent() throws SlickException {
+		Direction newDirection = this.getDirectionDependingOnOpponent(false);
 
 		switch (newDirection) {
 			case DOWN:
@@ -104,14 +119,14 @@ public class Enemy extends Character {
 	}
 	
 	protected void moveInAttackPosition() throws SlickException {
-		this.setDirectionToFacePlayer(true);
+		this.setDirectionToFaceOpponent(true);
 		this.setMoving(true);
 	}
 	
-	protected Direction getDirectionDependingOnPlayer(Boolean lateralShorterDistance) throws SlickException {
-		Player p = GameGui.getPlayerController().getPlayer();
-		float diffX = this.getPosition().getX() - p.getPosition().getX();
-		float diffY = this.getPosition().getY() - p.getPosition().getY();
+	protected Direction getDirectionDependingOnOpponent(Boolean lateralShorterDistance) throws SlickException {
+		Character target = this.getNearestOpponent();
+		float diffX = this.getPosition().getX() - target.getPosition().getX();
+		float diffY = this.getPosition().getY() - target.getPosition().getY();
 		
 		if (lateralShorterDistance ? Math.abs(diffX) <= Math.abs(diffY) : Math.abs(diffX) >= Math.abs(diffY)) {
 			if (diffX <= 0) {
@@ -128,8 +143,10 @@ public class Enemy extends Character {
 		}
 	}
 	
-	protected Boolean canAttackPlayer() throws SlickException {
-		Player p = GameGui.getPlayerController().getPlayer();
+	protected Boolean canAttackOpponent() throws SlickException {
+		Character target = this.getNearestOpponent();
+		if (target == null)
+			return false;
 		float border = (1-PRECISION)/2;
 		float range = this.getRangedWeapon() != null ? this.getRangedWeapon().getRange() : 0;
 		Rectangle enRect = new Rectangle(
@@ -139,14 +156,14 @@ public class Enemy extends Character {
 					this.getSprite().getHeight()*PRECISION
 				);
 		Rectangle pRect = new Rectangle(
-					p.getPosition().getX() + p.getSprite().getWidth()*border, 
-					p.getPosition().getY() + p.getSprite().getHeight()*(border+PRECISION),
-					p.getSprite().getWidth()*PRECISION, 
-					p.getSprite().getHeight()*PRECISION
+				target.getPosition().getX() + target.getSprite().getWidth()*border, 
+				target.getPosition().getY() + target.getSprite().getHeight()*(border+PRECISION),
+				target.getSprite().getWidth()*PRECISION, 
+				target.getSprite().getHeight()*PRECISION
 				);
-		Direction directionToPlayer = this.getDirectionDependingOnPlayer(false);
+		Direction directionToOpponent = this.getDirectionDependingOnOpponent(false);
 
-		switch (directionToPlayer) {
+		switch (directionToOpponent) {
 			case DOWN:
 				enRect.setY(enRect.getY()-range);
 				enRect.setHeight(range);
@@ -186,10 +203,19 @@ public class Enemy extends Character {
 			return null;
 	}
 	
-	protected float getRangeToPlayer() throws SlickException {
-		Player p = GameGui.getPlayerController().getPlayer();
-		float diffX = this.getPosition().getX() - p.getPosition().getX();
-		float diffY = this.getPosition().getY() - p.getPosition().getY();
+	protected Weapon getWeapon() {
+		if (this.primaryWeapon != null && !(this.primaryWeapon instanceof MeleeWeapon) && !(this.primaryWeapon instanceof RangedWeapon)) {
+			return this.primaryWeapon;
+		} else if (this.secondaryWeapon != null && !(this.secondaryWeapon instanceof MeleeWeapon) && !(this.secondaryWeapon instanceof RangedWeapon)) {
+			return this.secondaryWeapon;
+		} else
+			return null;
+	}
+	
+	protected float getRangeToOpponent() throws SlickException {
+		Character target = this.getNearestOpponent();
+		float diffX = this.getPosition().getX() - target.getPosition().getX();
+		float diffY = this.getPosition().getY() - target.getPosition().getY();
 		
 		if (Math.abs(diffX) > Math.abs(diffY)) {
 			return Math.abs(diffX);
@@ -198,7 +224,6 @@ public class Enemy extends Character {
 		}
 	}
 	
-	//@Override
 	public void updateHealth(int health) throws SlickException {
 		super.updateHealth(health);
 		if(isDead()) {

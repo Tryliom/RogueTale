@@ -30,9 +30,7 @@ public class ResolutionButton extends GuiSwitchButton {
 		
 		ArrayList<Vector2f> data = new ArrayList<Vector2f>();
 		data.add(new Vector2f(w, h));
-		data.add(new Vector2f(w*3/2, h*3/2));
 		data.add(new Vector2f(w*2, h*2));
-		data.add(new Vector2f(w*3, h*3));
 		
 		this.selected = data.indexOf(resolution);
 		this.data = data;
