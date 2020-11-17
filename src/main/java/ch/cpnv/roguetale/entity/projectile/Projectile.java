@@ -33,8 +33,8 @@ public abstract class Projectile extends MovableItem implements Temporary {
 	}
 	
 	@Override
-	public void move(int delta, boolean canPush) throws SlickException {
-		super.move(delta, canPush);
+	public void move(int delta) throws SlickException {
+		super.move(delta);
 		remainingTime -= delta;
 	}
 	

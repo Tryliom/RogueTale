@@ -58,21 +58,21 @@ public abstract class Character extends MovableItem implements Damageable {
 		this.removeExpiredStates();
 	}
 	
-	public void move(int delta, boolean canPush) throws SlickException {
+	public void move(int delta) throws SlickException {
 		int oldSpeed = this.speed;
 		if (isAiming()) {
 			this.speed /= 2;
 		}
 		int coeff = this.hasState(Speed.class) ? 10 : 1;
-		super.move(delta * coeff, false);
+		super.move(delta * coeff);
 		Character collidingEntity = getCollidingCharacter();
 		Obstacle collidingObstacle = getCollidingObstacle();
 
 		// Undo the move if there is a collision
 		if (collidingEntity != null && !this.hasState(Phantom.class) && !collidingEntity.hasState(Phantom.class)) {
-			super.move(delta * -1 * coeff, false);
+			super.move(delta * -1 * coeff);
 		} else if (collidingObstacle != null) {
-			super.move(delta * -1 * coeff, false);
+			super.move(delta * -1 * coeff);
 		}
 		
 		this.speed = oldSpeed;
@@ -226,7 +226,10 @@ public abstract class Character extends MovableItem implements Damageable {
 		for (Iterator<State> iterator = this.states.iterator(); iterator.hasNext();) {
 			State state = iterator.next();
 			if (state.isExpired()) {
-				iterator.remove();
+				if (state instanceof Phantom && this.getCollidingCharacter() != null) {
+					state.setDuration(300);
+				} else
+					iterator.remove();
 			}
 		}
 	}

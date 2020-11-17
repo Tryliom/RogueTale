@@ -47,7 +47,7 @@ public abstract class MovableItem extends DrawableItem {
 		return "MovableItem (" + position.x + ", " + position.y + ")";
 	}
 	
-	public void move(int delta, boolean canPush) throws SlickException {
+	public void move(int delta) throws SlickException {
 		float movement = this.speed * delta / 1000f;
 		
 		switch (this.direction) {

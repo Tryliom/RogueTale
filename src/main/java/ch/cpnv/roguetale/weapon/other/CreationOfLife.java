@@ -54,7 +54,7 @@ public class CreationOfLife extends Weapon {
 		if (this.countEnemiesAroundUser(user) < MAX_ENEMIES) {
 			Enemy entity = createRandomEnemy(getRandomNearUser(user));
 			
-			if (entity.getCollidingCharacter() != null && entity.getCollidingObstacle() != null) {
+			if (entity.getCollidingCharacter() != null || entity.getToCreateCollidingCharacter() != null || entity.getCollidingObstacle() != null) {
 				// Respawn somewhere else if spawning on another entity
 				this.spawnEnemies(user);
 			} else {

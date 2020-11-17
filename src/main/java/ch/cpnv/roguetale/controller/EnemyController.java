@@ -45,7 +45,7 @@ public class EnemyController implements Controller {
 		for(Enemy enemy : enemies) {
 			enemy.chooseAction();
 			if (enemy.isMoving())
-				enemy.move(delta, true);
+				enemy.move(delta);
 			enemy.reduceCooldown(delta);
 			enemy.update(delta);
 		}
