@@ -14,7 +14,6 @@ import ch.cpnv.roguetale.entity.obstacle.Obstacle;
 import ch.cpnv.roguetale.entity.obstacle.Rock;
 import ch.cpnv.roguetale.entity.obstacle.Tnt;
 import ch.cpnv.roguetale.entity.obstacle.Vegetation;
-import ch.cpnv.roguetale.entity.projectile.Projectile;
 import ch.cpnv.roguetale.main.Main;
 
 public class MapController implements Controller {

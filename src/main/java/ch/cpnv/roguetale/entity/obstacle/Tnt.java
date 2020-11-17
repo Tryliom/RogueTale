@@ -4,7 +4,7 @@ import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
-import ch.cpnv.roguetale.entity.damageable.NoDamage;
+import ch.cpnv.roguetale.entity.damageable.OneHitDamage;
 
 public class Tnt extends Obstacle {
 	protected static final int DISPLAY_DIMENSION = 32;
@@ -12,8 +12,8 @@ public class Tnt extends Obstacle {
 	
 	public Tnt(Vector2f position) throws SlickException {
 		super(new SpriteSheet(SPRITESHEET_PATH, 48, 48), position);
-		damageStrategy = new NoDamage();
-		this.image = this.spritesheet.getSprite(8, 0);
-		this.image = this.image.getScaledCopy(DISPLAY_DIMENSION, DISPLAY_DIMENSION);
+		damageStrategy = new OneHitDamage();
+		image = spritesheet.getSprite(8, 0);
+		image = image.getScaledCopy(DISPLAY_DIMENSION, DISPLAY_DIMENSION);
 	}
 }
