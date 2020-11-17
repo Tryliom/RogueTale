@@ -5,6 +5,8 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
 import ch.cpnv.roguetale.entity.character.Player;
+import ch.cpnv.roguetale.sound.SoundManager;
+import ch.cpnv.roguetale.sound.SoundType;
 
 public class PickupableLifePoint extends PickupableItem {
 	protected static final int DISPLAY_DIMENSION = 24;
@@ -18,7 +20,7 @@ public class PickupableLifePoint extends PickupableItem {
 	@Override
 	public void pickup(Player player) throws SlickException {		
 		super.pickup(player);
-		
+		SoundManager.getInstance().play(SoundType.LifePickup, 0.2f);
 		player.heal(1);
 	}
 }
