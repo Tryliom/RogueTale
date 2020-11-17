@@ -6,12 +6,13 @@ import org.newdawn.slick.SpriteSheet;
 
 import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.entity.character.Enemy;
-import ch.cpnv.roguetale.entity.pickupableitem.PickupableLifePoint;
+import ch.cpnv.roguetale.entity.pickupableitem.PickupableWeapon;
 import ch.cpnv.roguetale.gui.guis.GameGui;
 import ch.cpnv.roguetale.sound.SoundManager;
 import ch.cpnv.roguetale.sound.SoundType;
 import ch.cpnv.roguetale.weapon.Weapon;
 import ch.cpnv.roguetale.weapon.other.CreationOfLife;
+import ch.cpnv.roguetale.weapon.ranged.Cannon;
 
 public class Invocator extends Enemy {
 	private static final int SPEED = 0;
@@ -30,7 +31,7 @@ public class Invocator extends Enemy {
 	
 	public void die() throws SlickException {
 		super.die();
-		GameGui.getPickupableItemController().addPickupableItem(new PickupableLifePoint(position));
+		GameGui.getPickupableItemController().addPickupableItem(new PickupableWeapon(new Cannon(), position));
 		SoundManager.getInstance().play(SoundType.RobotDeath, 5f);
 	}
 	

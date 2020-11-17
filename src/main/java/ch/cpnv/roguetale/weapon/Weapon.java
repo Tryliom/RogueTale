@@ -8,7 +8,7 @@ import ch.cpnv.roguetale.entity.character.Character;
 public abstract class Weapon {	
 	protected String name;
 	protected int damage;
-	// Cooldown in miliseconds
+	// Cooldown in milliseconds
 	protected int cooldown;
 	protected int currentCooldown;
 	protected Image icon;
