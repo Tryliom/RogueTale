@@ -12,6 +12,7 @@ import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.entity.obstacle.Obstacle;
 import ch.cpnv.roguetale.entity.obstacle.Rock;
+import ch.cpnv.roguetale.entity.obstacle.Tnt;
 import ch.cpnv.roguetale.entity.obstacle.Vegetation;
 import ch.cpnv.roguetale.entity.projectile.Projectile;
 import ch.cpnv.roguetale.main.Main;
@@ -82,7 +83,10 @@ public class MapController implements Controller {
 					Obstacle newObstacle = null;
 					if(random < 0.02) {
 						newObstacle = new Rock(obstaclePosition);
-					} else if(random < 0.1) {
+					} 
+					else if(random < 0.03) {
+						newObstacle = new Tnt(obstaclePosition);
+					}else if(random < 0.1) {
 						newObstacle = new Vegetation(obstaclePosition);
 					}
 					
