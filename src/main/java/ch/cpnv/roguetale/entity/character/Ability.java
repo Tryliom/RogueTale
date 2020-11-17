@@ -25,7 +25,7 @@ public class Ability {
 	public void onUse(Character user) throws SlickException {}
 	
 	public void update(int delta, Character user) throws SlickException {
-		if (this.canUse())
+		if (!this.canUse())
 			this.currentCooldown -= delta;
 		if (this.isUsing()) {
 			this.onUse(user);
@@ -34,11 +34,11 @@ public class Ability {
 	}
 	
 	public Boolean canUse() {
-		return this.currentCooldown != 0;
+		return this.currentCooldown <= 0;
 	}
 
 	public Boolean isUsing() {
-		return this.currentDuration != 0;
+		return this.currentDuration <= 0;
 	}
 
 	public String getName() {

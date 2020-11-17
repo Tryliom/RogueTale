@@ -13,6 +13,7 @@ import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.entity.MovableItem;
 import ch.cpnv.roguetale.entity.character.states.Invincible;
 import ch.cpnv.roguetale.entity.character.states.Phantom;
+import ch.cpnv.roguetale.entity.character.states.Speed;
 import ch.cpnv.roguetale.entity.damageable.Damageable;
 import ch.cpnv.roguetale.entity.damageable.HpDamage;
 import ch.cpnv.roguetale.entity.obstacle.Obstacle;
@@ -62,21 +63,16 @@ public abstract class Character extends MovableItem implements Damageable {
 		if (isAiming()) {
 			this.speed /= 2;
 		}
-		super.move(delta, false);
+		int coeff = this.hasState(Speed.class) ? 10 : 1;
+		super.move(delta * coeff, false);
 		Character collidingEntity = getCollidingCharacter();
 		Obstacle collidingObstacle = getCollidingObstacle();
-		// undo the move if there is a collision
-		if (collidingEntity != null && this.hasState(Phantom.class)) {
-			Direction old = collidingEntity.getDirection();
-			collidingEntity.setDirection(this.getDirection());
-			// We don't want to create an infinite loop, 
-			// so we really don't want to reuse this.move
-			super.move(delta * -1, false);
-			if (canPush)
-				collidingEntity.move(delta, false);
-			collidingEntity.setDirection(old);
-		} else if(collidingObstacle != null) {
-			super.move(delta * -1, false);
+
+		// Undo the move if there is a collision
+		if (collidingEntity != null && !this.hasState(Phantom.class) && !collidingEntity.hasState(Phantom.class)) {
+			super.move(delta * -1 * coeff, false);
+		} else if (collidingObstacle != null) {
+			super.move(delta * -1 * coeff, false);
 		}
 		
 		this.speed = oldSpeed;
@@ -93,6 +89,8 @@ public abstract class Character extends MovableItem implements Damageable {
 	
 	@Override
 	public void damage(int damage) {
+		if (this.hasState(Invincible.class))
+			return;
 		try {
 			this.activeEffects.add(new Damage(this.getPosition()));
 			SoundManager.getInstance().play(SoundType.Hurt);

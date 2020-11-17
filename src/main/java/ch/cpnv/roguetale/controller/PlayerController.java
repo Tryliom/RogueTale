@@ -10,6 +10,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.entity.Direction;
+import ch.cpnv.roguetale.entity.character.Ability;
 import ch.cpnv.roguetale.entity.character.Player;
 import ch.cpnv.roguetale.entity.pickupableitem.PickupableItem;
 import ch.cpnv.roguetale.gui.guis.GameGui;
@@ -19,6 +20,7 @@ import ch.cpnv.roguetale.weapon.ranged.Bow;
 public class PlayerController implements Controller {
 	private Player player;
 	private final HashMap<Integer, Direction> MOVING_KEYS = new HashMap<Integer, Direction>();
+	private final HashMap<Integer, Ability> ABILITY_KEYS = new HashMap<Integer, Ability>();
 
 	public PlayerController() throws SlickException {
 		// Put Input key who equals to direction
@@ -30,6 +32,7 @@ public class PlayerController implements Controller {
 		this.MOVING_KEYS.put(Input.KEY_LEFT, Direction.LEFT);
 		this.MOVING_KEYS.put(Input.KEY_RIGHT, Direction.RIGHT);
 		this.MOVING_KEYS.put(Input.KEY_DOWN, Direction.DOWN);
+		
 		this.player = new Player( 
 				new Vector2f(0,0), 
 				150, 
@@ -37,6 +40,8 @@ public class PlayerController implements Controller {
 				false, 
 				new Knife(),
 				new Bow());
+		
+		this.ABILITY_KEYS.put(Input.KEY_LSHIFT, this.player.getDash());
 	}
 	
 	@Override
@@ -69,6 +74,10 @@ public class PlayerController implements Controller {
 			this.player.setDirection(MOVING_KEYS.get(key));
 			this.player.setMoving(true);
 		}
+		
+		if (this.ABILITY_KEYS.containsKey(key)) {
+			this.ABILITY_KEYS.get(key).activate(this.player);
+		}
 	}
 	
 	@Override
@@ -76,10 +85,6 @@ public class PlayerController implements Controller {
 		// If direction key is released, check that other key are not pressed to disallowing player to move unless change direction of player
 		if (this.MOVING_KEYS.containsKey(key)) {
 			updateDirection(gc);
-		} else if (Input.KEY_Q == key) {
-			player.attackWithWeapon(player.getPrimaryWeapon());
-		} else if (Input.KEY_E == key) {
-			player.attackWithWeapon(player.getSecondaryWeapon());
 		}
 	}
 	

@@ -28,7 +28,7 @@ public class State {
 	}
 	
 	public boolean isExpired() {
-		return this.duration == 0;
+		return this.duration <= 0;
 	}
 
 }

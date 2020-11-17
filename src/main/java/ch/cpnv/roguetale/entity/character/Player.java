@@ -7,6 +7,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
 import ch.cpnv.roguetale.entity.Direction;
+import ch.cpnv.roguetale.entity.character.abilities.Dash;
 import ch.cpnv.roguetale.weapon.Weapon;
 
 public class Player extends Character {
@@ -37,12 +38,23 @@ public class Player extends Character {
 		level = 1;
 		currentExp = 0;
 		maxExp = 100;
+		this.abilities.add(new Dash());
 		this.initDeathAnimation();
 	}
 
 	private void initDeathAnimation() throws SlickException {
 		this.deathAnimation = new Animation(new SpriteSheet(new Image(DEAD_ANIMATION), SPRITESHEET_DIMENSIONS, SPRITESHEET_DIMENSIONS), animationLength);
 		
+	}
+	
+	public Dash getDash() {
+		for (Ability ability : this.abilities) {
+			if (ability instanceof Dash) {
+				return (Dash) ability;
+			}
+		}
+			
+		return null;
 	}
 	
 	public static SpriteSheet getSpriteSheet() throws SlickException {
