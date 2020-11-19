@@ -23,7 +23,8 @@ public class CreationOfLife extends Weapon {
 	
 	public void attack(Character attacker) throws SlickException {		
 		if (canAttack()) {
-			this.spawnEnemies(attacker);
+			// Max 10 tries to spawn entity
+			this.spawnEnemies(attacker, 10);
 		}
 		
 		super.attack(attacker);
@@ -50,13 +51,14 @@ public class CreationOfLife extends Weapon {
 		return position;
 	}
 
-	private void spawnEnemies(Character user) throws SlickException {
+	private void spawnEnemies(Character user, int maxTries) throws SlickException {
 		if (this.countEnemiesAroundUser(user) < MAX_ENEMIES) {
 			Enemy entity = createRandomEnemy(getRandomNearUser(user));
 			
 			if (entity.getCollidingCharacter() != null || entity.getToCreateCollidingCharacter() != null || entity.getCollidingObstacle() != null) {
 				// Respawn somewhere else if spawning on another entity
-				this.spawnEnemies(user);
+				if (maxTries > 0)
+					this.spawnEnemies(user, maxTries-1);
 			} else {
 				entity.setFaction(user.getFaction());
 				GameGui.getEnemyController().addEnemyToAdd(entity);
