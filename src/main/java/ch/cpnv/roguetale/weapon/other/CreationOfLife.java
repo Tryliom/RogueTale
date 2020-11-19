@@ -24,7 +24,7 @@ public class CreationOfLife extends Weapon {
 	public void attack(Character attacker) throws SlickException {		
 		if (canAttack()) {
 			// Max 10 tries to spawn entity
-			this.spawnEnemies(attacker, 10);
+			this.spawnEnemies(attacker, 100);
 		}
 		
 		super.attack(attacker);
