@@ -228,7 +228,7 @@ public abstract class Character extends MovableItem implements Damageable {
 			if (state.isExpired()) {
 				// Add 100ms to effect if the user is inside an entity
 				if (state instanceof Phantom && this.getCollidingCharacter() != null) {
-					state.setDuration(100);
+					state.updateRemainingTime(100);
 				} else
 					iterator.remove();
 			}

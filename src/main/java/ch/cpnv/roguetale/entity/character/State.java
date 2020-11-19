@@ -1,12 +1,14 @@
 package ch.cpnv.roguetale.entity.character;
 
-public class State {
+import ch.cpnv.roguetale.entity.temporaryeffect.Temporary;
+
+public class State implements Temporary {
 	private String name;
-	private int duration;
+	private int remainingTime;
 	
-	protected State(String name, int duration) {
+	protected State(String name, int remainingTime) {
 		this.name = name;
-		this.duration = duration;
+		this.remainingTime = remainingTime;
 	}
 	
 	public String getName() {
@@ -15,20 +17,30 @@ public class State {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getDuration() {
-		return duration;
-	}
-	public void setDuration(int duration) {
-		this.duration = duration;
-	}
 	
 	public void update(int delta) {
-		if (!this.isExpired())
-			this.duration -= delta;
+		this.updateRemainingTime(-delta);
 	}
-	
-	public boolean isExpired() {
-		return this.duration <= 0;
+
+	@Override
+	public int getRemainingTime() {
+		return this.remainingTime;
+	}
+
+	@Override
+	public void setRemainingTime(int remainingTime) {
+		this.remainingTime = remainingTime;
+		
+	}
+
+	@Override
+	public void updateRemainingTime(int delta) {
+		remainingTime += delta;
+	}
+
+	@Override
+	public Boolean isExpired() {
+		return this.remainingTime <= 0;
 	}
 
 }
