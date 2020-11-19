@@ -34,7 +34,6 @@ public class InGameMenuGui extends Gui {
 
 		this.buttonList.add(new OptionButton(w/2, h/3, this));		
 		this.buttonList.add(new ReturnButton(w/2, h*2/3, this));
-		
 	}
 	
 	public void render(GameContainer gc, Graphics g, Vector2f origin) throws SlickException {
