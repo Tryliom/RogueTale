@@ -1,6 +1,7 @@
 package ch.cpnv.roguetale.entity.character;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.Color;
@@ -10,6 +11,11 @@ import org.newdawn.slick.SpriteSheet;
 
 import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.entity.MovableItem;
+import ch.cpnv.roguetale.entity.character.states.Invincible;
+import ch.cpnv.roguetale.entity.character.states.Phantom;
+import ch.cpnv.roguetale.entity.character.states.Speed;
+import ch.cpnv.roguetale.entity.damageable.Damageable;
+import ch.cpnv.roguetale.entity.damageable.HpDamage;
 import ch.cpnv.roguetale.entity.obstacle.Obstacle;
 import ch.cpnv.roguetale.entity.temporaryeffect.itemeffect.effects.Damage;
 import ch.cpnv.roguetale.entity.temporaryeffect.itemeffect.effects.Heal;
@@ -19,12 +25,13 @@ import ch.cpnv.roguetale.sound.SoundType;
 import ch.cpnv.roguetale.weapon.RangedWeapon;
 import ch.cpnv.roguetale.weapon.Weapon;
 
-public abstract class Character extends MovableItem {
-	protected int currentHealth;
-	protected int maxHealth;
+public abstract class Character extends MovableItem implements Damageable {
 	protected Weapon primaryWeapon;
 	protected Weapon secondaryWeapon;
 	protected Faction faction;
+	protected HpDamage hpDamageStrategy;
+	protected ArrayList<State> states = new ArrayList<State>();
+	protected ArrayList<Ability> abilities = new ArrayList<Ability>();
 
 	public Character(SpriteSheet ss, 
 			Vector2f position, 
@@ -36,33 +43,36 @@ public abstract class Character extends MovableItem {
 			int maxHealth
 			) {
 		super(ss, position, speed, direction, moving);
+		hpDamageStrategy = new HpDamage(maxHealth);
 		this.primaryWeapon = primaryWeapon;
 		this.secondaryWeapon = secondaryWeapon;
-		this.maxHealth = maxHealth;
-		this.currentHealth = maxHealth;
 		this.faction = new Faction();
 	}
 	
-	public void move(int delta, boolean canPush) throws SlickException {
+	public void update(int delta) throws SlickException {
+		super.update(delta);
+		for (State state : this.states)
+			state.update(delta);
+		for (Ability ability : this.abilities)
+			ability.update(delta, this);
+		this.removeExpiredStates();
+	}
+	
+	public void move(int delta) throws SlickException {
 		int oldSpeed = this.speed;
 		if (isAiming()) {
 			this.speed /= 2;
 		}
-		super.move(delta, false);
+		int coeff = this.hasState(Speed.class) ? 10 : 1;
+		super.move(delta * coeff);
 		Character collidingEntity = getCollidingCharacter();
 		Obstacle collidingObstacle = getCollidingObstacle();
-		// undo the move if there is a collision
-		if (collidingEntity != null) {
-			Direction old = collidingEntity.getDirection();
-			collidingEntity.setDirection(this.getDirection());
-			// We don't want to create an infinite loop, 
-			// so we really don't want to reuse this.move
-			super.move(delta * -1, false);
-			if (canPush)
-				collidingEntity.move(delta, false);
-			collidingEntity.setDirection(old);
-		} else if(collidingObstacle != null) {
-			super.move(delta * -1, false);
+
+		// Undo the move if there is a collision
+		if (collidingEntity != null && !this.hasState(Phantom.class) && !collidingEntity.hasState(Phantom.class)) {
+			super.move(delta * -1 * coeff);
+		} else if (collidingObstacle != null) {
+			super.move(delta * -1 * coeff);
 		}
 		
 		this.speed = oldSpeed;
@@ -77,12 +87,41 @@ public abstract class Character extends MovableItem {
 			super.draw(origin, gc, filter);
 	}
 	
+	@Override
+	public void damage(int damage) {
+		if (this.hasState(Invincible.class))
+			return;
+		try {
+			this.activeEffects.add(new Damage(this.getPosition()));
+			SoundManager.getInstance().play(SoundType.Hurt);
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
+		hpDamageStrategy.damage(damage);
+	};
+	@Override
+	public void heal(int heal) {
+		hpDamageStrategy.heal(heal);
+		try {
+			this.activeEffects.add(new Heal(this.getPosition()));
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
+	};
+	@Override
+	public Boolean isDead() {
+		return hpDamageStrategy.isDead();
+	};
+	
 	public int getCurrentHealth() {
-		return currentHealth;
+		return hpDamageStrategy.getCurrentHealth();
 	}
-
 	public int getMaxHealth() {
-		return maxHealth;
+		return hpDamageStrategy.getMaxHealth();
+	}
+	
+	public void updateMaxHealth(int health) throws SlickException {
+		hpDamageStrategy.updateMaxHealth(health);
 	}
 
 	public void setPrimaryWeapon(Weapon weapon) {
@@ -99,26 +138,6 @@ public abstract class Character extends MovableItem {
 
 	public Weapon getSecondaryWeapon() {
 		return secondaryWeapon;
-	}
-
-	// TODO prevent currentHealth to become higher than maxHealth
-	public void updateHealth(int health) throws SlickException {
-		if (health > 0) {
-			this.activeEffects.add(new Heal(this.getPosition()));
-		} else if (health < 0) {
-			SoundManager.getInstance().play(SoundType.Hurt);
-			this.activeEffects.add(new Damage(this.getPosition()));
-		}
-		this.currentHealth += health;
-	}
-	
-	public void updateMaxHealth(int health) throws SlickException {
-		maxHealth += health;
-		updateHealth(health);
-	}
-	
-	public Boolean isDead() {
-		return this.currentHealth <= 0;
 	}
 	
 	public void aimWeapon(Weapon weapon, int delta) {
@@ -179,5 +198,40 @@ public abstract class Character extends MovableItem {
 
 	public void setFaction(Faction faction) {
 		this.faction = faction;
+	}
+	
+	public void addState(State state) {
+		this.states.add(state);
+	}
+	
+	public void addAbility(Ability ability) {
+		this.abilities.add(ability);
+	}
+	
+	/*
+	 * Check if character is in a certain state
+	 * Class<?> cls		State class
+	 */
+	public boolean hasState(Class<?> cls) {
+		for (State state : this.states) {
+			if (cls.isInstance(state)) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	private void removeExpiredStates() throws SlickException {
+		for (Iterator<State> iterator = this.states.iterator(); iterator.hasNext();) {
+			State state = iterator.next();
+			if (state.isExpired()) {
+				// Add 100ms to effect if the user is inside an entity
+				if (state instanceof Phantom && this.getCollidingCharacter() != null) {
+					state.setDuration(100);
+				} else
+					iterator.remove();
+			}
+		}
 	}
 }

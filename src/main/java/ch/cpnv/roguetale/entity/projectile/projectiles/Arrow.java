@@ -90,7 +90,7 @@ public class Arrow extends Projectile {
 	public void meetCharacter(Character touchedCharacter) throws SlickException {
 		super.meetCharacter(touchedCharacter);
 		// More planted in character
-		this.move(50, false);
+		this.move(50);
 		touchedCharacter.addActiveEffect(new PlantedArrow(position, direction, touchedCharacter));
 	}
 }

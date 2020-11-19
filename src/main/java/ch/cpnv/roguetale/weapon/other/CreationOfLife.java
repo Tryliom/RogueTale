@@ -6,8 +6,8 @@ import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.entity.character.Character;
 import ch.cpnv.roguetale.entity.character.Enemy;
-import ch.cpnv.roguetale.entity.character.enemy.Bomber;
-import ch.cpnv.roguetale.entity.character.enemy.Robot;
+import ch.cpnv.roguetale.entity.character.enemies.Bomber;
+import ch.cpnv.roguetale.entity.character.enemies.Robot;
 import ch.cpnv.roguetale.gui.guis.GameGui;
 import ch.cpnv.roguetale.weapon.Weapon;
 
@@ -54,7 +54,7 @@ public class CreationOfLife extends Weapon {
 		if (this.countEnemiesAroundUser(user) < MAX_ENEMIES) {
 			Enemy entity = createRandomEnemy(getRandomNearUser(user));
 			
-			if (entity.getCollidingCharacter() != null && entity.getCollidingObstacle() != null) {
+			if (entity.getCollidingCharacter() != null || entity.getToCreateCollidingCharacter() != null || entity.getCollidingObstacle() != null) {
 				// Respawn somewhere else if spawning on another entity
 				this.spawnEnemies(user);
 			} else {

@@ -9,9 +9,9 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.entity.character.Character;
+import ch.cpnv.roguetale.entity.character.states.Phantom;
 import ch.cpnv.roguetale.entity.obstacle.Obstacle;
 import ch.cpnv.roguetale.entity.projectile.Projectile;
-import ch.cpnv.roguetale.gui.guis.GameGui;
 
 public class ProjectileController implements Controller {
 	private final ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
@@ -54,14 +54,14 @@ public class ProjectileController implements Controller {
 	
 	private void moveProjectiles(int delta) throws SlickException {
 		for(Projectile projectile : projectiles) {
-			projectile.move(delta, false);
+			projectile.move(delta);
 		}
 	}
 	
 	private void collideProjectiles() throws SlickException {		
 		for(Projectile projectile : projectiles) {
 			Character hit = projectile.getCollidingCharacter();			
-			if(hit != null) {
+			if(hit != null && !hit.hasState(Phantom.class)) {
 				projectile.meetCharacter(hit);
 			}
 		}

@@ -1,6 +1,7 @@
 package ch.cpnv.roguetale.controller;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Vector;
 
 import org.lwjgl.util.vector.Vector2f;
@@ -11,6 +12,8 @@ import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.entity.obstacle.Obstacle;
 import ch.cpnv.roguetale.entity.obstacle.Rock;
+import ch.cpnv.roguetale.entity.obstacle.Tnt;
+import ch.cpnv.roguetale.entity.obstacle.Vegetation;
 import ch.cpnv.roguetale.main.Main;
 
 public class MapController implements Controller {
@@ -76,15 +79,24 @@ public class MapController implements Controller {
 					
 					Vector2f obstaclePosition = (Vector2f) new Vector2f(newPosition).scale(TILE_DIMENSION);
 					double random = Math.random();
-					if(random < 0.1) {
-						Rock rock = new Rock(obstaclePosition);
-						if(rock.getCollidingCharacter() == null) {
-							obstacles.add(rock);
-						}
+					Obstacle newObstacle = null;
+					if(random < 0.02) {
+						newObstacle = new Rock(obstaclePosition);
+					} 
+					else if(random < 0.03) {
+						newObstacle = new Tnt(obstaclePosition);
+					}else if(random < 0.1) {
+						newObstacle = new Vegetation(obstaclePosition);
+					}
+					
+					if(newObstacle != null && newObstacle.getCollidingCharacter() == null) {
+						obstacles.add(newObstacle);
 					}
 				}
 			}
 		}
+		
+		removeDeadObstacles();
 	}
 	
 	public ArrayList<Obstacle> getObstacles() {
@@ -129,6 +141,16 @@ public class MapController implements Controller {
 	public void mouseReleased(int button, int x, int y) throws SlickException {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	private void removeDeadObstacles() throws SlickException {
+		for(Iterator<Obstacle> iterator = obstacles.iterator(); iterator.hasNext();) {
+			Obstacle obstacle = iterator.next();
+			if (obstacle.isDead()) {
+				obstacle.onDeath();
+				iterator.remove();
+			}
+		}
 	}
 	
 }

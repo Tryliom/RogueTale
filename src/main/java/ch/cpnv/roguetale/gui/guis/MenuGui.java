@@ -8,7 +8,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.entity.character.Player;
-import ch.cpnv.roguetale.entity.character.enemy.Bomber;
+import ch.cpnv.roguetale.entity.character.enemies.Bomber;
 import ch.cpnv.roguetale.gui.Gui;
 import ch.cpnv.roguetale.gui.button.buttons.OptionButton;
 import ch.cpnv.roguetale.gui.button.buttons.PlayButton;

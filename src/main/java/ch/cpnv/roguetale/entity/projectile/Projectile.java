@@ -33,8 +33,8 @@ public abstract class Projectile extends MovableItem implements Temporary {
 	}
 	
 	@Override
-	public void move(int delta, boolean canPush) throws SlickException {
-		super.move(delta, canPush);
+	public void move(int delta) throws SlickException {
+		super.move(delta);
 		remainingTime -= delta;
 	}
 	
@@ -65,11 +65,12 @@ public abstract class Projectile extends MovableItem implements Temporary {
 	}
 	
 	public void meetCharacter(Character touchedCharacter) throws SlickException {
-		touchedCharacter.updateHealth(-damage);
+		touchedCharacter.damage(damage);
 		remainingTime = 0;
 	}
 	
 	public void meetObstacle(Obstacle touchedObstacle) {
+		touchedObstacle.damage(damage);
 		remainingTime = 0;
 	}
 	
