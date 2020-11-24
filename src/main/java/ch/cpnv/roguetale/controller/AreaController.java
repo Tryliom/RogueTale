@@ -9,9 +9,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.entity.DrawableItem;
-import ch.cpnv.roguetale.entity.character.Character;
 import ch.cpnv.roguetale.entity.damageable.Damageable;
-import ch.cpnv.roguetale.entity.obstacle.Obstacle;
 import ch.cpnv.roguetale.entity.temporaryeffect.areaofeffect.AreaOfEffect;
 import ch.cpnv.roguetale.gui.guis.GameGui;
 

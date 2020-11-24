@@ -1,4 +1,4 @@
-package ch.cpnv.roguetale.entity.character.states;
+package ch.cpnv.roguetale.entity.character.states.buff;
 
 import ch.cpnv.roguetale.entity.character.State;
 

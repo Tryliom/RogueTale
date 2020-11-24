@@ -13,7 +13,7 @@ public class ItemEffect extends TemporaryEffect {
 		this.foreground = foreground;
 	}
 
-	public Boolean getForeground() {
+	public Boolean isForeground() {
 		return foreground;
 	}
 

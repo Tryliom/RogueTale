@@ -11,9 +11,10 @@ import org.newdawn.slick.SpriteSheet;
 
 import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.entity.MovableItem;
-import ch.cpnv.roguetale.entity.character.states.Invincible;
-import ch.cpnv.roguetale.entity.character.states.Phantom;
-import ch.cpnv.roguetale.entity.character.states.Speed;
+import ch.cpnv.roguetale.entity.character.states.buff.Invincible;
+import ch.cpnv.roguetale.entity.character.states.buff.Phantom;
+import ch.cpnv.roguetale.entity.character.states.buff.Speed;
+import ch.cpnv.roguetale.entity.character.states.debuff.Slowness;
 import ch.cpnv.roguetale.entity.damageable.Damageable;
 import ch.cpnv.roguetale.entity.damageable.HpDamage;
 import ch.cpnv.roguetale.entity.obstacle.Obstacle;
@@ -60,10 +61,18 @@ public abstract class Character extends MovableItem implements Damageable {
 	
 	public void move(int delta) throws SlickException {
 		int oldSpeed = this.speed;
-		if (isAiming()) {
-			this.speed /= 2;
+		// Apply slowness
+		if (this.hasState(Slowness.class)) {
+			Slowness slow = (Slowness) this.getState(Slowness.class);
+			this.speed *= slow.getSlowness()/100f;
 		}
-		int coeff = this.hasState(Speed.class) ? 10 : 1;
+		int coeff = 1;
+		// Apply coeffient of speed
+		if (this.hasState(Speed.class)) {
+			Speed speed = (Speed) this.getState(Speed.class);
+			coeff = speed.getSpeed();
+		}
+		// Move
 		super.move(delta * coeff);
 		Character collidingEntity = getCollidingCharacter();
 		Obstacle collidingObstacle = getCollidingObstacle();
@@ -140,9 +149,9 @@ public abstract class Character extends MovableItem implements Damageable {
 		return secondaryWeapon;
 	}
 	
-	public void aimWeapon(Weapon weapon, int delta) {
-		if (weapon != null && weapon instanceof RangedWeapon) {
-			((RangedWeapon) weapon).aim(delta);
+	public void aimWeapon(Weapon weapon, int delta) throws SlickException {
+		if (weapon != null) {
+			weapon.aim(delta, this);
 		}
 	}
 	
@@ -220,6 +229,20 @@ public abstract class Character extends MovableItem implements Damageable {
 		}
 		
 		return false;
+	}
+	
+	/*
+	 * Return a state based on his class
+	 * Class<?> cls		State class
+	 */
+	public State getState(Class<?> cls) {
+		for (State state : this.states) {
+			if (cls.isInstance(state)) {
+				return state;
+			}
+		}
+		
+		return null;
 	}
 	
 	private void removeExpiredStates() throws SlickException {

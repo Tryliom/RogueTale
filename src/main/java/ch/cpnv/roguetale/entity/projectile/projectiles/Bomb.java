@@ -29,10 +29,10 @@ public class Bomb extends Projectile {
 		this.image = this.image.getScaledCopy(WIDTH, HEIGHT);
 		this.setImageDirection();
 	}
-	
-	@Override
-	protected void setImageDirection() {}
 
+	@Override
+	public void setImageDirection() {}
+	
 	public Bomb(Character attacker, Direction direction, int range, int damage) throws SlickException {
 		this(attacker.getPosition(), direction, range, damage);
 		this.setPositionFromCharacter(attacker, direction);
