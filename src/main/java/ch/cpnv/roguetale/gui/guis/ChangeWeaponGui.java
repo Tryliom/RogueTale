@@ -7,6 +7,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.gui.Gui;
+import ch.cpnv.roguetale.gui.button.buttons.KeepWeaponsButton;
 import ch.cpnv.roguetale.main.Main;
 
 public class ChangeWeaponGui extends Gui {
@@ -15,8 +16,11 @@ public class ChangeWeaponGui extends Gui {
 	
 	public ChangeWeaponGui(Gui prevGui) {
 		super(prevGui);
+		int width = Main.BASE_WIDTH,
+			height = Main.BASE_HEIGHT;
 		try {
 			this.background = new Image(PATH_PANEL);
+			this.buttonList.add(new KeepWeaponsButton(width/2, height/2, this));
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
