@@ -17,6 +17,8 @@ public abstract class RangedWeapon extends Weapon {
 		if (this.canAttack()) {
 			super.attack(attacker);
 		}
+		
+		this.resetAim();
 	}
 	
 	public int getRange() {
