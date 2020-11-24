@@ -9,7 +9,7 @@ import ch.cpnv.roguetale.entity.character.states.debuff.Slowness;
 public abstract class Weapon {	
 	protected String name;
 	protected int damage;
-	// Cooldown in miliseconds
+	// Cooldown in milliseconds
 	protected int cooldown;
 	protected int currentCooldown;
 	protected int minChargeTime;
