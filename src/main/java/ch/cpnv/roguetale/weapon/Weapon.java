@@ -106,7 +106,7 @@ public abstract class Weapon {
 		}
 	}
 	
-	public void aim(int delta, Character user) {
+	public void aim(int delta, Character user) throws SlickException {
 		user.addState(new Slowness(delta, 50));
 		this.currentChargeTime += delta;
 	}

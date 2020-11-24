@@ -149,7 +149,7 @@ public abstract class Character extends MovableItem implements Damageable {
 		return secondaryWeapon;
 	}
 	
-	public void aimWeapon(Weapon weapon, int delta) {
+	public void aimWeapon(Weapon weapon, int delta) throws SlickException {
 		if (weapon != null) {
 			weapon.aim(delta, this);
 		}

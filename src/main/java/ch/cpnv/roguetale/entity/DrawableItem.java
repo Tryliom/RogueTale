@@ -99,7 +99,7 @@ public abstract class DrawableItem {
 		if (isInScreen(gc, origin)) {
 			for (ItemEffect item : this.activeEffects) {
 				item.setPosition(this.getPosition());
-				if (!item.getForeground()) {
+				if (!item.isForeground()) {
 					item.draw(origin, gc);
 				}
 			}
@@ -116,7 +116,7 @@ public abstract class DrawableItem {
 			}
 			
 			for (ItemEffect item : this.activeEffects) {
-				if (item.getForeground())
+				if (item.isForeground())
 					item.draw(origin, gc);
 			}
 		}
