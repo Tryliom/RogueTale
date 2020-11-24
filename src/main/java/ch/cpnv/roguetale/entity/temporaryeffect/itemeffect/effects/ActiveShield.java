@@ -14,7 +14,7 @@ public class ActiveShield extends ItemEffect {
 	private float offsetY;
 
 	public ActiveShield(Vector2f position, int remainingTime, Direction direction, int offsetX, int offsetY) throws SlickException {
-		super(new SpriteSheet(DEFAULT_PATH, 30, 30, 0), position, remainingTime, true);
+		super(new SpriteSheet(DEFAULT_PATH, 64, 64, 0), position, remainingTime, true);
 		initImage(direction);
 		this.offsetX = offsetX;
 		this.offsetY = offsetY;
@@ -32,7 +32,7 @@ public class ActiveShield extends ItemEffect {
 				this.image.rotate(90);
 				break;
 			case DOWN:
-				this.image = new SpriteSheet(ICON_PATH, 32, 32, 0).getSprite(0, 0);
+				this.image = new SpriteSheet(ICON_PATH, 30, 30, 0).getSprite(0, 0);
 				break;
 			case LEFT:
 				break;

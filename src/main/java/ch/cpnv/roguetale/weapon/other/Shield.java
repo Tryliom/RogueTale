@@ -29,9 +29,12 @@ public class Shield extends Weapon {
 	
 	@Override
 	public void aim(int delta, Character user) throws SlickException {
+		if (!isInCooldown()) {
+			user.addState(new CancelProjectiles(delta, this.luckCancelProjectiles));
+			this.addActiveShieldEffect(delta, user);
+		}
+		
 		super.aim(delta, user);
-		user.addState(new CancelProjectiles(delta, this.luckCancelProjectiles));
-		this.addActiveShieldEffect(delta, user);
 	}
 	
 	public void addActiveShieldEffect(int time, Character user) throws SlickException {
@@ -46,10 +49,11 @@ public class Shield extends Weapon {
 				offsetX = 20;
 				break;
 			case RIGHT:
-				offsetX = -20;
+				offsetX = -17;
 				break;
 			case UP:
-				offsetY = -25;
+				offsetY = -30;
+				offsetX = 6;
 				break;
 		
 		}
