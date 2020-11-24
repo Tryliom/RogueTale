@@ -23,7 +23,8 @@ public class PickupableWeapon extends PickupableItem {
 	public void pickup(Player player) throws SlickException {		
 		super.pickup(player);
 		GuiController.getInstance().setDisplayGui(
-				new ChangeWeaponGui(GuiController.getInstance().getDisplayGui()));
+				new ChangeWeaponGui(GuiController.getInstance().getDisplayGui(), 
+						weapon));
 	}
 	
 	public Weapon getWeapon() {
