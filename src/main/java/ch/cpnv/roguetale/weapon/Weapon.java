@@ -11,14 +11,19 @@ public abstract class Weapon {
 	// Cooldown in miliseconds
 	protected int cooldown;
 	protected int currentCooldown;
+	protected int minChargeTime;
+	protected int maxChargeTime;
+	protected int currentChargeTime;
 	protected Image icon;
 	
-	public Weapon(String name, int damage, int cooldown, Image icon) {
-		super();
+	public Weapon(String name, int damage, int cooldown, int minChargeTime, int maxChargeTime, Image icon) {
 		this.name = name;
 		this.damage = damage;
 		this.cooldown = cooldown;
 		this.icon = icon;
+		this.minChargeTime = minChargeTime;
+		this.maxChargeTime = maxChargeTime;
+		this.currentChargeTime = 0;
 		currentCooldown = 0;
 	}
 	
@@ -65,5 +70,56 @@ public abstract class Weapon {
 	
 	public boolean isInCooldown() {
 		return this.currentCooldown != 0;
+	}
+	
+	public boolean canShoot() {
+		return this.currentChargeTime > this.minChargeTime;
+	}
+	
+	public boolean isChargedShoot() {
+		return this.currentChargeTime > this.maxChargeTime;
+	}
+	
+	public boolean isAiming() {
+		return this.currentChargeTime > 0;
+	}
+	
+	// Return 0f to 1f for 0 to 100%
+	public float getMinChargePercentCompletion() {
+		if (this.currentChargeTime < this.minChargeTime) {
+			return (float) this.currentChargeTime / this.minChargeTime;
+		} else
+			return 1;
+	}
+	
+	// Return 0f to 1f for 0 to 100%
+	public float getMaxChargePercentCompletion() {
+		if (this.currentChargeTime < this.minChargeTime) {
+			return 0;
+		} else if (this.currentChargeTime > this.maxChargeTime) {
+			return 1;
+		} else {
+			return (float) (this.currentChargeTime - this.minChargeTime) / (this.maxChargeTime - this.minChargeTime);
+		}
+	}
+	
+	public void aim(int delta) {
+		this.currentChargeTime += delta;
+	}
+	
+	public void resetAim() {
+		this.currentChargeTime = 0;
+	}
+
+	public int getMinChargeTime() {
+		return minChargeTime;
+	}
+
+	public int getMaxChargeTime() {
+		return maxChargeTime;
+	}
+
+	public int getCurrentChargeTime() {
+		return currentChargeTime;
 	}
 }

@@ -18,7 +18,7 @@ public class CreationOfLife extends Weapon {
 	private static final int MAX_ENEMIES = 5;
 
 	public CreationOfLife() throws SlickException {
-		super("Créateur de vie", 0, 5000, new Image(ICON_PATH));
+		super("Créateur de vie", 0, 5000, 0, 0, new Image(ICON_PATH));
 	}
 	
 	public void attack(Character attacker) throws SlickException {		
