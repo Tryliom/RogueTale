@@ -48,13 +48,17 @@ public class GameGui extends Gui {
 			GameGui.meleeAttackController = new MeleeAttackController();
 			
 			Properties config = new ConfigReader().getProperties();
-			Boolean invulnerable = Boolean.parseBoolean(config.getProperty("invulnerable"));
-			if(invulnerable) {
-				GameGui.playerController.getPlayer().setInvulnerable(true);
-			}
-			Boolean oneHitKill = Boolean.parseBoolean(config.getProperty("onehitkill"));
-			if(oneHitKill) {
-				GameGui.playerController.getPlayer().setOneHitKill();
+			if (!config.isEmpty()) {
+				
+				Boolean invulnerable = Boolean.parseBoolean(config.getProperty("invulnerable"));
+				if (invulnerable) {
+					GameGui.playerController.getPlayer().setInvulnerable(true);
+				}
+				
+				Boolean oneHitKill = Boolean.parseBoolean(config.getProperty("onehitkill"));
+				if (oneHitKill) {
+					GameGui.playerController.getPlayer().setOneHitKill();
+				}
 			}
 		} catch (SlickException e) {
 			e.printStackTrace();
