@@ -41,7 +41,7 @@ public class Robot extends Enemy {
 		double alea = Math.random();
 		if (alea < 0.2) {
 			GameGui.getPickupableItemController().addPickupableItem(new PickupableLifePoint(position));
-		} else if (alea < 0.5) {
+		} else if (alea < 0.3) {
 			GameGui.getPickupableItemController().addPickupableItem(new PickupableWeapon(new Bow(), position));
 		}
 	}
