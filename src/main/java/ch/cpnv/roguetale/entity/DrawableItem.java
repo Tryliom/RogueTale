@@ -34,6 +34,11 @@ public abstract class DrawableItem {
 		this.position = position;		
 	}
 	
+	public DrawableItem(Image image, Vector2f position) {
+		this.image = image;
+		this.position = position;		
+	}
+	
 	public Vector2f getPosition() {
 		// clone of the position
 		return new Vector2f(position.x, position.y);

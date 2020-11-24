@@ -68,6 +68,10 @@ public class GuiController implements Controller {
 			}
 		}
 	}
+	
+	public Gui getDisplayGui() {
+		return currentGui;
+	}
 
 	@Override
 	public void mouseReleased(int button, int x, int y) throws SlickException {
