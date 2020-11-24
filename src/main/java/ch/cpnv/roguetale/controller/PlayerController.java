@@ -15,7 +15,7 @@ import ch.cpnv.roguetale.entity.character.Player;
 import ch.cpnv.roguetale.entity.pickupableitem.PickupableItem;
 import ch.cpnv.roguetale.gui.guis.GameGui;
 import ch.cpnv.roguetale.weapon.melee.Knife;
-import ch.cpnv.roguetale.weapon.ranged.Bow;
+import ch.cpnv.roguetale.weapon.other.Shield;
 
 public class PlayerController implements Controller {
 	private Player player;
@@ -39,7 +39,7 @@ public class PlayerController implements Controller {
 				Direction.DOWN, 
 				false, 
 				new Knife(),
-				new Bow());
+				new Shield());
 		
 		this.ABILITY_KEYS.put(Input.KEY_LSHIFT, this.player.getDash());
 	}

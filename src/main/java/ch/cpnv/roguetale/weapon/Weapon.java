@@ -4,6 +4,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.entity.character.Character;
+import ch.cpnv.roguetale.entity.character.states.debuff.Slowness;
 
 public abstract class Weapon {	
 	protected String name;
@@ -44,6 +45,8 @@ public abstract class Weapon {
 		if(canAttack()) {
 			this.currentCooldown = this.cooldown;
 		}
+		
+		this.resetAim();
 	}
 	
 	public void reduceCooldown(int delta) {
@@ -53,7 +56,7 @@ public abstract class Weapon {
 	}
 	
 	public boolean canAttack() {
-		return currentCooldown <= 0;
+		return currentCooldown <= 0 && this.canShoot();
 	}
 
 	public Image getIcon() {
@@ -73,11 +76,11 @@ public abstract class Weapon {
 	}
 	
 	public boolean canShoot() {
-		return this.currentChargeTime > this.minChargeTime;
+		return this.currentChargeTime >= this.minChargeTime;
 	}
 	
 	public boolean isChargedShoot() {
-		return this.currentChargeTime > this.maxChargeTime;
+		return this.currentChargeTime >= this.maxChargeTime;
 	}
 	
 	public boolean isAiming() {
@@ -103,7 +106,8 @@ public abstract class Weapon {
 		}
 	}
 	
-	public void aim(int delta) {
+	public void aim(int delta, Character user) {
+		user.addState(new Slowness(delta, 50));
 		this.currentChargeTime += delta;
 	}
 	

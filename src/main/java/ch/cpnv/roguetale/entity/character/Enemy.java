@@ -63,7 +63,7 @@ public class Enemy extends Character {
 		
 		if (this.getRangedWeapon() != null ) {
 			if ((this.isAiming() || canAttackOpponent()) && !this.getRangedWeapon().canShoot() && !this.getRangedWeapon().isInCooldown())
-				this.getRangedWeapon().aim(delta);
+				this.getRangedWeapon().aim(delta, this);
 			
 			if (!canAttackOpponent() && this.getDistanceToMovableItem(GameGui.getPlayerController().getPlayer()) > 400)
 				this.getRangedWeapon().attack(this);

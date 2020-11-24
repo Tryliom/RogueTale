@@ -8,8 +8,11 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
+import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.entity.character.Character;
-import ch.cpnv.roguetale.entity.character.states.Phantom;
+import ch.cpnv.roguetale.entity.character.states.buff.CancelProjectiles;
+import ch.cpnv.roguetale.entity.character.states.buff.Phantom;
+import ch.cpnv.roguetale.entity.character.states.buff.Reflection;
 import ch.cpnv.roguetale.entity.obstacle.Obstacle;
 import ch.cpnv.roguetale.entity.projectile.Projectile;
 
@@ -61,8 +64,41 @@ public class ProjectileController implements Controller {
 	private void collideProjectiles() throws SlickException {		
 		for(Projectile projectile : projectiles) {
 			Character hit = projectile.getCollidingCharacter();			
-			if(hit != null && !hit.hasState(Phantom.class)) {
-				projectile.meetCharacter(hit);
+			
+			if (hit != null && !hit.hasState(Phantom.class)) {
+				// If character have the cancelProjectile effect, check if it's blocked
+				boolean takeDamage = true;
+				boolean isReflected = false;
+				Direction reflect = Direction.UP;
+				
+				if (hit.hasState(CancelProjectiles.class)) {
+					CancelProjectiles state = (CancelProjectiles) hit.getState(CancelProjectiles.class);
+					int rand = (int) (Math.random() * 100);
+					
+					if (state.getLuckPercent() > rand) {
+						takeDamage = false;
+					}
+				}
+				
+				if (hit.hasState(Reflection.class)) {
+					Reflection state = (Reflection) hit.getState(Reflection.class);
+					if (state.getProtect().equals(projectile.getDirection())) {
+						reflect = state.getReflectDirection();
+						isReflected = true;
+						takeDamage = false;
+					}
+				}
+				
+				if (takeDamage)
+					projectile.meetCharacter(hit);
+				else if (!isReflected)
+					projectile.setRemainingTime(0);
+				else {
+					projectile.setRemainingTime(projectile.getRemainingTime()*3/2);
+					projectile.setDirection(reflect);
+					projectile.setSpeed(projectile.getSpeed()*3/2);
+					projectile.setPositionFromCharacter(hit, reflect);
+				}
 			}
 		}
 		

@@ -44,7 +44,8 @@ public class Arrow extends Projectile {
 	}
 	
 	@Override
-	protected void setImageDirection() {
+	public void setImageDirection() {
+		this.image.rotate(-this.image.getRotation());
 		switch (this.direction) {
 			case UP:
 				this.image.rotate(-43);
