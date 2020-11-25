@@ -8,7 +8,6 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 
-import ch.cpnv.roguetale.weapon.RangedWeapon;
 import ch.cpnv.roguetale.weapon.Weapon;
 
 public class UiWeaponSlot {
