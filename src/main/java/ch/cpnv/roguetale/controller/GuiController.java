@@ -67,6 +67,8 @@ public class GuiController implements Controller {
 				e.printStackTrace();
 			}
 		}
+		
+		GameGui.getPlayerController().getPlayer().setMoving(false);
 	}
 	
 	public Gui getDisplayGui() {

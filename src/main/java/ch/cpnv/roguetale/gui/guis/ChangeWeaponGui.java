@@ -1,6 +1,7 @@
 package ch.cpnv.roguetale.gui.guis;
 
 import org.lwjgl.util.vector.Vector2f;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -16,9 +17,12 @@ import ch.cpnv.roguetale.weapon.Weapon;
 public class ChangeWeaponGui extends Gui {
 	private static final String PATH_PANEL = "ch\\cpnv\\roguetale\\images\\ui\\panel\\panel_blue.png";
 	private Image background;
+	private Weapon weapon;
 	
 	public ChangeWeaponGui(Gui prevGui, Weapon weapon) {
 		super(prevGui);
+		this.weapon = weapon;
+		
 		int width = Main.BASE_WIDTH,
 			height = Main.BASE_HEIGHT;
 		try {
@@ -33,8 +37,16 @@ public class ChangeWeaponGui extends Gui {
 	}
 	
 	public void render(GameContainer gc, Graphics g, Vector2f origin) throws SlickException {
+		int width = Main.BASE_WIDTH,
+			height = Main.BASE_HEIGHT;
+		Color old = g.getColor();
+		
 		this.prevGui.render(gc, g, origin);
 		this.background.draw(Main.BASE_WIDTH/10, Main.BASE_HEIGHT/10, Main.BASE_WIDTH * 0.8f, Main.BASE_HEIGHT * 0.8f);
+		weapon.getIcon().drawCentered(width/2, height/4 + 50);
+		g.setColor(Color.blue);
+		g.drawString(weapon.getName(), width/2, height/4);
+		g.setColor(old);
 		super.render(gc, g, origin);
 	}
 
