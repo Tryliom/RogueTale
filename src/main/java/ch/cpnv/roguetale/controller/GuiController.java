@@ -62,13 +62,14 @@ public class GuiController implements Controller {
 		this.currentGui = gui;
 		if (gui instanceof GameGui) {
 			try {
+				SoundManager.getInstance().stop(SoundType.MainTheme);
 				SoundManager.getInstance().loop(SoundType.MainTheme);
 			} catch (SlickException e) {
 				e.printStackTrace();
 			}
 		}
-		
-		GameGui.getPlayerController().getPlayer().setMoving(false);
+		if (GameGui.getPlayerController() != null)
+			GameGui.getPlayerController().getPlayer().setMoving(false);
 	}
 	
 	public Gui getDisplayGui() {
