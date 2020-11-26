@@ -9,6 +9,9 @@ import ch.cpnv.roguetale.entity.pickupableitem.PickupableWeapon;
 import ch.cpnv.roguetale.gui.guis.GameGui;
 import ch.cpnv.roguetale.weapon.Weapon;
 import ch.cpnv.roguetale.weapon.melee.Knife;
+import ch.cpnv.roguetale.weapon.other.Shield;
+import ch.cpnv.roguetale.weapon.ranged.Bow;
+import ch.cpnv.roguetale.weapon.ranged.Cannon;
 
 public class Box extends Obstacle {
 	protected static final int DISPLAY_DIMENSION = 32;
@@ -23,9 +26,21 @@ public class Box extends Obstacle {
 
 	@Override
 	public void onDeath() {
+		double random = Math.random();
 		Weapon weapon;
 		try {
-			weapon = new Knife();
+			if(random < 0.1) {
+				weapon = new Cannon();
+			}
+			else if(random < 0.3) {
+				weapon = new Shield();
+			}
+			else if(random < 0.6) {
+				weapon = new Bow();
+			}
+			else {
+				weapon = new Knife();
+			}
 			GameGui.getPickupableItemController().addPickupableItem(new PickupableWeapon(weapon, getPosition()));
 		} catch (SlickException e) {
 			e.printStackTrace();
