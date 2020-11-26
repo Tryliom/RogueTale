@@ -20,19 +20,22 @@ public class Enemy extends Character {
 	}
 	
 	public void chooseAction() throws SlickException {
-		if (this.getNearestOpponent() != null)
+		if (this.getNearestOpponent() != null) {
+			
+			RangedWeapon rangedWeapon = this.getRangedWeapon();
+			MeleeWeapon meleeWeapon = this.getMeleeWeapon();
+			Weapon weapon = meleeWeapon != null ? meleeWeapon : this.getWeapon();
+			
 			if (canAttackOpponent()) {
 				this.setDirectionToFaceOpponent(false);
 				this.setMoving(false);
 				
-				RangedWeapon rangedWeapon = this.getRangedWeapon();
-				Weapon weapon = this.getWeapon();
 				// RangeWeapon action
 				if (rangedWeapon != null) {
 					if (rangedWeapon.canShoot())
 						rangedWeapon.attack(this);
-					
-					if (!rangedWeapon.canAttack()) {
+
+					if (!rangedWeapon.canAttack() ) {
 						if (this.shouldMoveAwayFromOpponent()) {
 							this.setDirectionToRunFromOpponent();
 							this.setMoving(true);
@@ -41,19 +44,21 @@ public class Enemy extends Character {
 							this.setMoving(true);
 						}
 					}
-				}
-				// Other weapon action
-				if (weapon != null) {
+				} else if (weapon != null) {
 					if (weapon.canAttack()) {
-						weapon.attack(this);
+						if (meleeWeapon != null) {
+							GameGui.getEnemyController().addCharacterToAttack(this);
+						} else
+							weapon.attack(this);
 					}
 				}
-			} else if (this.getRangedWeapon() != null && this.getRangeToOpponent() > this.getRangedWeapon().getRange()) {
+			} else if (this.hasRangeWithRangedWeapon() || meleeWeapon != null) {
 				this.setDirectionToFaceOpponent(false);
 				this.setMoving(true);
 			} else {
 				this.moveInAttackPosition();
 			}
+		}
 	}
 	
 	public void update(int delta) throws SlickException {
@@ -146,7 +151,13 @@ public class Enemy extends Character {
 		if (target == null)
 			return false;
 		float border = (1-PRECISION)/2;
-		float range = this.getRangedWeapon() != null ? this.getRangedWeapon().getRange() : 0;
+		float range = 0;
+		if (this.getRangedWeapon() != null)
+			range = this.getRangedWeapon().getRange();
+		else if (this.getMeleeWeapon() != null) {
+			range = this.getMeleeWeapon().getHitbox().getWidth();
+		}
+
 		Rectangle enRect = new Rectangle(
 					this.getPosition().getX() + this.getSprite().getWidth()*border,
 					this.getPosition().getY() + this.getSprite().getHeight()*(border+PRECISION), 
@@ -179,7 +190,7 @@ public class Enemy extends Character {
 				enRect.setHeight(range);
 				break;
 		}
-
+		
 		return enRect.intersects(pRect) || enRect.contains(pRect);
 	}
 
@@ -192,7 +203,7 @@ public class Enemy extends Character {
 			return null;
 	}
 	
-	protected MeleeWeapon getMeleeWeapon() {
+	public MeleeWeapon getMeleeWeapon() {
 		if (this.primaryWeapon != null && this.primaryWeapon instanceof MeleeWeapon) {
 			return (MeleeWeapon) this.primaryWeapon;
 		} else if (this.secondaryWeapon != null && this.secondaryWeapon instanceof MeleeWeapon) {
@@ -231,6 +242,10 @@ public class Enemy extends Character {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public boolean hasRangeWithRangedWeapon() throws SlickException {
+		return this.getRangedWeapon() != null && this.getRangeToOpponent() > this.getRangedWeapon().getRange();
 	}
 	
 	protected void die() throws SlickException {		
