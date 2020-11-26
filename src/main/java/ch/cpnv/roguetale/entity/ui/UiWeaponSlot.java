@@ -8,12 +8,11 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 
-import ch.cpnv.roguetale.weapon.RangedWeapon;
 import ch.cpnv.roguetale.weapon.Weapon;
 
 public class UiWeaponSlot {
-	private static final int DIMENSION_ICON = 32;
-	private static final int DIMENSION_MOUSE = 16;
+	private static final int DIMENSION_ICON = 48;
+	private static final int DIMENSION_MOUSE = 24;
 	private static final int WIDTH_RECTANGLE_ICON = 2;
 	private static final int DIMENSION = DIMENSION_ICON + WIDTH_RECTANGLE_ICON;
 	private int x;
@@ -30,7 +29,7 @@ public class UiWeaponSlot {
 
 	public void render(GameContainer gc, Graphics g, Vector2f origin) throws SlickException {
 		Color old = g.getColor();
-		Rectangle rect = new Rectangle(x - DIMENSION/2, y - DIMENSION, DIMENSION, DIMENSION);
+		Rectangle rect = new Rectangle(x - DIMENSION/2, y - DIMENSION - 15, DIMENSION, DIMENSION);
 		// Fill box where the weapons are in cooldown
 		float base = 0.4f;
 		g.setColor(new Color(base, base, base, 0.6f));
@@ -39,16 +38,15 @@ public class UiWeaponSlot {
 		g.fill(new Rectangle(rect.getX(), rect.getY(), rect.getWidth() * ((float) weapon.getCurrentCooldown() / weapon.getCooldown()), rect.getHeight()));
 		
 		// Draw charge completion
-		if (weapon instanceof RangedWeapon) {
-			RangedWeapon rangedWeapon = (RangedWeapon) weapon;
+		if (weapon.getMinChargeTime() > 0) {
 			
-			if (rangedWeapon.isAiming()) {
+			if (weapon.isAiming()) {
 				
 				g.setColor(new Color(0.5f, 0.9f, 0.5f, 0.9f));
-				g.fill(new Rectangle(rect.getX(), rect.getY(), rect.getWidth() * rangedWeapon.getMinChargePercentCompletion(), rect.getHeight()));
+				g.fill(new Rectangle(rect.getX(), rect.getY(), rect.getWidth() * weapon.getMinChargePercentCompletion(), rect.getHeight()));
 				
 				g.setColor(new Color(1f, 0.6f, 0f, 0.9f));
-				g.fill(new Rectangle(rect.getX(), rect.getY(), rect.getWidth() * rangedWeapon.getMaxChargePercentCompletion(), rect.getHeight()));
+				g.fill(new Rectangle(rect.getX(), rect.getY(), rect.getWidth() * weapon.getMaxChargePercentCompletion(), rect.getHeight()));
 			}
 		}
 		

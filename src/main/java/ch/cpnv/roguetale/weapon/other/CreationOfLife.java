@@ -52,7 +52,7 @@ public class CreationOfLife extends Weapon {
 	}
 
 	private void spawnEnemies(Character user, int maxTries) throws SlickException {
-		if (this.countEnemiesAroundUser(user) < MAX_ENEMIES) {
+		if (this.countAlliesAroundUser(user) < MAX_ENEMIES) {
 			Enemy entity = createRandomEnemy(getRandomNearUser(user));
 			
 			if (entity.getCollidingCharacter() != null || entity.getToCreateCollidingCharacter() != null || entity.getCollidingObstacle() != null) {
@@ -66,11 +66,11 @@ public class CreationOfLife extends Weapon {
 		}
 	}
 	
-	private int countEnemiesAroundUser(Character user) throws SlickException {
+	private int countAlliesAroundUser(Character user) throws SlickException {
 		int count = 0;
 		
 		for (Character en : user.getCharacterList()) {
-			if (user.getFaction().getId() != en.getFaction().getId() && en.getDistanceToMovableItem(user) < DISTANCE_NEAR_USER)
+			if (user.getFaction().getId() == en.getFaction().getId() && en.getDistanceToMovableItem(user) < DISTANCE_NEAR_USER)
 				count++;
 		}
 		
