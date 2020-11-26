@@ -1,5 +1,7 @@
 package ch.cpnv.roguetale.controller;
 
+import java.util.HashMap;
+
 import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -14,6 +16,9 @@ import ch.cpnv.roguetale.sound.SoundType;
 public class GuiController implements Controller {
 	private Gui currentGui;
 	private static GuiController instance;
+	
+	// Note : int is not a possible key for HashMap
+	HashMap<Integer, Gui> guiWhenKeypressed = new HashMap<Integer, Gui>();
 	
 	public static GuiController getInstance() {
 		return instance == null ? instance = new GuiController() : instance;
@@ -33,23 +38,25 @@ public class GuiController implements Controller {
 	@Override
 	public void update(GameContainer gc, int delta, Vector2f origin) throws SlickException {
 		this.currentGui.update(gc, delta, origin);
-
 	}
 
 	@Override
 	public void keyReleased(int key, char c, GameContainer gc) throws SlickException {
-		this.currentGui.keyReleased(key, c, gc);
-
+		if(pressedInCurrentGui(key)) {
+			this.currentGui.keyReleased(key, c, gc);
+		}	
 	}
 
 	@Override
 	public void keyPressed(int key, char c, GameContainer gc) throws SlickException {
+		setPressedInCurrentGui(key);
 		this.currentGui.keyPressed(key, c, gc);
 
 	}
 
 	@Override
 	public void mousePressed(int button, int x, int y) throws SlickException {
+		setPressedInCurrentGui(button);
 		this.currentGui.mousePressed(button, x, y);
 	}
 	
@@ -78,7 +85,17 @@ public class GuiController implements Controller {
 
 	@Override
 	public void mouseReleased(int button, int x, int y) throws SlickException {
-		this.currentGui.mouseReleased(button, x, y);
+		if(pressedInCurrentGui(button)) {
+			this.currentGui.mouseReleased(button, x, y);
+		}
+	}
+	
+	protected boolean pressedInCurrentGui(int key) {
+		return currentGui == guiWhenKeypressed.get(Integer.valueOf(key));
+	}
+	
+	protected void setPressedInCurrentGui(int key) {
+		guiWhenKeypressed.put(Integer.valueOf(key), currentGui);
 	}
 
 }
