@@ -22,4 +22,12 @@ public abstract class MeleeWeapon extends Weapon {
 	public void meetObstacle(Obstacle attackedObstacle) throws SlickException {
 		attackedObstacle.damage(damage);
 	}
+
+	public Shape getHitbox() {
+		return hitbox;
+	}
+
+	public void setHitbox(Shape hitbox) {
+		this.hitbox = hitbox;
+	}
 }
