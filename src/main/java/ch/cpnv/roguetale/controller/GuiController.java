@@ -18,7 +18,7 @@ public class GuiController implements Controller {
 	private static GuiController instance;
 	
 	// Note : int is not a possible key for HashMap
-	HashMap<Integer, Gui> guiWhenKeypressed = new HashMap<Integer, Gui>();
+	private HashMap<Integer, Gui> guiWhenKeypressed = new HashMap<Integer, Gui>();
 	
 	public static GuiController getInstance() {
 		return instance == null ? instance = new GuiController() : instance;
