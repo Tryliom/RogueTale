@@ -4,7 +4,7 @@ import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.gui.Gui;
 import ch.cpnv.roguetale.gui.button.GuiButton;
-import ch.cpnv.roguetale.model.Game;
+import ch.cpnv.roguetale.main.Game;
 
 public class QuitButton extends GuiButton {
 

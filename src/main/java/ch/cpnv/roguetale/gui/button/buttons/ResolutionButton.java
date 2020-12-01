@@ -9,8 +9,8 @@ import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.gui.Gui;
 import ch.cpnv.roguetale.gui.button.GuiSwitchButton;
+import ch.cpnv.roguetale.main.Game;
 import ch.cpnv.roguetale.main.Main;
-import ch.cpnv.roguetale.model.Game;
 import ch.cpnv.roguetale.save.SaveManager;
 
 public class ResolutionButton extends GuiSwitchButton {

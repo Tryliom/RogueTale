@@ -21,7 +21,7 @@ public class Invocator extends Enemy {
 	private static final int  SPRITESHEET_DIMENSIONS = 48;
 
 	public Invocator(Vector2f position) throws SlickException {
-		super(getSpriteSheet(), 
+		super("Invocateur", getSpriteSheet(), 
 				position, SPEED, Direction.DOWN, false, new CreationOfLife(), null, MAX_HEALTH);
 	}
 	

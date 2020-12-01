@@ -6,8 +6,10 @@ import java.util.Iterator;
 import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
+import org.newdawn.slick.geom.Rectangle;
 
 import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.entity.MovableItem;
@@ -27,6 +29,7 @@ import ch.cpnv.roguetale.weapon.RangedWeapon;
 import ch.cpnv.roguetale.weapon.Weapon;
 
 public abstract class Character extends MovableItem implements Damageable {
+	protected String name;
 	protected Weapon primaryWeapon;
 	protected Weapon secondaryWeapon;
 	protected Faction faction;
@@ -34,7 +37,8 @@ public abstract class Character extends MovableItem implements Damageable {
 	protected ArrayList<State> states = new ArrayList<State>();
 	protected ArrayList<Ability> abilities = new ArrayList<Ability>();
 
-	public Character(SpriteSheet ss, 
+	public Character(String name,
+			SpriteSheet ss, 
 			Vector2f position, 
 			int speed, 
 			Direction direction, 
@@ -48,6 +52,7 @@ public abstract class Character extends MovableItem implements Damageable {
 		this.primaryWeapon = primaryWeapon;
 		this.secondaryWeapon = secondaryWeapon;
 		this.faction = new Faction();
+		this.name = name;
 	}
 	
 	public void update(int delta) throws SlickException {
@@ -89,11 +94,21 @@ public abstract class Character extends MovableItem implements Damageable {
 	
 	public void draw(Vector2f origin, GameContainer gc, Color filter) {
 		if (this.isDead() && this.deathAnimation != null) {
-			this.deathAnimation.draw(this.position.x - origin.x - this.image.getWidth() / 2, 
-					 - (this.position.y - origin.y + this.image.getHeight() / 2),
-					 filter);
-		} else
+			if (filter != null)
+				this.deathAnimation.draw(this.position.x - origin.x - this.image.getWidth() / 2, 
+						 - (this.position.y - origin.y + this.image.getHeight() / 2),
+						 filter);
+			else
+				this.deathAnimation.draw(this.position.x - origin.x - this.image.getWidth() / 2, 
+						 - (this.position.y - origin.y + this.image.getHeight() / 2));
+		} else {
+			Graphics g = gc.getGraphics();
+			Color old = g.getColor();
+			g.setColor(this.faction.getColor());
+			g.fill(new Rectangle(this.position.x - origin.x - 5, - (this.position.y - origin.y - this.image.getHeight()/2) + 5, 10, 10));
+			g.setColor(old);
 			super.draw(origin, gc, filter);
+		}
 	}
 	
 	@Override
@@ -256,5 +271,13 @@ public abstract class Character extends MovableItem implements Damageable {
 					iterator.remove();
 			}
 		}
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }

@@ -1,4 +1,4 @@
-package ch.cpnv.roguetale.model;
+package ch.cpnv.roguetale.main;
 
 import java.awt.Font;
 

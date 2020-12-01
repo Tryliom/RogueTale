@@ -23,7 +23,7 @@ public class Robot extends Enemy {
 	private static final int animationLength = 300;
 
 	public Robot(Vector2f position) throws SlickException {
-		super(getSpriteSheet(), 
+		super("Robot", getSpriteSheet(), 
 				position, SPEED, Direction.UP, false, null, null, MAX_HEALTH);
 		int alea = (int) Math.round(Math.random() * 100);
 		if (alea < 50)
