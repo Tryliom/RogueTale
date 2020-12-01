@@ -36,6 +36,7 @@ public class UiWeaponSlot extends UiElement {
 			}
 		}
 		else {
+			// TODO add method to weapon
 			rectangleWidthFactor = (float) weapon.getCurrentCooldown() / weapon.getCooldown();
 		}
 		
