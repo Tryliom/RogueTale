@@ -129,6 +129,10 @@ public abstract class Character extends MovableItem implements Damageable {
 		return hpDamageStrategy.getMaxHealth();
 	}
 	
+	public ArrayList<Ability> getAbilities() {
+		return abilities;
+	}
+	
 	public void updateMaxHealth(int health) throws SlickException {
 		hpDamageStrategy.updateMaxHealth(health);
 	}

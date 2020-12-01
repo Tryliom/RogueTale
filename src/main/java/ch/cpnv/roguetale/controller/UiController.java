@@ -7,6 +7,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
+import ch.cpnv.roguetale.entity.character.Ability;
 import ch.cpnv.roguetale.entity.character.Player;
 import ch.cpnv.roguetale.entity.ui.UiLifePoint;
 import ch.cpnv.roguetale.entity.ui.UiWeaponSlot;
@@ -22,6 +23,7 @@ public class UiController implements Controller {
 	
 	protected ArrayList<UiLifePoint> lifePoints = new ArrayList<UiLifePoint>();
 	protected ArrayList<UiWeaponSlot> weapons = new ArrayList<UiWeaponSlot>();
+	protected ArrayList<Ability> abilities = new ArrayList<Ability>();
 
 	public UiController() {
 		Player player = GameGui.getPlayerController().getPlayer();
@@ -39,6 +41,10 @@ public class UiController implements Controller {
 		
 		for (UiWeaponSlot weapon : weapons) {
 			weapon.render(gc, g, origin);
+		}
+		
+		for (Ability ability : abilities) {
+			// TODO render ability
 		}
 	}
 
@@ -69,6 +75,7 @@ public class UiController implements Controller {
 			}
 		}
 		
+		// Set the weapons
 		Weapon primary = player.getPrimaryWeapon();
 		UiWeaponSlot first = weapons.get(0);
 		Weapon secondary = player.getSecondaryWeapon();
@@ -76,6 +83,9 @@ public class UiController implements Controller {
 		
 		first.setWeapon(primary);
 		second.setWeapon(secondary);
+		
+		// Set the abilities
+		abilities = player.getAbilities();
 	}
 
 	@Override
