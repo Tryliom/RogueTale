@@ -25,8 +25,8 @@ public class Bow extends RangedWeapon {
 	
 	@Override
 	public String getDescription() {
-		return "Tir simple: Envoie une flèche\n"
-				+ "Tir chargé: Les dégâts et la vitesse de la flèche sont doublés";
+		return "Tir simple: Envoie une flèche."
+				+ " Tir chargé: Les dégâts et la vitesse de la flèche sont doublés";
 	}
 
 	public void attack(Character attacker) throws SlickException {		

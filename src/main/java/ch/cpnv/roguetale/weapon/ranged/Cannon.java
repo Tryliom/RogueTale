@@ -21,7 +21,7 @@ public class Cannon extends RangedWeapon {
 	
 	@Override
 	public String getDescription() {
-		return "Tir simple: Envoie une bombe qui explose au bout d'un moment ou sur une entité\n"
+		return "Tir simple: Envoie une bombe qui explose au bout d'un moment ou sur une entité. "
 				+ "Tir chargé: Les dégâts de base de la bombe et la vitesse sont doublés";
 	}
 
