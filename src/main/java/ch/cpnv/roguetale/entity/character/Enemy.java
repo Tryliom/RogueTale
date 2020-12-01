@@ -16,9 +16,9 @@ public class Enemy extends Character {
 	private int cooldownTargetChange;
 	private Character currentOpponent;
 
-	public Enemy(SpriteSheet ss, Vector2f position, int speed, Direction direction, boolean moving,
+	public Enemy(String name, SpriteSheet ss, Vector2f position, int speed, Direction direction, boolean moving,
 			Weapon primaryWeapon, Weapon secondaryWeapon, int maxHealth) {
-		super(ss, position, speed, direction, moving, primaryWeapon, secondaryWeapon, maxHealth);
+		super(name, ss, position, speed, direction, moving, primaryWeapon, secondaryWeapon, maxHealth);
 	}
 	
 	@Override

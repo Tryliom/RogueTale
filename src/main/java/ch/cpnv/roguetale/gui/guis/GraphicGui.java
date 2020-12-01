@@ -12,8 +12,8 @@ import ch.cpnv.roguetale.gui.Gui;
 import ch.cpnv.roguetale.gui.button.buttons.FullscreenButton;
 import ch.cpnv.roguetale.gui.button.buttons.ResolutionButton;
 import ch.cpnv.roguetale.gui.button.buttons.ReturnButton;
+import ch.cpnv.roguetale.main.Game;
 import ch.cpnv.roguetale.main.Main;
-import ch.cpnv.roguetale.model.Game;
 
 public class GraphicGui extends Gui {
 	private static final String PATH_PANEL = "ch\\cpnv\\roguetale\\images\\ui\\panel\\panel_blue.png";

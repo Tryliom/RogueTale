@@ -20,7 +20,7 @@ public class Bomber extends Enemy {
 	private static final int animationLength = 300;
 
 	public Bomber(Vector2f position) throws SlickException {
-		super(getSpriteSheet(), 
+		super("Bomber", getSpriteSheet(), 
 				position, SPEED, Direction.UP, false, new Cannon(), null, MAX_HEALTH);
 	}
 	

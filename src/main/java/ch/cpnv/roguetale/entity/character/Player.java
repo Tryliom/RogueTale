@@ -34,7 +34,7 @@ public class Player extends Character {
 			Weapon primaryWeapon,
 			Weapon secondaryWeapon
 			) throws SlickException {
-		super(getSpriteSheet(), position, speed, direction, moving, primaryWeapon, secondaryWeapon, STARTING_MAX_HEALTH);
+		super("", getSpriteSheet(), position, speed, direction, moving, primaryWeapon, secondaryWeapon, STARTING_MAX_HEALTH);
 		level = 1;
 		currentExp = 0;
 		maxExp = 100;

@@ -6,7 +6,6 @@ import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.ScalableGame;
 import org.newdawn.slick.SlickException;
 
-import ch.cpnv.roguetale.model.Game;
 import ch.cpnv.roguetale.save.SaveController;
 import ch.cpnv.roguetale.save.SaveGraphic;
 
