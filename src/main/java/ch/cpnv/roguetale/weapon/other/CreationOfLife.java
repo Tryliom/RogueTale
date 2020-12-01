@@ -21,6 +21,7 @@ public class CreationOfLife extends Weapon {
 		super("Créateur de vie", 0, 5000, 0, 0, new Image(ICON_PATH));
 	}
 	
+	@Override
 	public void attack(Character attacker) throws SlickException {		
 		if (canAttack()) {
 			// Max 10 tries to spawn entity
@@ -29,6 +30,12 @@ public class CreationOfLife extends Weapon {
 		
 		super.attack(attacker);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "Invoque une unité alliée qui combattera pour vous jusqu'à "+MAX_ENEMIES+" alliés maximum";
+	}
+
 	
 	private Enemy createRandomEnemy(Vector2f position) throws SlickException {
 		Enemy enemy;

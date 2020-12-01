@@ -23,6 +23,12 @@ public class Knife extends MeleeWeapon {
 	}
 	
 	@Override
+	public String getDescription() {
+		return "Tranche ce qui est devant d'un coup rapide";
+	}
+
+	
+	@Override
 	public void attack(Character attacker) throws SlickException {
 		if(canAttack()) {
 			GameGui.getMeleeAttackController().addAttack(

@@ -128,4 +128,9 @@ public abstract class Weapon {
 	public int getCurrentChargeTime() {
 		return currentChargeTime;
 	}
+
+	public String getDescription() {
+		return "";
+	}
+	
 }
