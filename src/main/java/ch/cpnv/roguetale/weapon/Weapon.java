@@ -1,5 +1,7 @@
 package ch.cpnv.roguetale.weapon;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
@@ -131,6 +133,14 @@ public abstract class Weapon {
 
 	public String getDescription() {
 		return "";
+	}
+	
+	/**
+	 * Override by sub-classes
+	 * @return Array of caracteristics shaping for display
+	 */
+	public ArrayList<String> getCaracteristics() {
+		return new ArrayList<String>();
 	}
 	
 }
