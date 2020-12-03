@@ -3,7 +3,6 @@ package ch.cpnv.roguetale.gui.guis;
 import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
@@ -16,8 +15,6 @@ import ch.cpnv.roguetale.main.Game;
 import ch.cpnv.roguetale.main.Main;
 
 public class GraphicGui extends Gui {
-	private static final String PATH_PANEL = "ch\\cpnv\\roguetale\\images\\ui\\panel\\panel_blue.png";
-	private Image background;
 
 	public GraphicGui(Gui prevGui) {
 		super(prevGui);
@@ -32,8 +29,6 @@ public class GraphicGui extends Gui {
 		GameContainer gc = Game.getInstance().getGc();
 		this.buttonList.clear();
 		this.labelList.clear();
-		this.background = new Image(PATH_PANEL);
-		this.background.setFilter(Image.FILTER_NEAREST);
 		int w = Main.BASE_WIDTH,
 			h = Main.BASE_HEIGHT;
 		
@@ -45,8 +40,7 @@ public class GraphicGui extends Gui {
 	}
 	
 	public void render(GameContainer gc, Graphics g, Vector2f origin) throws SlickException {
-		this.prevGui.render(gc, g, origin);
-		this.background.draw(Main.BASE_WIDTH/10, Main.BASE_HEIGHT/10, Main.BASE_WIDTH - Main.BASE_WIDTH/5, Main.BASE_HEIGHT - Main.BASE_HEIGHT/5);
+		this.renderDefaultBackground(g);
 		super.render(gc, g, origin);
 	}
 

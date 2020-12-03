@@ -40,7 +40,7 @@ public class Shield extends Weapon {
 	@Override
 	public String getDescription() {
 		return "Clic simple: Pare et renvoie tous les projectiles durant les 0.5 secondes suivantes."
-				+ " Clic long: Vous avez une chance d'annuler les projectiles venant contre le bouclier de "+luckCancelProjectiles;
+				+ " Clic long: Vous avez une chance d'annuler les projectiles venant contre le bouclier de "+luckCancelProjectiles+"%.";
 	}
 	
 	public void addActiveShieldEffect(int time, Character user) throws SlickException {

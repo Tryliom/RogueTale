@@ -3,13 +3,17 @@ package ch.cpnv.roguetale.gui;
 import java.util.ArrayList;
 
 import org.lwjgl.util.vector.Vector2f;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
 
 import ch.cpnv.roguetale.controller.Controller;
 import ch.cpnv.roguetale.gui.button.GuiButton;
 import ch.cpnv.roguetale.gui.texts.GuiLabel;
+import ch.cpnv.roguetale.main.Main;
 
 public class Gui implements Controller {
 	protected Gui prevGui;
@@ -69,5 +73,19 @@ public class Gui implements Controller {
 	public void mouseReleased(int button, int x, int y) throws SlickException {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void renderDefaultBackground(Graphics g) {
+		Shape rect = new Rectangle(0, 0, Main.BASE_WIDTH, Main.BASE_HEIGHT);
+		Color old = g.getColor();
+		
+		g.setColor(new Color(138,138,138));
+		g.fill(rect);
+		g.setColor(new Color(108,108,108));
+		g.setLineWidth(15);
+		g.draw(rect);
+		
+		g.setColor(old);
+		g.resetLineWidth();
 	}
 }

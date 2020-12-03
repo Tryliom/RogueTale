@@ -3,8 +3,9 @@ package ch.cpnv.roguetale.gui.button;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
 
 import ch.cpnv.roguetale.gui.Gui;
 import ch.cpnv.roguetale.gui.enums.State;
@@ -12,8 +13,6 @@ import ch.cpnv.roguetale.sound.SoundManager;
 import ch.cpnv.roguetale.sound.SoundType;
 
 public class GuiButton {
-	private static final String PATH_BTN = "ch\\cpnv\\roguetale\\images\\ui\\button\\btn1.png";
-	private static final String PATH_BTN_HOVERED = "ch\\cpnv\\roguetale\\images\\ui\\button\\btn1_hovered.png";
 	protected String content;
 	protected int x;
 	protected int y;
@@ -34,17 +33,21 @@ public class GuiButton {
 	
 	public void render(GameContainer gc, Graphics g) throws SlickException {
 		// Default display of a button
-		Boolean hover = this.state.equals(State.HOVERED);
-		Image btn = new Image(hover ? PATH_BTN_HOVERED : PATH_BTN);
-		btn.setFilter(Image.FILTER_NEAREST);
-		
-		btn.draw(x, y, width, height);
-		
 		Color old = g.getColor();
+		Boolean hover = this.state.equals(State.HOVERED);
+		Shape rect = new Rectangle(x, y, width, height);
+		
+		g.setColor(new Color(0,106,188, hover ? 255 : 200));
+		g.fill(rect);
+		g.setColor(new Color(0,48,131, hover ? 200 : 150));
+		g.setLineWidth(3);
+		g.draw(rect);
+		
 		g.setColor(new Color(195, 197, 213));
 		int xCenter = x + width/2 - g.getFont().getWidth(content) / 2;
 		g.drawString(content, xCenter, y + (height-g.getFont().getHeight(content))/2 - 2);
 		g.setColor(old);
+		g.resetLineWidth();
 	}
 	
 	public void onClick() throws SlickException {
@@ -64,7 +67,7 @@ public class GuiButton {
 		}
 		
 		if (futurState != null && !futurState.equals(this.state)) {
-			this.y += futurState.equals(State.HOVERED) ? 3 : -3;
+			this.y += futurState.equals(State.HOVERED) ? 2 : -2;
 			this.state = futurState;
 		}
 	}
