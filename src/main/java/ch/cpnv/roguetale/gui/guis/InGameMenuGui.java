@@ -3,15 +3,18 @@ package ch.cpnv.roguetale.gui.guis;
 import java.util.ArrayList;
 
 import org.lwjgl.util.vector.Vector2f;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Rectangle;
 
 import ch.cpnv.roguetale.controller.GuiController;
 import ch.cpnv.roguetale.entity.character.Player;
 import ch.cpnv.roguetale.gui.Gui;
+import ch.cpnv.roguetale.gui.GuiUtils;
 import ch.cpnv.roguetale.gui.button.buttons.OptionButton;
 import ch.cpnv.roguetale.gui.button.buttons.ReturnButton;
 import ch.cpnv.roguetale.main.Main;
@@ -41,7 +44,7 @@ public class InGameMenuGui extends Gui {
 	}
 	
 	public void render(GameContainer gc, Graphics g, Vector2f origin) throws SlickException {
-		this.renderDefaultBackground(g);
+		GuiUtils.renderDefaultBackground(g);
 		super.render(gc, g, origin);
 		// Display weapons
 		Player p = GameGui.getPlayerController().getPlayer();
@@ -49,34 +52,26 @@ public class InGameMenuGui extends Gui {
 		Weapon second = p.getSecondaryWeapon();
 		
 		if (this.desc == null)
-			this.desc = this.formatDescription(first.getDescription(), Main.BASE_HEIGHT/4, g);
+			this.desc = GuiUtils.formatDisplayText(first.getDescription(), Main.BASE_HEIGHT/2, g);
 		
 		if (this.desc2 == null)
-			this.desc2 = this.formatDescription(second.getDescription(), Main.BASE_HEIGHT/4, g);
+			this.desc2 = GuiUtils.formatDisplayText(second.getDescription(), Main.BASE_HEIGHT/2, g);
 		
 		this.renderWeapons(gc, g, first, 30, this.desc);
-		this.renderWeapons(gc, g, second, Main.BASE_WIDTH/2, this.desc2);
-	}
-	
-	public ArrayList<String> formatDescription(String desc, int maxSpace, Graphics g) {
-		ArrayList<String> list = new ArrayList<String>();
-		String description = "";
-		for (int i = 0;i<desc.length();i++) {
-			if (description.length() * g.getFont().getWidth(" ") > maxSpace - 30 && Character.isWhitespace(desc.charAt(i))) {
-				list.add(description);
-				description = "";
-			} else			
-				description += desc.charAt(i);
-		}
-		if (description != "")
-			list.add(description);
-		
-		return list;
+		this.renderWeapons(gc, g, second, Main.BASE_WIDTH/2 + 20, this.desc2);
 	}
 	
 	public void renderWeapons(GameContainer gc, Graphics g, Weapon weapon, int x, ArrayList<String> desc) {
 		String name = weapon.getName();
 		Image icon = weapon.getIcon().getScaledCopy(64, 64);
+		Color fill = new Color(63,169,30);
+		Color border = new Color(82,193,26);
+		
+		GuiUtils.renderBox(
+				new Rectangle(x - 10, 30, Main.BASE_WIDTH/2 - 30, Main.BASE_HEIGHT*3/4), 
+				fill, 
+				border, 
+				2, g);
 		
 		int y = 0;
 		for (String text : desc) {
@@ -88,16 +83,16 @@ public class InGameMenuGui extends Gui {
 		icon.draw(x, 100);
 		
 		// Caracteristics
-		
+		y += 30 + 100;
 		if (weapon instanceof RangedWeapon) {
-			RangedWeapon w = (RangedWeapon) weapon;
-			
-		} else if (weapon instanceof MeleeWeapon) {
-			MeleeWeapon w = (MeleeWeapon) weapon;
-			
-		} else {
-			
+			RangedWeapon w = (RangedWeapon) weapon; 
+			g.drawString("Portée: "+w.getRange()+" unitées", x, y); y += 30;
 		}
+		int damage = weapon.getDamage();
+		if (damage != 0) {
+			g.drawString("Dégât: "+damage+" coeur" + (damage > 1 ? "s" : ""), x, y); y += 30;
+		}
+		g.drawString("Recharge: "+(weapon.getCooldown() >= 2000 ? "Long" : "Rapide"), x, y); y += 30;
 		
 	}
 

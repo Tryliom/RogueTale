@@ -8,6 +8,7 @@ import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.controller.GuiController;
 import ch.cpnv.roguetale.gui.Gui;
+import ch.cpnv.roguetale.gui.GuiUtils;
 import ch.cpnv.roguetale.gui.button.buttons.FullscreenButton;
 import ch.cpnv.roguetale.gui.button.buttons.ResolutionButton;
 import ch.cpnv.roguetale.gui.button.buttons.ReturnButton;
@@ -40,7 +41,7 @@ public class GraphicGui extends Gui {
 	}
 	
 	public void render(GameContainer gc, Graphics g, Vector2f origin) throws SlickException {
-		this.renderDefaultBackground(g);
+		GuiUtils.renderDefaultBackground(g);
 		super.render(gc, g, origin);
 	}
 

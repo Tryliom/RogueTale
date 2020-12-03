@@ -5,9 +5,9 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
-import org.newdawn.slick.geom.Shape;
 
 import ch.cpnv.roguetale.gui.Gui;
+import ch.cpnv.roguetale.gui.GuiUtils;
 import ch.cpnv.roguetale.gui.enums.State;
 import ch.cpnv.roguetale.sound.SoundManager;
 import ch.cpnv.roguetale.sound.SoundType;
@@ -33,16 +33,12 @@ public class GuiButton {
 	
 	public void render(GameContainer gc, Graphics g) throws SlickException {
 		// Default display of a button
-		Color old = g.getColor();
 		Boolean hover = this.state.equals(State.HOVERED);
-		Shape rect = new Rectangle(x, y, width, height);
+		Rectangle rect = new Rectangle(x, y, width, height);
 		
-		g.setColor(new Color(0,106,188, hover ? 255 : 200));
-		g.fill(rect);
-		g.setColor(new Color(0,48,131, hover ? 200 : 150));
-		g.setLineWidth(3);
-		g.draw(rect);
+		GuiUtils.renderBox(rect, new Color(0,106,188, hover ? 255 : 200), new Color(0,48,131, hover ? 200 : 150), 3, g);
 		
+		Color old = g.getColor();
 		g.setColor(new Color(195, 197, 213));
 		int xCenter = x + width/2 - g.getFont().getWidth(content) / 2;
 		g.drawString(content, xCenter, y + (height-g.getFont().getHeight(content))/2 - 2);
