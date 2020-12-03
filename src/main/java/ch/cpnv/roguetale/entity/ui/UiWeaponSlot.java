@@ -25,8 +25,7 @@ public class UiWeaponSlot extends UiElement {
 	}
 	
 	@Override
-	public Rectangle getActionRectangle() {
-		Rectangle iconRectangle = getIconRectangle();
+	protected float getActionRectangleWidthFactor() {
 		float rectangleWidthFactor;
 		if(weapon.getMinChargeTime() > 0 && weapon.isAiming()) {
 			if(weapon.getMinChargePercentCompletion() < 1) {
@@ -36,20 +35,13 @@ public class UiWeaponSlot extends UiElement {
 			}
 		}
 		else {
-			// TODO add method to weapon
-			rectangleWidthFactor = (float) weapon.getCurrentCooldown() / weapon.getCooldown();
+			rectangleWidthFactor = weapon.getCooldownPercent();
 		}
-		
-		return new Rectangle(
-				iconRectangle.getX(), 
-				iconRectangle.getY(), 
-				iconRectangle.getWidth() * rectangleWidthFactor, 
-				iconRectangle.getHeight()
-		);
+		return rectangleWidthFactor;
 	}
 	
 	@Override
-	public Color getBackgroundColor() {
+	protected Color getBackgroundColor() {
 		if(weapon.getMinChargeTime() > 0 && weapon.isAiming()
 				&& weapon.getMinChargePercentCompletion() >= 1) {
 			return new Color(0.5f, 0.9f, 0.5f, 0.9f);
@@ -58,7 +50,7 @@ public class UiWeaponSlot extends UiElement {
 	}
 	
 	@Override
-	public Color getActionColor() {
+	protected Color getActionColor() {
 		if(weapon.getMinChargeTime() > 0 && weapon.isAiming()) {
 			if(weapon.getMinChargePercentCompletion() < 1) {
 				return new Color(0.5f, 0.9f, 0.5f, 0.9f);

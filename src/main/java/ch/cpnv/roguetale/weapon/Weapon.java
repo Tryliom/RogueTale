@@ -87,6 +87,17 @@ public abstract class Weapon {
 		return this.currentChargeTime > 0;
 	}
 	
+	public float getCooldownPercent() {
+		float cooldownPercent = (float) getCurrentCooldown() / getCooldown();
+		if (cooldownPercent < 0) {
+			return 0;
+		}
+		if (cooldownPercent > 1) {
+			return 1;
+		}
+		return cooldownPercent;
+	}
+	
 	// Return 0f to 1f for 0 to 100%
 	public float getMinChargePercentCompletion() {
 		if (this.currentChargeTime < this.minChargeTime) {

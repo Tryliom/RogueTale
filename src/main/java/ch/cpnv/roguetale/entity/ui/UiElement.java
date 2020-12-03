@@ -53,7 +53,18 @@ public abstract class UiElement {
 	}
 	
 	protected Rectangle getActionRectangle() {
-		return new Rectangle(0, 0, 0, 0);
+		Rectangle iconRectangle = getIconRectangle();
+		return new Rectangle(
+				iconRectangle.getX(), 
+				iconRectangle.getY(), 
+				iconRectangle.getWidth() * getActionRectangleWidthFactor(), 
+				iconRectangle.getHeight()
+		);
+	}
+	
+	protected float getActionRectangleWidthFactor() {
+		// Implementation to be overridden if there is an action to be drawn
+		return 0;
 	}
 	
 	protected Color getBackgroundColor() {

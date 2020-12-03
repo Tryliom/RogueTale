@@ -80,4 +80,15 @@ public class Ability {
 	public void setCurrentDuration(int currentDuration) {
 		this.currentDuration = currentDuration;
 	}
+	
+	public float getCooldownPercent() {
+		float cooldownPercent = (float) getCurrentCooldown() / getCooldown();
+		if (cooldownPercent < 0) {
+			return 0;
+		}
+		if (cooldownPercent > 1) {
+			return 1;
+		}
+		return cooldownPercent;
+	}
 }

@@ -1,7 +1,5 @@
 package ch.cpnv.roguetale.entity.ui;
 
-import org.newdawn.slick.geom.Rectangle;
-
 import ch.cpnv.roguetale.entity.character.Ability;
 
 public class UiAbility extends UiElement {
@@ -21,15 +19,7 @@ public class UiAbility extends UiElement {
 	}
 
 	@Override
-	public Rectangle getActionRectangle() {
-		Rectangle iconRectangle = getIconRectangle();
-		// TODO add method to Ability
-		float rectangleWidthFactor = (float) ability.getCurrentCooldown() / ability.getCooldown();
-		return new Rectangle(
-				iconRectangle.getX(), 
-				iconRectangle.getY(), 
-				iconRectangle.getWidth() * rectangleWidthFactor, 
-				iconRectangle.getHeight()
-		);
+	protected float getActionRectangleWidthFactor() {
+		return ability.getCooldownPercent();
 	}
 }
