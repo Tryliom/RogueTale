@@ -140,7 +140,19 @@ public abstract class Weapon {
 	 * @return Array of caracteristics shaping for display
 	 */
 	public ArrayList<String> getCaracteristics() {
-		return new ArrayList<String>();
+		ArrayList<String> list = new ArrayList<String>();
+		
+		if (this instanceof RangedWeapon) {
+			RangedWeapon w = (RangedWeapon) this; 
+			list.add("Portée: "+w.getRange()+" unitées");
+		}
+		
+		int damage = this.getDamage();
+		if (damage != 0)
+			list.add("Dégât: "+damage+" coeur" + (damage > 1 ? "s" : ""));
+		list.add("Recharge: "+(this.getCooldown() >= 1000 ? "Long" : "Rapide"));
+		
+		return list;
 	}
 	
 }

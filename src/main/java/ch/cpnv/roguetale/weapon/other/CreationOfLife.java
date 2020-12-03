@@ -1,5 +1,7 @@
 package ch.cpnv.roguetale.weapon.other;
 
+import java.util.ArrayList;
+
 import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -15,7 +17,7 @@ public class CreationOfLife extends Weapon {
 	private static final String ICON_PATH = "ch\\cpnv\\roguetale\\images\\ui\\icon\\creationoflife.png";
 	private static final int SPAWN_DISTANCE_MAX = 200;
 	private static final int DISTANCE_NEAR_USER = 500;
-	private static final int MAX_ENEMIES = 5;
+	private static final int MAX_ALLIES = 5;
 
 	public CreationOfLife() throws SlickException {
 		super("Créateur de vie", 0, 5000, 0, 0, new Image(ICON_PATH));
@@ -33,7 +35,7 @@ public class CreationOfLife extends Weapon {
 	
 	@Override
 	public String getDescription() {
-		return "Invoque une unité alliée qui combattera pour vous jusqu'à "+MAX_ENEMIES+" alliés maximum";
+		return "Invoque une unité alliée qui combattera pour vous jusqu'à "+MAX_ALLIES+" alliés maximum";
 	}
 
 	
@@ -59,7 +61,7 @@ public class CreationOfLife extends Weapon {
 	}
 
 	private void spawnEnemies(Character user, int maxTries) throws SlickException {
-		if (this.countAlliesAroundUser(user) < MAX_ENEMIES) {
+		if (this.countAlliesAroundUser(user) < MAX_ALLIES) {
 			Enemy entity = createRandomEnemy(getRandomNearUser(user));
 			
 			if (entity.getCollidingCharacter() != null || entity.getToCreateCollidingCharacter() != null || entity.getCollidingObstacle() != null) {
@@ -82,5 +84,13 @@ public class CreationOfLife extends Weapon {
 		}
 		
 		return count;
+	}
+	
+	public ArrayList<String> getCaracteristics() {
+		ArrayList<String> list = super.getCaracteristics();
+		
+		list.add("Maximum d'alliés: "+MAX_ALLIES);
+		
+		return list;
 	}
 }

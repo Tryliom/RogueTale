@@ -18,8 +18,6 @@ import ch.cpnv.roguetale.gui.GuiUtils;
 import ch.cpnv.roguetale.gui.button.buttons.OptionButton;
 import ch.cpnv.roguetale.gui.button.buttons.ReturnButton;
 import ch.cpnv.roguetale.main.Main;
-import ch.cpnv.roguetale.weapon.MeleeWeapon;
-import ch.cpnv.roguetale.weapon.RangedWeapon;
 import ch.cpnv.roguetale.weapon.Weapon;
 
 public class InGameMenuGui extends Gui {
@@ -73,26 +71,23 @@ public class InGameMenuGui extends Gui {
 				border, 
 				2, g);
 		
-		int y = 0;
+		int y = 90;
 		for (String text : desc) {
-			g.drawString(text, x + 100, 100 + y);
+			g.drawString(text, x + 100, y);
 			y += 30;
 		}
 		
 		g.drawString(name, x, 40);
-		icon.draw(x, 100);
+		icon.draw(x, 90);
 		
 		// Caracteristics
-		y += 30 + 100;
-		if (weapon instanceof RangedWeapon) {
-			RangedWeapon w = (RangedWeapon) weapon; 
-			g.drawString("Portée: "+w.getRange()+" unitées", x, y); y += 30;
+		y += 30;
+		ArrayList<String> carac = weapon.getCaracteristics();
+		
+		for (String str : carac) {
+			g.drawString(str, x, y); 
+			y += 30;
 		}
-		int damage = weapon.getDamage();
-		if (damage != 0) {
-			g.drawString("Dégât: "+damage+" coeur" + (damage > 1 ? "s" : ""), x, y); y += 30;
-		}
-		g.drawString("Recharge: "+(weapon.getCooldown() >= 2000 ? "Long" : "Rapide"), x, y); y += 30;
 		
 	}
 

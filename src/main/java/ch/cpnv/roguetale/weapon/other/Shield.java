@@ -1,5 +1,7 @@
 package ch.cpnv.roguetale.weapon.other;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
@@ -72,5 +74,13 @@ public class Shield extends Weapon {
 
 	public void setLuckCancelProjectiles(int luckCancelProjectiles) {
 		this.luckCancelProjectiles = luckCancelProjectiles;
+	}
+	
+	public ArrayList<String> getCaracteristics() {
+		ArrayList<String> list = super.getCaracteristics();
+		
+		list.add("Chance de bloquer un projectile: "+this.luckCancelProjectiles+"%");
+		
+		return list;
 	}
 }
