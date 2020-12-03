@@ -19,6 +19,8 @@ import ch.cpnv.roguetale.gui.button.buttons.OptionButton;
 import ch.cpnv.roguetale.gui.button.buttons.ReturnButton;
 import ch.cpnv.roguetale.main.Main;
 import ch.cpnv.roguetale.weapon.Weapon;
+import font.FontManager;
+import font.FontType;
 
 public class InGameMenuGui extends Gui {
 	private ArrayList<String> desc;
@@ -48,6 +50,7 @@ public class InGameMenuGui extends Gui {
 		Player p = GameGui.getPlayerController().getPlayer();
 		Weapon first = p.getPrimaryWeapon();
 		Weapon second = p.getSecondaryWeapon();
+		FontManager.getInstance().setFont(FontType.Small, g);
 		
 		if (this.desc == null)
 			this.desc = GuiUtils.formatDisplayText(first.getDescription(), Main.BASE_HEIGHT/2, g);
@@ -72,23 +75,30 @@ public class InGameMenuGui extends Gui {
 				2, g);
 		
 		int y = 90;
+		int space = 30;
+		
+		FontManager.getInstance().setFont(FontType.Small, g);
 		for (String text : desc) {
 			g.drawString(text, x + 100, y);
-			y += 30;
+			y += space;
 		}
-		
+		FontManager.getInstance().setFont(FontType.Title, g);
 		g.drawString(name, x, 40);
 		icon.draw(x, 90);
 		
 		// Caracteristics
+		if (y < 90 + 70)
+			y = 160;
 		y += 30;
 		ArrayList<String> carac = weapon.getCaracteristics();
+		FontManager.getInstance().setFont(FontType.Small, g);
 		
 		for (String str : carac) {
 			g.drawString(str, x, y); 
-			y += 30;
+			y += 20;
 		}
 		
+		FontManager.getInstance().resetDefaultFont(g);
 	}
 
 	public void update(GameContainer gc, int delta, Vector2f origin) throws SlickException {
