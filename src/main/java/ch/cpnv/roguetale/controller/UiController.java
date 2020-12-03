@@ -9,6 +9,7 @@ import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.entity.character.Ability;
 import ch.cpnv.roguetale.entity.character.Player;
+import ch.cpnv.roguetale.entity.ui.UiAbility;
 import ch.cpnv.roguetale.entity.ui.UiLifePoint;
 import ch.cpnv.roguetale.entity.ui.UiWeaponSlot;
 import ch.cpnv.roguetale.gui.guis.GameGui;
@@ -16,26 +17,33 @@ import ch.cpnv.roguetale.main.Main;
 import ch.cpnv.roguetale.weapon.Weapon;
 
 public class UiController implements Controller {
-	protected static final int Y_POSITION = 5;
-	protected static final int X_POSITION = 5;
+	protected static final int LIFEPOINT_Y_POSITION = 5;
+	protected static final int LIFEPOINT_X_POSITION_START = 5;
+	protected static final int ACTIONS_Y_POSITION = Main.BASE_HEIGHT - 10;
+	protected static final int LEFT_WEAPON_X_POSITION = Main.BASE_WIDTH / 4;
+	protected static final int RIGHT_WEAPON_X_POSITION =  Main.BASE_WIDTH * 3/4;
+	protected static final int ACTIONS_X_DISTANCE = 100;
 	private static final String MOUSE_LEFT_PATH = "ch\\cpnv\\roguetale\\images\\ui\\icon\\mouseLeft.png";
 	private static final String MOUSE_RIGHT_PATH = "ch\\cpnv\\roguetale\\images\\ui\\icon\\mouseRight.png";
 	
 	protected ArrayList<UiLifePoint> lifePoints = new ArrayList<UiLifePoint>();
 	protected ArrayList<UiWeaponSlot> weapons = new ArrayList<UiWeaponSlot>();
-	protected ArrayList<Ability> abilities = new ArrayList<Ability>();
+	protected ArrayList<UiAbility> abilities = new ArrayList<UiAbility>();
 
 	public UiController() {
 		Player player = GameGui.getPlayerController().getPlayer();
-		weapons.add(new UiWeaponSlot(Main.BASE_WIDTH/4, Main.BASE_HEIGHT - 10, MOUSE_LEFT_PATH, player.getPrimaryWeapon()));
-		weapons.add(new UiWeaponSlot(Main.BASE_WIDTH*3/4, Main.BASE_HEIGHT - 10, MOUSE_RIGHT_PATH, player.getSecondaryWeapon()));
+		weapons.add(new UiWeaponSlot(LEFT_WEAPON_X_POSITION, ACTIONS_Y_POSITION, MOUSE_LEFT_PATH, player.getPrimaryWeapon()));
+		weapons.add(new UiWeaponSlot(RIGHT_WEAPON_X_POSITION, ACTIONS_Y_POSITION, MOUSE_RIGHT_PATH, player.getSecondaryWeapon()));
+		for(Ability ability : player.getAbilities()) {
+			addAbility(ability);
+		}	
 	}
 	
 	@Override
 	public void render(GameContainer gc, Graphics g, Vector2f origin) throws SlickException {
-		int x = X_POSITION;
+		int x = LIFEPOINT_X_POSITION_START;
 		for(UiLifePoint lifePoint : lifePoints) {
-			lifePoint.getSprite().draw(x, Y_POSITION);
+			lifePoint.getSprite().draw(x, LIFEPOINT_Y_POSITION);
 			x += lifePoint.getSprite().getWidth();
 		}
 		
@@ -43,8 +51,8 @@ public class UiController implements Controller {
 			weapon.render(gc, g, origin);
 		}
 		
-		for (Ability ability : abilities) {
-			// TODO render ability
+		for (UiAbility ability : abilities) {
+			ability.render(gc, g, origin);
 		}
 	}
 
@@ -83,9 +91,6 @@ public class UiController implements Controller {
 		
 		first.setWeapon(primary);
 		second.setWeapon(secondary);
-		
-		// Set the abilities
-		abilities = player.getAbilities();
 	}
 
 	@Override
@@ -106,13 +111,28 @@ public class UiController implements Controller {
 	@Override
 	public void mouseMoved(int oldx, int oldy, int newx, int newy) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mouseReleased(int button, int x, int y) throws SlickException {
 		// TODO Auto-generated method stub
-		
 	}
 
+	public void addAbility(Ability ability) {
+		abilities.add(new UiAbility(LEFT_WEAPON_X_POSITION, ACTIONS_Y_POSITION, ability));
+		setAbilitiesPosition();
+	}
+	
+	public void removeAbility(Ability ability) {
+		abilities.removeIf(uiAbility -> (uiAbility.getAbility() == ability));
+		setAbilitiesPosition();
+	}
+	
+	protected void setAbilitiesPosition() {
+		int x = LEFT_WEAPON_X_POSITION;
+		for(UiAbility ability : abilities) {
+			x += ACTIONS_X_DISTANCE;
+			ability.setX(x);
+		}
+	}
 }

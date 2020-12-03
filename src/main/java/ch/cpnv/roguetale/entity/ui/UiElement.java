@@ -17,12 +17,10 @@ public abstract class UiElement {
 	
 	protected int x;
 	protected int y;
-	protected String imagePath;
 	
-	public UiElement(int x, int y, String imagePath) {
+	public UiElement(int x, int y) {
 		this.x = x;
 		this.y = y;
-		this.imagePath = imagePath;
 	}
 	
 	public void render(GameContainer gc, Graphics g, Vector2f origin) throws SlickException {		
@@ -46,6 +44,10 @@ public abstract class UiElement {
 		
 		// Reset the graphics
 		g.setColor(graphicsColor);
+	}
+	
+	public void setX(int x) {
+		this.x = x;
 	}
 	
 	protected Rectangle getIconRectangle() {

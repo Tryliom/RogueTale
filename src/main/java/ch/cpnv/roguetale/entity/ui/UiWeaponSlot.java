@@ -9,11 +9,13 @@ import org.newdawn.slick.geom.Rectangle;
 import ch.cpnv.roguetale.weapon.Weapon;
 
 public class UiWeaponSlot extends UiElement {
-	private Weapon weapon;
+	protected Weapon weapon;
+	protected String buttonImagePath;
 
-	public UiWeaponSlot(int x, int y, String path_image, Weapon weapon) {
-		super(x, y, path_image);
+	public UiWeaponSlot(int x, int y, String buttonImagePath, Weapon weapon) {
+		super(x, y);
 		this.weapon = weapon;
+		this.buttonImagePath = buttonImagePath;
 	}
 	
 	public Weapon getWeapon() {
@@ -79,7 +81,7 @@ public class UiWeaponSlot extends UiElement {
 				DIMENSION_BUTTON)
 		);
 		try {
-			new Image(imagePath).getScaledCopy(DIMENSION_BUTTON, DIMENSION_BUTTON).draw(
+			new Image(buttonImagePath).getScaledCopy(DIMENSION_BUTTON, DIMENSION_BUTTON).draw(
 					iconRectangle.getMaxX() - DIMENSION_BUTTON/2, 
 					iconRectangle.getMaxY() - DIMENSION_BUTTON/2);
 		} catch (SlickException e) {
