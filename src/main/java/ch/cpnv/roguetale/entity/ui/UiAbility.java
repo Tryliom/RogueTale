@@ -1,30 +1,30 @@
 package ch.cpnv.roguetale.entity.ui;
 
 import org.newdawn.slick.Color;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Rectangle;
 
 import ch.cpnv.roguetale.entity.character.Ability;
 
 public class UiAbility extends UiAction {
 	protected Ability ability;
+	protected Image buttonIcon;
 
 	public UiAbility(int x, int y, Ability ability) {
 		super(x, y);
 		this.ability = ability;
+		this.buttonIcon = ability.getButtonIcon().getScaledCopy(DIMENSION_BUTTON, DIMENSION_BUTTON);
 	}
 	
 	public Ability getAbility() {
 		return ability;
 	}
 	
-	public void setAbility(Ability ability) {
-		this.ability = ability;
-	}
-	
 	@Override
 	protected Color getActionColor() {
 		if(ability.getDurationPercent() > 0) {
-			return new Color(0.5f, 0.9f, 0.5f, 0.9f); 
+			return new Color(0.5f, 0.9f, 0.5f, 0.9f);
 		}
 		return new Color(0.9f, BASE_COLOR_PART, BASE_COLOR_PART, 0.9f);
 	}
@@ -43,5 +43,12 @@ public class UiAbility extends UiAction {
 		if (ability != null) {
 			ability.getIcon().getScaledCopy(DIMENSION_ICON, DIMENSION_ICON).draw(iconRectangle.getX(), iconRectangle.getY());
 		}
+	}
+	
+	@Override
+	protected void drawButton(Graphics g) {
+		drawButtonRectangle(g);
+		Rectangle buttonRectangle = getButtonRectangle();
+		buttonIcon.draw(buttonRectangle.getX(), buttonRectangle.getY());
 	}
 }

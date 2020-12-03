@@ -3,7 +3,7 @@ package ch.cpnv.roguetale.entity.character;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-public class Ability {
+public abstract class Ability {
 	private String name;
 	private int cooldown;
 	private int currentCooldown;
@@ -97,6 +97,8 @@ public class Ability {
 		float durationPercent = (float) getCurrentDuration() / getDuration();
 		return clampPercent(durationPercent);
 	}
+	
+	public abstract Image getButtonIcon();
 	
 	protected float clamp(float value, float min, float max) {
 		if (value < min) {
