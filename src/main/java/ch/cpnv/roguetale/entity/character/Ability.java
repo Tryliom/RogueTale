@@ -1,5 +1,6 @@
 package ch.cpnv.roguetale.entity.character;
 
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 public class Ability {
@@ -8,6 +9,8 @@ public class Ability {
 	private int currentCooldown;
 	private int duration;
 	private int currentDuration;
+	
+	protected Image icon; 
 	
 	protected Ability(String name, int cooldown, int duration) {
 		this.name = name;
@@ -79,6 +82,10 @@ public class Ability {
 
 	public void setCurrentDuration(int currentDuration) {
 		this.currentDuration = currentDuration;
+	}
+	
+	public Image getIcon() {
+		return icon;
 	}
 	
 	public float getCooldownPercent() {
