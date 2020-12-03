@@ -1,5 +1,6 @@
 package ch.cpnv.roguetale.entity.ui;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.geom.Rectangle;
 
 import ch.cpnv.roguetale.entity.character.Ability;
@@ -18,6 +19,11 @@ public class UiAbility extends UiElement {
 	
 	public void setAbility(Ability ability) {
 		this.ability = ability;
+	}
+	
+	@Override
+	protected Color getActionColor() {
+		return new Color(0.9f, BASE_COLOR_PART, BASE_COLOR_PART, 0.9f);
 	}
 
 	@Override
