@@ -1,5 +1,7 @@
 package ch.cpnv.roguetale.weapon.other;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
@@ -37,6 +39,12 @@ public class Shield extends Weapon {
 		super.aim(delta, user);
 	}
 	
+	@Override
+	public String getDescription() {
+		return "Clic simple: Pare et renvoie tous les projectiles durant les 0.5 secondes suivantes."
+				+ " Clic long: Vous avez une chance d'annuler les projectiles venant contre le bouclier de "+luckCancelProjectiles+"%.";
+	}
+	
 	public void addActiveShieldEffect(int time, Character user) throws SlickException {
 		int offsetX = 0,
 			offsetY = 0;
@@ -66,5 +74,13 @@ public class Shield extends Weapon {
 
 	public void setLuckCancelProjectiles(int luckCancelProjectiles) {
 		this.luckCancelProjectiles = luckCancelProjectiles;
+	}
+	
+	public ArrayList<String> getCaracteristics() {
+		ArrayList<String> list = super.getCaracteristics();
+		
+		list.add("Chance de bloquer un projectile: "+this.luckCancelProjectiles+"%");
+		
+		return list;
 	}
 }

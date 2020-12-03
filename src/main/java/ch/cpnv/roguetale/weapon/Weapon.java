@@ -1,5 +1,7 @@
 package ch.cpnv.roguetale.weapon;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
@@ -128,4 +130,29 @@ public abstract class Weapon {
 	public int getCurrentChargeTime() {
 		return currentChargeTime;
 	}
+
+	public String getDescription() {
+		return "";
+	}
+	
+	/**
+	 * Override by sub-classes
+	 * @return Array of caracteristics shaping for display
+	 */
+	public ArrayList<String> getCaracteristics() {
+		ArrayList<String> list = new ArrayList<String>();
+		
+		if (this instanceof RangedWeapon) {
+			RangedWeapon w = (RangedWeapon) this; 
+			list.add("Portée: "+w.getRange()+" unitées");
+		}
+		
+		int damage = this.getDamage();
+		if (damage != 0)
+			list.add("Dégât: "+damage+" coeur" + (damage > 1 ? "s" : ""));
+		list.add("Recharge: "+(this.getCooldown() >= 1000 ? "Long" : "Rapide"));
+		
+		return list;
+	}
+	
 }

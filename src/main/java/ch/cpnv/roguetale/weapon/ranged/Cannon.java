@@ -18,6 +18,12 @@ public class Cannon extends RangedWeapon {
 	public Cannon() throws SlickException {
 		super("Cannon", 1, 500, 200, new Image(ICON_PATH), MIN_CHARGE_TIME, MAX_CHARGE_TIME);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "Tir simple: Envoie une bombe qui explose au bout d'un moment ou sur une entité. "
+				+ "Tir chargé: Les dégâts de base de la bombe et la vitesse sont doublés";
+	}
 
 	@Override
 	public void attack(Character attacker) throws SlickException {		

@@ -1,20 +1,16 @@
 package ch.cpnv.roguetale.main;
 
-import java.awt.Font;
-
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.TrueTypeFont;
 
 import ch.cpnv.roguetale.controller.GuiController;
+import font.FontManager;
 
 public class Game extends BasicGame {
 	private static Game instance;
 	private GameContainer gc;
-	private Font font;
-	private TrueTypeFont ttf;
 	
 	@SuppressWarnings("unused")
 	private int score;
@@ -36,15 +32,12 @@ public class Game extends BasicGame {
 		gc.setShowFPS(false);
 		
 		GuiController.getInstance().init();
-		font = new Font("Century Gothic", Font.BOLD, 18);
-		ttf = new TrueTypeFont(font, true);
 	}
 	
 
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException {
-		g.setFont(ttf);
-		g.setAntiAlias(true);
+		FontManager.getInstance().resetDefaultFont(g);
 		GuiController.getInstance().render(gc, g, null);
 	}
 
