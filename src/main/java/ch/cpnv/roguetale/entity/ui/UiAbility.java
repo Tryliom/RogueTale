@@ -23,11 +23,17 @@ public class UiAbility extends UiElement {
 	
 	@Override
 	protected Color getActionColor() {
+		if(ability.getDurationPercent() > 0) {
+			return new Color(0.5f, 0.9f, 0.5f, 0.9f); 
+		}
 		return new Color(0.9f, BASE_COLOR_PART, BASE_COLOR_PART, 0.9f);
 	}
 
 	@Override
 	protected float getActionRectangleWidthFactor() {
+		if(ability.getDurationPercent() > 0) {
+			return ability.getDurationPercent();
+		}
 		return ability.getCooldownPercent();
 	}
 	

@@ -10,7 +10,7 @@ public class Ability {
 	private int duration;
 	private int currentDuration;
 	
-	protected Image icon; 
+	protected Image icon;
 	
 	protected Ability(String name, int cooldown, int duration) {
 		this.name = name;
@@ -28,7 +28,7 @@ public class Ability {
 	public void onUse(Character user) throws SlickException {}
 	
 	public void update(int delta, Character user) throws SlickException {
-		if (!this.canUse())
+		if (!canUse() && !isUsing())
 			this.currentCooldown -= delta;
 		if (this.isUsing()) {
 			this.onUse(user);
@@ -41,7 +41,7 @@ public class Ability {
 	}
 
 	public Boolean isUsing() {
-		return this.currentDuration <= 0;
+		return this.currentDuration >= 0;
 	}
 
 	public String getName() {
@@ -90,12 +90,25 @@ public class Ability {
 	
 	public float getCooldownPercent() {
 		float cooldownPercent = (float) getCurrentCooldown() / getCooldown();
-		if (cooldownPercent < 0) {
-			return 0;
+		return clampPercent(cooldownPercent);
+	}
+	
+	public float getDurationPercent() {
+		float durationPercent = (float) getCurrentDuration() / getDuration();
+		return clampPercent(durationPercent);
+	}
+	
+	protected float clamp(float value, float min, float max) {
+		if (value < min) {
+			return min;
 		}
-		if (cooldownPercent > 1) {
-			return 1;
+		if (value > max) {
+			return max;
 		}
-		return cooldownPercent;
+		return value;
+	}
+	
+	protected float clampPercent(float value) {
+		return clamp(value, 0, 1);
 	}
 }
