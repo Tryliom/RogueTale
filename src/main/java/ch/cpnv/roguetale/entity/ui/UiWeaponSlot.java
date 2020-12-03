@@ -72,18 +72,12 @@ public class UiWeaponSlot extends UiAction {
 	
 	@Override 
 	protected void drawButton(Graphics g) {
-		Rectangle iconRectangle = getIconRectangle();
-		g.setColor(Color.darkGray);
-		g.fill(new Rectangle(
-				iconRectangle.getMaxX()-DIMENSION_BUTTON/2, 
-				iconRectangle.getMaxY()-DIMENSION_BUTTON/2, 
-				DIMENSION_BUTTON, 
-				DIMENSION_BUTTON)
-		);
+		drawButtonRectangle(g);
+		Rectangle buttonRectangle = getButtonRectangle();
 		try {
-			new Image(buttonImagePath).getScaledCopy(DIMENSION_BUTTON, DIMENSION_BUTTON).draw(
-					iconRectangle.getMaxX() - DIMENSION_BUTTON/2, 
-					iconRectangle.getMaxY() - DIMENSION_BUTTON/2);
+			new Image(buttonImagePath)
+			.getScaledCopy((int) buttonRectangle.getWidth(), (int) buttonRectangle.getHeight())
+			.draw(buttonRectangle.getX(), buttonRectangle.getY());
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}

@@ -54,6 +54,15 @@ public abstract class UiAction {
 		return new Rectangle(x - DIMENSION/2, y - DIMENSION - 15, DIMENSION, DIMENSION);
 	}
 	
+	protected Rectangle getButtonRectangle() {
+		Rectangle iconRectangle = getIconRectangle();
+		return new Rectangle(
+				iconRectangle.getMaxX() - DIMENSION_BUTTON / 2, 
+				iconRectangle.getMaxY() - DIMENSION_BUTTON / 2, 
+				DIMENSION_BUTTON, 
+				DIMENSION_BUTTON);
+	}
+	
 	protected Rectangle getActionRectangle() {
 		Rectangle iconRectangle = getIconRectangle();
 		return new Rectangle(
@@ -90,5 +99,10 @@ public abstract class UiAction {
 	
 	protected void drawButton(Graphics g) {
 		// Implementation to be overridden if there is a button to draw
+	}
+	
+	protected void drawButtonRectangle(Graphics g) {
+		g.setColor(Color.darkGray);
+		g.fill(getButtonRectangle());
 	}
 }
