@@ -5,7 +5,7 @@ import org.newdawn.slick.geom.Rectangle;
 
 import ch.cpnv.roguetale.entity.character.Ability;
 
-public class UiAbility extends UiElement {
+public class UiAbility extends UiAction {
 	protected Ability ability;
 
 	public UiAbility(int x, int y, Ability ability) {

@@ -8,7 +8,7 @@ import org.newdawn.slick.geom.Rectangle;
 
 import ch.cpnv.roguetale.weapon.Weapon;
 
-public class UiWeaponSlot extends UiElement {
+public class UiWeaponSlot extends UiAction {
 	protected Weapon weapon;
 	protected String buttonImagePath;
 

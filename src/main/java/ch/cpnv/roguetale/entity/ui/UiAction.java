@@ -7,7 +7,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 
-public abstract class UiElement {
+public abstract class UiAction {
 	protected static final int DIMENSION_ICON = 48;
 	protected static final int DIMENSION_BUTTON = 24;
 	protected static final int WIDTH_RECTANGLE_ICON = 2;
@@ -18,7 +18,7 @@ public abstract class UiElement {
 	protected int x;
 	protected int y;
 	
-	public UiElement(int x, int y) {
+	public UiAction(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
