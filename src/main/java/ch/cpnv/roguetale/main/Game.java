@@ -6,7 +6,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.controller.GuiController;
-import font.FontManager;
+import ch.cpnv.roguetale.font.FontManager;
 
 public class Game extends BasicGame {
 	private static Game instance;

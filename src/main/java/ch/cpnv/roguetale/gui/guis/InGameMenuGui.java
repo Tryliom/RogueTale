@@ -13,14 +13,14 @@ import org.newdawn.slick.geom.Rectangle;
 
 import ch.cpnv.roguetale.controller.GuiController;
 import ch.cpnv.roguetale.entity.character.Player;
+import ch.cpnv.roguetale.font.FontManager;
+import ch.cpnv.roguetale.font.FontType;
 import ch.cpnv.roguetale.gui.Gui;
 import ch.cpnv.roguetale.gui.GuiUtils;
 import ch.cpnv.roguetale.gui.button.buttons.OptionButton;
 import ch.cpnv.roguetale.gui.button.buttons.ReturnButton;
 import ch.cpnv.roguetale.main.Main;
 import ch.cpnv.roguetale.weapon.Weapon;
-import font.FontManager;
-import font.FontType;
 
 public class InGameMenuGui extends Gui {
 	private ArrayList<String> desc;

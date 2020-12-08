@@ -1,4 +1,4 @@
-package font;
+package ch.cpnv.roguetale.font;
 
 import java.awt.Font;
 import java.util.HashMap;
