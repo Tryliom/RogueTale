@@ -9,7 +9,6 @@ import org.newdawn.slick.geom.Rectangle;
 
 public abstract class UiAction {
 	protected static final int DIMENSION_ICON = 48;
-	protected static final int DIMENSION_BUTTON = 24;
 	protected static final int WIDTH_RECTANGLE_ICON = 2;
 	protected static final int DIMENSION = DIMENSION_ICON + WIDTH_RECTANGLE_ICON;
 	
@@ -17,6 +16,8 @@ public abstract class UiAction {
 	
 	protected int x;
 	protected int y;
+	
+	private static final int DIMENSION_BUTTON = 24;
 	
 	public UiAction(int x, int y) {
 		this.x = x;
@@ -78,12 +79,20 @@ public abstract class UiAction {
 		return 0;
 	}
 	
+	protected float getButtonIconDimension() {
+		return DIMENSION_BUTTON;
+	}
+	
 	protected Color getBackgroundColor() {
 		return new Color(BASE_COLOR_PART, BASE_COLOR_PART, BASE_COLOR_PART, 0.6f);
 	}
 	
 	protected Color getActionColor() {
 		return getBackgroundColor();
+	}
+	
+	protected Color getButtonColor() {
+		return Color.darkGray;
 	}
 	
 	protected void drawBorders(Graphics g) {
@@ -102,7 +111,7 @@ public abstract class UiAction {
 	}
 	
 	protected void drawButtonRectangle(Graphics g) {
-		g.setColor(Color.darkGray);
+		g.setColor(getButtonColor());
 		g.fill(getButtonRectangle());
 	}
 }

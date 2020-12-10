@@ -14,7 +14,7 @@ public class UiAbility extends UiAction {
 	public UiAbility(int x, int y, Ability ability) {
 		super(x, y);
 		this.ability = ability;
-		this.buttonIcon = ability.getButtonIcon().getScaledCopy(DIMENSION_BUTTON, DIMENSION_BUTTON);
+		this.buttonIcon = ability.getButtonIcon().getScaledCopy((int) getButtonIconDimension(), (int) getButtonIconDimension());
 	}
 	
 	public Ability getAbility() {
@@ -27,6 +27,11 @@ public class UiAbility extends UiAction {
 			return new Color(0.5f, 0.9f, 0.5f, 0.9f);
 		}
 		return new Color(0.9f, BASE_COLOR_PART, BASE_COLOR_PART, 0.9f);
+	}
+	
+	@Override
+	protected Color getButtonColor() {
+		return new Color(0.85f, 0.85f, 0.85f, 1);
 	}
 
 	@Override
@@ -49,6 +54,14 @@ public class UiAbility extends UiAction {
 	protected void drawButton(Graphics g) {
 		drawButtonRectangle(g);
 		Rectangle buttonRectangle = getButtonRectangle();
-		buttonIcon.draw(buttonRectangle.getX(), buttonRectangle.getY());
+		buttonIcon.draw(
+				buttonRectangle.getCenterX() - buttonIcon.getWidth() / 2, 
+				buttonRectangle.getCenterY() - buttonIcon.getHeight() / 2
+		);
+	}
+	
+	@Override
+	protected float getButtonIconDimension() {
+		return super.getButtonIconDimension() * 0.9f;
 	}
 }
