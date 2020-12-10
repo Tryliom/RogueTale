@@ -4,11 +4,14 @@ import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 
 public abstract class UiAction {
-	protected static final int DIMENSION_ICON = 48;
+	private static final int DIMENSION_ICON = 48;
+	private static final int DIMENSION_BUTTON = 24;
+	
 	protected static final int WIDTH_RECTANGLE_ICON = 2;
 	protected static final int DIMENSION = DIMENSION_ICON + WIDTH_RECTANGLE_ICON;
 	
@@ -17,7 +20,8 @@ public abstract class UiAction {
 	protected int x;
 	protected int y;
 	
-	private static final int DIMENSION_BUTTON = 24;
+	protected Image icon;
+	protected Image buttonIcon;
 	
 	public UiAction(int x, int y) {
 		this.x = x;
@@ -51,6 +55,28 @@ public abstract class UiAction {
 		this.x = x;
 	}
 	
+	protected void setIcon(Image image) {
+		this.icon = image.getScaledCopy(
+				(int) getIconDimension(), 
+				(int) getIconDimension()
+		);
+	}
+	
+	protected void setButtonIcon(Image image) {
+		this.buttonIcon = image.getScaledCopy(
+				(int) getButtonIconDimension(), 
+				(int) getButtonIconDimension()
+		);
+	}
+	
+	protected void setButtonIcon(String imagePath) {
+		try {
+			setButtonIcon(new Image(imagePath));
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	protected Rectangle getIconRectangle() {
 		return new Rectangle(x - DIMENSION/2, y - DIMENSION - 15, DIMENSION, DIMENSION);
 	}
@@ -79,6 +105,10 @@ public abstract class UiAction {
 		return 0;
 	}
 	
+	protected float getIconDimension() {
+		return DIMENSION_ICON;
+	}
+	
 	protected float getButtonIconDimension() {
 		return DIMENSION_BUTTON;
 	}
@@ -103,15 +133,27 @@ public abstract class UiAction {
 	}
 	
 	protected void drawIcon() {
-		// Implementation to be overridden if there is an icon to draw
+		if(icon != null) {
+			Rectangle iconRectangle = getIconRectangle();
+			icon.draw(iconRectangle.getX(), iconRectangle.getY());
+		}
 	}
 	
 	protected void drawButton(Graphics g) {
-		// Implementation to be overridden if there is a button to draw
+		if(buttonIcon != null) {
+			drawButtonRectangle(g);
+			Rectangle buttonRectangle = getButtonRectangle();
+			buttonIcon.draw(
+					buttonRectangle.getCenterX() - buttonIcon.getWidth() / 2, 
+					buttonRectangle.getCenterY() - buttonIcon.getHeight() / 2
+			);	
+		}
 	}
 	
 	protected void drawButtonRectangle(Graphics g) {
 		g.setColor(getButtonColor());
 		g.fill(getButtonRectangle());
 	}
+	
+	
 }

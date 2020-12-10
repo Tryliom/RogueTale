@@ -1,21 +1,16 @@
 package ch.cpnv.roguetale.entity.ui;
 
 import org.newdawn.slick.Color;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
-import org.newdawn.slick.geom.Rectangle;
-
 import ch.cpnv.roguetale.weapon.Weapon;
 
 public class UiWeaponSlot extends UiAction {
 	protected Weapon weapon;
-	protected String buttonImagePath;
 
 	public UiWeaponSlot(int x, int y, String buttonImagePath, Weapon weapon) {
 		super(x, y);
 		this.weapon = weapon;
-		this.buttonImagePath = buttonImagePath;
+		setIcon(weapon.getIcon());
+		setButtonIcon(buttonImagePath);
 	}
 	
 	public Weapon getWeapon() {
@@ -24,6 +19,7 @@ public class UiWeaponSlot extends UiAction {
 
 	public void setWeapon(Weapon weapon) {
 		this.weapon = weapon;
+		setIcon(weapon.getIcon());
 	}
 	
 	@Override
@@ -60,26 +56,5 @@ public class UiWeaponSlot extends UiAction {
 			return new Color(1f, 0.6f, 0.5f, 0.9f);
 		}
 		return new Color(0.9f, BASE_COLOR_PART, BASE_COLOR_PART, 0.9f);
-	}
-	
-	@Override 
-	protected void drawIcon() {
-		Rectangle iconRectangle = getIconRectangle();
-		if (weapon != null) {
-			weapon.getIcon().getScaledCopy(DIMENSION_ICON, DIMENSION_ICON).draw(iconRectangle.getX(), iconRectangle.getY());
-		}
-	}
-	
-	@Override 
-	protected void drawButton(Graphics g) {
-		drawButtonRectangle(g);
-		Rectangle buttonRectangle = getButtonRectangle();
-		try {
-			new Image(buttonImagePath)
-			.getScaledCopy((int) buttonRectangle.getWidth(), (int) buttonRectangle.getHeight())
-			.draw(buttonRectangle.getX(), buttonRectangle.getY());
-		} catch (SlickException e) {
-			e.printStackTrace();
-		}
 	}
 }
