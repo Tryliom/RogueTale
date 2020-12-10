@@ -29,6 +29,9 @@ import ch.cpnv.roguetale.weapon.RangedWeapon;
 import ch.cpnv.roguetale.weapon.Weapon;
 
 public abstract class Character extends MovableItem implements Damageable {
+	protected static final int FACTION_ICON_OFFSET = 5;
+	protected static final int FACTION_ICON_DIMENSION = 10;
+	
 	protected String name;
 	protected Weapon primaryWeapon;
 	protected Weapon secondaryWeapon;
@@ -37,7 +40,8 @@ public abstract class Character extends MovableItem implements Damageable {
 	protected ArrayList<State> states = new ArrayList<State>();
 	protected ArrayList<Ability> abilities = new ArrayList<Ability>();
 
-	public Character(String name,
+	public Character(
+			String name,
 			SpriteSheet ss, 
 			Vector2f position, 
 			int speed, 
@@ -46,7 +50,7 @@ public abstract class Character extends MovableItem implements Damageable {
 			Weapon primaryWeapon, 
 			Weapon secondaryWeapon,
 			int maxHealth
-			) {
+		) {
 		super(ss, position, speed, direction, moving);
 		hpDamageStrategy = new HpDamage(maxHealth);
 		this.primaryWeapon = primaryWeapon;
@@ -72,7 +76,7 @@ public abstract class Character extends MovableItem implements Damageable {
 			this.speed *= slow.getSlowness()/100f;
 		}
 		int coeff = 1;
-		// Apply coeffient of speed
+		// Apply coefficient of speed
 		if (this.hasState(Speed.class)) {
 			Speed speed = (Speed) this.getState(Speed.class);
 			coeff = speed.getSpeed();
@@ -94,18 +98,24 @@ public abstract class Character extends MovableItem implements Damageable {
 	
 	public void draw(Vector2f origin, GameContainer gc, Color filter) {
 		if (this.isDead() && this.deathAnimation != null) {
-			if (filter != null)
-				this.deathAnimation.draw(this.position.x - origin.x - this.image.getWidth() / 2, 
-						 - (this.position.y - origin.y + this.image.getHeight() / 2),
-						 filter);
-			else
-				this.deathAnimation.draw(this.position.x - origin.x - this.image.getWidth() / 2, 
-						 - (this.position.y - origin.y + this.image.getHeight() / 2));
+			float xPositionDrawing = this.position.x - origin.x - this.image.getWidth() / 2;
+			float yPositionDrawing = - (this.position.y - origin.y + this.image.getHeight() / 2);
+			if (filter != null) {
+				this.deathAnimation.draw(xPositionDrawing, yPositionDrawing, filter);
+			}
+			else {
+				this.deathAnimation.draw(xPositionDrawing, yPositionDrawing);
+			}
 		} else {
 			Graphics g = gc.getGraphics();
 			Color old = g.getColor();
 			g.setColor(this.faction.getColor());
-			g.fill(new Rectangle(this.position.x - origin.x - 5, - (this.position.y - origin.y - this.image.getHeight()/2) + 5, 10, 10));
+			g.fill(new Rectangle(
+					this.position.x - origin.x - FACTION_ICON_OFFSET, 
+					- (this.position.y - origin.y - this.image.getHeight()/2) + FACTION_ICON_OFFSET, 
+					FACTION_ICON_DIMENSION, 
+					FACTION_ICON_DIMENSION)
+			);
 			g.setColor(old);
 			super.draw(origin, gc, filter);
 		}
