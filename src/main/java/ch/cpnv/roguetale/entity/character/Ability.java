@@ -1,13 +1,16 @@
 package ch.cpnv.roguetale.entity.character;
 
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-public class Ability {
+public abstract class Ability {
 	private String name;
 	private int cooldown;
 	private int currentCooldown;
 	private int duration;
 	private int currentDuration;
+	
+	protected Image icon;
 	
 	protected Ability(String name, int cooldown, int duration) {
 		this.name = name;
@@ -25,7 +28,7 @@ public class Ability {
 	public void onUse(Character user) throws SlickException {}
 	
 	public void update(int delta, Character user) throws SlickException {
-		if (!this.canUse())
+		if (!canUse() && !isUsing())
 			this.currentCooldown -= delta;
 		if (this.isUsing()) {
 			this.onUse(user);
@@ -38,7 +41,7 @@ public class Ability {
 	}
 
 	public Boolean isUsing() {
-		return this.currentDuration <= 0;
+		return this.currentDuration >= 0;
 	}
 
 	public String getName() {
@@ -79,5 +82,35 @@ public class Ability {
 
 	public void setCurrentDuration(int currentDuration) {
 		this.currentDuration = currentDuration;
+	}
+	
+	public Image getIcon() {
+		return icon;
+	}
+	
+	public float getCooldownPercent() {
+		float cooldownPercent = (float) getCurrentCooldown() / getCooldown();
+		return clampPercent(cooldownPercent);
+	}
+	
+	public float getDurationPercent() {
+		float durationPercent = (float) getCurrentDuration() / getDuration();
+		return clampPercent(durationPercent);
+	}
+	
+	public abstract Image getButtonIcon();
+	
+	protected float clamp(float value, float min, float max) {
+		if (value < min) {
+			return min;
+		}
+		if (value > max) {
+			return max;
+		}
+		return value;
+	}
+	
+	protected float clampPercent(float value) {
+		return clamp(value, 0, 1);
 	}
 }
