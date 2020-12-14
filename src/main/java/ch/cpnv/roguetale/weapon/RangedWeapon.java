@@ -24,4 +24,11 @@ public abstract class RangedWeapon extends Weapon {
 	public int getRange() {
 		return range;
 	}
+	
+	@Override
+	public void upgradeTier() {
+		super.upgradeTier();
+		
+		this.range += this.range * 0.1;
+	}
 }
