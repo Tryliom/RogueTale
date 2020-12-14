@@ -11,6 +11,7 @@ import ch.cpnv.roguetale.entity.character.states.debuff.Slowness;
 public abstract class Weapon {	
 	protected String name;
 	protected int damage;
+	protected int tier;
 	// Cooldown in milliseconds
 	protected int cooldown;
 	protected int currentCooldown;
@@ -28,6 +29,7 @@ public abstract class Weapon {
 		this.maxChargeTime = maxChargeTime;
 		this.currentChargeTime = 0;
 		currentCooldown = 0;
+		this.tier = 1;
 	}
 	
 	public String getName() {
@@ -153,6 +155,8 @@ public abstract class Weapon {
 	public ArrayList<String> getCaracteristics() {
 		ArrayList<String> list = new ArrayList<String>();
 		
+		list.add("Tier: "+this.tier+(this.tier == 10 ? "[MAX]" : ""));
+		
 		if (this instanceof RangedWeapon) {
 			RangedWeapon w = (RangedWeapon) this; 
 			list.add("Portée: "+w.getRange()+" unitées");
@@ -166,4 +170,30 @@ public abstract class Weapon {
 		return list;
 	}
 	
+	public void upgradeTier() {
+		this.tier++;
+		
+		if (this.tier%2 == 0 && this.damage != 0) {
+			this.damage += 1;
+		}
+		
+		this.cooldown -= this.cooldown * 0.1;
+		this.minChargeTime -= this.minChargeTime * 0.1;
+		this.maxChargeTime -= this.maxChargeTime * 0.1;
+	}
+
+	public int getTier() {
+		return tier;
+	}
+	
+	public boolean canUpgradeTier() {
+		return this.tier != 10;
+	}
+	
+	public void upgradeTier(int tier) {
+		for (int i=0;i<tier;i++) {
+			if (this.canUpgradeTier())
+				this.upgradeTier();
+		}
+	}
 }

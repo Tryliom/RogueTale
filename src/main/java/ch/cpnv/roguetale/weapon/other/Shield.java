@@ -83,4 +83,11 @@ public class Shield extends Weapon {
 		
 		return list;
 	}
+	
+	@Override
+	public void upgradeTier() {
+		super.upgradeTier();
+		
+		this.luckCancelProjectiles += 5;
+	}
 }

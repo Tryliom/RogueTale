@@ -9,6 +9,7 @@ import org.newdawn.slick.geom.Rectangle;
 import ch.cpnv.roguetale.gui.Gui;
 import ch.cpnv.roguetale.gui.GuiUtils;
 import ch.cpnv.roguetale.gui.enums.State;
+import ch.cpnv.roguetale.main.Game;
 import ch.cpnv.roguetale.sound.SoundManager;
 import ch.cpnv.roguetale.sound.SoundType;
 
@@ -74,6 +75,12 @@ public class GuiButton {
 
 	public void setContent(String content) {
 		this.content = content;
+		int width = Game.getInstance().getGc().getGraphics().getFont().getWidth(content) + 15;
+		if (width > this.width) {
+			this.x += this.width/2;
+			this.width = width;
+			this.x = x - this.width/2;
+		}
 	}
 
 	public int getX() {
