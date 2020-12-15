@@ -100,6 +100,21 @@ public class SaveManager {
 		Main.saveController.setGraphic(data);
 	}
 	
+	public void saveCommand() throws IOException {
+		this.saveContentToFile("command", Main.saveController.getCommand());
+	}
+	
+	public void loadCommand() throws ClassNotFoundException, IOException {
+		SaveCommand data = (SaveCommand) this.getContentFromFile("command");
+
+		if (data == null) {
+			data = new SaveCommand();
+			data.setDefaultData();
+		}
+		
+		Main.saveController.setCommand(data);
+	}
+	
 	private boolean isWindows(String OS) {
 		return (OS.indexOf("win") >= 0);
 	}
