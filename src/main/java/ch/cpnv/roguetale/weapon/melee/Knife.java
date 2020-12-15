@@ -24,7 +24,7 @@ public class Knife extends MeleeWeapon {
 	
 	@Override
 	public String getDescription() {
-		return "Tranche ce qui est devant d'un coup rapide";
+		return "Tranche ce qui est devant d'un coup rapide.";
 	}
 
 	

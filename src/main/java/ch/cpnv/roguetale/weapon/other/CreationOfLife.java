@@ -35,7 +35,7 @@ public class CreationOfLife extends Weapon {
 	
 	@Override
 	public String getDescription() {
-		return "Invoque une unité alliée qui combattera pour vous jusqu'à "+max_allies+" alliés maximum";
+		return "Invoque une unité alliée qui combattera pour vous jusqu'à "+max_allies+" alliés maximum.";
 	}
 
 	
