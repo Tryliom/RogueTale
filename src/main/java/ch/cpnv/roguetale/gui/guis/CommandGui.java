@@ -1,6 +1,9 @@
 package ch.cpnv.roguetale.gui.guis;
 
+import java.util.HashMap;
+
 import org.lwjgl.util.vector.Vector2f;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -9,10 +12,12 @@ import org.newdawn.slick.SlickException;
 import ch.cpnv.roguetale.controller.GuiController;
 import ch.cpnv.roguetale.gui.Gui;
 import ch.cpnv.roguetale.gui.GuiUtils;
-import ch.cpnv.roguetale.gui.button.buttons.MusicButton;
+import ch.cpnv.roguetale.gui.button.GuiButton;
+import ch.cpnv.roguetale.gui.button.buttons.ChangeKeyButton;
 import ch.cpnv.roguetale.gui.button.buttons.ReturnButton;
-import ch.cpnv.roguetale.gui.button.buttons.SoundButton;
+import ch.cpnv.roguetale.gui.texts.GuiLabel;
 import ch.cpnv.roguetale.main.Main;
+import ch.cpnv.roguetale.save.enums.CommandType;
 
 public class CommandGui extends Gui {
 
@@ -31,9 +36,15 @@ public class CommandGui extends Gui {
 		int w = Main.BASE_WIDTH,
 			h = Main.BASE_HEIGHT;
 		
-		this.buttonList.add(new MusicButton(w/2, h/4, this));
-		this.buttonList.add(new SoundButton(w/2, h*3/8, this));
-		this.buttonList.add(new ReturnButton(w/2, h*3/4, this));
+		HashMap<CommandType, Integer> cmd = Main.saveController.getCommand().getCommands();
+		int y = 50;
+		for (CommandType key : cmd.keySet()) {
+			Integer input = cmd.get(key);
+			this.labelList.add(new GuiLabel(key.name(), w/4, y, Color.white));
+			this.buttonList.add(new ChangeKeyButton(w/2, y, this, key, input));
+			y += 50;
+		}
+		this.buttonList.add(new ReturnButton(w/2, h - 100, this));
 		
 	}
 	
@@ -44,11 +55,22 @@ public class CommandGui extends Gui {
 
 	public void update(GameContainer gc, int delta, Vector2f origin) throws SlickException {
 		super.update(gc, delta, origin);
-
 	}
 
 	public void keyReleased(int key, char c, GameContainer gc) throws SlickException {
-		if (Input.KEY_ESCAPE == key) {
+		boolean waitingForKey = false;
+	
+		for (GuiButton gb : this.buttonList) {
+			if (gb instanceof ChangeKeyButton) {
+				ChangeKeyButton btn = (ChangeKeyButton) gb;
+				if (btn.isWaitingForKey()) {
+					btn.keyReleased(key, c, gc);
+					waitingForKey = true;
+				}
+			}
+		}
+		
+		if (Input.KEY_ESCAPE == key && !waitingForKey) {
 			GuiController.getInstance().setDisplayGui(this.prevGui);
 		}
 
@@ -61,7 +83,20 @@ public class CommandGui extends Gui {
 	}
 
 	public void mousePressed(int button, int x, int y) throws SlickException {
-		super.mousePressed(button, x, y);
+		boolean waitingForKey = false;
+		
+		for (GuiButton gb : this.buttonList) {
+			if (gb instanceof ChangeKeyButton) {
+				ChangeKeyButton btn = (ChangeKeyButton) gb;
+				if (btn.isWaitingForKey()) {
+					btn.mousePressed(button, x, y);
+					waitingForKey = true;
+				}
+			}
+		}
+		
+		if (!waitingForKey)
+			super.mousePressed(button, x, y);
 
 	}
 	

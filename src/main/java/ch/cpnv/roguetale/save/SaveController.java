@@ -5,20 +5,25 @@ import java.io.IOException;
 public class SaveController {
 	private SaveGraphic graphic;
 	private SaveSound sound;
-	
+	private SaveCommand command;
+
 	public SaveController() {
 		this.graphic = new SaveGraphic();
 		this.sound = new SaveSound();
 	}
 	
 	public void loadAll() throws ClassNotFoundException, IOException {
-		new SaveManager().loadGraphic();
-		new SaveManager().loadSound();
+		SaveManager sm = new SaveManager();
+		sm.loadGraphic();
+		sm.loadSound();
+		sm.loadCommand();
 	}
 	
 	public void saveAll() throws IOException {
-		new SaveManager().saveGraphic();
-		new SaveManager().saveSound();
+		SaveManager sm = new SaveManager();
+		sm.saveGraphic();
+		sm.saveSound();
+		sm.saveCommand();
 	}
 
 	public SaveGraphic getGraphic() {
@@ -35,5 +40,13 @@ public class SaveController {
 
 	public void setSound(SaveSound sound) {
 		this.sound = sound;
+	}
+	
+	public SaveCommand getCommand() {
+		return command;
+	}
+
+	public void setCommand(SaveCommand command) {
+		this.command = command;
 	}
 }

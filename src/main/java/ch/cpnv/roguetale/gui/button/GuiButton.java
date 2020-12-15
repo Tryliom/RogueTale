@@ -76,7 +76,16 @@ public class GuiButton {
 	public void setContent(String content) {
 		this.content = content;
 		int width = Game.getInstance().getGc().getGraphics().getFont().getWidth(content) + 15;
+		boolean changeWidth = false;
+		
 		if (width > this.width) {
+			changeWidth = true;
+		} else if (width < 200) {
+			changeWidth = true;
+			width = 200;
+		}
+		
+		if (changeWidth) {
 			this.x += this.width/2;
 			this.width = width;
 			this.x = x - this.width/2;
