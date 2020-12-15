@@ -75,7 +75,7 @@ public class InGameMenuGui extends Gui {
 				2, g);
 		
 		int y = 90;
-		int space = 30;
+		int space = 20;
 		
 		FontManager.getInstance().setFont(FontType.Small, g);
 		for (String text : desc) {
