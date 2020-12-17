@@ -6,6 +6,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
+
 import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.entity.MovableItem;
 import ch.cpnv.roguetale.entity.character.Character;
@@ -39,7 +40,8 @@ public abstract class Projectile extends MovableItem implements Temporary {
 	}
 	
 	@Override
-	protected void setImageDirection() {
+	public void setImageDirection() {
+		this.image.rotate(-this.image.getRotation());
 		switch (this.direction) {
 			case UP:
 				image.setRotation(270);
@@ -74,7 +76,7 @@ public abstract class Projectile extends MovableItem implements Temporary {
 		remainingTime = 0;
 	}
 	
-	protected void setPositionFromCharacter(Character attacker, Direction projectileDirection) {
+	public void setPositionFromCharacter(Character attacker, Direction projectileDirection) {
 		Image attackerSprite = attacker.getSprite();
 		
 		float margin = 1;

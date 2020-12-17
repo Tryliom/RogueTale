@@ -6,14 +6,17 @@ import java.util.Iterator;
 import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
+import org.newdawn.slick.geom.Rectangle;
 
 import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.entity.MovableItem;
-import ch.cpnv.roguetale.entity.character.states.Invincible;
-import ch.cpnv.roguetale.entity.character.states.Phantom;
-import ch.cpnv.roguetale.entity.character.states.Speed;
+import ch.cpnv.roguetale.entity.character.states.buff.Invincible;
+import ch.cpnv.roguetale.entity.character.states.buff.Phantom;
+import ch.cpnv.roguetale.entity.character.states.buff.Speed;
+import ch.cpnv.roguetale.entity.character.states.debuff.Slowness;
 import ch.cpnv.roguetale.entity.damageable.Damageable;
 import ch.cpnv.roguetale.entity.damageable.HpDamage;
 import ch.cpnv.roguetale.entity.obstacle.Obstacle;
@@ -26,6 +29,10 @@ import ch.cpnv.roguetale.weapon.RangedWeapon;
 import ch.cpnv.roguetale.weapon.Weapon;
 
 public abstract class Character extends MovableItem implements Damageable {
+	protected static final int FACTION_ICON_OFFSET = 5;
+	protected static final int FACTION_ICON_DIMENSION = 10;
+	
+	protected String name;
 	protected Weapon primaryWeapon;
 	protected Weapon secondaryWeapon;
 	protected Faction faction;
@@ -33,7 +40,9 @@ public abstract class Character extends MovableItem implements Damageable {
 	protected ArrayList<State> states = new ArrayList<State>();
 	protected ArrayList<Ability> abilities = new ArrayList<Ability>();
 
-	public Character(SpriteSheet ss, 
+	public Character(
+			String name,
+			SpriteSheet ss, 
 			Vector2f position, 
 			int speed, 
 			Direction direction, 
@@ -41,12 +50,13 @@ public abstract class Character extends MovableItem implements Damageable {
 			Weapon primaryWeapon, 
 			Weapon secondaryWeapon,
 			int maxHealth
-			) {
+		) {
 		super(ss, position, speed, direction, moving);
 		hpDamageStrategy = new HpDamage(maxHealth);
 		this.primaryWeapon = primaryWeapon;
 		this.secondaryWeapon = secondaryWeapon;
 		this.faction = new Faction();
+		this.name = name;
 	}
 	
 	public void update(int delta) throws SlickException {
@@ -60,10 +70,18 @@ public abstract class Character extends MovableItem implements Damageable {
 	
 	public void move(int delta) throws SlickException {
 		int oldSpeed = this.speed;
-		if (isAiming()) {
-			this.speed /= 2;
+		// Apply slowness
+		if (this.hasState(Slowness.class)) {
+			Slowness slow = (Slowness) this.getState(Slowness.class);
+			this.speed *= slow.getSlowness()/100f;
 		}
-		int coeff = this.hasState(Speed.class) ? 10 : 1;
+		int coeff = 1;
+		// Apply coefficient of speed
+		if (this.hasState(Speed.class)) {
+			Speed speed = (Speed) this.getState(Speed.class);
+			coeff = speed.getSpeed();
+		}
+		// Move
 		super.move(delta * coeff);
 		Character collidingEntity = getCollidingCharacter();
 		Obstacle collidingObstacle = getCollidingObstacle();
@@ -80,11 +98,27 @@ public abstract class Character extends MovableItem implements Damageable {
 	
 	public void draw(Vector2f origin, GameContainer gc, Color filter) {
 		if (this.isDead() && this.deathAnimation != null) {
-			this.deathAnimation.draw(this.position.x - origin.x - this.image.getWidth() / 2, 
-					 - (this.position.y - origin.y + this.image.getHeight() / 2),
-					 filter);
-		} else
+			float xPositionDrawing = this.position.x - origin.x - this.image.getWidth() / 2;
+			float yPositionDrawing = - (this.position.y - origin.y + this.image.getHeight() / 2);
+			if (filter != null) {
+				this.deathAnimation.draw(xPositionDrawing, yPositionDrawing, filter);
+			}
+			else {
+				this.deathAnimation.draw(xPositionDrawing, yPositionDrawing);
+			}
+		} else {
+			Graphics g = gc.getGraphics();
+			Color old = g.getColor();
+			g.setColor(this.faction.getColor());
+			g.fill(new Rectangle(
+					this.position.x - origin.x - FACTION_ICON_OFFSET, 
+					- (this.position.y - origin.y - this.image.getHeight()/2) + FACTION_ICON_OFFSET, 
+					FACTION_ICON_DIMENSION, 
+					FACTION_ICON_DIMENSION)
+			);
+			g.setColor(old);
 			super.draw(origin, gc, filter);
+		}
 	}
 	
 	@Override
@@ -120,6 +154,10 @@ public abstract class Character extends MovableItem implements Damageable {
 		return hpDamageStrategy.getMaxHealth();
 	}
 	
+	public ArrayList<Ability> getAbilities() {
+		return abilities;
+	}
+	
 	public void updateMaxHealth(int health) throws SlickException {
 		hpDamageStrategy.updateMaxHealth(health);
 	}
@@ -140,9 +178,9 @@ public abstract class Character extends MovableItem implements Damageable {
 		return secondaryWeapon;
 	}
 	
-	public void aimWeapon(Weapon weapon, int delta) {
-		if (weapon != null && weapon instanceof RangedWeapon) {
-			((RangedWeapon) weapon).aim(delta);
+	public void aimWeapon(Weapon weapon, int delta) throws SlickException {
+		if (weapon != null) {
+			weapon.aim(delta, this);
 		}
 	}
 	
@@ -222,6 +260,20 @@ public abstract class Character extends MovableItem implements Damageable {
 		return false;
 	}
 	
+	/*
+	 * Return a state based on his class
+	 * Class<?> cls		State class
+	 */
+	public State getState(Class<?> cls) {
+		for (State state : this.states) {
+			if (cls.isInstance(state)) {
+				return state;
+			}
+		}
+		
+		return null;
+	}
+	
 	private void removeExpiredStates() throws SlickException {
 		for (Iterator<State> iterator = this.states.iterator(); iterator.hasNext();) {
 			State state = iterator.next();
@@ -233,5 +285,13 @@ public abstract class Character extends MovableItem implements Damageable {
 					iterator.remove();
 			}
 		}
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }

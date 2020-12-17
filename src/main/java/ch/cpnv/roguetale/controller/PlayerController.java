@@ -14,34 +14,38 @@ import ch.cpnv.roguetale.entity.character.Ability;
 import ch.cpnv.roguetale.entity.character.Player;
 import ch.cpnv.roguetale.entity.pickupableitem.PickupableItem;
 import ch.cpnv.roguetale.gui.guis.GameGui;
+import ch.cpnv.roguetale.main.Main;
+import ch.cpnv.roguetale.save.SaveCommand;
+import ch.cpnv.roguetale.save.enums.CommandType;
 import ch.cpnv.roguetale.weapon.melee.Knife;
-import ch.cpnv.roguetale.weapon.ranged.Bow;
+import ch.cpnv.roguetale.weapon.other.Shield;
 
 public class PlayerController implements Controller {
 	private Player player;
 	private final HashMap<Integer, Direction> MOVING_KEYS = new HashMap<Integer, Direction>();
 	private final HashMap<Integer, Ability> ABILITY_KEYS = new HashMap<Integer, Ability>();
 
-	public PlayerController() throws SlickException {
-		// Put Input key who equals to direction
-		this.MOVING_KEYS.put(Input.KEY_W, Direction.UP);
-		this.MOVING_KEYS.put(Input.KEY_A, Direction.LEFT);
-		this.MOVING_KEYS.put(Input.KEY_D, Direction.RIGHT);
-		this.MOVING_KEYS.put(Input.KEY_S, Direction.DOWN);
-		this.MOVING_KEYS.put(Input.KEY_UP, Direction.UP);
-		this.MOVING_KEYS.put(Input.KEY_LEFT, Direction.LEFT);
-		this.MOVING_KEYS.put(Input.KEY_RIGHT, Direction.RIGHT);
-		this.MOVING_KEYS.put(Input.KEY_DOWN, Direction.DOWN);
-		
+	public PlayerController() throws SlickException {	
 		this.player = new Player( 
 				new Vector2f(0,0), 
 				150, 
 				Direction.DOWN, 
 				false, 
 				new Knife(),
-				new Bow());
+				new Shield());
+		this.setupKeys();
+	}
+	
+	public void setupKeys() {
+		this.MOVING_KEYS.clear();
+		this.ABILITY_KEYS.clear();
+		SaveCommand cmd = Main.saveController.getCommand();
+		this.MOVING_KEYS.put(cmd.getKey(CommandType.Up), Direction.UP);
+		this.MOVING_KEYS.put(cmd.getKey(CommandType.Left), Direction.LEFT);
+		this.MOVING_KEYS.put(cmd.getKey(CommandType.Right), Direction.RIGHT);
+		this.MOVING_KEYS.put(cmd.getKey(CommandType.Down), Direction.DOWN);
 		
-		this.ABILITY_KEYS.put(Input.KEY_LSHIFT, this.player.getDash());
+		this.ABILITY_KEYS.put(cmd.getKey(CommandType.Dash), this.player.getDash());
 	}
 	
 	@Override
@@ -95,14 +99,16 @@ public class PlayerController implements Controller {
 	
 	@Override
 	public void mouseReleased(int button, int x, int y) throws SlickException {
-		switch(button) {
-			case Input.MOUSE_LEFT_BUTTON:
-				player.attackWithWeapon(player.getPrimaryWeapon());
-				break;
-			case Input.MOUSE_RIGHT_BUTTON:
-				player.attackWithWeapon(player.getSecondaryWeapon());
-				break;
+		int prim = Input.MOUSE_LEFT_BUTTON;
+		int second = Input.MOUSE_RIGHT_BUTTON;
+		
+		if (prim == button) {
+			player.attackWithWeapon(player.getPrimaryWeapon());
 		}
+		
+		if (second == button) {
+			player.attackWithWeapon(player.getSecondaryWeapon());
+		}		
 		
 	}
 

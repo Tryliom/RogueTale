@@ -34,6 +34,11 @@ public abstract class DrawableItem {
 		this.position = position;		
 	}
 	
+	public DrawableItem(Image image, Vector2f position) {
+		this.image = image;
+		this.position = position;		
+	}
+	
 	public Vector2f getPosition() {
 		// clone of the position
 		return new Vector2f(position.x, position.y);
@@ -99,7 +104,7 @@ public abstract class DrawableItem {
 		if (isInScreen(gc, origin)) {
 			for (ItemEffect item : this.activeEffects) {
 				item.setPosition(this.getPosition());
-				if (!item.getForeground()) {
+				if (!item.isForeground()) {
 					item.draw(origin, gc);
 				}
 			}
@@ -116,7 +121,7 @@ public abstract class DrawableItem {
 			}
 			
 			for (ItemEffect item : this.activeEffects) {
-				if (item.getForeground())
+				if (item.isForeground())
 					item.draw(origin, gc);
 			}
 		}

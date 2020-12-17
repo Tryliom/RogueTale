@@ -10,8 +10,8 @@ import ch.cpnv.roguetale.entity.obstacle.Obstacle;
 public abstract class MeleeWeapon extends Weapon {
 	protected Shape hitbox;
 
-	public MeleeWeapon(String name, int damage, int cooldown, Shape hitbox, Image icon) {
-		super(name, damage, cooldown, icon);
+	public MeleeWeapon(String name, int damage, int cooldown, Shape hitbox, int minChargeTime, int maxChargeTime, Image icon) {
+		super(name, damage, cooldown, minChargeTime, maxChargeTime, icon);
 		this.hitbox = hitbox;
 	}
 	
@@ -21,5 +21,13 @@ public abstract class MeleeWeapon extends Weapon {
 	
 	public void meetObstacle(Obstacle attackedObstacle) throws SlickException {
 		attackedObstacle.damage(damage);
+	}
+
+	public Shape getHitbox() {
+		return hitbox;
+	}
+
+	public void setHitbox(Shape hitbox) {
+		this.hitbox = hitbox;
 	}
 }

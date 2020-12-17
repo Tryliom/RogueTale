@@ -8,6 +8,7 @@ import org.newdawn.slick.SpriteSheet;
 
 import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.entity.character.abilities.Dash;
+import ch.cpnv.roguetale.gui.guis.GameGui;
 import ch.cpnv.roguetale.weapon.Weapon;
 
 public class Player extends Character {
@@ -34,17 +35,17 @@ public class Player extends Character {
 			Weapon primaryWeapon,
 			Weapon secondaryWeapon
 			) throws SlickException {
-		super(getSpriteSheet(), position, speed, direction, moving, primaryWeapon, secondaryWeapon, STARTING_MAX_HEALTH);
+		super("", getSpriteSheet(), position, speed, direction, moving, primaryWeapon, secondaryWeapon, STARTING_MAX_HEALTH);
 		level = 1;
 		currentExp = 0;
 		maxExp = 100;
+		// Do not use addAbility, because we are not sure the UiController exists at that time
 		this.abilities.add(new Dash());
 		this.initDeathAnimation();
 	}
 
 	private void initDeathAnimation() throws SlickException {
 		this.deathAnimation = new Animation(new SpriteSheet(new Image(DEAD_ANIMATION), SPRITESHEET_DIMENSIONS, SPRITESHEET_DIMENSIONS), animationLength);
-		
 	}
 	
 	public Dash getDash() {
@@ -53,7 +54,6 @@ public class Player extends Character {
 				return (Dash) ability;
 			}
 		}
-			
 		return null;
 	}
 	
@@ -75,6 +75,16 @@ public class Player extends Character {
 
 	public int getMaxExp() {
 		return maxExp;
+	}
+	
+	public void addAbility(Ability ability) {
+		this.abilities.add(ability);
+		GameGui.getUiController().addAbility(ability);
+	}
+	
+	public void removeAbility(Ability ability) {
+		this.abilities.remove(ability);
+		GameGui.getUiController().removeAbility(ability);
 	}
 	
 	public void setInvulnerable(boolean invulnerable) {

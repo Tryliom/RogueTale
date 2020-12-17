@@ -10,6 +10,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
+import ch.cpnv.roguetale.entity.obstacle.Box;
 import ch.cpnv.roguetale.entity.obstacle.Obstacle;
 import ch.cpnv.roguetale.entity.obstacle.Rock;
 import ch.cpnv.roguetale.entity.obstacle.Tnt;
@@ -80,12 +81,13 @@ public class MapController implements Controller {
 					Vector2f obstaclePosition = (Vector2f) new Vector2f(newPosition).scale(TILE_DIMENSION);
 					double random = Math.random();
 					Obstacle newObstacle = null;
-					if(random < 0.02) {
-						newObstacle = new Rock(obstaclePosition);
-					} 
-					else if(random < 0.03) {
+					if(random < 0.01) {
+						newObstacle = new Box(obstaclePosition);
+					} else if(random < 0.02) {
 						newObstacle = new Tnt(obstaclePosition);
-					}else if(random < 0.1) {
+					} else if(random < 0.05) {
+						newObstacle = new Rock(obstaclePosition);
+					} else if(random < 0.1) {
 						newObstacle = new Vegetation(obstaclePosition);
 					}
 					

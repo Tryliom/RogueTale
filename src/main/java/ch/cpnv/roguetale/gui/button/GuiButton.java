@@ -3,17 +3,17 @@ package ch.cpnv.roguetale.gui.button;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Rectangle;
 
 import ch.cpnv.roguetale.gui.Gui;
+import ch.cpnv.roguetale.gui.GuiUtils;
 import ch.cpnv.roguetale.gui.enums.State;
+import ch.cpnv.roguetale.main.Game;
 import ch.cpnv.roguetale.sound.SoundManager;
 import ch.cpnv.roguetale.sound.SoundType;
 
 public class GuiButton {
-	private static final String PATH_BTN = "ch\\cpnv\\roguetale\\images\\ui\\button\\btn1.png";
-	private static final String PATH_BTN_HOVERED = "ch\\cpnv\\roguetale\\images\\ui\\button\\btn1_hovered.png";
 	protected String content;
 	protected int x;
 	protected int y;
@@ -35,16 +35,16 @@ public class GuiButton {
 	public void render(GameContainer gc, Graphics g) throws SlickException {
 		// Default display of a button
 		Boolean hover = this.state.equals(State.HOVERED);
-		Image btn = new Image(hover ? PATH_BTN_HOVERED : PATH_BTN);
-		btn.setFilter(Image.FILTER_NEAREST);
+		Rectangle rect = new Rectangle(x, y, width, height);
 		
-		btn.draw(x, y, width, height);
+		GuiUtils.renderBox(rect, new Color(0,106,188, hover ? 255 : 200), new Color(0,48,131, hover ? 200 : 150), 3, g);
 		
 		Color old = g.getColor();
 		g.setColor(new Color(195, 197, 213));
 		int xCenter = x + width/2 - g.getFont().getWidth(content) / 2;
 		g.drawString(content, xCenter, y + (height-g.getFont().getHeight(content))/2 - 2);
 		g.setColor(old);
+		g.resetLineWidth();
 	}
 	
 	public void onClick() throws SlickException {
@@ -64,7 +64,7 @@ public class GuiButton {
 		}
 		
 		if (futurState != null && !futurState.equals(this.state)) {
-			this.y += futurState.equals(State.HOVERED) ? 3 : -3;
+			this.y += futurState.equals(State.HOVERED) ? 2 : -2;
 			this.state = futurState;
 		}
 	}
@@ -75,6 +75,21 @@ public class GuiButton {
 
 	public void setContent(String content) {
 		this.content = content;
+		int width = Game.getInstance().getGc().getGraphics().getFont().getWidth(content) + 15;
+		boolean changeWidth = false;
+		
+		if (width > this.width) {
+			changeWidth = true;
+		} else if (width < 200) {
+			changeWidth = true;
+			width = 200;
+		}
+		
+		if (changeWidth) {
+			this.x += this.width/2;
+			this.width = width;
+			this.x = x - this.width/2;
+		}
 	}
 
 	public int getX() {

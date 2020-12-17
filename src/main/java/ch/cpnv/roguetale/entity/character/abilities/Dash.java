@@ -1,15 +1,34 @@
 package ch.cpnv.roguetale.entity.character.abilities;
 
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.SpriteSheet;
+
 import ch.cpnv.roguetale.entity.character.Ability;
 import ch.cpnv.roguetale.entity.character.Character;
-import ch.cpnv.roguetale.entity.character.states.Invincible;
-import ch.cpnv.roguetale.entity.character.states.Phantom;
-import ch.cpnv.roguetale.entity.character.states.Speed;
+import ch.cpnv.roguetale.entity.character.states.buff.Invincible;
+import ch.cpnv.roguetale.entity.character.states.buff.Phantom;
+import ch.cpnv.roguetale.entity.character.states.buff.Speed;
 
 public class Dash extends Ability {
+	static protected final String SPRITESHEET_PATH = "ch\\cpnv\\roguetale\\images\\obstacles\\icons.png";
+	static protected final String BUTTON_IMAGE_PATH = "ch\\cpnv\\roguetale\\images\\ui\\icon\\shiftKey.png";
+	
+	protected Image buttonIcon;
 
 	public Dash() {
 		super("Dash", 5000, 200);
+		try {
+			SpriteSheet spritesheet = new SpriteSheet(SPRITESHEET_PATH, 48, 48);
+			icon = spritesheet.getSprite(7, 6);
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
+		try {
+			buttonIcon = new Image(BUTTON_IMAGE_PATH);
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@Override
@@ -17,9 +36,14 @@ public class Dash extends Ability {
 		if (this.canUse()) {
 			user.addState(new Phantom(this.getDuration()));
 			user.addState(new Invincible(this.getDuration()));
-			user.addState(new Speed(this.getDuration()));
+			user.addState(new Speed(this.getDuration(), 10));
 		}
 		
 		super.activate(user);
+	}
+
+	@Override
+	public Image getButtonIcon() {
+		return buttonIcon;
 	}
 }

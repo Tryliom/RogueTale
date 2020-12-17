@@ -1,5 +1,7 @@
 package ch.cpnv.roguetale.weapon.other;
 
+import java.util.ArrayList;
+
 import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -15,20 +17,27 @@ public class CreationOfLife extends Weapon {
 	private static final String ICON_PATH = "ch\\cpnv\\roguetale\\images\\ui\\icon\\creationoflife.png";
 	private static final int SPAWN_DISTANCE_MAX = 200;
 	private static final int DISTANCE_NEAR_USER = 500;
-	private static final int MAX_ENEMIES = 5;
+	private int max_allies = 5;
 
 	public CreationOfLife() throws SlickException {
-		super("Créateur de vie", 0, 5000, new Image(ICON_PATH));
+		super("Créateur de vie", 0, 5000, 0, 0, new Image(ICON_PATH));
 	}
 	
+	@Override
 	public void attack(Character attacker) throws SlickException {		
 		if (canAttack()) {
 			// Max 10 tries to spawn entity
-			this.spawnEnemies(attacker, 10);
+			this.spawnEnemies(attacker, 100);
 		}
 		
 		super.attack(attacker);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "Invoque une unité alliée qui combattera pour vous jusqu'à "+max_allies+" alliés maximum.";
+	}
+
 	
 	private Enemy createRandomEnemy(Vector2f position) throws SlickException {
 		Enemy enemy;
@@ -52,7 +61,7 @@ public class CreationOfLife extends Weapon {
 	}
 
 	private void spawnEnemies(Character user, int maxTries) throws SlickException {
-		if (this.countEnemiesAroundUser(user) < MAX_ENEMIES) {
+		if (this.countAlliesAroundUser(user) < max_allies) {
 			Enemy entity = createRandomEnemy(getRandomNearUser(user));
 			
 			if (entity.getCollidingCharacter() != null || entity.getToCreateCollidingCharacter() != null || entity.getCollidingObstacle() != null) {
@@ -66,14 +75,29 @@ public class CreationOfLife extends Weapon {
 		}
 	}
 	
-	private int countEnemiesAroundUser(Character user) throws SlickException {
+	private int countAlliesAroundUser(Character user) throws SlickException {
 		int count = 0;
 		
 		for (Character en : user.getCharacterList()) {
-			if (user.getFaction().getId() != en.getFaction().getId() && en.getDistanceToMovableItem(user) < DISTANCE_NEAR_USER)
+			if (user.getFaction().getId() == en.getFaction().getId() && en.getDistanceToMovableItem(user) < DISTANCE_NEAR_USER)
 				count++;
 		}
 		
 		return count;
+	}
+	
+	public ArrayList<String> getCaracteristics() {
+		ArrayList<String> list = super.getCaracteristics();
+		
+		list.add("Maximum d'alliés: "+max_allies);
+		
+		return list;
+	}
+	
+	@Override
+	public void upgradeTier() {
+		super.upgradeTier();
+		
+		this.max_allies++;
 	}
 }

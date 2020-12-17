@@ -16,11 +16,17 @@ public class Bow extends RangedWeapon {
 	private static final int MAX_CHARGE_TIME = 1000;
 
 	public Bow() throws SlickException {
-		super("Arc", 1, 300, 500, new Image(ICON_PATH), MIN_CHARGE_TIME, MAX_CHARGE_TIME);
+		this(300);
 	}
 	
 	public Bow(int cooldown) throws SlickException {
 		super("Arc", 1, cooldown, 500, new Image(ICON_PATH), MIN_CHARGE_TIME, MAX_CHARGE_TIME);
+	}
+	
+	@Override
+	public String getDescription() {
+		return "Tir simple: Envoie une flèche."
+				+ " Tir chargé: Les dégâts et la vitesse de la flèche sont doublés.";
 	}
 
 	public void attack(Character attacker) throws SlickException {		

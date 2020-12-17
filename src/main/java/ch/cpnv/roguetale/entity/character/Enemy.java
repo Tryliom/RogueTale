@@ -6,7 +6,6 @@ import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 
 import ch.cpnv.roguetale.entity.Direction;
-import ch.cpnv.roguetale.entity.pickupableitem.PickupableLifePoint;
 import ch.cpnv.roguetale.gui.guis.GameGui;
 import ch.cpnv.roguetale.weapon.MeleeWeapon;
 import ch.cpnv.roguetale.weapon.RangedWeapon;
@@ -14,27 +13,41 @@ import ch.cpnv.roguetale.weapon.Weapon;
 
 public class Enemy extends Character {
 	private static final float PRECISION = 0.35f;
-	protected double lifepointSpawnProbability = 0.2;
+	private int cooldownTargetChange;
+	private Character currentOpponent;
 
-	public Enemy(SpriteSheet ss, Vector2f position, int speed, Direction direction, boolean moving,
+	public Enemy(String name, SpriteSheet ss, Vector2f position, int speed, Direction direction, boolean moving,
 			Weapon primaryWeapon, Weapon secondaryWeapon, int maxHealth) {
-		super(ss, position, speed, direction, moving, primaryWeapon, secondaryWeapon, maxHealth);
+		super(name, ss, position, speed, direction, moving, primaryWeapon, secondaryWeapon, maxHealth);
+	}
+	
+	@Override
+	public Character getNearestOpponent() {
+		if (cooldownTargetChange <= 0 || currentOpponent == null || currentOpponent.isDead()) {
+			cooldownTargetChange = 5000;
+			currentOpponent = super.getNearestOpponent();
+		}
+		
+		return currentOpponent;
 	}
 	
 	public void chooseAction() throws SlickException {
-		if (this.getNearestOpponent() != null)
+		if (this.getNearestOpponent() != null) {
+			
+			RangedWeapon rangedWeapon = this.getRangedWeapon();
+			MeleeWeapon meleeWeapon = this.getMeleeWeapon();
+			Weapon weapon = meleeWeapon != null ? meleeWeapon : this.getWeapon();
+			
 			if (canAttackOpponent()) {
 				this.setDirectionToFaceOpponent(false);
 				this.setMoving(false);
 				
-				RangedWeapon rangedWeapon = this.getRangedWeapon();
-				Weapon weapon = this.getWeapon();
 				// RangeWeapon action
 				if (rangedWeapon != null) {
 					if (rangedWeapon.canShoot())
 						rangedWeapon.attack(this);
-					
-					if (!rangedWeapon.canAttack()) {
+
+					if (!rangedWeapon.canAttack() ) {
 						if (this.shouldMoveAwayFromOpponent()) {
 							this.setDirectionToRunFromOpponent();
 							this.setMoving(true);
@@ -43,27 +56,31 @@ public class Enemy extends Character {
 							this.setMoving(true);
 						}
 					}
-				}
-				// Other weapon action
-				if (weapon != null) {
+				} else if (weapon != null) {
 					if (weapon.canAttack()) {
-						weapon.attack(this);
+						if (meleeWeapon != null) {
+							GameGui.getEnemyController().addCharacterToAttack(this);
+						} else
+							weapon.attack(this);
 					}
 				}
-			} else if (this.getRangedWeapon() != null && this.getRangeToOpponent() > this.getRangedWeapon().getRange()) {
+			} else if (this.hasRangeWithRangedWeapon() || meleeWeapon != null && this.isFacingOpponent()) {
 				this.setDirectionToFaceOpponent(false);
 				this.setMoving(true);
 			} else {
 				this.moveInAttackPosition();
 			}
+		}
 	}
 	
 	public void update(int delta) throws SlickException {
 		super.update(delta);
 		
+		this.cooldownTargetChange -= delta;
+		
 		if (this.getRangedWeapon() != null ) {
 			if ((this.isAiming() || canAttackOpponent()) && !this.getRangedWeapon().canShoot() && !this.getRangedWeapon().isInCooldown())
-				this.getRangedWeapon().aim(delta);
+				this.getRangedWeapon().aim(delta, this);
 			
 			if (!canAttackOpponent() && this.getDistanceToMovableItem(GameGui.getPlayerController().getPlayer()) > 400)
 				this.getRangedWeapon().attack(this);
@@ -144,11 +161,22 @@ public class Enemy extends Character {
 	}
 	
 	protected Boolean canAttackOpponent() throws SlickException {
+		return this.canAttackOpponent(0);
+	}
+	
+	protected Boolean canAttackOpponent(int range) throws SlickException {
 		Character target = this.getNearestOpponent();
 		if (target == null)
 			return false;
 		float border = (1-PRECISION)/2;
-		float range = this.getRangedWeapon() != null ? this.getRangedWeapon().getRange() : 0;
+		
+		if (range == 0)
+			if (this.getRangedWeapon() != null)
+				range = this.getRangedWeapon().getRange();
+			else if (this.getMeleeWeapon() != null) {
+				range = (int) this.getMeleeWeapon().getHitbox().getWidth();
+			}
+
 		Rectangle enRect = new Rectangle(
 					this.getPosition().getX() + this.getSprite().getWidth()*border,
 					this.getPosition().getY() + this.getSprite().getHeight()*(border+PRECISION), 
@@ -181,8 +209,12 @@ public class Enemy extends Character {
 				enRect.setHeight(range);
 				break;
 		}
-
+		
 		return enRect.intersects(pRect) || enRect.contains(pRect);
+	}
+	
+	public boolean isFacingOpponent() throws SlickException {
+		return this.canAttackOpponent(1000);
 	}
 
 	protected RangedWeapon getRangedWeapon() {
@@ -194,7 +226,7 @@ public class Enemy extends Character {
 			return null;
 	}
 	
-	protected MeleeWeapon getMeleeWeapon() {
+	public MeleeWeapon getMeleeWeapon() {
 		if (this.primaryWeapon != null && this.primaryWeapon instanceof MeleeWeapon) {
 			return (MeleeWeapon) this.primaryWeapon;
 		} else if (this.secondaryWeapon != null && this.secondaryWeapon instanceof MeleeWeapon) {
@@ -235,11 +267,11 @@ public class Enemy extends Character {
 		}
 	}
 	
-	protected void die() throws SlickException {
-		double alea = Math.random();
-		if (alea < lifepointSpawnProbability) {
-			GameGui.getPickupableItemController().addPickupableItem(new PickupableLifePoint(position));
-		}
+	public boolean hasRangeWithRangedWeapon() throws SlickException {
+		return this.getRangedWeapon() != null && this.getRangeToOpponent() > this.getRangedWeapon().getRange();
+	}
+	
+	protected void die() throws SlickException {		
 		GameGui.getEnemyController().removeEnemy(this);
 	}
 }

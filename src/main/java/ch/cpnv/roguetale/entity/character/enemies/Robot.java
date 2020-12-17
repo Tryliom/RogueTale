@@ -7,8 +7,12 @@ import org.newdawn.slick.SpriteSheet;
 
 import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.entity.character.Enemy;
+import ch.cpnv.roguetale.entity.pickupableitem.PickupableLifePoint;
+import ch.cpnv.roguetale.entity.pickupableitem.PickupableWeapon;
+import ch.cpnv.roguetale.gui.guis.GameGui;
 import ch.cpnv.roguetale.sound.SoundManager;
 import ch.cpnv.roguetale.sound.SoundType;
+import ch.cpnv.roguetale.weapon.melee.Knife;
 import ch.cpnv.roguetale.weapon.ranged.Bow;
 
 public class Robot extends Enemy {
@@ -19,8 +23,13 @@ public class Robot extends Enemy {
 	private static final int animationLength = 300;
 
 	public Robot(Vector2f position) throws SlickException {
-		super(getSpriteSheet(), 
-				position, SPEED, Direction.UP, false, new Bow(1000), null, MAX_HEALTH);
+		super("Robot", getSpriteSheet(), 
+				position, SPEED, Direction.UP, false, null, null, MAX_HEALTH);
+		int alea = (int) Math.round(Math.random() * 100);
+		if (alea < 50)
+			this.setPrimaryWeapon(new Bow(1000));
+		else
+			this.setPrimaryWeapon(new Knife(1000));
 	}
 	
 	public static SpriteSheet getSpriteSheet() throws SlickException {
@@ -34,5 +43,12 @@ public class Robot extends Enemy {
 	public void die() throws SlickException {
 		super.die();
 		SoundManager.getInstance().play(SoundType.RobotDeath, 5f);
+		
+		double alea = Math.random();
+		if (alea < 0.2) {
+			GameGui.getPickupableItemController().addPickupableItem(new PickupableLifePoint(position));
+		} else if (alea < 0.3) {
+			GameGui.getPickupableItemController().addPickupableItem(new PickupableWeapon(new Bow(), position));
+		}
 	}
 }

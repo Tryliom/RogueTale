@@ -20,6 +20,7 @@ public class EnemyController implements Controller {
 	
 	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 	private ArrayList<Enemy> enemiesToCreate = new ArrayList<Enemy>();
+	private ArrayList<Enemy> characterToAttack = new ArrayList<Enemy>();
 	
 	public ArrayList<Enemy> getEnemiesToCreate() {
 		return enemiesToCreate;
@@ -54,7 +55,12 @@ public class EnemyController implements Controller {
 			this.enemies.add(enemy);
 		}
 		
+		for (Enemy enemy : this.characterToAttack) {
+			enemy.getMeleeWeapon().attack(enemy);
+		}
+		
 		this.enemiesToCreate.clear();
+		this.characterToAttack.clear();
 		
 		spawnEnemies();
 		
@@ -137,5 +143,9 @@ public class EnemyController implements Controller {
 	
 	public void addEnemyToAdd(Enemy enemy) {
 		this.enemiesToCreate.add(enemy);
+	}
+	
+	public void addCharacterToAttack(Enemy enemy) {
+		this.characterToAttack.add(enemy);
 	}
 }
