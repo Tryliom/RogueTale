@@ -19,14 +19,15 @@ public class Arrow extends Projectile {
 	
 	static protected final String SPRITESHEET_PATH = "ch\\cpnv\\roguetale\\images\\projectiles\\arrow.png";
 
-	public Arrow(Vector2f position, Direction direction, int range, int damage) throws SlickException {
+	public Arrow(Vector2f position, Direction direction, int range, int damage, Character attacker) throws SlickException {
 		super(
 				new SpriteSheet(SPRITESHEET_PATH, 128, 128), 
 				position,
 				SPEED,
 				direction,
 				range,
-				damage
+				damage,
+				attacker
 				);
 		this.image = this.spritesheet.getSprite(0, 0);
 		this.image = this.image.getScaledCopy(IMAGE_WIDTH, IMAGE_HEIGHT);
@@ -34,7 +35,7 @@ public class Arrow extends Projectile {
 	}
 	
 	public Arrow(Character attacker, Direction direction, int range, int damage) throws SlickException {
-		this(attacker.getPosition(), direction, range, damage);
+		this(attacker.getPosition(), direction, range, damage, attacker);
 		this.setPositionFromCharacter(attacker, direction);
 	}
 	

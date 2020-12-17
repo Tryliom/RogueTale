@@ -76,7 +76,7 @@ public class MeleeAttackController implements Controller {
 		
 		// We have to call attack.meetCharacter later, because it can potentially remove the character from the enemies list
 		for(Enemy enemy : GameGui.getEnemyController().getEnemies()) {
-			if(attack.isColliding(enemy)) {
+			if(attack.isColliding(enemy) && attack.getAttacker().getFaction().getId() != enemy.getFaction().getId()) {
 				charactersHit.add(enemy);
 			}
 		}

@@ -65,7 +65,7 @@ public class ProjectileController implements Controller {
 		for(Projectile projectile : projectiles) {
 			Character hit = projectile.getCollidingCharacter();			
 			
-			if (hit != null && !hit.hasState(Phantom.class)) {
+			if (hit != null && !hit.hasState(Phantom.class) && hit.getFaction().getId() != projectile.getAttacker().getFaction().getId()) {
 				// If character have the cancelProjectile effect, check if it's blocked
 				boolean takeDamage = true;
 				boolean isReflected = false;
@@ -98,6 +98,7 @@ public class ProjectileController implements Controller {
 					projectile.setDirection(reflect);
 					projectile.setSpeed(projectile.getSpeed()*3/2);
 					projectile.setPositionFromCharacter(hit, reflect);
+					projectile.setAttacker(hit);
 				}
 			}
 		}

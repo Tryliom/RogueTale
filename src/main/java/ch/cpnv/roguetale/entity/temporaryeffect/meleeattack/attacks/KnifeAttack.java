@@ -15,14 +15,14 @@ public class KnifeAttack extends MeleeAttack {
 	
 	private static final String DEFAULT_PATH = "ch\\cpnv\\roguetale\\images\\effects\\slash.png";
 	
-	public KnifeAttack(Vector2f position, Direction direction, Knife knife) throws SlickException {
-		super(new SpriteSheet(DEFAULT_PATH, 241, 401, 0), position, direction, 100, knife);
+	public KnifeAttack(Vector2f position, Direction direction, Knife knife, Character attacker) throws SlickException {
+		super(new SpriteSheet(DEFAULT_PATH, 241, 401, 0), position, direction, 100, knife, attacker);
 		this.image = this.image.getScaledCopy(IMAGE_WIDTH, IMAGE_HEIGHT);
 		this.setImageDirection();
 	}
 	
 	public KnifeAttack(Character attacker, Knife knife) throws SlickException {
-		this(attacker.getPosition(), attacker.getDirection(), knife);
+		this(attacker.getPosition(), attacker.getDirection(), knife, attacker);
 		setPositionFromCharacter(attacker);
 	}
 	
