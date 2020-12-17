@@ -16,15 +16,17 @@ import ch.cpnv.roguetale.entity.temporaryeffect.Temporary;
 public abstract class Projectile extends MovableItem implements Temporary {
 	protected int damage;
 	protected int remainingTime;
+	protected Character attacker;
 	
-	public Projectile(SpriteSheet ss, Vector2f position, int speed, Direction direction, int range, int damage) {
+	public Projectile(SpriteSheet ss, Vector2f position, int speed, Direction direction, int range, int damage, Character attacker) {
 		super(ss, position, speed, direction, true);
 		remainingTime = range / speed * 1000;
 		this.damage = damage;
+		this.attacker = attacker;
 	}
 	
 	public Projectile(SpriteSheet ss, Character attacker, int speed, Direction direction, int range, int damage) {
-		this(ss, attacker.getPosition(), speed, direction, range, damage);
+		this(ss, attacker.getPosition(), speed, direction, range, damage, attacker);
 		setPositionFromCharacter(attacker, direction);
 	}
 	
@@ -146,5 +148,13 @@ public abstract class Projectile extends MovableItem implements Temporary {
 
 	public void setDamage(int damage) {
 		this.damage = damage;
+	}
+
+	public Character getAttacker() {
+		return attacker;
+	}
+
+	public void setAttacker(Character attacker) {
+		this.attacker = attacker;
 	}
 }

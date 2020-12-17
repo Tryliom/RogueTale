@@ -17,14 +17,15 @@ public class Bomb extends Projectile {
 	
 	static protected final String SPRITESHEET_PATH = "ch\\cpnv\\roguetale\\images\\projectiles\\bomb.png";
 
-	public Bomb(Vector2f position, Direction direction, int range, int damage) throws SlickException {
+	public Bomb(Vector2f position, Direction direction, int range, int damage, Character attacker) throws SlickException {
 		super(
 				new SpriteSheet(SPRITESHEET_PATH, 128, 128), 
 				position,
 				SPEED, 
 				direction,
 				range,
-				damage
+				damage,
+				attacker
 				);
 		this.image = this.image.getScaledCopy(WIDTH, HEIGHT);
 		this.setImageDirection();
@@ -34,7 +35,7 @@ public class Bomb extends Projectile {
 	public void setImageDirection() {}
 	
 	public Bomb(Character attacker, Direction direction, int range, int damage) throws SlickException {
-		this(attacker.getPosition(), direction, range, damage);
+		this(attacker.getPosition(), direction, range, damage, attacker);
 		this.setPositionFromCharacter(attacker, direction);
 	}
 	

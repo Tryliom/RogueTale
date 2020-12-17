@@ -13,18 +13,19 @@ import ch.cpnv.roguetale.weapon.MeleeWeapon;
 
 public abstract class MeleeAttack extends TemporaryEffect {
 	protected MeleeWeapon weapon;
-	
+	protected Character attacker;
 	protected Direction direction;
 	
-	public MeleeAttack(SpriteSheet ss, Vector2f position, Direction direction, int remainingTime, MeleeWeapon weapon) {
+	public MeleeAttack(SpriteSheet ss, Vector2f position, Direction direction, int remainingTime, MeleeWeapon weapon, Character attacker) {
 		super(ss, position, remainingTime);
 		this.weapon = weapon;
 		this.direction = direction;
+		this.attacker = attacker;
 		this.setImageDirection();
 	}
 	
 	public MeleeAttack(SpriteSheet ss, Character attacker, int remainingTime, MeleeWeapon weapon) {
-		this(ss, attacker.getPosition(), attacker.getDirection(), remainingTime, weapon);
+		this(ss, attacker.getPosition(), attacker.getDirection(), remainingTime, weapon, attacker);
 		setPositionFromCharacter(attacker);
 	}
 	
@@ -72,4 +73,10 @@ public abstract class MeleeAttack extends TemporaryEffect {
 			break;
 		}
 	}
+
+	public Character getAttacker() {
+		return attacker;
+	}
+	
+	
 }
