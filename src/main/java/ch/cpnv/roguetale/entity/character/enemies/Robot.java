@@ -7,6 +7,7 @@ import org.newdawn.slick.SpriteSheet;
 
 import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.entity.character.Enemy;
+import ch.cpnv.roguetale.entity.character.Player;
 import ch.cpnv.roguetale.entity.pickupableitem.PickupableLifePoint;
 import ch.cpnv.roguetale.entity.pickupableitem.PickupableWeapon;
 import ch.cpnv.roguetale.gui.guis.GameGui;
@@ -43,12 +44,15 @@ public class Robot extends Enemy {
 	public void die() throws SlickException {
 		super.die();
 		SoundManager.getInstance().play(SoundType.RobotDeath, 5f);
+		Player player = GameGui.getPlayerController().getPlayer();
 		
-		double alea = Math.random();
-		if (alea < 0.2) {
-			GameGui.getPickupableItemController().addPickupableItem(new PickupableLifePoint(position));
-		} else if (alea < 0.3) {
-			GameGui.getPickupableItemController().addPickupableItem(new PickupableWeapon(new Bow(), position));
+		if (player.getFaction().getId() != this.getFaction().getId()) {
+			double alea = Math.random();
+			if (alea < 0.2) {
+				GameGui.getPickupableItemController().addPickupableItem(new PickupableLifePoint(position));
+			} else if (alea < 0.3) {
+				GameGui.getPickupableItemController().addPickupableItem(new PickupableWeapon(new Bow(), position));
+			}
 		}
 	}
 }

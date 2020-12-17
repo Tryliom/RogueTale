@@ -7,6 +7,7 @@ import org.newdawn.slick.SpriteSheet;
 
 import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.entity.character.Enemy;
+import ch.cpnv.roguetale.entity.character.Player;
 import ch.cpnv.roguetale.entity.pickupableitem.PickupableLifePoint;
 import ch.cpnv.roguetale.entity.pickupableitem.PickupableWeapon;
 import ch.cpnv.roguetale.gui.guis.GameGui;
@@ -34,12 +35,15 @@ public class Bomber extends Enemy {
 	
 	protected void die() throws SlickException {		
 		super.die();
+		Player player = GameGui.getPlayerController().getPlayer();
 		
-		double alea = Math.random();
-		if (alea < 0.3) {
-			GameGui.getPickupableItemController().addPickupableItem(new PickupableWeapon(new Cannon(), position));
-		} else {
-			GameGui.getPickupableItemController().addPickupableItem(new PickupableLifePoint(position));
+		if (player.getFaction().getId() != this.getFaction().getId()) {
+			double alea = Math.random();
+			if (alea < 0.3) {
+				GameGui.getPickupableItemController().addPickupableItem(new PickupableWeapon(new Cannon(), position));
+			} else {
+				GameGui.getPickupableItemController().addPickupableItem(new PickupableLifePoint(position));
+			}
 		}
 	}
 }
