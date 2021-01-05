@@ -5,6 +5,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 
+import ch.cpnv.roguetale.controller.MoneyController;
 import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.gui.guis.GameGui;
 import ch.cpnv.roguetale.weapon.MeleeWeapon;
@@ -12,13 +13,17 @@ import ch.cpnv.roguetale.weapon.RangedWeapon;
 import ch.cpnv.roguetale.weapon.Weapon;
 
 public class Enemy extends Character {
+	protected int moneyReward;
+	
 	private static final float PRECISION = 0.35f;
 	private int cooldownTargetChange;
 	private Character currentOpponent;
 
 	public Enemy(String name, SpriteSheet ss, Vector2f position, int speed, Direction direction, boolean moving,
-			Weapon primaryWeapon, Weapon secondaryWeapon, int maxHealth) {
+			Weapon primaryWeapon, Weapon secondaryWeapon, int maxHealth, 
+			int moneyReward) {
 		super(name, ss, position, speed, direction, moving, primaryWeapon, secondaryWeapon, maxHealth);
+		this.moneyReward = moneyReward;
 	}
 	
 	@Override
@@ -273,5 +278,6 @@ public class Enemy extends Character {
 	
 	protected void die() throws SlickException {		
 		GameGui.getEnemyController().removeEnemy(this);
+		MoneyController.getInstance().addMoney(moneyReward);
 	}
 }
