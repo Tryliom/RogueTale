@@ -194,7 +194,7 @@ public class Enemy extends Character {
 		Character target = this.getNearestOpponent();
 		if (target == null)
 			return false;
-		float border = (1-PRECISION)/2;
+		float border = (1-(PRECISION + (this.level/3)/100f))/2;
 		
 		if (range == 0)
 			if (this.getRangedWeapon() != null)
