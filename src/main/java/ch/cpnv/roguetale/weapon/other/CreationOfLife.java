@@ -16,7 +16,6 @@ import ch.cpnv.roguetale.weapon.Weapon;
 public class CreationOfLife extends Weapon {
 	private static final String ICON_PATH = "ch\\cpnv\\roguetale\\images\\ui\\icon\\creationoflife.png";
 	private static final int SPAWN_DISTANCE_MAX = 200;
-	private static final int DISTANCE_NEAR_USER = 500;
 	private int max_allies = 5;
 
 	public CreationOfLife() throws SlickException {
@@ -83,7 +82,7 @@ public class CreationOfLife extends Weapon {
 		int count = 0;
 		
 		for (Character en : user.getCharacterList()) {
-			if (user.getFaction().getId() == en.getFaction().getId() && en.getDistanceToMovableItem(user) < DISTANCE_NEAR_USER)
+			if (user.getFaction().getId() == en.getFaction().getId())
 				count++;
 		}
 		
