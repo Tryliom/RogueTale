@@ -32,6 +32,8 @@ public abstract class Character extends MovableItem implements Damageable {
 	protected static final int FACTION_ICON_OFFSET = 5;
 	protected static final int FACTION_ICON_DIMENSION = 10;
 	
+	protected int level;
+	
 	protected String name;
 	protected Weapon primaryWeapon;
 	protected Weapon secondaryWeapon;
@@ -286,6 +288,11 @@ public abstract class Character extends MovableItem implements Damageable {
 			}
 		}
 	}
+	
+	
+	public void levelup() throws SlickException {
+		this.level++;		
+	}
 
 	public String getName() {
 		return name;
@@ -293,5 +300,13 @@ public abstract class Character extends MovableItem implements Damageable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
 	}
 }

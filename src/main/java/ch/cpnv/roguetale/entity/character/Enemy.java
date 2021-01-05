@@ -17,8 +17,31 @@ public class Enemy extends Character {
 	private Character currentOpponent;
 
 	public Enemy(String name, SpriteSheet ss, Vector2f position, int speed, Direction direction, boolean moving,
-			Weapon primaryWeapon, Weapon secondaryWeapon, int maxHealth) {
+			Weapon primaryWeapon, Weapon secondaryWeapon, int maxHealth) throws SlickException {
 		super(name, ss, position, speed, direction, moving, primaryWeapon, secondaryWeapon, maxHealth);
+	}
+	
+	public int getDistanceTo(Vector2f point) {
+		float x = this.position.x - point.x;
+		float y = this.position.y - point.y;
+		
+		return (int) Math.round(Math.sqrt(x * x + y * y));
+	}
+	
+	@Override
+	public void levelup() throws SlickException {
+		super.levelup();
+		
+		this.speed *= 1.02;
+		
+		if (this.level % 3 == 0) {
+			this.updateMaxHealth(1);
+		}
+		
+		if (this.level % 5 == 0) {
+			if (this.getPrimaryWeapon().canUpgradeTier())
+				this.getPrimaryWeapon().upgradeTier();
+		}
 	}
 	
 	@Override

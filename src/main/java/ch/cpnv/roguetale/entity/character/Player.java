@@ -20,7 +20,6 @@ public class Player extends Character {
 	private static final int SPRITESHEET_DIMENSIONS = 48;
 	private static final int animationLength = 300;
 	
-	protected int level;
 	protected int currentExp;
 	protected int maxExp;
 	
@@ -36,7 +35,7 @@ public class Player extends Character {
 			Weapon secondaryWeapon
 			) throws SlickException {
 		super("", getSpriteSheet(), position, speed, direction, moving, primaryWeapon, secondaryWeapon, STARTING_MAX_HEALTH);
-		level = 1;
+		level = 0;
 		currentExp = 0;
 		maxExp = 100;
 		// Do not use addAbility, because we are not sure the UiController exists at that time
@@ -63,10 +62,6 @@ public class Player extends Character {
 
 	public static Animation getBaseAnimation() throws SlickException {
 		return new Animation(getSpriteSheet(), 0, 0, 2, 0, true, animationLength, true);
-	}
-
-	public int getLevel() {
-		return level;
 	}
 
 	public int getCurrentExp() {
@@ -125,11 +120,25 @@ public class Player extends Character {
 		if (totExp >= this.maxExp) {
 			// Level up !
 			currentExp = totExp - maxExp;
-			maxExp += 50;
-			level++;
-			updateMaxHealth(1);			
+			maxExp += 30;
+			this.levelup();
 		} else {
 			currentExp = totExp;
+		}
+	}
+	
+	@Override
+	public void levelup() throws SlickException {
+		super.levelup();
+		
+		if (this.getMaxHealth() < 20) {
+			this.heal(1);
+			
+			if (this.level % 5 == 0) {
+				this.updateMaxHealth(1);
+			}
+		} else {
+			this.heal(this.getMaxHealth()/2);
 		}
 	}
 	

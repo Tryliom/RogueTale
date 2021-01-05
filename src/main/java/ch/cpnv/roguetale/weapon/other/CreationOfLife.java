@@ -63,6 +63,10 @@ public class CreationOfLife extends Weapon {
 	private void spawnEnemies(Character user, int maxTries) throws SlickException {
 		if (this.countAlliesAroundUser(user) < max_allies) {
 			Enemy entity = createRandomEnemy(getRandomNearUser(user));
+			int lvl = (int) Math.round(Math.random() * 3 + (this.tier-1) * 3);
+			for (int i = 0; i < lvl;i++) {
+				entity.levelup();
+			}
 			
 			if (entity.getCollidingCharacter() != null || entity.getToCreateCollidingCharacter() != null || entity.getCollidingObstacle() != null) {
 				// Respawn somewhere else if spawning on another entity

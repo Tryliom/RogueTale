@@ -38,6 +38,9 @@ public class Bomber extends Enemy {
 		Player player = GameGui.getPlayerController().getPlayer();
 		
 		if (player.getFaction().getId() != this.getFaction().getId()) {
+			
+			player.updateExp((1 + this.level) * 5);
+			
 			double alea = Math.random();
 			if (alea < 0.3) {
 				GameGui.getPickupableItemController().addPickupableItem(new PickupableWeapon(new Cannon(), position));
