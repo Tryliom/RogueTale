@@ -42,6 +42,7 @@ public class UiController implements Controller {
 		for(Ability ability : player.getAbilities()) {
 			addAbility(ability);
 		}
+		moneyDisplayer = new GuiLabel("", MONEY_X_POSITION, MONEY_Y_POSITION, Color.yellow);
 	}
 	
 	@Override
@@ -101,7 +102,7 @@ public class UiController implements Controller {
 		
 		// Set the money
 		String moneyAmount = Integer.toString(MoneyController.getInstance().getMoney());
-		moneyDisplayer = new GuiLabel(moneyAmount, MONEY_X_POSITION, MONEY_Y_POSITION, Color.yellow);
+		moneyDisplayer.setContent(moneyAmount);
 	}
 
 	@Override
