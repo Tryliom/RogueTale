@@ -3,6 +3,7 @@ package ch.cpnv.roguetale.controller;
 import java.util.ArrayList;
 
 import org.lwjgl.util.vector.Vector2f;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -13,12 +14,15 @@ import ch.cpnv.roguetale.entity.ui.UiAbility;
 import ch.cpnv.roguetale.entity.ui.UiLifePoint;
 import ch.cpnv.roguetale.entity.ui.UiWeaponSlot;
 import ch.cpnv.roguetale.gui.guis.GameGui;
+import ch.cpnv.roguetale.gui.texts.GuiLabel;
 import ch.cpnv.roguetale.main.Main;
 import ch.cpnv.roguetale.weapon.Weapon;
 
 public class UiController implements Controller {
 	protected static final int LIFEPOINT_Y_POSITION = 5;
 	protected static final int LIFEPOINT_X_POSITION_START = 5;
+	protected static final int MONEY_Y_POSITION = LIFEPOINT_Y_POSITION;
+	protected static final int MONEY_X_POSITION = Main.BASE_WIDTH - 50;
 	protected static final int ACTIONS_Y_POSITION = Main.BASE_HEIGHT - 10;
 	protected static final int LEFT_WEAPON_X_POSITION = Main.BASE_WIDTH / 4;
 	protected static final int RIGHT_WEAPON_X_POSITION =  Main.BASE_WIDTH * 3/4;
@@ -29,6 +33,7 @@ public class UiController implements Controller {
 	protected ArrayList<UiLifePoint> lifePoints = new ArrayList<UiLifePoint>();
 	protected ArrayList<UiWeaponSlot> weapons = new ArrayList<UiWeaponSlot>();
 	protected ArrayList<UiAbility> abilities = new ArrayList<UiAbility>();
+	protected GuiLabel moneyDisplayer;
 
 	public UiController() {
 		Player player = GameGui.getPlayerController().getPlayer();
@@ -36,7 +41,7 @@ public class UiController implements Controller {
 		weapons.add(new UiWeaponSlot(RIGHT_WEAPON_X_POSITION, ACTIONS_Y_POSITION, MOUSE_RIGHT_PATH, player.getSecondaryWeapon()));
 		for(Ability ability : player.getAbilities()) {
 			addAbility(ability);
-		}	
+		}
 	}
 	
 	@Override
@@ -54,6 +59,8 @@ public class UiController implements Controller {
 		for (UiAbility ability : abilities) {
 			ability.render(gc, g, origin);
 		}
+		
+		moneyDisplayer.render(gc, g);
 	}
 
 	@Override
@@ -91,6 +98,10 @@ public class UiController implements Controller {
 		
 		first.setWeapon(primary);
 		second.setWeapon(secondary);
+		
+		// Set the money
+		String moneyAmount = Integer.toString(MoneyController.getInstance().getMoney());
+		moneyDisplayer = new GuiLabel(moneyAmount, MONEY_X_POSITION, MONEY_Y_POSITION, Color.yellow);
 	}
 
 	@Override
