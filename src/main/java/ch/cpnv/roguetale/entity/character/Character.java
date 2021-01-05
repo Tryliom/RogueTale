@@ -22,7 +22,10 @@ import ch.cpnv.roguetale.entity.damageable.HpDamage;
 import ch.cpnv.roguetale.entity.obstacle.Obstacle;
 import ch.cpnv.roguetale.entity.temporaryeffect.itemeffect.effects.Damage;
 import ch.cpnv.roguetale.entity.temporaryeffect.itemeffect.effects.Heal;
+import ch.cpnv.roguetale.font.FontManager;
+import ch.cpnv.roguetale.font.FontType;
 import ch.cpnv.roguetale.gui.guis.GameGui;
+import ch.cpnv.roguetale.main.Game;
 import ch.cpnv.roguetale.sound.SoundManager;
 import ch.cpnv.roguetale.sound.SoundType;
 import ch.cpnv.roguetale.weapon.RangedWeapon;
@@ -111,14 +114,23 @@ public abstract class Character extends MovableItem implements Damageable {
 		} else {
 			Graphics g = gc.getGraphics();
 			Color old = g.getColor();
+			
 			g.setColor(this.faction.getColor());
 			g.fill(new Rectangle(
 					this.position.x - origin.x - FACTION_ICON_OFFSET, 
 					- (this.position.y - origin.y - this.image.getHeight()/2) + FACTION_ICON_OFFSET, 
 					FACTION_ICON_DIMENSION, 
 					FACTION_ICON_DIMENSION)
-			);
+			); 
+			
+			if (Game.getInstance().isDebug()) {
+				FontManager.getInstance().setFont(FontType.Small, g);
+				g.drawString("Lvl "+this.level+" | "+this.getCurrentHealth()+"/"+this.getMaxHealth()+" | vitesse de "+this.speed+"/sec", 
+						this.position.x - origin.x + 20, - (this.position.y - origin.y - this.image.getHeight()/2));
+				FontManager.getInstance().resetDefaultFont(g);
+			}
 			g.setColor(old);
+			
 			super.draw(origin, gc, filter);
 		}
 	}
