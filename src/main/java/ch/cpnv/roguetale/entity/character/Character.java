@@ -22,7 +22,10 @@ import ch.cpnv.roguetale.entity.damageable.HpDamage;
 import ch.cpnv.roguetale.entity.obstacle.Obstacle;
 import ch.cpnv.roguetale.entity.temporaryeffect.itemeffect.effects.Damage;
 import ch.cpnv.roguetale.entity.temporaryeffect.itemeffect.effects.Heal;
+import ch.cpnv.roguetale.font.FontManager;
+import ch.cpnv.roguetale.font.FontType;
 import ch.cpnv.roguetale.gui.guis.GameGui;
+import ch.cpnv.roguetale.main.Game;
 import ch.cpnv.roguetale.sound.SoundManager;
 import ch.cpnv.roguetale.sound.SoundType;
 import ch.cpnv.roguetale.weapon.RangedWeapon;
@@ -32,6 +35,8 @@ public abstract class Character extends MovableItem implements Damageable {
 	protected static final int FACTION_ICON_OFFSET = 5;
 	protected static final int FACTION_ICON_DIMENSION = 10;
 	
+	protected int level;
+	
 	protected String name;
 	protected Weapon primaryWeapon;
 	protected Weapon secondaryWeapon;
@@ -39,6 +44,7 @@ public abstract class Character extends MovableItem implements Damageable {
 	protected HpDamage hpDamageStrategy;
 	protected ArrayList<State> states = new ArrayList<State>();
 	protected ArrayList<Ability> abilities = new ArrayList<Ability>();
+	protected float bonusSpeed;
 
 	public Character(
 			String name,
@@ -57,6 +63,7 @@ public abstract class Character extends MovableItem implements Damageable {
 		this.secondaryWeapon = secondaryWeapon;
 		this.faction = new Faction();
 		this.name = name;
+		this.bonusSpeed = 0;
 	}
 	
 	public void update(int delta) throws SlickException {
@@ -81,6 +88,10 @@ public abstract class Character extends MovableItem implements Damageable {
 			Speed speed = (Speed) this.getState(Speed.class);
 			coeff = speed.getSpeed();
 		}
+		
+		// Apply bonus speed
+		coeff *= 1 + this.bonusSpeed;
+		
 		// Move
 		super.move(delta * coeff);
 		Character collidingEntity = getCollidingCharacter();
@@ -109,14 +120,23 @@ public abstract class Character extends MovableItem implements Damageable {
 		} else {
 			Graphics g = gc.getGraphics();
 			Color old = g.getColor();
+			
 			g.setColor(this.faction.getColor());
 			g.fill(new Rectangle(
 					this.position.x - origin.x - FACTION_ICON_OFFSET, 
 					- (this.position.y - origin.y - this.image.getHeight()/2) + FACTION_ICON_OFFSET, 
 					FACTION_ICON_DIMENSION, 
 					FACTION_ICON_DIMENSION)
-			);
+			); 
+			
+			if (Game.getInstance().isDebug()) {
+				FontManager.getInstance().setFont(FontType.Small, g);
+				g.drawString("Lvl "+this.level+" | "+this.getCurrentHealth()+"/"+this.getMaxHealth()+" | vitesse de "+this.speed+"/sec", 
+						this.position.x - origin.x + 20, - (this.position.y - origin.y - this.image.getHeight()/2));
+				FontManager.getInstance().resetDefaultFont(g);
+			}
 			g.setColor(old);
+			
 			super.draw(origin, gc, filter);
 		}
 	}
@@ -207,13 +227,12 @@ public abstract class Character extends MovableItem implements Damageable {
 
 	public Character getNearestOpponent() {
 		ArrayList<Character> list = this.getCharacterList();
-		int MAX_RANGE = 1000;
 		
 		Character nearest = null;
 		for (Character entity : list) {
 			
 			if (entity.getFaction().getId() != this.getFaction().getId()) {
-				if ((nearest == null || this.getDistanceToMovableItem(entity) < this.getDistanceToMovableItem(nearest)) && this.getDistanceToMovableItem(entity) < MAX_RANGE) {
+				if ((nearest == null || this.getDistanceToMovableItem(entity) < this.getDistanceToMovableItem(nearest))) {
 					nearest = entity;
 				}
 			}
@@ -286,6 +305,11 @@ public abstract class Character extends MovableItem implements Damageable {
 			}
 		}
 	}
+	
+	
+	public void levelup() throws SlickException {
+		this.level++;		
+	}
 
 	public String getName() {
 		return name;
@@ -293,5 +317,13 @@ public abstract class Character extends MovableItem implements Damageable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
 	}
 }

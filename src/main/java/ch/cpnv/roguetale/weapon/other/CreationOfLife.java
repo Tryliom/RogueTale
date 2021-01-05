@@ -16,7 +16,6 @@ import ch.cpnv.roguetale.weapon.Weapon;
 public class CreationOfLife extends Weapon {
 	private static final String ICON_PATH = "ch\\cpnv\\roguetale\\images\\ui\\icon\\creationoflife.png";
 	private static final int SPAWN_DISTANCE_MAX = 200;
-	private static final int DISTANCE_NEAR_USER = 500;
 	private int max_allies = 5;
 
 	public CreationOfLife() throws SlickException {
@@ -63,6 +62,10 @@ public class CreationOfLife extends Weapon {
 	private void spawnEnemies(Character user, int maxTries) throws SlickException {
 		if (this.countAlliesAroundUser(user) < max_allies) {
 			Enemy entity = createRandomEnemy(getRandomNearUser(user));
+			int lvl = (int) Math.round(Math.random() * 3 + (this.tier-1) * 3);
+			for (int i = 0; i < lvl;i++) {
+				entity.levelup();
+			}
 			
 			if (entity.getCollidingCharacter() != null || entity.getToCreateCollidingCharacter() != null || entity.getCollidingObstacle() != null) {
 				// Respawn somewhere else if spawning on another entity
@@ -79,7 +82,7 @@ public class CreationOfLife extends Weapon {
 		int count = 0;
 		
 		for (Character en : user.getCharacterList()) {
-			if (user.getFaction().getId() == en.getFaction().getId() && en.getDistanceToMovableItem(user) < DISTANCE_NEAR_USER)
+			if (user.getFaction().getId() == en.getFaction().getId())
 				count++;
 		}
 		
@@ -88,8 +91,16 @@ public class CreationOfLife extends Weapon {
 	
 	public ArrayList<String> getCaracteristics() {
 		ArrayList<String> list = super.getCaracteristics();
+		int minAllyLvl = (this.tier-1) * 3;
+		int currentAllies = 0;
+		try {
+			currentAllies = this.countAlliesAroundUser(GameGui.getPlayerController().getPlayer());
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
 		
-		list.add("Maximum d'alliés: "+max_allies);
+		list.add("Alliés: "+currentAllies+"/"+max_allies);
+		list.add("Niveau des alliés: "+minAllyLvl+" à "+(minAllyLvl+3));
 		
 		return list;
 	}

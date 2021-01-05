@@ -11,6 +11,7 @@ import ch.cpnv.roguetale.font.FontManager;
 public class Game extends BasicGame {
 	private static Game instance;
 	private GameContainer gc;
+	private boolean debug;
 	
 	@SuppressWarnings("unused")
 	private int score;
@@ -89,6 +90,14 @@ public class Game extends BasicGame {
 
 	public GameContainer getGc() {
 		return gc;
+	}
+
+	public boolean isDebug() {
+		return debug;
+	}
+
+	public void setDebug(boolean debug) {
+		this.debug = debug;
 	}
 
 	

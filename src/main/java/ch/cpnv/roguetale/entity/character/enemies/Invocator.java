@@ -24,6 +24,10 @@ public class Invocator extends Enemy {
 	public Invocator(Vector2f position) throws SlickException {
 		super("Invocateur", getSpriteSheet(), 
 				position, SPEED, Direction.DOWN, false, new CreationOfLife(), null, MAX_HEALTH);
+		int lvl = getDistanceTo(new Vector2f(0, 0))/1500;
+		for (int i = 0; i < lvl;i++) {
+			this.levelup();
+		}
 	}
 	
 	public static SpriteSheet getSpriteSheet() throws SlickException {
@@ -35,6 +39,9 @@ public class Invocator extends Enemy {
 		Player player = GameGui.getPlayerController().getPlayer();
 		
 		if (player.getFaction().getId() != this.getFaction().getId()) {
+			
+			player.updateExp((1 + this.level) * 20);
+			
 			double alea = Math.random();
 			if (alea < 0.3) {
 				GameGui.getPickupableItemController().addPickupableItem(new PickupableWeapon(new CreationOfLife(), position));

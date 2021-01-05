@@ -21,6 +21,7 @@ import ch.cpnv.roguetale.controller.ProjectileController;
 import ch.cpnv.roguetale.controller.UiController;
 import ch.cpnv.roguetale.entity.character.Player;
 import ch.cpnv.roguetale.gui.Gui;
+import ch.cpnv.roguetale.main.Game;
 import ch.cpnv.roguetale.main.Main;
 import ch.cpnv.roguetale.sound.SoundManager;
 import ch.cpnv.roguetale.sound.SoundType;
@@ -58,6 +59,11 @@ public class GameGui extends Gui {
 				Boolean oneHitKill = Boolean.parseBoolean(config.getProperty("onehitkill"));
 				if (oneHitKill) {
 					GameGui.playerController.getPlayer().setOneHitKill();
+				}
+				
+				Boolean debug = Boolean.parseBoolean(config.getProperty("debug"));
+				if (debug) {
+					Game.getInstance().setDebug(debug);
 				}
 			}
 		} catch (SlickException e) {

@@ -12,6 +12,7 @@ import ch.cpnv.roguetale.entity.character.Player;
 import ch.cpnv.roguetale.entity.ui.UiAbility;
 import ch.cpnv.roguetale.entity.ui.UiLifePoint;
 import ch.cpnv.roguetale.entity.ui.UiWeaponSlot;
+import ch.cpnv.roguetale.entity.ui.UiXpBar;
 import ch.cpnv.roguetale.gui.guis.GameGui;
 import ch.cpnv.roguetale.main.Main;
 import ch.cpnv.roguetale.weapon.Weapon;
@@ -29,6 +30,7 @@ public class UiController implements Controller {
 	protected ArrayList<UiLifePoint> lifePoints = new ArrayList<UiLifePoint>();
 	protected ArrayList<UiWeaponSlot> weapons = new ArrayList<UiWeaponSlot>();
 	protected ArrayList<UiAbility> abilities = new ArrayList<UiAbility>();
+	protected UiXpBar xpBar;
 
 	public UiController() {
 		Player player = GameGui.getPlayerController().getPlayer();
@@ -37,6 +39,7 @@ public class UiController implements Controller {
 		for(Ability ability : player.getAbilities()) {
 			addAbility(ability);
 		}	
+		this.xpBar = new UiXpBar();
 	}
 	
 	@Override
@@ -54,6 +57,8 @@ public class UiController implements Controller {
 		for (UiAbility ability : abilities) {
 			ability.render(gc, g, origin);
 		}
+		
+		this.xpBar.render(origin, gc);
 	}
 
 	@Override
@@ -91,6 +96,8 @@ public class UiController implements Controller {
 		
 		first.setWeapon(primary);
 		second.setWeapon(secondary);
+		
+		this.xpBar.update(delta);
 	}
 
 	@Override
