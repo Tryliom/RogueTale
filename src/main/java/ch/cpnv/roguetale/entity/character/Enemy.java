@@ -93,7 +93,10 @@ public class Enemy extends Character {
 			} else {
 				this.moveInAttackPosition();
 			}
+		} else {
+			this.setMoving(false);
 		}
+			
 	}
 	
 	public void update(int delta) throws SlickException {
