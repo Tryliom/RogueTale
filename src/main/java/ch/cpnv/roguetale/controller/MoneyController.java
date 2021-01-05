@@ -10,7 +10,7 @@ public class MoneyController implements Controller {
 	
 	protected int money;
 	
-	public MoneyController getInstance() {
+	public static MoneyController getInstance() {
 		if(instance == null) {
 			instance = new MoneyController();
 		}
