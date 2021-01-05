@@ -6,8 +6,24 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
 public class MoneyController implements Controller {
+	private static MoneyController instance;
 	
 	protected int money;
+	
+	public MoneyController getInstance() {
+		if(instance == null) {
+			instance = new MoneyController();
+		}
+		return instance;
+	}
+	
+	protected MoneyController() {	
+		money = 0;
+	}
+	
+	public int getMoney() {
+		return money;
+	}
 	
 	public void addMoney(int amount) {
 		money += amount;
