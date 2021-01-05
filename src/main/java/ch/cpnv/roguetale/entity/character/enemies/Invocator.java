@@ -24,7 +24,7 @@ public class Invocator extends Enemy {
 	public Invocator(Vector2f position) throws SlickException {
 		super("Invocateur", getSpriteSheet(), 
 				position, SPEED, Direction.DOWN, false, new CreationOfLife(), null, MAX_HEALTH);
-		int lvl = getDistanceTo(new Vector2f(0, 0))/3000;
+		int lvl = getDistanceTo(new Vector2f(0, 0))/1500;
 		for (int i = 0; i < lvl;i++) {
 			this.levelup();
 		}

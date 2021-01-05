@@ -120,7 +120,7 @@ public class Player extends Character {
 		if (totExp >= this.maxExp) {
 			// Level up !
 			currentExp = totExp - maxExp;
-			maxExp += 30;
+			maxExp += 50;
 			this.levelup();
 		} else {
 			currentExp = totExp;

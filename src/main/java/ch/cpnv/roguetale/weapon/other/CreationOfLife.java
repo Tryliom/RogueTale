@@ -91,8 +91,16 @@ public class CreationOfLife extends Weapon {
 	
 	public ArrayList<String> getCaracteristics() {
 		ArrayList<String> list = super.getCaracteristics();
+		int minAllyLvl = (this.tier-1) * 3;
+		int currentAllies = 0;
+		try {
+			currentAllies = this.countAlliesAroundUser(GameGui.getPlayerController().getPlayer());
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
 		
-		list.add("Maximum d'alliés: "+max_allies);
+		list.add("Alliés: "+currentAllies+"/"+max_allies);
+		list.add("Niveau des alliés: "+minAllyLvl+" à "+(minAllyLvl+3));
 		
 		return list;
 	}
