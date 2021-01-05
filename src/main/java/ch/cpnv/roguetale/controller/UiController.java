@@ -3,7 +3,6 @@ package ch.cpnv.roguetale.controller;
 import java.util.ArrayList;
 
 import org.lwjgl.util.vector.Vector2f;
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -14,7 +13,7 @@ import ch.cpnv.roguetale.entity.ui.UiAbility;
 import ch.cpnv.roguetale.entity.ui.UiLifePoint;
 import ch.cpnv.roguetale.entity.ui.UiWeaponSlot;
 import ch.cpnv.roguetale.gui.guis.GameGui;
-import ch.cpnv.roguetale.gui.texts.GuiLabel;
+import ch.cpnv.roguetale.gui.texts.GuiMoney;
 import ch.cpnv.roguetale.main.Main;
 import ch.cpnv.roguetale.weapon.Weapon;
 
@@ -33,7 +32,7 @@ public class UiController implements Controller {
 	protected ArrayList<UiLifePoint> lifePoints = new ArrayList<UiLifePoint>();
 	protected ArrayList<UiWeaponSlot> weapons = new ArrayList<UiWeaponSlot>();
 	protected ArrayList<UiAbility> abilities = new ArrayList<UiAbility>();
-	protected GuiLabel moneyDisplayer;
+	protected GuiMoney moneyDisplayer;
 
 	public UiController() {
 		Player player = GameGui.getPlayerController().getPlayer();
@@ -42,7 +41,7 @@ public class UiController implements Controller {
 		for(Ability ability : player.getAbilities()) {
 			addAbility(ability);
 		}
-		moneyDisplayer = new GuiLabel("", MONEY_X_POSITION, MONEY_Y_POSITION, Color.yellow);
+		moneyDisplayer = new GuiMoney(MONEY_X_POSITION, MONEY_Y_POSITION);
 	}
 	
 	@Override
@@ -101,8 +100,7 @@ public class UiController implements Controller {
 		second.setWeapon(secondary);
 		
 		// Set the money
-		String moneyAmount = Integer.toString(MoneyController.getInstance().getMoney());
-		moneyDisplayer.setContent(moneyAmount);
+		moneyDisplayer.update();
 	}
 
 	@Override
