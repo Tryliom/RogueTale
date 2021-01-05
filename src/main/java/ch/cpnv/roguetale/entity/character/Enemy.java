@@ -32,7 +32,7 @@ public class Enemy extends Character {
 	public void levelup() throws SlickException {
 		super.levelup();
 		
-		this.speed *= 1.02;
+		this.bonusSpeed += 0.02;
 		
 		if (this.level % 3 == 0) {
 			this.updateMaxHealth(1);

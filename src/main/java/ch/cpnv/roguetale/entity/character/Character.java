@@ -44,6 +44,7 @@ public abstract class Character extends MovableItem implements Damageable {
 	protected HpDamage hpDamageStrategy;
 	protected ArrayList<State> states = new ArrayList<State>();
 	protected ArrayList<Ability> abilities = new ArrayList<Ability>();
+	protected float bonusSpeed;
 
 	public Character(
 			String name,
@@ -62,6 +63,7 @@ public abstract class Character extends MovableItem implements Damageable {
 		this.secondaryWeapon = secondaryWeapon;
 		this.faction = new Faction();
 		this.name = name;
+		this.bonusSpeed = 0;
 	}
 	
 	public void update(int delta) throws SlickException {
@@ -86,6 +88,10 @@ public abstract class Character extends MovableItem implements Damageable {
 			Speed speed = (Speed) this.getState(Speed.class);
 			coeff = speed.getSpeed();
 		}
+		
+		// Apply bonus speed
+		coeff *= 1 + this.bonusSpeed;
+		
 		// Move
 		super.move(delta * coeff);
 		Character collidingEntity = getCollidingCharacter();
@@ -221,13 +227,12 @@ public abstract class Character extends MovableItem implements Damageable {
 
 	public Character getNearestOpponent() {
 		ArrayList<Character> list = this.getCharacterList();
-		int MAX_RANGE = 1000;
 		
 		Character nearest = null;
 		for (Character entity : list) {
 			
 			if (entity.getFaction().getId() != this.getFaction().getId()) {
-				if ((nearest == null || this.getDistanceToMovableItem(entity) < this.getDistanceToMovableItem(nearest)) && this.getDistanceToMovableItem(entity) < MAX_RANGE) {
+				if ((nearest == null || this.getDistanceToMovableItem(entity) < this.getDistanceToMovableItem(nearest))) {
 					nearest = entity;
 				}
 			}
