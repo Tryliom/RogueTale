@@ -115,6 +115,21 @@ public class SaveManager {
 		Main.saveController.setCommand(data);
 	}
 	
+	public void saveProgress() throws IOException {
+		this.saveContentToFile("progress", Main.saveController.getProgress());
+	}
+	
+	public void loadProgress() throws ClassNotFoundException, IOException {
+		SaveProgress data = (SaveProgress) this.getContentFromFile("progress");
+
+		if (data == null) {
+			data = new SaveProgress();
+			data.setDefaultData();
+		}
+		
+		Main.saveController.setProgress(data);
+	}
+	
 	private boolean isWindows(String OS) {
 		return (OS.indexOf("win") >= 0);
 	}

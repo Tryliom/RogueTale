@@ -1,9 +1,15 @@
 package ch.cpnv.roguetale.controller;
 
+import java.io.IOException;
+
 import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+
+import ch.cpnv.roguetale.main.Main;
+import ch.cpnv.roguetale.save.SaveManager;
+import ch.cpnv.roguetale.save.SaveProgress;
 
 public class MoneyController implements Controller {
 	private static MoneyController instance;
@@ -17,8 +23,9 @@ public class MoneyController implements Controller {
 		return instance;
 	}
 	
-	protected MoneyController() {	
-		money = 0;
+	protected MoneyController() {
+		SaveProgress progress = Main.saveController.getProgress();
+		money = progress.getMoney();
 	}
 	
 	public int getMoney() {
@@ -26,11 +33,22 @@ public class MoneyController implements Controller {
 	}
 	
 	public void addMoney(int amount) {
-		money += amount;
+		updateMoney(money + amount);
 	}
 	
 	public void removeMoney(int amount) {
-		money -= amount;
+		updateMoney(money - amount);
+	}
+	
+	protected void updateMoney(int money) {
+		this.money = money;
+		SaveProgress progress = Main.saveController.getProgress();
+		progress.setMoney(money);
+		try {
+			new SaveManager().saveProgress();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
