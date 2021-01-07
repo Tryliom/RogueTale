@@ -199,7 +199,8 @@ public class Enemy extends Character {
 		Character target = this.getNearestOpponent();
 		if (target == null)
 			return false;
-		float border = (1-(PRECISION + (this.level/3)/100f))/2;
+		float precision = PRECISION + (this.level/3)/100f;
+		float border = (1-precision)/2;
 		
 		if (range == 0)
 			if (this.getRangedWeapon() != null)
@@ -210,15 +211,15 @@ public class Enemy extends Character {
 
 		Rectangle enRect = new Rectangle(
 					this.getPosition().getX() + this.getSprite().getWidth()*border,
-					this.getPosition().getY() + this.getSprite().getHeight()*(border+PRECISION), 
-					this.getSprite().getWidth()*PRECISION, 
-					this.getSprite().getHeight()*PRECISION
+					this.getPosition().getY() + this.getSprite().getHeight()*(border+precision), 
+					this.getSprite().getWidth()*precision, 
+					this.getSprite().getHeight()*precision
 				);
 		Rectangle pRect = new Rectangle(
 				target.getPosition().getX() + target.getSprite().getWidth()*border, 
-				target.getPosition().getY() + target.getSprite().getHeight()*(border+PRECISION),
-				target.getSprite().getWidth()*PRECISION, 
-				target.getSprite().getHeight()*PRECISION
+				target.getPosition().getY() + target.getSprite().getHeight()*(border+precision),
+				target.getSprite().getWidth()*precision, 
+				target.getSprite().getHeight()*precision
 				);
 		Direction directionToOpponent = this.getDirectionDependingOnOpponent(false);
 
