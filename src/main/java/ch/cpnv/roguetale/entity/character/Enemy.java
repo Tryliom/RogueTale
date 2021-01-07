@@ -21,8 +21,7 @@ public class Enemy extends Character {
 
 	public Enemy(String name, SpriteSheet ss, Vector2f position, int speed, Direction direction, boolean moving,
 			Weapon primaryWeapon, Weapon secondaryWeapon, int maxHealth, 
-			int moneyReward) {
-			Weapon primaryWeapon, Weapon secondaryWeapon, int maxHealth) throws SlickException {
+			int moneyReward) throws SlickException {
 		super(name, ss, position, speed, direction, moving, primaryWeapon, secondaryWeapon, maxHealth);
 		this.moneyReward = moneyReward;
 	}
