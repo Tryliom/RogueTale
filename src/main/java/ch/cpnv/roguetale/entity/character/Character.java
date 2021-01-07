@@ -131,7 +131,7 @@ public abstract class Character extends MovableItem implements Damageable {
 			
 			if (Game.getInstance().isDebug()) {
 				FontManager.getInstance().setFont(FontType.Small, g);
-				g.drawString("Lvl "+this.level+" | "+this.getCurrentHealth()+"/"+this.getMaxHealth()+" | vitesse de "+this.speed+"/sec", 
+				g.drawString("Lvl "+this.level+" | "+this.getCurrentHealth()+"/"+this.getMaxHealth()+" | vitesse de "+(this.speed + this.speed * this.bonusSpeed)+"/sec", 
 						this.position.x - origin.x + 20, - (this.position.y - origin.y - this.image.getHeight()/2));
 				FontManager.getInstance().resetDefaultFont(g);
 			}

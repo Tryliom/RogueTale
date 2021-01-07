@@ -6,7 +6,6 @@ import org.newdawn.slick.SpriteSheet;
 
 import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.entity.character.Enemy;
-import ch.cpnv.roguetale.entity.character.Player;
 import ch.cpnv.roguetale.entity.pickupableitem.PickupableLifePoint;
 import ch.cpnv.roguetale.entity.pickupableitem.PickupableWeapon;
 import ch.cpnv.roguetale.gui.guis.GameGui;
@@ -19,6 +18,7 @@ public class Invocator extends Enemy {
 	private static final int SPEED = 0;
 	private static final int MAX_HEALTH = 20;
 	private static final int MONEY_REWARD = 5;
+	private static final int XP_REWARD = 20;
 	private static final String SPRITESHEET_PATH = "ch\\cpnv\\roguetale\\images\\enemy\\bomber\\carac.png";
 	private static final int  SPRITESHEET_DIMENSIONS = 48;
 
@@ -28,7 +28,7 @@ public class Invocator extends Enemy {
 				getSpriteSheet(), 
 				position, SPEED, Direction.DOWN, false, 
 				new CreationOfLife(), null, 
-				MAX_HEALTH, MONEY_REWARD
+				MAX_HEALTH, MONEY_REWARD, XP_REWARD
 		);
 		int lvl = getDistanceTo(new Vector2f(0, 0))/1500;
 		for (int i = 0; i < lvl;i++) {
@@ -40,21 +40,18 @@ public class Invocator extends Enemy {
 		return new SpriteSheet(SPRITESHEET_PATH, SPRITESHEET_DIMENSIONS, SPRITESHEET_DIMENSIONS, 0);
 	}
 	
+	@Override
+	protected void dropOnDeath() throws SlickException {
+		double alea = Math.random();
+		if (alea < 0.3) {
+			GameGui.getPickupableItemController().addPickupableItem(new PickupableWeapon(new CreationOfLife(), position));
+		} else
+			GameGui.getPickupableItemController().addPickupableItem(new PickupableLifePoint(position));
+	}
+	
+	@Override
 	public void die() throws SlickException {
 		super.die();
-		Player player = GameGui.getPlayerController().getPlayer();
-		
-		if (player.getFaction().getId() != this.getFaction().getId()) {
-			
-			player.updateExp((1 + this.level) * 20);
-			
-			double alea = Math.random();
-			if (alea < 0.3) {
-				GameGui.getPickupableItemController().addPickupableItem(new PickupableWeapon(new CreationOfLife(), position));
-			} else
-				GameGui.getPickupableItemController().addPickupableItem(new PickupableLifePoint(position));
-		}
-		
 		SoundManager.getInstance().play(SoundType.RobotDeath, 5f);
 	}
 	
