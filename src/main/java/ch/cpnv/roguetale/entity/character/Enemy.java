@@ -7,6 +7,7 @@ import org.newdawn.slick.geom.Rectangle;
 
 import ch.cpnv.roguetale.controller.MoneyController;
 import ch.cpnv.roguetale.entity.Direction;
+import ch.cpnv.roguetale.entity.pickupableitem.PickupableLifePoint;
 import ch.cpnv.roguetale.gui.guis.GameGui;
 import ch.cpnv.roguetale.weapon.MeleeWeapon;
 import ch.cpnv.roguetale.weapon.RangedWeapon;
@@ -14,6 +15,7 @@ import ch.cpnv.roguetale.weapon.Weapon;
 
 public class Enemy extends Character {
 	protected int moneyReward;
+	protected int xpReward;
 	
 	private static final float PRECISION = 0.35f;
 	private int cooldownTargetChange;
@@ -21,9 +23,10 @@ public class Enemy extends Character {
 
 	public Enemy(String name, SpriteSheet ss, Vector2f position, int speed, Direction direction, boolean moving,
 			Weapon primaryWeapon, Weapon secondaryWeapon, int maxHealth, 
-			int moneyReward) throws SlickException {
+			int moneyReward, int xpReward) throws SlickException {
 		super(name, ss, position, speed, direction, moving, primaryWeapon, secondaryWeapon, maxHealth);
 		this.moneyReward = moneyReward;
+		this.xpReward = xpReward;
 	}
 	
 	public int getDistanceTo(Vector2f point) {
@@ -199,7 +202,8 @@ public class Enemy extends Character {
 		Character target = this.getNearestOpponent();
 		if (target == null)
 			return false;
-		float border = (1-(PRECISION + (this.level/3)/100f))/2;
+		float precision = PRECISION + (this.level/3)/100f;
+		float border = (1-precision)/2;
 		
 		if (range == 0)
 			if (this.getRangedWeapon() != null)
@@ -210,15 +214,15 @@ public class Enemy extends Character {
 
 		Rectangle enRect = new Rectangle(
 					this.getPosition().getX() + this.getSprite().getWidth()*border,
-					this.getPosition().getY() + this.getSprite().getHeight()*(border+PRECISION), 
-					this.getSprite().getWidth()*PRECISION, 
-					this.getSprite().getHeight()*PRECISION
+					this.getPosition().getY() + this.getSprite().getHeight()*(border+precision), 
+					this.getSprite().getWidth()*precision, 
+					this.getSprite().getHeight()*precision
 				);
 		Rectangle pRect = new Rectangle(
 				target.getPosition().getX() + target.getSprite().getWidth()*border, 
-				target.getPosition().getY() + target.getSprite().getHeight()*(border+PRECISION),
-				target.getSprite().getWidth()*PRECISION, 
-				target.getSprite().getHeight()*PRECISION
+				target.getPosition().getY() + target.getSprite().getHeight()*(border+precision),
+				target.getSprite().getWidth()*precision, 
+				target.getSprite().getHeight()*precision
 				);
 		Direction directionToOpponent = this.getDirectionDependingOnOpponent(false);
 
@@ -302,8 +306,22 @@ public class Enemy extends Character {
 		return this.getRangedWeapon() != null && this.getRangeToOpponent() > this.getRangedWeapon().getRange();
 	}
 	
+	protected void dropOnDeath() throws SlickException {
+		double alea = Math.random();
+		
+		if (alea < 0.1) {
+			GameGui.getPickupableItemController().addPickupableItem(new PickupableLifePoint(position));
+		}
+	}
+	
 	protected void die() throws SlickException {		
 		GameGui.getEnemyController().removeEnemy(this);
-		MoneyController.getInstance().addMoney(moneyReward);
+		Player player = GameGui.getPlayerController().getPlayer();
+		
+		if (player.getFaction().getId() != this.getFaction().getId()) {
+			player.updateExp((1 + this.level) * this.xpReward);
+			MoneyController.getInstance().addMoney(moneyReward);
+			this.dropOnDeath();
+		}
 	}
 }
