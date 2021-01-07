@@ -9,12 +9,12 @@ import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.entity.character.Ability;
 import ch.cpnv.roguetale.entity.character.Player;
+import ch.cpnv.roguetale.entity.ui.UiMoney;
 import ch.cpnv.roguetale.entity.ui.UiAbility;
 import ch.cpnv.roguetale.entity.ui.UiLifePoint;
 import ch.cpnv.roguetale.entity.ui.UiWeaponSlot;
 import ch.cpnv.roguetale.entity.ui.UiXpBar;
 import ch.cpnv.roguetale.gui.guis.GameGui;
-import ch.cpnv.roguetale.gui.texts.GuiMoney;
 import ch.cpnv.roguetale.main.Main;
 import ch.cpnv.roguetale.weapon.Weapon;
 
@@ -34,7 +34,7 @@ public class UiController implements Controller {
 	protected ArrayList<UiWeaponSlot> weapons = new ArrayList<UiWeaponSlot>();
 	protected ArrayList<UiAbility> abilities = new ArrayList<UiAbility>();
 	protected UiXpBar xpBar;
-	protected GuiMoney moneyDisplayer;
+	protected UiMoney moneyDisplayer;
 
 	public UiController() {
 		Player player = GameGui.getPlayerController().getPlayer();
@@ -44,7 +44,11 @@ public class UiController implements Controller {
 			addAbility(ability);
 		}	
 		this.xpBar = new UiXpBar();
-		moneyDisplayer = new GuiMoney(MONEY_X_POSITION, MONEY_Y_POSITION);
+		try {
+			moneyDisplayer = new UiMoney(MONEY_X_POSITION, MONEY_Y_POSITION);
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@Override
