@@ -19,13 +19,19 @@ import ch.cpnv.roguetale.weapon.ranged.Bow;
 public class Robot extends Enemy {
 	private static final int SPEED = 20;
 	private static final int MAX_HEALTH = 2;
+	private static final int MONEY_REWARD = 1;
 	private static final String SPRITESHEET_PATH = "ch\\cpnv\\roguetale\\images\\enemy\\robot\\carac.png";
 	private static final int  SPRITESHEET_DIMENSIONS = 48;
 	private static final int animationLength = 300;
 
 	public Robot(Vector2f position) throws SlickException {
-		super("Robot", getSpriteSheet(), 
-				position, SPEED, Direction.UP, false, null, null, MAX_HEALTH);
+		super(
+				"Robot", 
+				getSpriteSheet(), 
+				position, SPEED, Direction.UP, false, 
+				null, null, 
+				MAX_HEALTH, MONEY_REWARD
+		);
 		int alea = (int) Math.round(Math.random() * 100);
 		if (alea < 50)
 			this.setPrimaryWeapon(new Bow(1000));

@@ -16,13 +16,19 @@ import ch.cpnv.roguetale.weapon.ranged.Cannon;
 public class Bomber extends Enemy {
 	private static final int SPEED = 50;
 	private static final int MAX_HEALTH = 2;
+	private static final int MONEY_REWARD = 2;
 	private static final String SPRITESHEET_PATH = "ch\\cpnv\\roguetale\\images\\enemy\\bomber\\carac.png";
 	private static final int SPRITESHEET_DIMENSIONS = 48;
 	private static final int animationLength = 300;
 
 	public Bomber(Vector2f position) throws SlickException {
-		super("Bomber", getSpriteSheet(), 
-				position, SPEED, Direction.UP, false, new Cannon(), null, MAX_HEALTH);
+		super(
+				"Bomber", 
+				getSpriteSheet(), 
+				position, SPEED, Direction.UP, false, 
+				new Cannon(), null, 
+				MAX_HEALTH, MONEY_REWARD
+		);
 	}
 	
 	public static SpriteSheet getSpriteSheet() throws SlickException {

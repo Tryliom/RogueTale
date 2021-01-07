@@ -14,12 +14,15 @@ import ch.cpnv.roguetale.entity.ui.UiLifePoint;
 import ch.cpnv.roguetale.entity.ui.UiWeaponSlot;
 import ch.cpnv.roguetale.entity.ui.UiXpBar;
 import ch.cpnv.roguetale.gui.guis.GameGui;
+import ch.cpnv.roguetale.gui.texts.GuiMoney;
 import ch.cpnv.roguetale.main.Main;
 import ch.cpnv.roguetale.weapon.Weapon;
 
 public class UiController implements Controller {
 	protected static final int LIFEPOINT_Y_POSITION = 5;
 	protected static final int LIFEPOINT_X_POSITION_START = 5;
+	protected static final int MONEY_Y_POSITION = LIFEPOINT_Y_POSITION;
+	protected static final int MONEY_X_POSITION = Main.BASE_WIDTH - 50;
 	protected static final int ACTIONS_Y_POSITION = Main.BASE_HEIGHT - 10;
 	protected static final int LEFT_WEAPON_X_POSITION = Main.BASE_WIDTH / 4;
 	protected static final int RIGHT_WEAPON_X_POSITION =  Main.BASE_WIDTH * 3/4;
@@ -31,6 +34,7 @@ public class UiController implements Controller {
 	protected ArrayList<UiWeaponSlot> weapons = new ArrayList<UiWeaponSlot>();
 	protected ArrayList<UiAbility> abilities = new ArrayList<UiAbility>();
 	protected UiXpBar xpBar;
+	protected GuiMoney moneyDisplayer;
 
 	public UiController() {
 		Player player = GameGui.getPlayerController().getPlayer();
@@ -40,6 +44,7 @@ public class UiController implements Controller {
 			addAbility(ability);
 		}	
 		this.xpBar = new UiXpBar();
+		moneyDisplayer = new GuiMoney(MONEY_X_POSITION, MONEY_Y_POSITION);
 	}
 	
 	@Override
@@ -59,6 +64,7 @@ public class UiController implements Controller {
 		}
 		
 		this.xpBar.render(origin, gc);
+		moneyDisplayer.render(gc, g);
 	}
 
 	@Override
@@ -98,6 +104,9 @@ public class UiController implements Controller {
 		second.setWeapon(secondary);
 		
 		this.xpBar.update(delta);
+		
+		// Set the money
+		moneyDisplayer.update();
 	}
 
 	@Override
