@@ -7,6 +7,7 @@ public class SaveController {
 	private SaveSound sound;
 	private SaveCommand command;
 	private SaveProgress progress;
+	private SavePurchase purchase;
 
 	public SaveController() {
 		this.graphic = new SaveGraphic();
@@ -19,6 +20,7 @@ public class SaveController {
 		sm.loadSound();
 		sm.loadCommand();
 		sm.loadProgress();
+		sm.loadPurchase();
 	}
 	
 	public void saveAll() throws IOException {
@@ -27,6 +29,7 @@ public class SaveController {
 		sm.saveSound();
 		sm.saveCommand();
 		sm.saveProgress();
+		sm.savePurchase();
 	}
 
 	public SaveGraphic getGraphic() {
@@ -59,5 +62,13 @@ public class SaveController {
 
 	public void setProgress(SaveProgress progress) {
 		this.progress = progress;
+	}
+
+	public SavePurchase getPurchase() {
+		return purchase;
+	}
+
+	public void setPurchase(SavePurchase purchase) {
+		this.purchase.setPurchases(purchase.getPurchases());
 	}
 }
