@@ -1,5 +1,6 @@
 package ch.cpnv.roguetale.gui.button.buttons;
 
+import java.awt.GraphicsEnvironment;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -31,6 +32,9 @@ public class ResolutionButton extends GuiSwitchButton {
 		ArrayList<Vector2f> data = new ArrayList<Vector2f>();
 		data.add(new Vector2f(w, h));
 		data.add(new Vector2f(w*2, h*2));
+		// If the screen is in 4k, allow that graphic possibility
+		if (GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getWidth() == 3840)
+			data.add(new Vector2f(w*4, h*4));
 		
 		this.selected = data.indexOf(resolution);
 		this.data = data;

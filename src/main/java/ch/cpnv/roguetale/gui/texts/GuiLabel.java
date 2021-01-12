@@ -25,6 +25,7 @@ public class GuiLabel {
 		g.setColor(old);
 	}
 
-	
-
+	public void setContent(String content) {
+		this.content = content;
+	}
 }

@@ -9,6 +9,7 @@ import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.entity.character.Player;
 import ch.cpnv.roguetale.entity.character.enemies.Bomber;
+import ch.cpnv.roguetale.entity.ui.UiMoney;
 import ch.cpnv.roguetale.gui.Gui;
 import ch.cpnv.roguetale.gui.button.buttons.OptionButton;
 import ch.cpnv.roguetale.gui.button.buttons.PlayButton;
@@ -16,10 +17,10 @@ import ch.cpnv.roguetale.gui.button.buttons.QuitButton;
 import ch.cpnv.roguetale.main.Main;
 
 public class MenuGui extends Gui {
+	private UiMoney moneyDisplayer;
 	private Animation displayPlayer;
 	private Animation displayBomber;
 	private Image background;
-	
 	
 	public MenuGui(Gui prevGui) {
 		super(prevGui);
@@ -36,6 +37,7 @@ public class MenuGui extends Gui {
 		this.buttonList.add(new PlayButton("Jouer", w/2, h * 5/8, this));
 		this.buttonList.add(new OptionButton(w - 110, h - 50, this));
 		this.buttonList.add(new QuitButton(110, h - 50, this));
+		moneyDisplayer = new UiMoney(w/2, h*3/4);
 		this.displayPlayer = Player.getBaseAnimation();
 		this.displayBomber = Bomber.getBaseAnimation();
 		this.background = new Image("ch\\cpnv\\roguetale\\images\\background\\tile.png");
@@ -49,8 +51,13 @@ public class MenuGui extends Gui {
 				this.background.draw(i, j);
 			}
 		}
+		
+		// Draw money
+		moneyDisplayer.render(gc, g);
+		
 		// Draw button and label
 		super.render(gc, g, origin);
+		
 		// Draw sprite
 		int width = this.displayPlayer.getWidth();
 		int height = this.displayPlayer.getHeight();
@@ -61,7 +68,7 @@ public class MenuGui extends Gui {
 
 	public void update(GameContainer gc, int delta, Vector2f origin) throws SlickException {
 		super.update(gc, delta, origin);
-
+		moneyDisplayer.update();
 	}
 
 	public void keyReleased(int key, char c, GameContainer gc) throws SlickException {

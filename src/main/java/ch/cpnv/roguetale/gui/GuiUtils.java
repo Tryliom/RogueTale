@@ -47,5 +47,24 @@ public class GuiUtils {
 		g.setColor(old);
 		g.resetLineWidth();
 	}
+	
+	public static void renderBar(Rectangle rect, Color fill, Color border, Color barProgress, int borderWidth, float percent, Graphics g) {
+		Color old = g.getColor();
+		Rectangle progress = new Rectangle(rect.getX(), rect.getY(), rect.getWidth() * percent, rect.getHeight());
+		
+		g.setColor(fill);
+		g.fill(rect);
+		
+		g.setColor(barProgress);
+		g.fill(progress);
+		
+		g.setColor(border);
+		g.setLineWidth(borderWidth);
+		g.draw(rect);
+		
+		g.setColor(old);
+		g.resetLineWidth();
+	}
+
 
 }
