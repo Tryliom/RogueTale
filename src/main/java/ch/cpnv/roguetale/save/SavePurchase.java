@@ -7,7 +7,7 @@ import ch.cpnv.roguetale.save.enums.PurchaseType;
 import ch.cpnv.roguetale.save.other.Purchase;
 
 public class SavePurchase implements Serializable {
-	private static final long serialVersionUID = -5700901588841937807L;
+	private static final long serialVersionUID = 5700901588841937807L;
 	private ArrayList<Purchase> purchases = new ArrayList<Purchase>();
 
 	public SavePurchase() {

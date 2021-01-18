@@ -1,16 +1,19 @@
 package ch.cpnv.roguetale.save.other;
 
+import java.io.Serializable;
+
 import ch.cpnv.roguetale.controller.MoneyController;
 import ch.cpnv.roguetale.save.enums.PurchaseType;
 
-public class Purchase {
+public class Purchase implements Serializable {
+	private static final long serialVersionUID = -8024550476266968803L;
 	private PurchaseType name;
 	private String description;
 	private int level;
 	private int levelMax;
 	private int cost;
 	/**
-	 * Cost exponential, minimum 1. Calcultation of the next cost: cost *= exponentialCost
+	 * Cost exponential, minimum 1. Calculation of the next cost: cost *= exponentialCost
 	 */
 	private float exponentialCost;
 	

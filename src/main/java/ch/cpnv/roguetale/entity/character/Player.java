@@ -139,7 +139,7 @@ public class Player extends Character {
 		super.levelup();
 		Purchase purchaseBonusSpeed = Main.saveController.getPurchase().getPurchase(PurchaseType.bonusSpeedPerLevel);
 		
-		this.bonusSpeed += purchaseBonusSpeed.getLevel();
+		this.bonusSpeed += purchaseBonusSpeed.getLevel() / 100f;
 		
 		if (this.getMaxHealth() < 20) {
 			this.heal(1);

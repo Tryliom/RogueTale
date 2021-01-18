@@ -18,9 +18,9 @@ public class UiMoney extends DrawableItem {
 	protected GuiLabel text;
 	
 	public UiMoney(int x, int y) throws SlickException {
-		super(new SpriteSheet(SPRITESHEET_PATH, 84, 84), new Vector2f(x, y));
+		super(new SpriteSheet(SPRITESHEET_PATH, 84, 84), new Vector2f(x - 25, y));
 		this.image = this.image.getScaledCopy(DISPLAY_DIMENSION, DISPLAY_DIMENSION);
-		text = new GuiLabel("", x + getImageWidth() * 2, y, Color.yellow);
+		text = new GuiLabel("", x + getImageWidth() * 2 - 15, y, Color.yellow);
 	}
 	
 	public void render(GameContainer gc, Graphics g) {

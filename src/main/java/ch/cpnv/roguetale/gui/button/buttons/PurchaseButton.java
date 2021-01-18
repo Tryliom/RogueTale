@@ -15,7 +15,10 @@ public class PurchaseButton extends GuiButton {
 	public PurchaseButton(int x, int y, Purchase purchase, Gui parentGui) {
 		super(x, y, parentGui);
 		this.purchase = purchase;
-		this.setContent(purchase.getDescription() + " pour " + purchase.getCost() + " pièces | "+purchase.getLevel()+"/"+purchase.getLevelMax());
+		if (purchase.canBuy())
+			this.setContent(purchase.getDescription() + " pour " + purchase.getCost() + " pièces | "+purchase.getLevel()+"/"+purchase.getLevelMax());
+		else
+			this.setContent(purchase.getDescription() + " | "+purchase.getLevel()+"/"+purchase.getLevelMax());
 		this.disabled = !purchase.canBuy();
 	}
 	
