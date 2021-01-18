@@ -34,7 +34,7 @@ public class CreationOfLife extends Weapon {
 	
 	@Override
 	public String getDescription() {
-		return "Invoque une unité alliée qui combattera pour vous jusqu'à "+max_allies+" alliés maximum.";
+		return "Invoque une unité alliée qui combattera pour vous du même niveau que vous jusqu'à "+max_allies+" alliés maximum.";
 	}
 
 	
@@ -100,7 +100,6 @@ public class CreationOfLife extends Weapon {
 		}
 		
 		list.add("Alliés: "+currentAllies+"/"+max_allies);
-		list.add("Niveau des alliés: "+minAllyLvl+" à "+(minAllyLvl+3));
 		
 		return list;
 	}
