@@ -16,7 +16,7 @@ public class Bomber extends Enemy {
 	private static final int SPEED = 50;
 	private static final int MAX_HEALTH = 2;
 	private static final int MONEY_REWARD = 2;
-	private static final int XP_REWARD = 5;
+	private static final int XP_REWARD = 15;
 	private static final String SPRITESHEET_PATH = "ch\\cpnv\\roguetale\\images\\enemy\\bomber\\carac.png";
 	private static final int SPRITESHEET_DIMENSIONS = 48;
 	private static final int animationLength = 300;
