@@ -25,7 +25,8 @@ import ch.cpnv.roguetale.entity.temporaryeffect.itemeffect.effects.Heal;
 import ch.cpnv.roguetale.font.FontManager;
 import ch.cpnv.roguetale.font.FontType;
 import ch.cpnv.roguetale.gui.guis.GameGui;
-import ch.cpnv.roguetale.main.Game;
+import ch.cpnv.roguetale.main.Main;
+import ch.cpnv.roguetale.save.enums.PurchaseType;
 import ch.cpnv.roguetale.sound.SoundManager;
 import ch.cpnv.roguetale.sound.SoundType;
 import ch.cpnv.roguetale.weapon.RangedWeapon;
@@ -129,10 +130,9 @@ public abstract class Character extends MovableItem implements Damageable {
 					FACTION_ICON_DIMENSION)
 			); 
 			
-			if (Game.getInstance().isDebug()) {
+			if (Main.saveController.getPurchase().getPurchase(PurchaseType.HUDEnemyLevel).getLevel() > 0 && !(this instanceof Player)) {
 				FontManager.getInstance().setFont(FontType.Small, g);
-				g.drawString("Lvl "+this.level+" | "+this.getCurrentHealth()+"/"+this.getMaxHealth()+" | vitesse de "+(this.speed + this.speed * this.bonusSpeed)+"/sec", 
-						this.position.x - origin.x + 20, - (this.position.y - origin.y - this.image.getHeight()/2));
+				g.drawString("Niveau "+this.level, this.position.x - origin.x + 20, - (this.position.y - origin.y - this.image.getHeight()/2));
 				FontManager.getInstance().resetDefaultFont(g);
 			}
 			g.setColor(old);

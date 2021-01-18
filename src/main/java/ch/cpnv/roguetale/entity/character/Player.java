@@ -56,7 +56,7 @@ public class Player extends Character {
 		for (Ability ability : this.abilities) {
 			if (ability instanceof Dash) {
 				Purchase purchaseDashCDReduction = Main.saveController.getPurchase().getPurchase(PurchaseType.dashCooldownReduction);
-				ability.setCooldown(Math.round(ability.getCooldown() * (1f - purchaseDashCDReduction.getLevel() * 0.15f)));
+				ability.setCooldown(Math.round(ability.getCooldown() * (1f - purchaseDashCDReduction.getLevel() * 0.10f)));
 				return (Dash) ability;
 			}
 		}
