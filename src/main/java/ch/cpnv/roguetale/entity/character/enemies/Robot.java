@@ -33,10 +33,12 @@ public class Robot extends Enemy {
 				MAX_HEALTH, MONEY_REWARD, XP_REWARD
 		);
 		int alea = (int) Math.round(Math.random() * 100);
-		if (alea < 50)
+		if (alea < 50) {
 			this.setPrimaryWeapon(new Bow(1000));
-		else
+		} else {
 			this.setPrimaryWeapon(new Knife(1000));
+			this.speed = 100;
+		}
 	}
 	
 	public static SpriteSheet getSpriteSheet() throws SlickException {
