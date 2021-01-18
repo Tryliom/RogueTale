@@ -31,7 +31,6 @@ public class ShopGui extends Gui {
 	}
 
 	public void init() throws SlickException {
-		MoneyController.getInstance().addMoney(1000); // For testing
 		this.buttonList.clear();
 		this.labelList.clear();
 		int w = Main.BASE_WIDTH,
