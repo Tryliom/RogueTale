@@ -30,7 +30,7 @@ public class Invocator extends Enemy {
 				new CreationOfLife(), null, 
 				MAX_HEALTH, MONEY_REWARD, XP_REWARD
 		);
-		int lvl = getDistanceTo(new Vector2f(0, 0))/1500;
+		int lvl = getDistanceTo(new Vector2f(0, 0))/1000;
 		for (int i = 0; i < lvl;i++) {
 			this.levelup();
 		}
