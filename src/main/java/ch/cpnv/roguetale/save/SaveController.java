@@ -69,6 +69,7 @@ public class SaveController {
 	}
 
 	public void setPurchase(SavePurchase purchase) {
+		this.purchase = new SavePurchase();
 		this.purchase.setPurchases(purchase.getPurchases());
 	}
 }

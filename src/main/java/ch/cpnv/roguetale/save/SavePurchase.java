@@ -10,9 +10,13 @@ public class SavePurchase implements Serializable {
 	private static final long serialVersionUID = -5700901588841937807L;
 	private ArrayList<Purchase> purchases = new ArrayList<Purchase>();
 
+	public SavePurchase() {
+		this.setDefaultData();
+	}
+	
 	public void setDefaultData() {
 		// Add purchase to list
-		this.purchases.add(new Purchase(PurchaseType.healthplus, "Améliore votre vie de base", 0, 5, 200, 100));
+		this.purchases.add(new Purchase(PurchaseType.healthplus, "Améliore votre vie de base", 0, 5, 400, 1.5f));
 	}
 	
 	public void setPurchases(ArrayList<Purchase> list) {

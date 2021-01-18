@@ -124,7 +124,6 @@ public class SaveManager {
 
 		if (data == null) {
 			data = new SavePurchase();
-			data.setDefaultData();
 		}
 		
 		Main.saveController.setPurchase(data);

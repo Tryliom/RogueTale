@@ -9,9 +9,12 @@ public class Purchase {
 	private int level;
 	private int levelMax;
 	private int cost;
-	private int exponentialCost;
+	/**
+	 * Cost exponential, minimum 1. Calcultation of the next cost: cost *= exponentialCost
+	 */
+	private float exponentialCost;
 	
-	public Purchase(PurchaseType displayName, String description, int level, int levelMax, int cost, int exponentialCost) {
+	public Purchase(PurchaseType displayName, String description, int level, int levelMax, int cost, float exponentialCost) {
 		this.name = displayName;
 		this.description = description;
 		this.level = level;
@@ -51,11 +54,11 @@ public class Purchase {
 		this.cost = cost;
 	}
 
-	public int getExponentialCost() {
+	public float getExponentialCost() {
 		return exponentialCost;
 	}
 
-	public void setExponentialCost(int exponentialCost) {
+	public void setExponentialCost(float exponentialCost) {
 		this.exponentialCost = exponentialCost;
 	}
 	
@@ -67,7 +70,7 @@ public class Purchase {
 		if (this.canBuy()) {
 			MoneyController.getInstance().removeMoney(this.cost);
 			this.level++;
-			this.cost += this.exponentialCost;
+			this.cost *= this.exponentialCost;
 		}
 	}
 	

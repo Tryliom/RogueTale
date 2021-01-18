@@ -14,6 +14,7 @@ import ch.cpnv.roguetale.gui.Gui;
 import ch.cpnv.roguetale.gui.button.buttons.OptionButton;
 import ch.cpnv.roguetale.gui.button.buttons.PlayButton;
 import ch.cpnv.roguetale.gui.button.buttons.QuitButton;
+import ch.cpnv.roguetale.gui.button.buttons.ShopButton;
 import ch.cpnv.roguetale.main.Main;
 
 public class MenuGui extends Gui {
@@ -35,9 +36,10 @@ public class MenuGui extends Gui {
 		int w = Main.BASE_WIDTH,
 			h = Main.BASE_HEIGHT;
 		this.buttonList.add(new PlayButton("Jouer", w/2, h * 5/8, this));
+		this.buttonList.add(new ShopButton(w/2, h * 3/4, this));
 		this.buttonList.add(new OptionButton(w - 110, h - 50, this));
 		this.buttonList.add(new QuitButton(110, h - 50, this));
-		moneyDisplayer = new UiMoney(w/2, h*3/4);
+		moneyDisplayer = new UiMoney(w/2, h - 50);
 		this.displayPlayer = Player.getBaseAnimation();
 		this.displayBomber = Bomber.getBaseAnimation();
 		this.background = new Image("ch\\cpnv\\roguetale\\images\\background\\tile.png");
