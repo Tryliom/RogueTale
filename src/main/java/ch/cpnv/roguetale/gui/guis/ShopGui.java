@@ -9,7 +9,6 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.controller.GuiController;
-import ch.cpnv.roguetale.controller.MoneyController;
 import ch.cpnv.roguetale.entity.ui.UiMoney;
 import ch.cpnv.roguetale.gui.Gui;
 import ch.cpnv.roguetale.gui.GuiUtils;
