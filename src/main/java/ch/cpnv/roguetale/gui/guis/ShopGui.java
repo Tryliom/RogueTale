@@ -31,6 +31,7 @@ public class ShopGui extends Gui {
 	}
 
 	public void init() throws SlickException {
+		MoneyController.getInstance().addMoney(1000); // For testing
 		this.buttonList.clear();
 		this.labelList.clear();
 		int w = Main.BASE_WIDTH,
@@ -46,7 +47,6 @@ public class ShopGui extends Gui {
 		}
 		
 		this.buttonList.add(new ReturnButton(w/2, h - 100, this));
-		MoneyController.getInstance().addMoney(1000);
 	}
 	
 	public void render(GameContainer gc, Graphics g, Vector2f origin) throws SlickException {

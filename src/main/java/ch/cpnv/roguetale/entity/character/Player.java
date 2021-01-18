@@ -11,6 +11,7 @@ import ch.cpnv.roguetale.entity.character.abilities.Dash;
 import ch.cpnv.roguetale.gui.guis.GameGui;
 import ch.cpnv.roguetale.main.Main;
 import ch.cpnv.roguetale.save.enums.PurchaseType;
+import ch.cpnv.roguetale.save.other.Purchase;
 import ch.cpnv.roguetale.weapon.Weapon;
 
 public class Player extends Character {
@@ -54,6 +55,8 @@ public class Player extends Character {
 	public Dash getDash() {
 		for (Ability ability : this.abilities) {
 			if (ability instanceof Dash) {
+				Purchase purchaseDashCDReduction = Main.saveController.getPurchase().getPurchase(PurchaseType.dashCooldownReduction);
+				ability.setCooldown(Math.round(ability.getCooldown() * (1f - purchaseDashCDReduction.getLevel() * 0.15f)));
 				return (Dash) ability;
 			}
 		}
@@ -134,6 +137,9 @@ public class Player extends Character {
 	@Override
 	public void levelup() throws SlickException {
 		super.levelup();
+		Purchase purchaseBonusSpeed = Main.saveController.getPurchase().getPurchase(PurchaseType.bonusSpeedPerLevel);
+		
+		this.bonusSpeed += purchaseBonusSpeed.getLevel();
 		
 		if (this.getMaxHealth() < 20) {
 			this.heal(1);
