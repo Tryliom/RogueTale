@@ -15,7 +15,7 @@ public class KeepWeaponsButton extends GuiButton {
 	public KeepWeaponsButton(int x, int y, Gui parentGui) {
 		super(x, y, parentGui);
 		Purchase sellWeapon = Main.saveController.getPurchase().getPurchase(PurchaseType.SellWeapon);
-		this.content = sellWeapon.getLevel() == 0 ? "Ignorer" : "Vendre pour 50 pièces";
+		this.content = sellWeapon.getLevel() == 0 ? "Ignorer" : "Vendre pour "+ (50 * sellWeapon.getLevel()) +" pièces";
 	}
 
 	@Override
@@ -23,7 +23,7 @@ public class KeepWeaponsButton extends GuiButton {
 		super.onClick();
 		Purchase sellWeapon = Main.saveController.getPurchase().getPurchase(PurchaseType.SellWeapon);
 		if (sellWeapon.getLevel() == 1)
-			MoneyController.getInstance().addMoney(50);
+			MoneyController.getInstance().addMoney(50 * sellWeapon.getLevel());
 		GuiController.getInstance().setDisplayGui(this.parentGui.getPrevGui());
 	}
 }
