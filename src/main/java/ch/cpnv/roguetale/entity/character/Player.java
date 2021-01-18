@@ -9,6 +9,8 @@ import org.newdawn.slick.SpriteSheet;
 import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.entity.character.abilities.Dash;
 import ch.cpnv.roguetale.gui.guis.GameGui;
+import ch.cpnv.roguetale.main.Main;
+import ch.cpnv.roguetale.save.enums.PurchaseType;
 import ch.cpnv.roguetale.weapon.Weapon;
 
 public class Player extends Character {
@@ -41,6 +43,8 @@ public class Player extends Character {
 		// Do not use addAbility, because we are not sure the UiController exists at that time
 		this.abilities.add(new Dash());
 		this.initDeathAnimation();
+		int healthPlus = Main.saveController.getPurchase().getPurchase(PurchaseType.healthplus).getLevel();
+		this.updateMaxHealth(healthPlus);
 	}
 
 	private void initDeathAnimation() throws SlickException {

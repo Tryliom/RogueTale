@@ -1,31 +1,29 @@
 package ch.cpnv.roguetale.save.other;
 
-import org.newdawn.slick.Image;
+import ch.cpnv.roguetale.save.enums.PurchaseType;
 
 public class Purchase {
-	private String displayName;
+	private PurchaseType name;
 	private String description;
 	private int level;
 	private int levelMax;
-	private Image icon;
 	private int cost;
 	private int exponentialCost;
 	
-	public Purchase(String displayName, String description, int level, int levelMax, Image icon, int cost, int exponentialCost) {
-		this.displayName = displayName;
+	public Purchase(PurchaseType displayName, String description, int level, int levelMax, int cost, int exponentialCost) {
+		this.name = displayName;
 		this.description = description;
 		this.level = level;
 		this.levelMax = levelMax;
-		this.icon = icon;
 		this.cost = cost;
 		this.exponentialCost = exponentialCost;
 	}
 	
-	public String getDisplayName() {
-		return displayName;
+	public PurchaseType getName() {
+		return name;
 	}
-	public void setDisplayName(String displayName) {
-		this.displayName = displayName;
+	public void setName(PurchaseType displayName) {
+		this.name = displayName;
 	}
 	public String getDescription() {
 		return description;
@@ -44,12 +42,6 @@ public class Purchase {
 	}
 	public void setLevelMax(int levelMax) {
 		this.levelMax = levelMax;
-	}
-	public Image getIcon() {
-		return icon;
-	}
-	public void setIcon(Image icon) {
-		this.icon = icon;
 	}
 	public int getCost() {
 		return cost;

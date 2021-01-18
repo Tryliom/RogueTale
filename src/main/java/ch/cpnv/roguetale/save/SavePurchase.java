@@ -3,6 +3,7 @@ package ch.cpnv.roguetale.save;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import ch.cpnv.roguetale.save.enums.PurchaseType;
 import ch.cpnv.roguetale.save.other.Purchase;
 
 public class SavePurchase implements Serializable {
@@ -11,7 +12,7 @@ public class SavePurchase implements Serializable {
 
 	public void setDefaultData() {
 		// Add purchase to list
-		//this.purchases.add(new Purchase("Plus de vie", "Améliore votre vie de base", 0, 5, null, 0, 0))
+		this.purchases.add(new Purchase(PurchaseType.healthplus, "Améliore votre vie de base", 0, 5, 200, 100));
 	}
 	
 	public void setPurchases(ArrayList<Purchase> list) {
@@ -21,7 +22,7 @@ public class SavePurchase implements Serializable {
 			boolean found = false;
 			
 			for (Purchase p2 : list) {
-				if (p.getDisplayName().equalsIgnoreCase(p2.getDisplayName())) {
+				if (p.getName().name().equalsIgnoreCase(p2.getName().name())) {
 					found = true;
 					purchases.add(p2);
 				}
@@ -37,5 +38,16 @@ public class SavePurchase implements Serializable {
 
 	public ArrayList<Purchase> getPurchases() {
 		return purchases;
+	}
+	
+	public Purchase getPurchase(PurchaseType name) {
+		for (Purchase p : this.purchases) {
+			
+			if (p.getName().name().equalsIgnoreCase(name.name())) {
+				return p;
+			}
+		}
+		
+		return null;
 	}
 }
