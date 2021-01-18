@@ -44,7 +44,7 @@ public class ShopGui extends Gui {
 			y += 50;
 		}
 		
-		this.buttonList.add(new ReturnButton(w/2, h - 100, this));
+		this.buttonList.add(new ReturnButton(w/2, h - 75, this));
 	}
 	
 	public void render(GameContainer gc, Graphics g, Vector2f origin) throws SlickException {

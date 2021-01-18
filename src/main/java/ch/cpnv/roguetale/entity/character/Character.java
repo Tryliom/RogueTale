@@ -130,9 +130,19 @@ public abstract class Character extends MovableItem implements Damageable {
 					FACTION_ICON_DIMENSION)
 			); 
 			
-			if (Main.saveController.getPurchase().getPurchase(PurchaseType.HUDEnemyLevel).getLevel() > 0 && !(this instanceof Player)) {
+			if (!(this instanceof Player)) {
 				FontManager.getInstance().setFont(FontType.Small, g);
-				g.drawString("Niveau "+this.level, this.position.x - origin.x + 20, - (this.position.y - origin.y - this.image.getHeight()/2));
+				boolean displayLevel = Main.saveController.getPurchase().getPurchase(PurchaseType.HUDEnemyLevel).getLevel() == 1;
+				boolean displayLife = Main.saveController.getPurchase().getPurchase(PurchaseType.HUDEnemyLife).getLevel() == 1;
+				String str = "";
+				if (displayLevel)
+					str += "Niveau "+this.level;
+				if (displayLife) {
+					if (!str.isEmpty())
+						str += " | ";
+					str += "Vie "+this.getCurrentHealth() + " ❤";
+				}
+				g.drawString(str, this.position.x - origin.x + 20, - (this.position.y - origin.y - this.image.getHeight()/2));
 				FontManager.getInstance().resetDefaultFont(g);
 			}
 			g.setColor(old);

@@ -19,6 +19,7 @@ public class SavePurchase implements Serializable {
 		this.purchases.add(new Purchase(PurchaseType.bonusSpeedPerLevel, "+ 1% de vitesse tous les niveaux", 0, 5, 1000, 2f));
 		this.purchases.add(new Purchase(PurchaseType.dashCooldownReduction, "- 10% du temps de recharge du dash", 0, 5, 500, 1.5f));
 		this.purchases.add(new Purchase(PurchaseType.HUDEnemyLevel, "Permet de voir le niveau des ennemis", 0, 1, 1000, 1f));
+		this.purchases.add(new Purchase(PurchaseType.HUDEnemyLife, "Permet de voir la vie des ennemis", 0, 1, 1500, 1f));
 		this.purchases.add(new Purchase(PurchaseType.SellWeapon, "Permet de vendre les armes ramassées pour 50 pièces", 0, 5, 1500, 2f));
 		this.purchases.add(new Purchase(PurchaseType.MidasTouch, "Gagne 10 pièces tous les coeurs supplémentaires ramassés", 0, 5, 2000, 2f));
 	}
