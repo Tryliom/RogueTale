@@ -115,6 +115,20 @@ public class SaveManager {
 		Main.saveController.setCommand(data);
 	}
 	
+	public void savePurchase() throws IOException {
+		this.saveContentToFile("purchase", Main.saveController.getPurchase());
+	}
+	
+	public void loadPurchase() throws ClassNotFoundException, IOException {
+		SavePurchase data = (SavePurchase) this.getContentFromFile("purchase");
+
+		if (data == null) {
+			data = new SavePurchase();
+		}
+		
+		Main.saveController.setPurchase(data);
+	}
+	
 	public void saveProgress() throws IOException {
 		this.saveContentToFile("progress", Main.saveController.getProgress());
 	}

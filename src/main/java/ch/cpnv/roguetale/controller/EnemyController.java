@@ -44,11 +44,13 @@ public class EnemyController implements Controller {
 	@Override
 	public void update(GameContainer gc, int delta, Vector2f origin) throws SlickException {		
 		for(Enemy enemy : enemies) {
-			enemy.chooseAction();
-			if (enemy.isMoving())
-				enemy.move(delta);
-			enemy.reduceCooldown(delta);
-			enemy.update(delta);
+			if (enemy.getDistanceTo(origin) < 2000) {
+				enemy.chooseAction();
+				if (enemy.isMoving())
+					enemy.move(delta);
+				enemy.reduceCooldown(delta);
+				enemy.update(delta);
+			}
 		}
 		
 		for (Enemy enemy : this.enemiesToCreate) {
