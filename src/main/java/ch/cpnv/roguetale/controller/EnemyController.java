@@ -131,7 +131,7 @@ public class EnemyController implements Controller {
 			enemy = new Robot(position);
 		else if (rand <= 10)
 			enemy = new Bomber(position); 
-		else if (rand <= 90) 
+		else
 			enemy = new Invocator(position); 
 		
 		return enemy;

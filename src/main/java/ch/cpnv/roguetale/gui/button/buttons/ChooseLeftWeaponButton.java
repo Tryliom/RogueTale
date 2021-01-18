@@ -20,6 +20,7 @@ public class ChooseLeftWeaponButton extends ChooseWeaponButton {
 			if (weap.canUpgradeTier()) {
 				this.setContent("Augmenter le tier");
 			} else {
+				this.disabled = true;
 				this.setContent("Tier maximum");
 				this.canReplace = false;
 			}

@@ -19,6 +19,7 @@ public class SavePurchase implements Serializable {
 		this.purchases.add(new Purchase(PurchaseType.bonusSpeedPerLevel, "+ 1% de vitesse tous les niveaux", 0, 3, 1000, 2f));
 		this.purchases.add(new Purchase(PurchaseType.dashCooldownReduction, "- 10% du temps de recharge du dash", 0, 5, 500, 1.5f));
 		this.purchases.add(new Purchase(PurchaseType.HUDEnemyLevel, "Permet de voir le niveau des ennemis", 0, 1, 1000, 1f));
+		this.purchases.add(new Purchase(PurchaseType.SellWeapon, "Permet de vendre les armes ramassées", 0, 1, 1500, 1f));
 	}
 	
 	public void setPurchases(ArrayList<Purchase> list) {
