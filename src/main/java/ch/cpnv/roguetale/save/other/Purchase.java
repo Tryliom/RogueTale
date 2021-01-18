@@ -1,5 +1,6 @@
 package ch.cpnv.roguetale.save.other;
 
+import ch.cpnv.roguetale.controller.MoneyController;
 import ch.cpnv.roguetale.save.enums.PurchaseType;
 
 public class Purchase {
@@ -58,6 +59,16 @@ public class Purchase {
 		this.exponentialCost = exponentialCost;
 	}
 	
+	public boolean canBuy() {
+		return this.level < this.levelMax && this.cost < MoneyController.getInstance().getMoney();
+	}
 	
+	public void buy() {
+		if (this.canBuy()) {
+			MoneyController.getInstance().removeMoney(this.cost);
+			this.level++;
+			this.cost += this.exponentialCost;
+		}
+	}
 	
 }
