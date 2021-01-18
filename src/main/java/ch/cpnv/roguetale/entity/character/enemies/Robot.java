@@ -16,7 +16,7 @@ import ch.cpnv.roguetale.weapon.melee.Knife;
 import ch.cpnv.roguetale.weapon.ranged.Bow;
 
 public class Robot extends Enemy {
-	private static final int SPEED = 20;
+	private static final int SPEED = 30;
 	private static final int MAX_HEALTH = 2;
 	private static final int MONEY_REWARD = 1;
 	private static final int XP_REWARD = 5;
@@ -52,10 +52,12 @@ public class Robot extends Enemy {
 	@Override
 	protected void dropOnDeath() throws SlickException {
 		double alea = Math.random();
-		if (alea < 0.2) {
-			GameGui.getPickupableItemController().addPickupableItem(new PickupableLifePoint(position));
-		} else if (alea < 0.3) {
+		if (alea < 0.1) {
+			GameGui.getPickupableItemController().addPickupableItem(new PickupableWeapon(new Knife(), position));
+		} else if (alea < 0.2) {
 			GameGui.getPickupableItemController().addPickupableItem(new PickupableWeapon(new Bow(), position));
+		} else if (alea < 0.3) {
+			GameGui.getPickupableItemController().addPickupableItem(new PickupableLifePoint(position));
 		}
 	}
 	

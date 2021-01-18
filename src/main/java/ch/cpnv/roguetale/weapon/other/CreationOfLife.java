@@ -91,7 +91,6 @@ public class CreationOfLife extends Weapon {
 	
 	public ArrayList<String> getCaracteristics() {
 		ArrayList<String> list = super.getCaracteristics();
-		int minAllyLvl = (this.tier-1) * 3;
 		int currentAllies = 0;
 		try {
 			currentAllies = this.countAlliesAroundUser(GameGui.getPlayerController().getPlayer());
