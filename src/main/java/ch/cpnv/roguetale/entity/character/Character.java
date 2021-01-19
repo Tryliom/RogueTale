@@ -140,7 +140,7 @@ public abstract class Character extends MovableItem implements Damageable {
 				if (displayLife) {
 					if (!str.isEmpty())
 						str += " | ";
-					str += "Vie "+this.getCurrentHealth() + " ❤";
+					str += "Vie "+this.getCurrentHealth() + " <3";
 				}
 				g.drawString(str, this.position.x - origin.x + 20, - (this.position.y - origin.y - this.image.getHeight()/2));
 				FontManager.getInstance().resetDefaultFont(g);
