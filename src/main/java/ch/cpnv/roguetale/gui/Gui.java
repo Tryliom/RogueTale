@@ -28,6 +28,9 @@ public class Gui implements Controller {
 		}
 		for (GuiLabel label : labelList)
 			label.render(gc, g);
+		for (GuiButton btn : buttonList) {
+			btn.renderTooltip(g);
+		}
 	}
 
 	public void update(GameContainer gc, int delta, Vector2f origin) throws SlickException {
