@@ -18,7 +18,7 @@ public class Invocator extends Enemy {
 	private static final int SPEED = 0;
 	private static final int MAX_HEALTH = 20;
 	private static final int MONEY_REWARD = 5;
-	private static final int XP_REWARD = 20;
+	private static final int XP_REWARD = 50;
 	private static final String SPRITESHEET_PATH = "ch\\cpnv\\roguetale\\images\\enemy\\bomber\\carac.png";
 	private static final int  SPRITESHEET_DIMENSIONS = 48;
 
@@ -30,7 +30,7 @@ public class Invocator extends Enemy {
 				new CreationOfLife(), null, 
 				MAX_HEALTH, MONEY_REWARD, XP_REWARD
 		);
-		int lvl = getDistanceTo(new Vector2f(0, 0))/1500;
+		int lvl = getDistanceTo(new Vector2f(0, 0))/1000;
 		for (int i = 0; i < lvl;i++) {
 			this.levelup();
 		}

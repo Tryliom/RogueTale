@@ -16,10 +16,10 @@ import ch.cpnv.roguetale.weapon.melee.Knife;
 import ch.cpnv.roguetale.weapon.ranged.Bow;
 
 public class Robot extends Enemy {
-	private static final int SPEED = 20;
+	private static final int SPEED = 30;
 	private static final int MAX_HEALTH = 2;
 	private static final int MONEY_REWARD = 1;
-	private static final int XP_REWARD = 2;
+	private static final int XP_REWARD = 5;
 	private static final String SPRITESHEET_PATH = "ch\\cpnv\\roguetale\\images\\enemy\\robot\\carac.png";
 	private static final int  SPRITESHEET_DIMENSIONS = 48;
 	private static final int animationLength = 300;
@@ -33,10 +33,12 @@ public class Robot extends Enemy {
 				MAX_HEALTH, MONEY_REWARD, XP_REWARD
 		);
 		int alea = (int) Math.round(Math.random() * 100);
-		if (alea < 50)
+		if (alea < 50) {
 			this.setPrimaryWeapon(new Bow(1000));
-		else
+		} else {
 			this.setPrimaryWeapon(new Knife(1000));
+			this.speed = 100;
+		}
 	}
 	
 	public static SpriteSheet getSpriteSheet() throws SlickException {
@@ -50,10 +52,12 @@ public class Robot extends Enemy {
 	@Override
 	protected void dropOnDeath() throws SlickException {
 		double alea = Math.random();
-		if (alea < 0.2) {
-			GameGui.getPickupableItemController().addPickupableItem(new PickupableLifePoint(position));
-		} else if (alea < 0.3) {
+		if (alea < 0.1) {
+			GameGui.getPickupableItemController().addPickupableItem(new PickupableWeapon(new Knife(), position));
+		} else if (alea < 0.2) {
 			GameGui.getPickupableItemController().addPickupableItem(new PickupableWeapon(new Bow(), position));
+		} else if (alea < 0.3) {
+			GameGui.getPickupableItemController().addPickupableItem(new PickupableLifePoint(position));
 		}
 	}
 	

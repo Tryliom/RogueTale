@@ -10,6 +10,7 @@
     1. Select RogueTale as the resource to export
     1. Uncheck files at right (readme, docs, ...)
     1. Select the export destination (chemin complet + nom du fichier)
+    1. Click on "next" 2 times and add the Main class at the bottom
 1. Open JarSplice
     1. In "Add JARS", add :
         * the previous exported jar 

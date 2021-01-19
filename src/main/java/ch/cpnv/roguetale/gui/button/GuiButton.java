@@ -21,6 +21,7 @@ public class GuiButton {
 	protected int height;
 	protected State state;
 	protected Gui parentGui;
+	protected boolean disabled;
 	
 	public GuiButton(int x, int y, Gui parentGui) {
 		this.content = "";
@@ -30,6 +31,7 @@ public class GuiButton {
 		this.height = 40;
 		this.parentGui = parentGui;
 		this.state = State.NONE;
+		this.disabled = false;
 	}
 	
 	public void render(GameContainer gc, Graphics g) throws SlickException {
@@ -37,7 +39,7 @@ public class GuiButton {
 		Boolean hover = this.state.equals(State.HOVERED);
 		Rectangle rect = new Rectangle(x, y, width, height);
 		
-		GuiUtils.renderBox(rect, new Color(0,106,188, hover ? 255 : 200), new Color(0,48,131, hover ? 200 : 150), 3, g);
+		GuiUtils.renderBox(rect, this.disabled ? new Color(50, 50, 50) : new Color(0,106,188, hover ? 255 : 200), this.disabled ? new Color(50, 50, 50) : new Color(0,48,131, hover ? 200 : 150), 3, g);
 		
 		Color old = g.getColor();
 		g.setColor(new Color(195, 197, 213));
@@ -48,10 +50,13 @@ public class GuiButton {
 	}
 	
 	public void onClick() throws SlickException {
-		SoundManager.getInstance().play(SoundType.Click, 0.2f);
+		if (!this.disabled)
+			SoundManager.getInstance().play(SoundType.Click, 0.2f);
 	}
 	
 	public boolean isHoveringButton(int x, int y) {
+		if (this.disabled)
+			return false;
 		return this.x < x && this.x+this.width > x && this.y < y && this.y+this.height > y;
 	}
 	
@@ -131,6 +136,13 @@ public class GuiButton {
 	public void setState(State state) {
 		this.state = state;
 	}
-	
+
+	public boolean isDisabled() {
+		return disabled;
+	}
+
+	public void setDisabled(boolean disabled) {
+		this.disabled = disabled;
+	}
 	
 }

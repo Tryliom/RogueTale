@@ -9,7 +9,9 @@ import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.entity.character.Enemy;
 import ch.cpnv.roguetale.entity.character.Player;
+import ch.cpnv.roguetale.entity.character.enemies.Bomber;
 import ch.cpnv.roguetale.entity.character.enemies.Invocator;
+import ch.cpnv.roguetale.entity.character.enemies.Robot;
 import ch.cpnv.roguetale.gui.guis.GameGui;
 
 public class EnemyController implements Controller {
@@ -44,11 +46,13 @@ public class EnemyController implements Controller {
 	@Override
 	public void update(GameContainer gc, int delta, Vector2f origin) throws SlickException {		
 		for(Enemy enemy : enemies) {
-			enemy.chooseAction();
-			if (enemy.isMoving())
-				enemy.move(delta);
-			enemy.reduceCooldown(delta);
-			enemy.update(delta);
+			if (enemy.getDistanceTo(origin) < 2000) {
+				enemy.chooseAction();
+				if (enemy.isMoving())
+					enemy.move(delta);
+				enemy.reduceCooldown(delta);
+				enemy.update(delta);
+			}
 		}
 		
 		for (Enemy enemy : this.enemiesToCreate) {
@@ -123,8 +127,12 @@ public class EnemyController implements Controller {
 		Enemy enemy = null;
 		int rand = (int) (Math.random() * 100);
 		
-		if (rand <= 100) 
-			enemy = new Invocator(position);
+		if (rand <= 10)
+			enemy = new Robot(position);
+		else if (rand <= 10)
+			enemy = new Bomber(position); 
+		else
+			enemy = new Invocator(position); 
 		
 		return enemy;
 	}
