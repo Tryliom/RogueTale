@@ -34,7 +34,7 @@ public class CreationOfLife extends Weapon {
 	
 	@Override
 	public String getDescription() {
-		return "Invoque une unité alliée qui combattera pour vous jusqu'à "+max_allies+" alliés maximum.";
+		return "Invoque une unité alliée qui combattera pour vous du même niveau que vous jusqu'à "+max_allies+" alliés maximum.";
 	}
 
 	
@@ -62,7 +62,7 @@ public class CreationOfLife extends Weapon {
 	private void spawnEnemies(Character user, int maxTries) throws SlickException {
 		if (this.countAlliesAroundUser(user) < max_allies) {
 			Enemy entity = createRandomEnemy(getRandomNearUser(user));
-			int lvl = (int) Math.round(Math.random() * 3 + (this.tier-1) * 3);
+			int lvl = user.getLevel();
 			for (int i = 0; i < lvl;i++) {
 				entity.levelup();
 			}
@@ -91,7 +91,6 @@ public class CreationOfLife extends Weapon {
 	
 	public ArrayList<String> getCaracteristics() {
 		ArrayList<String> list = super.getCaracteristics();
-		int minAllyLvl = (this.tier-1) * 3;
 		int currentAllies = 0;
 		try {
 			currentAllies = this.countAlliesAroundUser(GameGui.getPlayerController().getPlayer());
@@ -100,7 +99,6 @@ public class CreationOfLife extends Weapon {
 		}
 		
 		list.add("Alliés: "+currentAllies+"/"+max_allies);
-		list.add("Niveau des alliés: "+minAllyLvl+" à "+(minAllyLvl+3));
 		
 		return list;
 	}

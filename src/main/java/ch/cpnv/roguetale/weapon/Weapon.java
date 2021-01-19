@@ -155,7 +155,7 @@ public abstract class Weapon {
 	public ArrayList<String> getCaracteristics() {
 		ArrayList<String> list = new ArrayList<String>();
 		
-		list.add("Tier: "+this.tier+(this.tier == 10 ? "[MAX]" : ""));
+		list.add("Tier: "+this.tier+(this.tier == 10 ? " [MAX]" : ""));
 		
 		if (this instanceof RangedWeapon) {
 			RangedWeapon w = (RangedWeapon) this; 

@@ -6,6 +6,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
+import ch.cpnv.roguetale.controller.MoneyController;
 import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.entity.character.abilities.Dash;
 import ch.cpnv.roguetale.gui.guis.GameGui;
@@ -157,6 +158,15 @@ public class Player extends Character {
 		if(!invulnerable) {
 			super.damage(damage);
 		}
+	}
+	
+	@Override
+	public void heal(int heal) {
+		Purchase midasTouch = Main.saveController.getPurchase().getPurchase(PurchaseType.MidasTouch);
+		if (this.getCurrentHealth() == this.getMaxHealth()) {
+			MoneyController.getInstance().addMoney(10 * midasTouch.getLevel());
+		}
+		super.heal(heal);
 	}
 	
 	
