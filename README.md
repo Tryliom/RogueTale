@@ -15,3 +15,7 @@ Le but est de vaincre des ennemis, ramasser des améliorations et d’obtenir le
 
 Dans le monde ouvert, des ennemis apparaissent aléatoirement ainsi que des armes. Plus le joueur est loin du centre, plus ils sont puissant. Des boss aléatoires apparaissent dans des pièces fermées avec un gain d’arme.
 Les armes ont des niveaux qui définissent leur rareté, augmentent leur dégâts et ajoute des caractéristiques spéciales.
+
+## Modèle
+
+[Modèle fait sur https://app.diagrams.net](https://drive.google.com/file/d/1zwN13vTBbxLbVvDU5j8nB8BzxrmkN2iC/view?usp=sharing)
