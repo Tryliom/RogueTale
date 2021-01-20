@@ -95,8 +95,6 @@ public class GuiButton {
 	}
 	
 	public boolean isHoveringButton(int x, int y) {
-		if (this.disabled)
-			return false;
 		return this.x < x && this.x+this.width > x && this.y < y && this.y+this.height > y;
 	}
 	
