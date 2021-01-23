@@ -155,4 +155,10 @@ public class UiController implements Controller {
 			ability.setX(x);
 		}
 	}
+
+	@Override
+	public void mouseWheelMoved(int score) {
+		// TODO Auto-generated method stub
+		
+	}
 }

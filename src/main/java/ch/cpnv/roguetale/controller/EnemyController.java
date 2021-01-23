@@ -156,4 +156,10 @@ public class EnemyController implements Controller {
 	public void addCharacterToAttack(Enemy enemy) {
 		this.characterToAttack.add(enemy);
 	}
+
+	@Override
+	public void mouseWheelMoved(int score) {
+		// TODO Auto-generated method stub
+		
+	}
 }

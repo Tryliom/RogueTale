@@ -148,4 +148,10 @@ public class PlayerController implements Controller {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void mouseWheelMoved(int score) {
+		// TODO Auto-generated method stub
+		
+	}
 }

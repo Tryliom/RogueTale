@@ -87,6 +87,11 @@ public class Game extends BasicGame {
 	public void mouseMoved(int oldx, int oldy, int newx, int newy) {
 		GuiController.getInstance().mouseMoved(oldx, oldy, newx, newy);
 	}
+	
+	@Override
+	public void mouseWheelMoved(int score) {
+		GuiController.getInstance().mouseWheelMoved(score);
+	}
 
 	public GameContainer getGc() {
 		return gc;

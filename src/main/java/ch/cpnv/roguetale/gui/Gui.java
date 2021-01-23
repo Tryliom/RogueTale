@@ -9,12 +9,14 @@ import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.controller.Controller;
 import ch.cpnv.roguetale.gui.button.GuiButton;
+import ch.cpnv.roguetale.gui.list.GuiScrollableList;
 import ch.cpnv.roguetale.gui.texts.GuiLabel;
 
 public class Gui implements Controller {
 	protected Gui prevGui;
 	protected ArrayList<GuiButton> buttonList = new ArrayList<GuiButton>();
 	protected ArrayList<GuiLabel> labelList = new ArrayList<GuiLabel>();
+	protected ArrayList<GuiScrollableList> scollList = new ArrayList<GuiScrollableList>();
 	
 	public Gui(Gui prevGui) {
 		this.prevGui = prevGui;
@@ -23,6 +25,9 @@ public class Gui implements Controller {
 	public void init() throws SlickException {}
 	
 	public void render(GameContainer gc, Graphics g, Vector2f origin) throws SlickException {
+		for (GuiScrollableList gsl : scollList) {
+			gsl.render(gc, g);
+		}
 		for (GuiButton btn : buttonList) {
 			btn.render(gc, g);
 		}
@@ -49,6 +54,12 @@ public class Gui implements Controller {
 	}
 
 	public void mousePressed(int button, int x, int y) throws SlickException {
+		for (GuiScrollableList gsl : scollList) {
+			if (gsl.isHovering(x, y)) {
+				gsl.mousePressed(button, x, y);
+				break;
+			}
+		}
 		for (GuiButton btn : buttonList) {
 			if (btn.isHoveringButton(x, y)) {
 				btn.onClick();
@@ -59,6 +70,10 @@ public class Gui implements Controller {
 	}
 	
 	public void mouseMoved(int oldx, int oldy, int newx, int newy) {
+		for (GuiScrollableList gsl : scollList) {
+			gsl.mouseMoved(oldx, oldy, newx, newy);
+			break;
+		}
 		for (GuiButton btn : buttonList) {
 			btn.mouseHover(oldx, oldy, newx, newy);
 		}
@@ -71,6 +86,14 @@ public class Gui implements Controller {
 	@Override
 	public void mouseReleased(int button, int x, int y) throws SlickException {
 		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseWheelMoved(int score) {
+		for (GuiScrollableList gsl : scollList) {
+			gsl.mouseWheelMoved(score);
+		}
 		
 	}
 }

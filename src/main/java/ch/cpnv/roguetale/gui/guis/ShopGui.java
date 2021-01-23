@@ -12,8 +12,11 @@ import ch.cpnv.roguetale.controller.GuiController;
 import ch.cpnv.roguetale.entity.ui.UiMoney;
 import ch.cpnv.roguetale.gui.Gui;
 import ch.cpnv.roguetale.gui.GuiUtils;
+import ch.cpnv.roguetale.gui.button.GuiButton;
 import ch.cpnv.roguetale.gui.button.buttons.PurchaseButton;
 import ch.cpnv.roguetale.gui.button.buttons.ReturnButton;
+import ch.cpnv.roguetale.gui.list.GuiScrollableList;
+import ch.cpnv.roguetale.gui.list.Slot;
 import ch.cpnv.roguetale.main.Main;
 import ch.cpnv.roguetale.save.other.Purchase;
 
@@ -32,17 +35,21 @@ public class ShopGui extends Gui {
 	public void init() throws SlickException {
 		this.buttonList.clear();
 		this.labelList.clear();
+		this.scollList.clear();
 		int w = Main.BASE_WIDTH,
 			h = Main.BASE_HEIGHT;
 		
 		this.moneyDisplayer = new UiMoney(w/2, 50);
-		int y = 100;
 		ArrayList<Purchase> purchases = Main.saveController.getPurchase().getPurchases();
+		ArrayList<Slot> list = new ArrayList<Slot>();
 		
 		for (Purchase p : purchases) {
-			this.buttonList.add(new PurchaseButton(w/2, y, p, this));
-			y += 50;
+			ArrayList<GuiButton> btn = new ArrayList<GuiButton>();
+			btn.add(new PurchaseButton((w - 50)/2, 0, p, this));
+			list.add(new Slot(btn, null));
 		}
+		
+		this.scollList.add(new GuiScrollableList(50, 100, w - 100, h - 250, list));
 		
 		this.buttonList.add(new ReturnButton(w/2, h - 75, this));
 	}

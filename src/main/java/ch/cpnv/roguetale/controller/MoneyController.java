@@ -86,4 +86,10 @@ public class MoneyController implements Controller {
 		// Do nothing
 	}
 
+	@Override
+	public void mouseWheelMoved(int score) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

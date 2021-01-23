@@ -19,4 +19,6 @@ public interface Controller {
 	public void mouseMoved(int oldx, int oldy, int newx, int newy);
 	
 	public void mouseReleased(int button, int x, int y) throws SlickException;
+	
+	public void mouseWheelMoved(int score);
 }
