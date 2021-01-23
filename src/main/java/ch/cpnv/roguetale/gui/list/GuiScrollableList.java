@@ -3,7 +3,6 @@ package ch.cpnv.roguetale.gui.list;
 import java.util.ArrayList;
 
 import org.lwjgl.util.vector.Vector2f;
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
