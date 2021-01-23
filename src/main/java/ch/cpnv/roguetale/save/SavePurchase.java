@@ -3,8 +3,14 @@ package ch.cpnv.roguetale.save;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import ch.cpnv.roguetale.save.enums.PurchaseType;
 import ch.cpnv.roguetale.save.other.Purchase;
+import ch.cpnv.roguetale.save.other.purchases.BonusSpeed;
+import ch.cpnv.roguetale.save.other.purchases.DashCooldownReduction;
+import ch.cpnv.roguetale.save.other.purchases.HUDEnemyLevel;
+import ch.cpnv.roguetale.save.other.purchases.HUDEnemyLife;
+import ch.cpnv.roguetale.save.other.purchases.HealthPlus;
+import ch.cpnv.roguetale.save.other.purchases.MidasTouch;
+import ch.cpnv.roguetale.save.other.purchases.SellWeapon;
 
 public class SavePurchase implements Serializable {
 	private static final long serialVersionUID = 5700901588841937807L;
@@ -15,13 +21,13 @@ public class SavePurchase implements Serializable {
 	}
 	
 	public void setDefaultData() {
-		this.purchases.add(new Purchase(PurchaseType.healthplus, "+ 1 coeur de base", 0, 5, 500, 1.5f));
-		this.purchases.add(new Purchase(PurchaseType.bonusSpeedPerLevel, "+ 1% de vitesse tous les niveaux", 0, 5, 1000, 2f));
-		this.purchases.add(new Purchase(PurchaseType.dashCooldownReduction, "- 10% du temps de recharge du dash", 0, 5, 500, 1.5f));
-		this.purchases.add(new Purchase(PurchaseType.HUDEnemyLevel, "Permet de voir le niveau des ennemis", 0, 1, 1000, 1f));
-		this.purchases.add(new Purchase(PurchaseType.HUDEnemyLife, "Permet de voir la vie des ennemis", 0, 1, 1500, 1f));
-		this.purchases.add(new Purchase(PurchaseType.SellWeapon, "Permet de vendre les armes ramassées pour 50 pièces", 0, 5, 1500, 2f));
-		this.purchases.add(new Purchase(PurchaseType.MidasTouch, "Gagne 10 pièces tous les coeurs supplémentaires ramassés", 0, 5, 2000, 2f));
+		this.purchases.add(new HealthPlus());
+		this.purchases.add(new BonusSpeed());
+		this.purchases.add(new DashCooldownReduction());
+		this.purchases.add(new HUDEnemyLevel());
+		this.purchases.add(new HUDEnemyLife());
+		this.purchases.add(new SellWeapon());
+		this.purchases.add(new MidasTouch());
 	}
 	
 	public void setPurchases(ArrayList<Purchase> list) {
@@ -31,7 +37,7 @@ public class SavePurchase implements Serializable {
 			boolean found = false;
 			
 			for (Purchase p2 : list) {
-				if (p.getName().name().equalsIgnoreCase(p2.getName().name())) {
+				if (p.getClass().getName() == p2.getClass().getName()) {
 					found = true;
 					purchases.add(p2);
 				}
@@ -49,10 +55,10 @@ public class SavePurchase implements Serializable {
 		return purchases;
 	}
 	
-	public Purchase getPurchase(PurchaseType name) {
+	public Purchase getPurchase(Class<?> cls) {
 		for (Purchase p : this.purchases) {
 			
-			if (p.getName().name().equalsIgnoreCase(name.name())) {
+			if (cls.isInstance(p)) {
 				return p;
 			}
 		}

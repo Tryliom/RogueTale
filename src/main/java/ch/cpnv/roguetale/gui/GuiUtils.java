@@ -21,13 +21,17 @@ public class GuiUtils {
 	public static ArrayList<String> formatDisplayText(String text, int maxSpace, Graphics g) {
 		ArrayList<String> list = new ArrayList<String>();
 		String description = "";
+		text = text.replaceAll("\n", "`");
+		
 		for (int i = 0;i<text.length();i++) {
-			// Cut text only at whitespace
-			if (g.getFont().getWidth(description) > maxSpace && Character.isWhitespace(text.charAt(i))) {
+			// Cut text only at whitespace or \n
+			if ((g.getFont().getWidth(description) > maxSpace && Character.isWhitespace(text.charAt(i))) 
+					|| text.charAt(i) == '`') {
 				list.add(description);
 				description = "";
 			} else			
 				description += text.charAt(i);
+
 		}
 		if (description != "")
 			list.add(description);

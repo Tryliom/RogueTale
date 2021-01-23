@@ -5,7 +5,9 @@ import java.io.IOException;
 import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.gui.Gui;
+import ch.cpnv.roguetale.gui.GuiUtils;
 import ch.cpnv.roguetale.gui.button.GuiButton;
+import ch.cpnv.roguetale.main.Game;
 import ch.cpnv.roguetale.main.Main;
 import ch.cpnv.roguetale.save.other.Purchase;
 
@@ -20,10 +22,12 @@ public class PurchaseButton extends GuiButton {
 	
 	public void init() {
 		if (purchase.getLevel() < purchase.getLevelMax())
-			this.setContent(purchase.getDescription() + " pour " + purchase.getCost() + " pièces | "+purchase.getLevel()+"/"+purchase.getLevelMax());
+			this.setContent(purchase.getDisplayName()+ " " + purchase.getLevel()+"/"+purchase.getLevelMax() + " | " + purchase.getCurrentCost() + " pièces");
 		else
-			this.setContent(purchase.getDescription() + " | "+purchase.getLevel()+"/"+purchase.getLevelMax());
+			this.setContent(purchase.getDisplayName() + " " + purchase.getLevel()+"/"+purchase.getLevelMax());
 		this.disabled = !purchase.canBuy();
+		purchase.initDescription();
+		this.setTooltip(GuiUtils.formatDisplayText(purchase.getDescription(), 300, Game.getInstance().getGc().getGraphics()));
 	}
 
 	public void onClick() throws SlickException {

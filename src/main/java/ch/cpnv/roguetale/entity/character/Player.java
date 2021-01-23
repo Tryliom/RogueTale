@@ -11,8 +11,11 @@ import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.entity.character.abilities.Dash;
 import ch.cpnv.roguetale.gui.guis.GameGui;
 import ch.cpnv.roguetale.main.Main;
-import ch.cpnv.roguetale.save.enums.PurchaseType;
 import ch.cpnv.roguetale.save.other.Purchase;
+import ch.cpnv.roguetale.save.other.purchases.BonusSpeed;
+import ch.cpnv.roguetale.save.other.purchases.DashCooldownReduction;
+import ch.cpnv.roguetale.save.other.purchases.HealthPlus;
+import ch.cpnv.roguetale.save.other.purchases.MidasTouch;
 import ch.cpnv.roguetale.weapon.Weapon;
 
 public class Player extends Character {
@@ -45,7 +48,7 @@ public class Player extends Character {
 		// Do not use addAbility, because we are not sure the UiController exists at that time
 		this.abilities.add(new Dash());
 		this.initDeathAnimation();
-		int healthPlus = Main.saveController.getPurchase().getPurchase(PurchaseType.healthplus).getLevel();
+		int healthPlus = Main.saveController.getPurchase().getPurchase(HealthPlus.class).getLevel();
 		this.updateMaxHealth(healthPlus);
 	}
 
@@ -56,7 +59,7 @@ public class Player extends Character {
 	public Dash getDash() {
 		for (Ability ability : this.abilities) {
 			if (ability instanceof Dash) {
-				Purchase purchaseDashCDReduction = Main.saveController.getPurchase().getPurchase(PurchaseType.dashCooldownReduction);
+				Purchase purchaseDashCDReduction = Main.saveController.getPurchase().getPurchase(DashCooldownReduction.class);
 				ability.setCooldown(Math.round(ability.getCooldown() * (1f - purchaseDashCDReduction.getLevel() * 0.10f)));
 				return (Dash) ability;
 			}
@@ -138,7 +141,7 @@ public class Player extends Character {
 	@Override
 	public void levelup() throws SlickException {
 		super.levelup();
-		Purchase purchaseBonusSpeed = Main.saveController.getPurchase().getPurchase(PurchaseType.bonusSpeedPerLevel);
+		Purchase purchaseBonusSpeed = Main.saveController.getPurchase().getPurchase(BonusSpeed.class);
 		
 		this.bonusSpeed += purchaseBonusSpeed.getLevel() / 100f;
 		
@@ -162,7 +165,7 @@ public class Player extends Character {
 	
 	@Override
 	public void heal(int heal) {
-		Purchase midasTouch = Main.saveController.getPurchase().getPurchase(PurchaseType.MidasTouch);
+		Purchase midasTouch = Main.saveController.getPurchase().getPurchase(MidasTouch.class);
 		if (this.getCurrentHealth() == this.getMaxHealth()) {
 			MoneyController.getInstance().addMoney(10 * midasTouch.getLevel());
 		}

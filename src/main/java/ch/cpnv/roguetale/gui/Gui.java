@@ -25,9 +25,6 @@ public class Gui implements Controller {
 	public void init() throws SlickException {}
 	
 	public void render(GameContainer gc, Graphics g, Vector2f origin) throws SlickException {
-		for (GuiScrollableList gsl : scollList) {
-			gsl.render(gc, g);
-		}
 		for (GuiButton btn : buttonList) {
 			btn.render(gc, g);
 		}
@@ -35,6 +32,9 @@ public class Gui implements Controller {
 			label.render(gc, g);
 		for (GuiButton btn : buttonList) {
 			btn.renderTooltip(g);
+		}
+		for (GuiScrollableList gsl : scollList) {
+			gsl.render(gc, g);
 		}
 	}
 

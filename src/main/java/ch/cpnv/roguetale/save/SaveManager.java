@@ -116,11 +116,11 @@ public class SaveManager {
 	}
 	
 	public void savePurchase() throws IOException {
-		this.saveContentToFile("purchase", Main.saveController.getPurchase());
+		this.saveContentToFile("purchases", Main.saveController.getPurchase());
 	}
 	
 	public void loadPurchase() throws ClassNotFoundException, IOException {
-		SavePurchase data = (SavePurchase) this.getContentFromFile("purchase");
+		SavePurchase data = (SavePurchase) this.getContentFromFile("purchases");
 
 		if (data == null) {
 			data = new SavePurchase();

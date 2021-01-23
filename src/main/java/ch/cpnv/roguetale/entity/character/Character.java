@@ -26,7 +26,8 @@ import ch.cpnv.roguetale.font.FontManager;
 import ch.cpnv.roguetale.font.FontType;
 import ch.cpnv.roguetale.gui.guis.GameGui;
 import ch.cpnv.roguetale.main.Main;
-import ch.cpnv.roguetale.save.enums.PurchaseType;
+import ch.cpnv.roguetale.save.other.purchases.HUDEnemyLevel;
+import ch.cpnv.roguetale.save.other.purchases.HUDEnemyLife;
 import ch.cpnv.roguetale.sound.SoundManager;
 import ch.cpnv.roguetale.sound.SoundType;
 import ch.cpnv.roguetale.weapon.RangedWeapon;
@@ -132,8 +133,8 @@ public abstract class Character extends MovableItem implements Damageable {
 			
 			if (!(this instanceof Player)) {
 				FontManager.getInstance().setFont(FontType.Small, g);
-				boolean displayLevel = Main.saveController.getPurchase().getPurchase(PurchaseType.HUDEnemyLevel).getLevel() == 1;
-				boolean displayLife = Main.saveController.getPurchase().getPurchase(PurchaseType.HUDEnemyLife).getLevel() == 1;
+				boolean displayLevel = Main.saveController.getPurchase().getPurchase(HUDEnemyLevel.class).getLevel() == 1;
+				boolean displayLife = Main.saveController.getPurchase().getPurchase(HUDEnemyLife.class).getLevel() == 1;
 				String str = "";
 				if (displayLevel)
 					str += "Niveau "+this.level;
