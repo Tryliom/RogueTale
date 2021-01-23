@@ -24,7 +24,7 @@ public class GuiButton {
 	protected State state;
 	protected Gui parentGui;
 	protected boolean disabled;
-	protected ArrayList<String> tooltip;
+	protected ArrayList<String> tooltip = new ArrayList<String>();
 	
 	public GuiButton(int x, int y, Gui parentGui) {
 		this.content = "";
@@ -53,12 +53,16 @@ public class GuiButton {
 	}
 	
 	public void renderTooltip(Graphics g) {
+		if (this.tooltip.size() == 0)
+			return;
+
 		Boolean hover = this.state.equals(State.HOVERED);
 		Color old = g.getColor();
+		int strSpace = 30;
 		
 		if (this.tooltip != null && hover) {
 			int maxWidth = 0;
-			int maxHeight = 10 * 2 + this.tooltip.size() * 20;
+			int maxHeight = 10 * 2 + this.tooltip.size() * strSpace;
 			
 			for (String line : this.tooltip) {
 				if (g.getFont().getWidth(line) > maxWidth) {
@@ -67,12 +71,12 @@ public class GuiButton {
 			}
 			
 			int positionOfTooltipY = 1;
-			if (y - (height + maxHeight + 100) < 0)
+			if (y - (height + maxHeight + 50) < 0)
 				positionOfTooltipY = -1;
 			
 			Rectangle rectTooltip = new Rectangle(
 						x + width/2 - maxWidth/2, 
-						y + height/2 - (height/2 + maxHeight + 20) * positionOfTooltipY, 
+						y - height/2 - (maxHeight + 10) * positionOfTooltipY, 
 						maxWidth + 20, 
 						maxHeight
 					);
@@ -83,7 +87,7 @@ public class GuiButton {
 			int yStr = 10;
 			for (String line : this.tooltip) {
 				g.drawString(line, x + width/2 - maxWidth/2 + 10, rectTooltip.getY() + yStr);
-				yStr += 20;
+				yStr += strSpace;
 			}
 			g.setColor(old);
 		}

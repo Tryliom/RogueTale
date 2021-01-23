@@ -31,6 +31,9 @@ public class Slot implements Controller{
 			label.setY(y);
 			label.render(gc, g);
 		}
+	}
+
+	public void renderTooltip(Graphics g) {
 		for (GuiButton btn : buttonList) {
 			btn.renderTooltip(g);
 		}

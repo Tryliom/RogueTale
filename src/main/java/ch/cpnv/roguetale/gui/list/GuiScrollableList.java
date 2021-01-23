@@ -46,11 +46,21 @@ public class GuiScrollableList {
 			}
 		}
 		
+		for (int i = 0; i < this.slotList.size(); i++) {
+			Slot slt = this.slotList.get(i);
+			
+			if (this.canBeDisplay(i)) {
+				slt.renderTooltip(g);
+			}
+		}
+		
 		if (this.currentElement != 0)
 			this.arrowTop.draw(this.x + this.width - this.arrowTop.getWidth(), this.y);
-		if (this.currentElement <= 0)
+		if (this.currentElement + this.maxElement < this.slotList.size() - 1)
 			this.arrowBottom.draw(this.x + this.width - this.arrowBottom.getWidth(), this.y + this.height);
 	}
+	
+	
 
 	private boolean canBeDisplay(int i) {
 		return i >= this.currentElement && i <= (this.maxElement + this.currentElement);
