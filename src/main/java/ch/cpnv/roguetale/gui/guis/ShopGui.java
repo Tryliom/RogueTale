@@ -35,7 +35,7 @@ public class ShopGui extends Gui {
 	public void init() throws SlickException {
 		this.buttonList.clear();
 		this.labelList.clear();
-		this.scollList.clear();
+		this.scrollList.clear();
 		int w = Main.BASE_WIDTH,
 			h = Main.BASE_HEIGHT;
 		
@@ -45,11 +45,11 @@ public class ShopGui extends Gui {
 		
 		for (Purchase p : purchases) {
 			ArrayList<GuiButton> btn = new ArrayList<GuiButton>();
-			btn.add(new PurchaseButton((w - 50)/2, 0, p, this));
+			btn.add(new PurchaseButton(w/2, 0, p, this));
 			list.add(new Slot(btn, null));
 		}
 		
-		this.scollList.add(new GuiScrollableList(50, 100, w - 100, h - 250, list));
+		this.scrollList.add(new GuiScrollableList(50, 100, w - 100, h - 200, list));
 		
 		this.buttonList.add(new ReturnButton(w/2, h - 75, this));
 	}

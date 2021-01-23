@@ -16,7 +16,7 @@ public class Gui implements Controller {
 	protected Gui prevGui;
 	protected ArrayList<GuiButton> buttonList = new ArrayList<GuiButton>();
 	protected ArrayList<GuiLabel> labelList = new ArrayList<GuiLabel>();
-	protected ArrayList<GuiScrollableList> scollList = new ArrayList<GuiScrollableList>();
+	protected ArrayList<GuiScrollableList> scrollList = new ArrayList<GuiScrollableList>();
 	
 	public Gui(Gui prevGui) {
 		this.prevGui = prevGui;
@@ -33,7 +33,7 @@ public class Gui implements Controller {
 		for (GuiButton btn : buttonList) {
 			btn.renderTooltip(g);
 		}
-		for (GuiScrollableList gsl : scollList) {
+		for (GuiScrollableList gsl : scrollList) {
 			gsl.render(gc, g);
 		}
 	}
@@ -54,7 +54,7 @@ public class Gui implements Controller {
 	}
 
 	public void mousePressed(int button, int x, int y) throws SlickException {
-		for (GuiScrollableList gsl : scollList) {
+		for (GuiScrollableList gsl : scrollList) {
 			if (gsl.isHovering(x, y)) {
 				gsl.mousePressed(button, x, y);
 				break;
@@ -70,7 +70,7 @@ public class Gui implements Controller {
 	}
 	
 	public void mouseMoved(int oldx, int oldy, int newx, int newy) {
-		for (GuiScrollableList gsl : scollList) {
+		for (GuiScrollableList gsl : scrollList) {
 			gsl.mouseMoved(oldx, oldy, newx, newy);
 			break;
 		}
@@ -91,7 +91,7 @@ public class Gui implements Controller {
 
 	@Override
 	public void mouseWheelMoved(int score) {
-		for (GuiScrollableList gsl : scollList) {
+		for (GuiScrollableList gsl : scrollList) {
 			gsl.mouseWheelMoved(score);
 		}
 		

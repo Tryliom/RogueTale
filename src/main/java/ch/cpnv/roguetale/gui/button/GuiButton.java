@@ -71,12 +71,12 @@ public class GuiButton {
 			}
 			
 			int positionOfTooltipY = 1;
-			if (y - (height + maxHeight + 100) < 0)
+			if (y - (height + maxHeight + 50) < 0)
 				positionOfTooltipY = -1;
 			
 			Rectangle rectTooltip = new Rectangle(
 						x + width/2 - maxWidth/2, 
-						y + height/2 - (height/2 + maxHeight + 20) * positionOfTooltipY, 
+						y - height/2 - (maxHeight + 10) * positionOfTooltipY, 
 						maxWidth + 20, 
 						maxHeight
 					);
