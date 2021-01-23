@@ -21,6 +21,7 @@ public class Main {
 		saveController.loadAll();
 		SaveGraphic graph = saveController.getGraphic();
 		app.setDisplayMode(Math.round(graph.getResolution().x), Math.round(graph.getResolution().y), graph.getFullscreen());
+		app.setTargetFrameRate(120);
 		app.start();
 	}
 
