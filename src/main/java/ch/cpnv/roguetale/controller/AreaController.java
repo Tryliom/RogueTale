@@ -96,4 +96,10 @@ public class AreaController implements Controller {
 		
 	}
 
+	@Override
+	public void mouseWheelMoved(int score) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -1,5 +1,7 @@
 package ch.cpnv.roguetale.gui.button;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -22,6 +24,7 @@ public class GuiButton {
 	protected State state;
 	protected Gui parentGui;
 	protected boolean disabled;
+	protected ArrayList<String> tooltip;
 	
 	public GuiButton(int x, int y, Gui parentGui) {
 		this.content = "";
@@ -49,14 +52,49 @@ public class GuiButton {
 		g.resetLineWidth();
 	}
 	
+	public void renderTooltip(Graphics g) {
+		Boolean hover = this.state.equals(State.HOVERED);
+		Color old = g.getColor();
+		
+		if (this.tooltip != null && hover) {
+			int maxWidth = 0;
+			int maxHeight = 10 * 2 + this.tooltip.size() * 20;
+			
+			for (String line : this.tooltip) {
+				if (g.getFont().getWidth(line) > maxWidth) {
+					maxWidth = g.getFont().getWidth(line);
+				}
+			}
+			
+			int positionOfTooltipY = 1;
+			if (y - (height + maxHeight + 100) < 0)
+				positionOfTooltipY = -1;
+			
+			Rectangle rectTooltip = new Rectangle(
+						x + width/2 - maxWidth/2, 
+						y + height/2 - (height/2 + maxHeight + 20) * positionOfTooltipY, 
+						maxWidth + 20, 
+						maxHeight
+					);
+			
+			GuiUtils.renderBox(rectTooltip, new Color(40, 40, 40), new Color(20, 20, 20), 3, g);
+			
+			g.setColor(new Color(195, 197, 213));
+			int yStr = 10;
+			for (String line : this.tooltip) {
+				g.drawString(line, x + width/2 - maxWidth/2 + 10, rectTooltip.getY() + yStr);
+				yStr += 20;
+			}
+			g.setColor(old);
+		}
+	}
+	
 	public void onClick() throws SlickException {
 		if (!this.disabled)
 			SoundManager.getInstance().play(SoundType.Click, 0.2f);
 	}
 	
 	public boolean isHoveringButton(int x, int y) {
-		if (this.disabled)
-			return false;
 		return this.x < x && this.x+this.width > x && this.y < y && this.y+this.height > y;
 	}
 	
@@ -144,5 +182,12 @@ public class GuiButton {
 	public void setDisabled(boolean disabled) {
 		this.disabled = disabled;
 	}
-	
+
+	public ArrayList<String> getTooltip() {
+		return tooltip;
+	}
+
+	public void setTooltip(ArrayList<String> tooltip) {
+		this.tooltip = tooltip;
+	}
 }

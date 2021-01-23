@@ -98,4 +98,8 @@ public class GuiController implements Controller {
 		guiWhenKeypressed.put(Integer.valueOf(key), currentGui);
 	}
 
+	public void mouseWheelMoved(int score) {
+		this.currentGui.mouseWheelMoved(score);
+	}
+
 }

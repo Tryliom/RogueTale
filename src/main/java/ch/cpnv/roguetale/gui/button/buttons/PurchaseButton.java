@@ -15,18 +15,21 @@ public class PurchaseButton extends GuiButton {
 	public PurchaseButton(int x, int y, Purchase purchase, Gui parentGui) {
 		super(x, y, parentGui);
 		this.purchase = purchase;
+		this.init();
+	}
+	
+	public void init() {
 		if (purchase.getLevel() < purchase.getLevelMax())
 			this.setContent(purchase.getDescription() + " pour " + purchase.getCost() + " pièces | "+purchase.getLevel()+"/"+purchase.getLevelMax());
 		else
 			this.setContent(purchase.getDescription() + " | "+purchase.getLevel()+"/"+purchase.getLevelMax());
 		this.disabled = !purchase.canBuy();
 	}
-	
 
 	public void onClick() throws SlickException {
 		super.onClick();
 		purchase.buy();
-		this.parentGui.init();
+		this.init();
 		try {
 			Main.saveController.saveAll();
 		} catch (IOException e) {

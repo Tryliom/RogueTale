@@ -28,4 +28,8 @@ public class GuiLabel {
 	public void setContent(String content) {
 		this.content = content;
 	}
+
+	public void setY(int y) {
+		this.y = y;
+	}
 }
