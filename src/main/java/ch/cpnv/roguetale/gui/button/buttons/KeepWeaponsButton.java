@@ -7,8 +7,8 @@ import ch.cpnv.roguetale.controller.MoneyController;
 import ch.cpnv.roguetale.gui.Gui;
 import ch.cpnv.roguetale.gui.button.GuiButton;
 import ch.cpnv.roguetale.main.Main;
-import ch.cpnv.roguetale.save.other.Purchase;
-import ch.cpnv.roguetale.save.other.purchases.SellWeapon;
+import ch.cpnv.roguetale.purchase.Purchase;
+import ch.cpnv.roguetale.purchase.purchases.SellWeapon;
 
 public class KeepWeaponsButton extends GuiButton {
 

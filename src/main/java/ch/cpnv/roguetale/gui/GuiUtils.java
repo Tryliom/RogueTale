@@ -54,6 +54,8 @@ public class GuiUtils {
 	
 	public static void renderBar(Rectangle rect, Color fill, Color border, Color barProgress, int borderWidth, float percent, Graphics g) {
 		Color old = g.getColor();
+		if (percent < 0)
+			percent = 0;
 		Rectangle progress = new Rectangle(rect.getX(), rect.getY(), rect.getWidth() * percent, rect.getHeight());
 		
 		g.setColor(fill);

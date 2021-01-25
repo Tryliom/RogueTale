@@ -21,6 +21,6 @@ public class PickupableLifePoint extends PickupableItem {
 	public void pickup(Player player) throws SlickException {		
 		super.pickup(player);
 		SoundManager.getInstance().play(SoundType.LifePickup, 0.2f);
-		player.heal(1);
+		player.heal(50);
 	}
 }

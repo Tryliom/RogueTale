@@ -1,4 +1,4 @@
-package ch.cpnv.roguetale.save.other;
+package ch.cpnv.roguetale.purchase;
 
 import java.io.Serializable;
 

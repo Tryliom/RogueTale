@@ -18,7 +18,7 @@ import ch.cpnv.roguetale.gui.button.buttons.ReturnButton;
 import ch.cpnv.roguetale.gui.list.GuiScrollableList;
 import ch.cpnv.roguetale.gui.list.Slot;
 import ch.cpnv.roguetale.main.Main;
-import ch.cpnv.roguetale.save.other.Purchase;
+import ch.cpnv.roguetale.purchase.Purchase;
 
 public class ShopGui extends Gui {
 	private UiMoney moneyDisplayer;

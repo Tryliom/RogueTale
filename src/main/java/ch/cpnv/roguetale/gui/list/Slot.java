@@ -89,4 +89,20 @@ public class Slot implements Controller{
 	public void mouseWheelMoved(int score) {
 		
 	}
+	
+	public int getMaxWidth() {
+		int maxWidth = 0;
+		for (GuiButton gb : this.buttonList) {
+			if (gb.getWidth() > maxWidth)
+				maxWidth = gb.getWidth();
+		}
+		
+		return maxWidth;
+	}
+	
+	public void setButtonWidth(int width) {
+		for (GuiButton gb : this.buttonList) {
+			gb.setWidth(width);
+		}
+	}
 }

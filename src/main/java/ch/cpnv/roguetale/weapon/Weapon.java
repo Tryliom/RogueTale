@@ -164,7 +164,7 @@ public abstract class Weapon {
 		
 		int damage = this.getDamage();
 		if (damage != 0)
-			list.add("Dégât: "+damage+" coeur" + (damage > 1 ? "s" : ""));
+			list.add("Dégâts: "+damage);
 		list.add("Recharge: "+(this.getCooldown() >= 1000 ? "Long" : "Rapide"));
 		
 		return list;
@@ -174,7 +174,7 @@ public abstract class Weapon {
 		this.tier++;
 		
 		if (this.tier%2 == 0 && this.damage != 0) {
-			this.damage += 1;
+			this.damage += 50;
 		}
 		
 		this.cooldown -= this.cooldown * 0.1;

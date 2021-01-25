@@ -15,11 +15,11 @@ public class Knife extends MeleeWeapon {
 	private static String ICON_PATH = "ch\\cpnv\\roguetale\\images\\ui\\icon\\knife.png";
 	
 	public Knife() throws SlickException {
-		this(250);
+		this(500);
 	}
 	
 	public Knife(int cooldown) throws SlickException {
-		super("Couteau", 2, cooldown, new Rectangle(0, 0, 50, 50), 0, 0, new Image(ICON_PATH));
+		super("Couteau", 200, cooldown, new Rectangle(0, 0, 50, 50), 0, 0, new Image(ICON_PATH));
 	}
 	
 	@Override

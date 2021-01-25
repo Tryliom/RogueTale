@@ -1,6 +1,6 @@
-package ch.cpnv.roguetale.save.other.purchases;
+package ch.cpnv.roguetale.purchase.purchases;
 
-import ch.cpnv.roguetale.save.other.Purchase;
+import ch.cpnv.roguetale.purchase.Purchase;
 
 public class SellWeapon extends Purchase {
 	private static final long serialVersionUID = 8410019438663658529L;

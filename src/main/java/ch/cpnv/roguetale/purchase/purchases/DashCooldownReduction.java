@@ -1,6 +1,6 @@
-package ch.cpnv.roguetale.save.other.purchases;
+package ch.cpnv.roguetale.purchase.purchases;
 
-import ch.cpnv.roguetale.save.other.Purchase;
+import ch.cpnv.roguetale.purchase.Purchase;
 
 public class DashCooldownReduction extends Purchase {
 	private static final long serialVersionUID = -8740037684910128205L;

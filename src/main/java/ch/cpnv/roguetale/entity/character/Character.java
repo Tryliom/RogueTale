@@ -26,8 +26,8 @@ import ch.cpnv.roguetale.font.FontManager;
 import ch.cpnv.roguetale.font.FontType;
 import ch.cpnv.roguetale.gui.guis.GameGui;
 import ch.cpnv.roguetale.main.Main;
-import ch.cpnv.roguetale.save.other.purchases.HUDEnemyLevel;
-import ch.cpnv.roguetale.save.other.purchases.HUDEnemyLife;
+import ch.cpnv.roguetale.purchase.purchases.HUDEnemyLevel;
+import ch.cpnv.roguetale.purchase.purchases.HUDEnemyLife;
 import ch.cpnv.roguetale.sound.SoundManager;
 import ch.cpnv.roguetale.sound.SoundType;
 import ch.cpnv.roguetale.weapon.RangedWeapon;
@@ -47,6 +47,7 @@ public abstract class Character extends MovableItem implements Damageable {
 	protected ArrayList<State> states = new ArrayList<State>();
 	protected ArrayList<Ability> abilities = new ArrayList<Ability>();
 	protected float bonusSpeed;
+	protected float bonusMaxHealth;
 
 	public Character(
 			String name,
@@ -179,10 +180,10 @@ public abstract class Character extends MovableItem implements Damageable {
 	};
 	
 	public int getCurrentHealth() {
-		return hpDamageStrategy.getCurrentHealth();
+		return Math.round(hpDamageStrategy.getCurrentHealth() * (1 + this.getBonusMaxHealth()));
 	}
 	public int getMaxHealth() {
-		return hpDamageStrategy.getMaxHealth();
+		return Math.round(hpDamageStrategy.getMaxHealth() * (1 + this.getBonusMaxHealth()));
 	}
 	
 	public ArrayList<Ability> getAbilities() {
@@ -337,4 +338,13 @@ public abstract class Character extends MovableItem implements Damageable {
 	public void setLevel(int level) {
 		this.level = level;
 	}
+
+	public float getBonusMaxHealth() {
+		return bonusMaxHealth;
+	}
+
+	public void addBonusMaxHealth(float bonusMaxHealth) {
+		this.bonusMaxHealth += bonusMaxHealth;
+	}
+	
 }

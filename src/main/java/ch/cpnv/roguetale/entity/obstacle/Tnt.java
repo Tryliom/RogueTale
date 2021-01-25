@@ -22,7 +22,7 @@ public class Tnt extends Obstacle {
 	@Override
 	public void onDeath() {
 		try {
-			GameGui.getAreaController().addArea(new MinorExplosion(this.getPosition(), 1));
+			GameGui.getAreaController().addArea(new MinorExplosion(this.getPosition(), 200));
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}

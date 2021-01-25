@@ -9,7 +9,7 @@ import ch.cpnv.roguetale.gui.GuiUtils;
 import ch.cpnv.roguetale.gui.button.GuiButton;
 import ch.cpnv.roguetale.main.Game;
 import ch.cpnv.roguetale.main.Main;
-import ch.cpnv.roguetale.save.other.Purchase;
+import ch.cpnv.roguetale.purchase.Purchase;
 
 public class PurchaseButton extends GuiButton {
 	private Purchase purchase;
@@ -33,7 +33,7 @@ public class PurchaseButton extends GuiButton {
 	public void onClick() throws SlickException {
 		super.onClick();
 		purchase.buy();
-		this.init();
+		parentGui.init();
 		try {
 			Main.saveController.saveAll();
 		} catch (IOException e) {

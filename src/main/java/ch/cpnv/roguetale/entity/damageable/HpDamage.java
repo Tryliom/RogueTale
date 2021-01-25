@@ -12,6 +12,8 @@ public class HpDamage implements DamageStrategy {
 	@Override
 	public void damage(int damage) {
 		this.currentHealth -= damage;
+		if (this.currentHealth < 0)
+			this.currentHealth = 0;
 	}
 
 	@Override
@@ -37,9 +39,8 @@ public class HpDamage implements DamageStrategy {
 	
 	public void updateMaxHealth(int health) {
 		maxHealth += health;
-		if(health > 0) {
-			currentHealth += health;
-		}
+		currentHealth += health;
+		
 		if(currentHealth > maxHealth) {
 			currentHealth = maxHealth;
 		}

@@ -3,14 +3,14 @@ package ch.cpnv.roguetale.save;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import ch.cpnv.roguetale.save.other.Purchase;
-import ch.cpnv.roguetale.save.other.purchases.BonusSpeed;
-import ch.cpnv.roguetale.save.other.purchases.DashCooldownReduction;
-import ch.cpnv.roguetale.save.other.purchases.HUDEnemyLevel;
-import ch.cpnv.roguetale.save.other.purchases.HUDEnemyLife;
-import ch.cpnv.roguetale.save.other.purchases.HealthPlus;
-import ch.cpnv.roguetale.save.other.purchases.MidasTouch;
-import ch.cpnv.roguetale.save.other.purchases.SellWeapon;
+import ch.cpnv.roguetale.purchase.Purchase;
+import ch.cpnv.roguetale.purchase.purchases.BonusSpeed;
+import ch.cpnv.roguetale.purchase.purchases.DashCooldownReduction;
+import ch.cpnv.roguetale.purchase.purchases.HUDEnemyLevel;
+import ch.cpnv.roguetale.purchase.purchases.HUDEnemyLife;
+import ch.cpnv.roguetale.purchase.purchases.HealthPlus;
+import ch.cpnv.roguetale.purchase.purchases.MidasTouch;
+import ch.cpnv.roguetale.purchase.purchases.SellWeapon;
 
 public class SavePurchase implements Serializable {
 	private static final long serialVersionUID = 5700901588841937807L;
