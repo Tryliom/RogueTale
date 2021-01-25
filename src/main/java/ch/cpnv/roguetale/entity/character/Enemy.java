@@ -209,7 +209,7 @@ public class Enemy extends Character {
 			if (this.getRangedWeapon() != null)
 				range = this.getRangedWeapon().getRange();
 			else if (this.getMeleeWeapon() != null) {
-				range = Math.round(this.getMeleeWeapon().getHitbox().getWidth() * 1.5f);
+				range = (int) Math.round(this.getMeleeWeapon().getHitbox().getWidth() * (1f + Math.random() * 0.8f));
 			}
 
 		Rectangle enRect = new Rectangle(

@@ -9,6 +9,7 @@ import org.newdawn.slick.SpriteSheet;
 import ch.cpnv.roguetale.controller.MoneyController;
 import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.entity.character.abilities.Dash;
+import ch.cpnv.roguetale.entity.character.states.buff.Invincible;
 import ch.cpnv.roguetale.gui.guis.GameGui;
 import ch.cpnv.roguetale.main.Main;
 import ch.cpnv.roguetale.purchase.Purchase;
@@ -160,6 +161,8 @@ public class Player extends Character {
 	public void damage(int damage) {
 		if(!invulnerable) {
 			super.damage(damage);
+			if (!this.hasState(Invincible.class))
+				this.addState(new Invincible(1000));
 		}
 	}
 	
