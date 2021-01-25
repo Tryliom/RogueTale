@@ -180,7 +180,7 @@ public abstract class Character extends MovableItem implements Damageable {
 	};
 	
 	public int getCurrentHealth() {
-		return hpDamageStrategy.getCurrentHealth();
+		return Math.round(hpDamageStrategy.getCurrentHealth() * (1 + this.getBonusMaxHealth()));
 	}
 	public int getMaxHealth() {
 		return Math.round(hpDamageStrategy.getMaxHealth() * (1 + this.getBonusMaxHealth()));

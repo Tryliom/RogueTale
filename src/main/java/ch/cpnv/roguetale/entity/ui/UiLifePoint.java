@@ -21,11 +21,13 @@ public class UiLifePoint {
 	}
 	
 	public void render(Graphics g) {
-		int width = WIDTH_BAR_BASE + WIDTH_BAR_BASE * base_life / current_max_life;
+		int width = WIDTH_BAR_BASE * current_max_life / base_life;
 		if (width > WIDTH_BAR_MAX)
 			width = WIDTH_BAR_MAX;
 		Rectangle progressBar = new Rectangle(5, 5, width, 30);
-		GuiUtils.renderBar(progressBar, Color.darkGray, Color.black, Color.red, 3, current_life / current_max_life, g);
+		GuiUtils.renderBar(progressBar, Color.darkGray, Color.darkGray, new Color(200, 70, 70), 2, (float) current_life / current_max_life, g);
+		String life = this.current_life + "/" + this.current_max_life;
+		g.drawString(life, width - g.getFont().getWidth(life), g.getFont().getHeight(life)/3);
 	}
 
 	public int getCurrent_life() {

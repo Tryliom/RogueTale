@@ -20,8 +20,8 @@ import ch.cpnv.roguetale.weapon.Weapon;
 
 public class Player extends Character {
 	// not Integer.Max, because it creates some undesired effects when a character is dealt multiple times INFINITEDAMAGE damage
-	protected final static int INFINITEDAMAGE = 10000;
-	protected final static int STARTING_MAX_HEALTH = 300;
+	protected final static int INFINITEDAMAGE = 100000;
+	protected final static int STARTING_MAX_HEALTH = 500;
 	private static final String DEAD_ANIMATION = "ch\\cpnv\\roguetale\\images\\player\\dead.png";
 	private static final String SPRITESHEET_PATH = "ch\\cpnv\\roguetale\\images\\player\\carac.png";
 	private static final int SPRITESHEET_DIMENSIONS = 48;
