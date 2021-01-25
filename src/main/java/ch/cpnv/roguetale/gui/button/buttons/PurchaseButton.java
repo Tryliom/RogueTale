@@ -33,7 +33,7 @@ public class PurchaseButton extends GuiButton {
 	public void onClick() throws SlickException {
 		super.onClick();
 		purchase.buy();
-		this.init();
+		parentGui.init();
 		try {
 			Main.saveController.saveAll();
 		} catch (IOException e) {
