@@ -3,6 +3,7 @@ package ch.cpnv.roguetale.entity.damageable;
 public class HpDamage implements DamageStrategy {
 	protected int maxHealth;
 	protected int currentHealth;
+	protected float bonusHealth;
 	
 	public HpDamage(int maxHp) {
 		this.maxHealth = maxHp;
@@ -30,20 +31,29 @@ public class HpDamage implements DamageStrategy {
 	}
 	
 	public int getCurrentHealth() {
-		return currentHealth;
+		return this.currentHealth;
 	}
 
 	public int getMaxHealth() {
-		return maxHealth;
+		return this.maxHealth;
 	}
 	
 	public void updateMaxHealth(int health) {
-		maxHealth += health;
-		currentHealth += health;
+		int healthPlus = Math.round(health * (1.0f + this.getBonusHealth()));
+		maxHealth += healthPlus;
+		currentHealth += healthPlus;
 		
 		if(currentHealth > maxHealth) {
 			currentHealth = maxHealth;
 		}
+	}
+
+	public float getBonusHealth() {
+		return bonusHealth;
+	}
+
+	public void addBonusHealth(float bonusHealth) {
+		this.bonusHealth += bonusHealth;
 	}
 
 }
