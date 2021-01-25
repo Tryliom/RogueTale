@@ -17,7 +17,7 @@ import ch.cpnv.roguetale.weapon.ranged.Bow;
 
 public class Robot extends Enemy {
 	private static final int SPEED = 30;
-	private static final int MAX_HEALTH = 500;
+	private static final int MAX_HEALTH = 300;
 	private static final int MONEY_REWARD = 1;
 	private static final int XP_REWARD = 5;
 	private static final String SPRITESHEET_PATH = "ch\\cpnv\\roguetale\\images\\enemy\\robot\\carac.png";

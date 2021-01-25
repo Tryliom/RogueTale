@@ -16,7 +16,7 @@ public class Cannon extends RangedWeapon {
 	private static final int MAX_CHARGE_TIME = 2000;
 
 	public Cannon() throws SlickException {
-		super("Cannon", 100, 500, 200, new Image(ICON_PATH), MIN_CHARGE_TIME, MAX_CHARGE_TIME);
+		super("Cannon", 200, 500, 200, new Image(ICON_PATH), MIN_CHARGE_TIME, MAX_CHARGE_TIME);
 	}
 	
 	@Override
