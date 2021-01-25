@@ -180,10 +180,10 @@ public abstract class Character extends MovableItem implements Damageable {
 	};
 	
 	public int getCurrentHealth() {
-		return Math.round(hpDamageStrategy.getCurrentHealth() * (1 + this.getBonusMaxHealth()));
+		return hpDamageStrategy.getCurrentHealth();
 	}
 	public int getMaxHealth() {
-		return Math.round(hpDamageStrategy.getMaxHealth() * (1 + this.getBonusMaxHealth()));
+		return hpDamageStrategy.getMaxHealth();
 	}
 	
 	public ArrayList<Ability> getAbilities() {
@@ -340,11 +340,11 @@ public abstract class Character extends MovableItem implements Damageable {
 	}
 
 	public float getBonusMaxHealth() {
-		return bonusMaxHealth;
+		return this.hpDamageStrategy.getBonusHealth();
 	}
 
 	public void addBonusMaxHealth(float bonusMaxHealth) {
-		this.bonusMaxHealth += bonusMaxHealth;
+		this.hpDamageStrategy.addBonusHealth(bonusMaxHealth);
 	}
 	
 }

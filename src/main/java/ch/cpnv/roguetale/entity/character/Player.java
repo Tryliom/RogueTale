@@ -2,6 +2,7 @@ package ch.cpnv.roguetale.entity.character;
 
 import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.Animation;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
@@ -42,7 +43,8 @@ public class Player extends Character {
 			Weapon primaryWeapon,
 			Weapon secondaryWeapon
 			) throws SlickException {
-		super("", getSpriteSheet(), position, speed, direction, moving, primaryWeapon, secondaryWeapon, STARTING_MAX_HEALTH);
+		super("", getSpriteSheet(), position, speed, direction, moving, primaryWeapon, secondaryWeapon, 
+				(int) (Math.round(STARTING_MAX_HEALTH) * (1f + Main.saveController.getPurchase().getPurchase(HealthPlus.class).getLevel() * 0.05f)));
 		level = 0;
 		currentExp = 0;
 		maxExp = 100;
@@ -51,6 +53,7 @@ public class Player extends Character {
 		this.initDeathAnimation();
 		int healthPlus = Main.saveController.getPurchase().getPurchase(HealthPlus.class).getLevel();
 		this.addBonusMaxHealth(healthPlus * 0.05f);
+		this.getFaction().setColor(new Color(1, 1, 1, 0));
 	}
 
 	private void initDeathAnimation() throws SlickException {
@@ -146,15 +149,11 @@ public class Player extends Character {
 		
 		this.bonusSpeed += purchaseBonusSpeed.getLevel() / 100f;
 		
-		if (this.getMaxHealth() < 20) {
-			this.heal(1);
-			
-			if (this.level % 5 == 0) {
-				this.updateMaxHealth(50);
-			}
-		} else {
-			this.heal(this.getMaxHealth()/2);
+		if (this.level % 5 == 0) {
+			this.updateMaxHealth(50);
 		}
+		
+		this.heal(this.getMaxHealth() - this.getCurrentHealth());
 	}
 	
 	@Override
