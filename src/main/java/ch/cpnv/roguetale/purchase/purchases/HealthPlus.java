@@ -1,6 +1,6 @@
-package ch.cpnv.roguetale.save.other.purchases;
+package ch.cpnv.roguetale.purchase.purchases;
 
-import ch.cpnv.roguetale.save.other.Purchase;
+import ch.cpnv.roguetale.purchase.Purchase;
 
 public class HealthPlus extends Purchase {
 	private static final long serialVersionUID = -2280229333594680273L;
@@ -12,8 +12,8 @@ public class HealthPlus extends Purchase {
 
 	@Override
 	public void initDescription() {
-		String desc = "Améliore votre vie de base de + 1 coeur\n"
-				+ "Total: + "+this.level+" coeurs de base";
+		String desc = "Ajoute un bonus de + 5% de vie maximum\n"
+				+ "Total: + "+this.level * 5+"% de vie max";
 		this.description = desc;
 	}
 	

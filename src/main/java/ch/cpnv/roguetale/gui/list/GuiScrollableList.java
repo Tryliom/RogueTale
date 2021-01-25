@@ -35,6 +35,18 @@ public class GuiScrollableList {
 		} catch (Exception e) {
 			System.out.println("Error while adding arrow top and bottom to GuiScrollableList");
 		}
+		
+		int max_width = 0;
+		for (Slot slt : this.slotList) {
+			int w = slt.getMaxWidth();
+			if (w > max_width) {
+				max_width = w;
+			}
+		}
+		
+		for (Slot slt : this.slotList) {
+			slt.setButtonWidth(max_width);
+		}
 	}
 	
 	public void render(GameContainer gc, Graphics g) throws SlickException {

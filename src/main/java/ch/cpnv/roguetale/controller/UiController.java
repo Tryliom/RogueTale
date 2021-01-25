@@ -9,9 +9,9 @@ import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.entity.character.Ability;
 import ch.cpnv.roguetale.entity.character.Player;
-import ch.cpnv.roguetale.entity.ui.UiMoney;
 import ch.cpnv.roguetale.entity.ui.UiAbility;
 import ch.cpnv.roguetale.entity.ui.UiLifePoint;
+import ch.cpnv.roguetale.entity.ui.UiMoney;
 import ch.cpnv.roguetale.entity.ui.UiWeaponSlot;
 import ch.cpnv.roguetale.entity.ui.UiXpBar;
 import ch.cpnv.roguetale.gui.guis.GameGui;
@@ -19,9 +19,7 @@ import ch.cpnv.roguetale.main.Main;
 import ch.cpnv.roguetale.weapon.Weapon;
 
 public class UiController implements Controller {
-	protected static final int LIFEPOINT_Y_POSITION = 5;
-	protected static final int LIFEPOINT_X_POSITION_START = 5;
-	protected static final int MONEY_Y_POSITION = LIFEPOINT_Y_POSITION;
+	protected static final int MONEY_Y_POSITION = 5;
 	protected static final int MONEY_X_POSITION = Main.BASE_WIDTH - 50;
 	protected static final int ACTIONS_Y_POSITION = Main.BASE_HEIGHT - 10;
 	protected static final int LEFT_WEAPON_X_POSITION = Main.BASE_WIDTH / 4;
@@ -30,7 +28,7 @@ public class UiController implements Controller {
 	private static final String MOUSE_LEFT_PATH = "ch\\cpnv\\roguetale\\images\\ui\\icon\\mouseLeft.png";
 	private static final String MOUSE_RIGHT_PATH = "ch\\cpnv\\roguetale\\images\\ui\\icon\\mouseRight.png";
 	
-	protected ArrayList<UiLifePoint> lifePoints = new ArrayList<UiLifePoint>();
+	protected UiLifePoint lifePoint;
 	protected ArrayList<UiWeaponSlot> weapons = new ArrayList<UiWeaponSlot>();
 	protected ArrayList<UiAbility> abilities = new ArrayList<UiAbility>();
 	protected UiXpBar xpBar;
@@ -44,6 +42,7 @@ public class UiController implements Controller {
 			addAbility(ability);
 		}	
 		this.xpBar = new UiXpBar();
+		this.lifePoint = new UiLifePoint(player.getMaxHealth());
 		try {
 			moneyDisplayer = new UiMoney(MONEY_X_POSITION, MONEY_Y_POSITION);
 		} catch (SlickException e) {
@@ -53,11 +52,7 @@ public class UiController implements Controller {
 	
 	@Override
 	public void render(GameContainer gc, Graphics g, Vector2f origin) throws SlickException {
-		int x = LIFEPOINT_X_POSITION_START;
-		for(UiLifePoint lifePoint : lifePoints) {
-			lifePoint.getSprite().draw(x, LIFEPOINT_Y_POSITION);
-			x += lifePoint.getSprite().getWidth();
-		}
+		lifePoint.render(g);
 		
 		for (UiWeaponSlot weapon : weapons) {
 			weapon.render(gc, g, origin);
@@ -75,28 +70,8 @@ public class UiController implements Controller {
 	public void update(GameContainer gc, int delta, Vector2f origin) throws SlickException {
 		// Set the correct number of lifePoints
 		Player player = GameGui.getPlayerController().getPlayer();
-		while (lifePoints.size() < player.getMaxHealth()) {
-			lifePoints.add(new UiLifePoint());
-		}
-		if (lifePoints.size() > player.getMaxHealth()) {
-			lifePoints = new ArrayList<UiLifePoint>(lifePoints.subList(0, player.getMaxHealth() - 1));
-		}
-		
-		// Set the content of the lifePoints : full/empty
-		int remainingFullLifePoints = player.getCurrentHealth();
-		for(UiLifePoint lifePoint : lifePoints) {
-			if(remainingFullLifePoints > 0) {
-				if(!lifePoint.isFull()) {
-					lifePoint.setFull(true);
-				}
-				remainingFullLifePoints--;
-			}
-			else {
-				if(lifePoint.isFull()) {
-					lifePoint.setFull(false);
-				}
-			}
-		}
+		lifePoint.setCurrent_life(player.getCurrentHealth());
+		lifePoint.setCurrent_max_life(player.getMaxHealth());
 		
 		// Set the weapons
 		Weapon primary = player.getPrimaryWeapon();

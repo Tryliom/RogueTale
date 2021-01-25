@@ -11,17 +11,17 @@ import ch.cpnv.roguetale.entity.Direction;
 import ch.cpnv.roguetale.entity.character.abilities.Dash;
 import ch.cpnv.roguetale.gui.guis.GameGui;
 import ch.cpnv.roguetale.main.Main;
-import ch.cpnv.roguetale.save.other.Purchase;
-import ch.cpnv.roguetale.save.other.purchases.BonusSpeed;
-import ch.cpnv.roguetale.save.other.purchases.DashCooldownReduction;
-import ch.cpnv.roguetale.save.other.purchases.HealthPlus;
-import ch.cpnv.roguetale.save.other.purchases.MidasTouch;
+import ch.cpnv.roguetale.purchase.Purchase;
+import ch.cpnv.roguetale.purchase.purchases.BonusSpeed;
+import ch.cpnv.roguetale.purchase.purchases.DashCooldownReduction;
+import ch.cpnv.roguetale.purchase.purchases.HealthPlus;
+import ch.cpnv.roguetale.purchase.purchases.MidasTouch;
 import ch.cpnv.roguetale.weapon.Weapon;
 
 public class Player extends Character {
 	// not Integer.Max, because it creates some undesired effects when a character is dealt multiple times INFINITEDAMAGE damage
 	protected final static int INFINITEDAMAGE = 10000;
-	protected final static int STARTING_MAX_HEALTH = 5;
+	protected final static int STARTING_MAX_HEALTH = 300;
 	private static final String DEAD_ANIMATION = "ch\\cpnv\\roguetale\\images\\player\\dead.png";
 	private static final String SPRITESHEET_PATH = "ch\\cpnv\\roguetale\\images\\player\\carac.png";
 	private static final int SPRITESHEET_DIMENSIONS = 48;
@@ -49,7 +49,7 @@ public class Player extends Character {
 		this.abilities.add(new Dash());
 		this.initDeathAnimation();
 		int healthPlus = Main.saveController.getPurchase().getPurchase(HealthPlus.class).getLevel();
-		this.updateMaxHealth(healthPlus);
+		this.addBonusMaxHealth(healthPlus * 0.05f);
 	}
 
 	private void initDeathAnimation() throws SlickException {
@@ -149,7 +149,7 @@ public class Player extends Character {
 			this.heal(1);
 			
 			if (this.level % 5 == 0) {
-				this.updateMaxHealth(1);
+				this.updateMaxHealth(50);
 			}
 		} else {
 			this.heal(this.getMaxHealth()/2);

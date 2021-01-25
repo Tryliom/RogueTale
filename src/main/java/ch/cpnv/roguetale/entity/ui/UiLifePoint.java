@@ -1,35 +1,48 @@
 package ch.cpnv.roguetale.entity.ui;
 
-import org.lwjgl.util.vector.Vector2f;
-import org.newdawn.slick.SlickException;
-import org.newdawn.slick.SpriteSheet;
 
-import ch.cpnv.roguetale.entity.DrawableItem;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.geom.Rectangle;
 
-public class UiLifePoint extends DrawableItem {
-	protected static final int DISPLAY_DIMENSION = 30;
-	static protected final String SPRITESHEET_PATH = "ch\\cpnv\\roguetale\\images\\ui\\life.png";
+import ch.cpnv.roguetale.gui.GuiUtils;
+
+public class UiLifePoint {
+	private static final int WIDTH_BAR_BASE = 300;
+	private static final int WIDTH_BAR_MAX = 700;
+	private int base_life;
+	private int current_life;
+	private int current_max_life;
 	
-	protected Boolean full;
-	
-	public UiLifePoint() throws SlickException {
-		super(new SpriteSheet(SPRITESHEET_PATH, 300, 300), new Vector2f());
-		setFull(true);
+	public UiLifePoint(int base_life) {
+		this.base_life = base_life;
+		this.current_life = base_life;
+		this.current_max_life = base_life;
 	}
 	
-	public Boolean isFull()  {
-		return full;
-	}
-	
-	public void setFull(Boolean full) {
-		this.full = full;
-		if (full) {
-			this.image = this.spritesheet.getSprite(0, 0);
-		} else {
-			this.image = this.spritesheet.getSprite(2, 0);
-		}
-		this.image = this.image.getScaledCopy(DISPLAY_DIMENSION, DISPLAY_DIMENSION);
-		
+	public void render(Graphics g) {
+		int width = WIDTH_BAR_BASE + WIDTH_BAR_BASE * base_life / current_max_life;
+		if (width > WIDTH_BAR_MAX)
+			width = WIDTH_BAR_MAX;
+		Rectangle progressBar = new Rectangle(5, 5, width, 30);
+		GuiUtils.renderBar(progressBar, Color.darkGray, Color.black, Color.red, 3, current_life / current_max_life, g);
 	}
 
+	public int getCurrent_life() {
+		return current_life;
+	}
+
+	public void setCurrent_life(int current_life) {
+		this.current_life = current_life;
+	}
+
+	public int getCurrent_max_life() {
+		return current_max_life;
+	}
+
+	public void setCurrent_max_life(int current_max_life) {
+		this.current_max_life = current_max_life;
+	}
+
+	
 }

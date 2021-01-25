@@ -160,7 +160,9 @@ public class GuiButton {
 	}
 
 	public void setWidth(int width) {
+		this.x += this.width/2;
 		this.width = width;
+		this.x = x - this.width/2;
 	}
 
 	public int getHeight() {

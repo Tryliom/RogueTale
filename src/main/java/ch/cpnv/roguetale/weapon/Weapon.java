@@ -174,7 +174,7 @@ public abstract class Weapon {
 		this.tier++;
 		
 		if (this.tier%2 == 0 && this.damage != 0) {
-			this.damage += 1;
+			this.damage += 50;
 		}
 		
 		this.cooldown -= this.cooldown * 0.1;

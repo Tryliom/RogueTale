@@ -43,7 +43,7 @@ public class Enemy extends Character {
 		this.bonusSpeed += 0.02;
 		
 		if (this.level % 3 == 0) {
-			this.updateMaxHealth(1);
+			this.updateMaxHealth(50);
 		}
 		
 		if (this.level % 5 == 0) {

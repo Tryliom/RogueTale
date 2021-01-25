@@ -19,7 +19,7 @@ public class Knife extends MeleeWeapon {
 	}
 	
 	public Knife(int cooldown) throws SlickException {
-		super("Couteau", 2, cooldown, new Rectangle(0, 0, 50, 50), 0, 0, new Image(ICON_PATH));
+		super("Couteau", 200, cooldown, new Rectangle(0, 0, 50, 50), 0, 0, new Image(ICON_PATH));
 	}
 	
 	@Override

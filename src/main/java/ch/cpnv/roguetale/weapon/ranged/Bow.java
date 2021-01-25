@@ -20,7 +20,7 @@ public class Bow extends RangedWeapon {
 	}
 	
 	public Bow(int cooldown) throws SlickException {
-		super("Arc", 1, cooldown, 500, new Image(ICON_PATH), MIN_CHARGE_TIME, MAX_CHARGE_TIME);
+		super("Arc", 100, cooldown, 500, new Image(ICON_PATH), MIN_CHARGE_TIME, MAX_CHARGE_TIME);
 	}
 	
 	@Override
