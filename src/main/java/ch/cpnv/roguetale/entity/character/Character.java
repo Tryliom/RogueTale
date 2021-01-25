@@ -24,6 +24,7 @@ import ch.cpnv.roguetale.entity.temporaryeffect.itemeffect.effects.Damage;
 import ch.cpnv.roguetale.entity.temporaryeffect.itemeffect.effects.Heal;
 import ch.cpnv.roguetale.font.FontManager;
 import ch.cpnv.roguetale.font.FontType;
+import ch.cpnv.roguetale.gui.GuiUtils;
 import ch.cpnv.roguetale.gui.guis.GameGui;
 import ch.cpnv.roguetale.main.Main;
 import ch.cpnv.roguetale.purchase.purchases.HUDEnemyLevel;
@@ -140,9 +141,12 @@ public abstract class Character extends MovableItem implements Damageable {
 				if (displayLevel)
 					str += "Niveau "+this.level;
 				if (displayLife) {
-					if (!str.isEmpty())
-						str += " | ";
-					str += "Vie "+this.getCurrentHealth() + " <3";
+					GuiUtils.renderBar(new Rectangle(
+							this.getPosition().getX() - origin.x - 25,
+							- this.getPosition().getY() + origin.y - this.image.getHeight() / 2 - 10, 
+							50, 
+							5), 
+							Color.darkGray, Color.darkGray, new Color(200, 70, 70), 2, (float) this.getCurrentHealth() / this.getMaxHealth(), g);
 				}
 				g.drawString(str, this.position.x - origin.x + 20, - (this.position.y - origin.y - this.image.getHeight()/2));
 				FontManager.getInstance().resetDefaultFont(g);
