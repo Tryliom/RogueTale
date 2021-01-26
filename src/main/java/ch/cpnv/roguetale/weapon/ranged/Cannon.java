@@ -1,10 +1,14 @@
 package ch.cpnv.roguetale.weapon.ranged;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import ch.cpnv.roguetale.entity.character.Character;
+import ch.cpnv.roguetale.entity.projectile.Projectile;
 import ch.cpnv.roguetale.entity.projectile.projectiles.Bomb;
+import ch.cpnv.roguetale.entity.projectile.projectiles.MegaBomb;
 import ch.cpnv.roguetale.gui.guis.GameGui;
 import ch.cpnv.roguetale.sound.SoundManager;
 import ch.cpnv.roguetale.sound.SoundType;
@@ -14,6 +18,7 @@ public class Cannon extends RangedWeapon {
 	private static String ICON_PATH = "ch\\cpnv\\roguetale\\images\\ui\\icon\\cannon.png";
 	private static final int MIN_CHARGE_TIME = 1000;
 	private static final int MAX_CHARGE_TIME = 2000;
+	private int chanceMegaBomb = 5;
 
 	public Cannon() throws SlickException {
 		super("Cannon", 200, 500, 200, new Image(ICON_PATH), MIN_CHARGE_TIME, MAX_CHARGE_TIME);
@@ -21,15 +26,31 @@ public class Cannon extends RangedWeapon {
 	
 	@Override
 	public String getDescription() {
-		return "Tir simple: Envoie une bombe qui explose au bout d'un moment ou sur une entité. "
-				+ "Tir chargé: Les dégâts de base de la bombe et la vitesse sont doublés.";
+		return "Tir simple: Envoie une bombe qui explose au bout d'un moment ou sur une entité.\n"
+				+ "Tir chargé: Les dégâts de base de la bombe et la vitesse sont doublés.\n"
+				+ "Vous avez une chance de tirer une Mega Bombe qui fait une plus grande zone d'explosion.";
+	}
+	
+	@Override
+	public ArrayList<String> getCaracteristics() {
+		ArrayList<String> list = super.getCaracteristics();
+		
+		list.add("Chance de lancer une Mega Bombe: "+this.chanceMegaBomb+"%");
+		
+		return list;
 	}
 
 	@Override
 	public void attack(Character attacker) throws SlickException {		
 		if(canAttack()) {
 			SoundManager.getInstance().play(SoundType.Arrow, 0.2f);
-			Bomb bomb = new Bomb(attacker, attacker.getDirection(), range, damage);
+			Projectile bomb;
+			if (Math.random() < this.chanceMegaBomb/100f) {
+				bomb = new MegaBomb(attacker, attacker.getDirection(), range, damage);
+			} else {
+				bomb = new Bomb(attacker, attacker.getDirection(), range, damage);
+			}
+
 			if (this.isChargedShoot()) {
 				bomb.setSpeed(bomb.getSpeed()*2);
 				bomb.setDamage(bomb.getDamage()*2);
@@ -38,5 +59,12 @@ public class Cannon extends RangedWeapon {
 		}
 		
 		super.attack(attacker);
+	}
+	
+	@Override
+	public void upgradeTier() {
+		super.upgradeTier();
+		
+		this.chanceMegaBomb += 5;
 	}
 }
