@@ -5,7 +5,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
 import ch.cpnv.roguetale.entity.damageable.OneHitDamage;
-import ch.cpnv.roguetale.entity.temporaryeffect.areaofeffect.areas.explosions.MinorExplosion;
+import ch.cpnv.roguetale.entity.temporaryeffect.areaofeffect.areas.explosions.MediumExplosion;
 import ch.cpnv.roguetale.gui.guis.GameGui;
 
 public class Tnt extends Obstacle {
@@ -22,7 +22,7 @@ public class Tnt extends Obstacle {
 	@Override
 	public void onDeath() {
 		try {
-			GameGui.getAreaController().addArea(new MinorExplosion(this.getPosition(), 200));
+			GameGui.getAreaController().addArea(new MediumExplosion(this.getPosition(), 400));
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
