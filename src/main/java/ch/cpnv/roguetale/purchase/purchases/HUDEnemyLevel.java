@@ -4,7 +4,7 @@ import ch.cpnv.roguetale.purchase.Purchase;
 
 public class HUDEnemyLevel extends Purchase {
 	private static final long serialVersionUID = -7811511646981264868L;
-	private static final int[] cost = {2000};
+	private static final int[] cost = {1000};
 
 	public HUDEnemyLevel() {
 		super("Vision du niveau des ennemis", 1, cost);

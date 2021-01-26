@@ -4,7 +4,7 @@ import ch.cpnv.roguetale.purchase.Purchase;
 
 public class HUDEnemyLife extends Purchase {
 	private static final long serialVersionUID = 8062409733468045402L;
-	private static final int[] cost = {2000};
+	private static final int[] cost = {1000};
 
 	public HUDEnemyLife() {
 		super("Vision de la vie des ennemis", 1, cost);

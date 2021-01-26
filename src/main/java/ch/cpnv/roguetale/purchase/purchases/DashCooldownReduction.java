@@ -4,7 +4,7 @@ import ch.cpnv.roguetale.purchase.Purchase;
 
 public class DashCooldownReduction extends Purchase {
 	private static final long serialVersionUID = -8740037684910128205L;
-	private static final int[] cost = {500, 750, 1000, 1500, 2000};
+	private static final int[] cost = {300, 700, 1000, 1300, 1500};
 
 	public DashCooldownReduction() {
 		super("Réduit le temps de recharge du Dash", 5, cost);

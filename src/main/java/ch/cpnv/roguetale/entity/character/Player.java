@@ -159,6 +159,9 @@ public class Player extends Character {
 	@Override
 	public void damage(int damage) {
 		if(!invulnerable) {
+			// Let the player with 1 hp when he takes a big damage and he is full life
+			if (damage > this.getMaxHealth() && this.getCurrentHealth() == this.getMaxHealth())
+				damage = this.getMaxHealth() - 1;
 			super.damage(damage);
 			if (!this.hasState(Invincible.class))
 				this.addState(new Invincible(1000));
