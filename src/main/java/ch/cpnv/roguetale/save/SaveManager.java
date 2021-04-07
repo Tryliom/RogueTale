@@ -24,7 +24,7 @@ public class SaveManager {
 		} else if (this.isMac(OS)) {
 			return System.getProperty("user.home") + File.separator + "Library" + File.separator + "Application Support";
 		} else if (this.isUnix(OS)) {
-			return "/usr/share";
+			return System.getProperty("user.home") + File.separator + ".config";
 		}
 		
 		return "/";
